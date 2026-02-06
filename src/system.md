@@ -56,6 +56,14 @@ Shadow scale: sm, md, lg, xl (defined in global.css @theme)
 - Labels: text-sm font-medium text-gray-700, placed above input with gap-1.5
 - Hints: text-xs, gray-400 default, red-500 for errors, green-600 for success
 
+### Gallery Page Format
+- Each section: `<h2>` title + descriptive `<p>` with inline `<code>` badges for key classes/props
+- Specimens in bordered containers: `border border-gray-200 rounded-lg p-8`
+- Sub-headers: `<h3>` with `text-sm font-semibold text-gray-600 uppercase tracking-wide mb-4`
+- Reference tables: bordered container, `bg-gray-50` header row, `text-xs font-semibold uppercase tracking-wide` headers
+- Composition examples: real-world pairings (hero CTAs, form actions, card footers)
+- View pages (`/view/*`): simple showcases of all variations, not composed layouts
+
 ### Section Flow (page-flow)
 - `page-flow` Tailwind utility on parent wrapper → `margin-top: var(--section-gap, 64px)` between children
 - `data-seamless` on sections with backgrounds (color or image)
@@ -70,7 +78,6 @@ Shadow scale: sm, md, lg, xl (defined in global.css @theme)
 - padding={false} for full-bleed images — add p-6 to body div manually
 - Content card: image top + body (category eyebrow, title, description, link)
 - Feature card: icon in colored square + title + description
-- Pricing card: plan name, price, feature checklist, CTA button
 
 ### Column Grids
 - Card gutters: gap-6 (24px)
@@ -84,4 +91,4 @@ Shadow scale: sm, md, lg, xl (defined in global.css @theme)
 | Build tool | Astro | Static HTML+CSS output, component model for gallery assembly |
 | Styling | Tailwind CSS v4 | @theme replaces tokens.css, utility classes replace @scope CSS, design tokens as Tailwind theme |
 | Element approach | Semantic HTML + Tailwind | Replaces custom elements (component-*) with plain HTML + utility classes |
-| State display | data-state attribute | Specimen mode: state prop resolves to static classes. Demo mode: pseudo-class variants |
+| State display | Interactive by default | Components always include pseudo-class variants (hover, active, focus). Form components use `state` prop only for non-interactive states (error, success, disabled). No frozen specimens for interaction states — HTML is interactive, unlike Figma |

@@ -31,9 +31,9 @@ Engineering teams consume this the way they'd consume a Figma file: open the gal
 **Astro** is the build tool. It produces static HTML+CSS — no client-side JavaScript. **Tailwind CSS v4** is the styling layer, integrated via `@tailwindcss/vite`. Design tokens are defined in `src/styles/global.css` using Tailwind's `@theme` directive — this is the single source of truth for all design values.
 
 - Astro components render semantic HTML with Tailwind utility classes. No custom elements, no `@scope` CSS.
-- Component props (`variant`, `state`, `size`, `disabled`) resolve to Tailwind class strings at build time. No client-side JavaScript.
-- **Specimen mode** (`state` prop provided): The component outputs the exact Tailwind classes for that visual state, plus a `data-state` attribute as a documentation label for engineer reference.
-- **Demo mode** (`state` prop omitted): The component includes Tailwind pseudo-class variants (`hover:`, `active:`, `focus-visible:`) and transition utilities for real interactivity.
+- Component props (`variant`, `size`, `disabled`) resolve to Tailwind class strings at build time. No client-side JavaScript.
+- Components are always interactive — they include Tailwind pseudo-class variants (`hover:`, `active:`, `focus-visible:`) and transition utilities. No frozen "specimen mode" for interaction states.
+- Form components use a `state` prop for states that can't be triggered by gallery interaction (e.g., `error`, `success`, `disabled`, `dragover`). These render the visual state statically with a `data-state` attribute for engineer reference.
 - Astro component names don't need a prefix (just `Button.astro`, not `SiteButton.astro`).
 - Icon components live in `src/components/icons/` and drop the `Icon` prefix — the directory provides context (e.g., `icons/ArrowRight.astro`, imported as `import ArrowRight from '../components/icons/ArrowRight.astro'`).
 
@@ -66,11 +66,11 @@ src/
     ...                        <- One .astro file per component
   pages/
     index.astro                <- Style Guide (token preview, this IS the home page)
-    buttons.astro              <- Button specimens + demo
+    buttons.astro              <- Button variants, sizes, compositions
     icons.astro                <- Icon gallery, sizes, colors
     grid.astro                 <- Section spacing, column gutters
     cards.astro                <- Card patterns
-    forms.astro                <- Form element specimens + demo
+    forms.astro                <- Form elements, states, compositions
     hero.astro                 <- Hero variants
     ...                        <- One file per component type
     view/
@@ -90,9 +90,9 @@ public/
 - `gallery.css` — Gallery chrome: fixed left sidebar nav (scrollable, 240px), specimen rows, labels, demo areas. This is tooling — it doesn't ship to production.
 - `GalleryLayout.astro` — Imports global.css, reset.css, and gallery.css. Renders sidebar nav + `<main>` with `<slot />`. Accepts `fullscreenHref` prop to show a "View full screen" link. The sidebar nav lists all gallery pages; the Style Guide is the index/home page.
 - `FullScreenLayout.astro` — Minimal layout (global.css + reset.css only). Used by `/view/*` pages to render components without gallery chrome.
-- `components/*.astro` — Each component renders semantic HTML with Tailwind utility classes. Props (`variant`, `state`, `size`, `disabled`) resolve to class strings at build time.
-- `pages/*.astro` — Gallery pages using `GalleryLayout`. Each documents one component type with specimens and a demo section.
-- `pages/view/*.astro` — Full-screen views using `FullScreenLayout`. Linked from gallery pages via the "View full screen" link.
+- `components/*.astro` — Each component renders semantic HTML with Tailwind utility classes. Props (`variant`, `size`, `disabled`, and `state` for form components) resolve to class strings at build time.
+- `pages/*.astro` — Gallery pages using `GalleryLayout`. Each documents one component type with specimens organized into descriptive sections (variants, sizes, compositions, reference tables).
+- `pages/view/*.astro` — Full-screen views using `FullScreenLayout`. Simple showcases of all component variations without gallery chrome — for seeing components in action.
 - `public/icons/*.svg` — Standalone SVG files served statically. Downloadable from the icons gallery page.
 
 ## Markup Convention
@@ -139,31 +139,23 @@ Tailwind v4 has built-in container query support:
 
 The only `@media` queries allowed are in `gallery.css` (tooling, not a deliverable).
 
-### States: Specimen Mode vs Demo Mode
+### States
 
-Each Astro component operates in two modes based on whether a `state` prop is provided:
+Components are interactive by default — they include pseudo-class variants (`hover:`, `active:`, `focus-visible:`) and transitions. Engineers hover, click, and tab to see interaction states directly in the gallery. No frozen "specimen mode" for interaction states — this is the advantage of HTML over Figma.
 
-**Specimen mode** (`state` prop provided) — The component resolves the `state` value to the exact Tailwind classes for that visual state at build time. No pseudo-class variants included. A `data-state` attribute is added for engineer reference.
-
-```astro
-<!-- Gallery page: frozen specimen -->
-<Button state="hover">Subscribe</Button>
-
-<!-- Renders to: -->
-<button class="... bg-primary-600" data-state="hover">Subscribe</button>
-```
-
-**Demo mode** (`state` prop omitted) — The component includes Tailwind pseudo-class variants (`hover:`, `active:`, `focus-visible:`) and transitions for real interactivity:
+**Form components** use a `state` prop for states that can't be triggered by gallery interaction:
 
 ```astro
-<!-- Gallery page: interactive demo -->
-<Button>Subscribe</Button>
+<!-- Error state — can't be triggered by clicking -->
+<TextInput state="error" label="Username" value="ab" hint="Must be at least 3 characters" />
 
 <!-- Renders to: -->
-<button class="... bg-primary-500 hover:bg-primary-600 active:bg-primary-700 focus-visible:outline-2 transition-colors duration-fast">Subscribe</button>
+<input class="... border-red-500" data-state="error" />
 ```
 
-**Primitive vs composite components:** Primitives (button, badge, input) show all their own states and variants in their gallery page. Composite components (hero, pricing, nav) show *their own* variants but render child primitives in default state only — the child's states are already documented in its own gallery page.
+Valid `state` values for form components: `error`, `success`, `disabled`, `dragover` (file upload), `has-value` (search). Without a `state` prop, form components render interactively like everything else.
+
+**Primitive vs composite components:** Primitives (button, badge, input) show all their own variants in their gallery page. Composite components (hero, pricing, nav) show *their own* variants but render child primitives in default state only — the child's states are already documented in its own gallery page.
 
 ## Workflow
 
@@ -214,7 +206,7 @@ For each component:
 
 1. **Declare intent** — What is it for? What hierarchy? What states?
 2. **Reference system.md** — Check existing patterns. Extend, don't duplicate.
-3. **Build** — Semantic HTML + Tailwind utility classes. States via `state` prop (specimen) or pseudo-class variants (demo). All values from theme tokens.
+3. **Build** — Semantic HTML + Tailwind utility classes. Always interactive (pseudo-class variants). Use `state` prop only for form states that can't be triggered by interaction (error, success, disabled). All values from theme tokens.
 4. **Self-review gate** — Validate against hard rules (see below).
 5. **Visual review** — User opens gallery page. Approves or iterates.
 6. **Update system.md** — Record new reusable patterns.
@@ -236,7 +228,7 @@ Dispatch a validation subagent after every component. Fresh context, loaded with
 | Color | Communicates meaning, not decoration. Greys for structure, color for emphasis |
 | Accessibility | Contrast ratios per the standard chosen in Phase 1 (recorded in `system.md`). Check target sizes if WCAG 2.2. If EAA: verify `lang` on `<html>`, reflow at 320px, non-text contrast ≥ 3:1, text spacing override tolerance, 200% text resize. Don't rely on color alone. |
 | Depth | Consistent application across similar elements. Light source from above. |
-| States | Primitives: default, hover, active, focus, disabled. Composites: own variants only, child primitives in default state |
+| States | All components interactive by default (pseudo-class variants). Form `state` prop only for non-interactive states (error, success, disabled). Composites: own variants only, child primitives in default state |
 | Semantic HTML | Content uses semantic elements (`section`, `nav`, `h1`–`h6`, `p`, `a`, `button`, `input`, etc.) |
 | Scoping | Component styles via Tailwind classes on elements. No global CSS selectors in component files |
 | Responsiveness | Container queries via Tailwind `@` variants (`@sm:`, `@md:`, etc.). No `@media` / no viewport-based `sm:`/`md:` in component markup |
