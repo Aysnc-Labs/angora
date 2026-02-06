@@ -1,0 +1,69 @@
+---
+import GalleryLayout from '../layouts/GalleryLayout.astro';
+import ArrowRight from '../components/icons/ArrowRight.astro';
+import Close from '../components/icons/Close.astro';
+---
+
+<GalleryLayout title="Icons" description="Icon gallery — sizes, colors, and usage patterns. Populated during init.">
+
+  <section class="specimen-section">
+    <h2>Sample Icons</h2>
+    <div class="specimen-row">
+      <div class="specimen">
+        <ArrowRight />
+        <span class="specimen-label">arrow-right</span>
+        <a href="/icons/arrow-right.svg" download class="specimen-label">download</a>
+      </div>
+      <div class="specimen">
+        <Close />
+        <span class="specimen-label">close</span>
+        <a href="/icons/close.svg" download class="specimen-label">download</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="specimen-section">
+    <h2>Sizes</h2>
+    <div class="specimen-row" style="align-items: center;">
+      <div class="specimen">
+        <ArrowRight size={16} />
+        <span class="specimen-label">16</span>
+      </div>
+      <div class="specimen">
+        <ArrowRight size={20} />
+        <span class="specimen-label">20</span>
+      </div>
+      <div class="specimen">
+        <ArrowRight size={24} />
+        <span class="specimen-label">24</span>
+      </div>
+      <div class="specimen">
+        <ArrowRight size={32} />
+        <span class="specimen-label">32</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="specimen-section">
+    <h2>Color Inheritance</h2>
+    <div class="specimen-row" style="align-items: center;">
+      <div class="specimen" style="color: var(--color-text-primary);">
+        <ArrowRight />
+        <span class="specimen-label">primary</span>
+      </div>
+      <div class="specimen" style="color: var(--color-text-secondary);">
+        <ArrowRight />
+        <span class="specimen-label">secondary</span>
+      </div>
+      <div class="specimen" style="color: var(--color-text-tertiary);">
+        <ArrowRight />
+        <span class="specimen-label">tertiary</span>
+      </div>
+      <div class="specimen" style="color: var(--primary-500);">
+        <ArrowRight />
+        <span class="specimen-label">primary-500</span>
+      </div>
+    </div>
+  </section>
+
+</GalleryLayout>

@@ -1,0 +1,55 @@
+---
+import '../styles/tokens.css';
+import '../styles/reset.css';
+import '../styles/gallery.css';
+
+interface Props {
+  title: string;
+  description?: string;
+  fullscreenHref?: string;
+}
+
+const { title, description, fullscreenHref } = Astro.props;
+const pages = [
+  { href: '/', label: 'Style Guide' },
+  { href: '/buttons', label: 'Buttons' },
+  { href: '/icons', label: 'Icons' },
+  { href: '/grid', label: 'Grid' },
+  { href: '/cards', label: 'Cards' },
+];
+const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title} — Design System Gallery</title>
+  </head>
+  <body>
+    <div class="gallery-shell">
+      <aside class="gallery-sidebar">
+        <div class="gallery-sidebar-title">Gallery</div>
+        <nav class="gallery-nav">
+          {pages.map(({ href, label }) => (
+            <a
+              href={href}
+              aria-current={currentPath === href.replace(/\/$/, '') ? 'page' : undefined}
+            >
+              {label}
+            </a>
+          ))}
+        </nav>
+      </aside>
+      <main class="gallery-page">
+        <div class="gallery-page-header">
+          <h1>{title}</h1>
+          {fullscreenHref && <a href={fullscreenHref} class="gallery-fullscreen-link" target="_blank">View full screen</a>}
+        </div>
+        {description && <p class="gallery-desc">{description}</p>}
+        <slot />
+      </main>
+    </div>
+  </body>
+</html>

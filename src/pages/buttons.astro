@@ -1,0 +1,134 @@
+---
+import GalleryLayout from '../layouts/GalleryLayout.astro';
+import Button from '../components/Button.astro';
+---
+
+<GalleryLayout title="Buttons" description="Sizes, variants, and interactive states." fullscreenHref="/view/buttons">
+
+  <section class="specimen-section">
+    <h2>Variants</h2>
+    <div class="specimen-row">
+      <div class="specimen">
+        <Button>Primary</Button>
+        <span class="specimen-label">primary</span>
+      </div>
+      <div class="specimen">
+        <Button variant="secondary">Secondary</Button>
+        <span class="specimen-label">secondary</span>
+      </div>
+      <div class="specimen">
+        <Button variant="ghost">Ghost</Button>
+        <span class="specimen-label">ghost</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="specimen-section">
+    <h2>Sizes</h2>
+    <div class="specimen-row" style="align-items: center;">
+      <div class="specimen">
+        <Button size="sm">Small</Button>
+        <span class="specimen-label">sm</span>
+      </div>
+      <div class="specimen">
+        <Button>Medium</Button>
+        <span class="specimen-label">md (default)</span>
+      </div>
+      <div class="specimen">
+        <Button size="lg">Large</Button>
+        <span class="specimen-label">lg</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="specimen-section">
+    <h2>Primary States</h2>
+    <div class="specimen-row">
+      <div class="specimen">
+        <Button>Default</Button>
+        <span class="specimen-label">default</span>
+      </div>
+      <div class="specimen">
+        <Button state="hover">Hover</Button>
+        <span class="specimen-label">hover</span>
+      </div>
+      <div class="specimen">
+        <Button state="active">Active</Button>
+        <span class="specimen-label">active</span>
+      </div>
+      <div class="specimen">
+        <Button state="focus">Focus</Button>
+        <span class="specimen-label">focus</span>
+      </div>
+      <div class="specimen">
+        <Button disabled>Disabled</Button>
+        <span class="specimen-label">disabled</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="specimen-section">
+    <h2>Secondary States</h2>
+    <div class="specimen-row">
+      <div class="specimen">
+        <Button variant="secondary">Default</Button>
+        <span class="specimen-label">default</span>
+      </div>
+      <div class="specimen">
+        <Button variant="secondary" state="hover">Hover</Button>
+        <span class="specimen-label">hover</span>
+      </div>
+      <div class="specimen">
+        <Button variant="secondary" state="active">Active</Button>
+        <span class="specimen-label">active</span>
+      </div>
+      <div class="specimen">
+        <Button variant="secondary" state="focus">Focus</Button>
+        <span class="specimen-label">focus</span>
+      </div>
+      <div class="specimen">
+        <Button variant="secondary" disabled>Disabled</Button>
+        <span class="specimen-label">disabled</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="specimen-section">
+    <h2>Ghost States</h2>
+    <div class="specimen-row">
+      <div class="specimen">
+        <Button variant="ghost">Default</Button>
+        <span class="specimen-label">default</span>
+      </div>
+      <div class="specimen">
+        <Button variant="ghost" state="hover">Hover</Button>
+        <span class="specimen-label">hover</span>
+      </div>
+      <div class="specimen">
+        <Button variant="ghost" state="active">Active</Button>
+        <span class="specimen-label">active</span>
+      </div>
+      <div class="specimen">
+        <Button variant="ghost" state="focus">Focus</Button>
+        <span class="specimen-label">focus</span>
+      </div>
+      <div class="specimen">
+        <Button variant="ghost" disabled>Disabled</Button>
+        <span class="specimen-label">disabled</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="specimen-section">
+    <h2>Demo</h2>
+    <div class="demo-area">
+      <h3>Interactive — hover, click, and tab to test</h3>
+      <div class="specimen-row">
+        <Button>Primary</Button>
+        <Button variant="secondary">Secondary</Button>
+        <Button variant="ghost">Ghost</Button>
+      </div>
+    </div>
+  </section>
+
+</GalleryLayout>

@@ -24,30 +24,62 @@ Design engineering for enterprise marketing sites where HTML + CSS is the design
 
 **Intentional constraints.** Structural tokens (spacing scale, type scale, breakpoints) can be locked in without personality context — these are universal. Personality tokens (color palette, font, border radius, shadow depth, grey temperature) require domain exploration first — these ARE the personality.
 
+## Build Layer
+
+**Astro** is the build tool. It produces static HTML+CSS — no client-side JavaScript. Astro components are assembly tooling that render custom elements as output. The component model maps 1:1 to the custom element + `@scope` approach.
+
+- Astro components use `<style is:global>` for `@scope` CSS — this tells Astro to skip its data-attribute scoping but still bundle/deduplicate the CSS.
+- Component props map directly to custom element attributes: `<Button variant="secondary" state="hover">` renders `<component-button variant="secondary" state="hover">`.
+- Astro component names don't need a prefix (just `Button.astro`, not `SiteButton.astro`). The custom elements they render use the `component-` prefix.
+- Icon components live in `src/components/icons/` and drop the `Icon` prefix — the directory provides context (e.g., `icons/ArrowRight.astro`, imported as `import ArrowRight from '../components/icons/ArrowRight.astro'`).
+
 ## File Structure
 
 ```
-design-system/
-  system.md              <- Design memory (Claude reads this every session)
-  tokens.css             <- Single source of truth (browser reads this)
-  gallery/
-    index.html           <- Links to all components
-    _base.html           <- Shared base: reset, body typography, gallery chrome
-    style-guide.html     <- Visual token preview (Phase 2)
-    buttons.html         <- Sizes, variants, icon buttons (Phase 2)
-    icons.html           <- Icon gallery, sizes, colors (Phase 2)
-    grid.html            <- Section spacing, column gutters (Phase 2)
-    cards.html           <- Basic card patterns (Phase 2)
-    hero.html            <- All hero variants/states
-    navigation.html
-    pricing.html
-    ...                  <- One file per component type
+src/
+  system.md                    <- Design memory (Claude reads this every session)
+  styles/
+    tokens.css                 <- Single source of truth (CSS custom properties)
+    reset.css                  <- Box-sizing reset + body typography
+    gallery.css                <- Gallery chrome: sidebar nav, specimen rows, labels, demo areas
+  layouts/
+    GalleryLayout.astro        <- Sidebar nav + page shell
+    FullScreenLayout.astro     <- Bare layout for full-screen component views
+  components/
+    Button.astro               <- Renders <component-button> + @scope CSS
+    icons/
+      ArrowRight.astro         <- Renders inline SVG, accepts size prop
+      Close.astro
+      ...                      <- One .astro file per icon
+    ...                        <- One .astro file per component
+  pages/
+    index.astro                <- Style Guide (token preview, this IS the home page)
+    buttons.astro              <- Button specimens + demo
+    icons.astro                <- Icon gallery, sizes, colors
+    grid.astro                 <- Section spacing, column gutters
+    cards.astro                <- Card patterns
+    hero.astro                 <- Hero variants
+    ...                        <- One file per component type
+    view/
+      buttons.astro            <- Full-screen button view (no gallery chrome)
+      ...                      <- Full-screen view per component
+public/
+  icons/
+    arrow-right.svg            <- Downloadable SVG files
+    close.svg
+    ...
 ```
 
 - `system.md` — Design decisions, constraints, patterns. Under 200 lines. See Templates Reference below for template.
 - `tokens.css` — CSS custom properties. No raw values in components. See Templates Reference below for template.
-- `_base.html` — Contains everything shared across gallery pages: the `<head>` (meta, font imports, token link), global reset (`*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }`), body typography (font-family, font-size, line-height, color, background, font-smoothing), and gallery chrome styles (section headings, labels, specimen layout, demo section containers). This is the single source for all global styles — **component pages must not redefine any of this.**
-- `gallery/*.html` — Each component page copies the base structure from `_base.html` and adds ONLY its component-specific `<style>` block (the `@scope` rules). No reset, no body styles, no gallery chrome — those come from the base. When `_base.html` changes, propagate to all component pages.
+- `reset.css` — Global reset and body typography. Shared via layout import.
+- `gallery.css` — Gallery chrome: fixed left sidebar nav (scrollable, 240px), specimen rows, labels, demo areas. This is tooling — it doesn't ship to production.
+- `GalleryLayout.astro` — Imports all three CSS files, renders sidebar nav + `<main>` with `<slot />`. Accepts `fullscreenHref` prop to show a "View full screen" link. The sidebar nav lists all gallery pages; the Style Guide is the index/home page.
+- `FullScreenLayout.astro` — Minimal layout (tokens + reset only). Used by `/view/*` pages to render components without gallery chrome.
+- `components/*.astro` — Each component renders its custom element and includes `@scope` CSS via `<style is:global>`. Props map to element attributes.
+- `pages/*.astro` — Gallery pages using `GalleryLayout`. Each documents one component type with specimens and a demo section.
+- `pages/view/*.astro` — Full-screen views using `FullScreenLayout`. Linked from gallery pages via the "View full screen" link.
+- `public/icons/*.svg` — Standalone SVG files served statically. Downloadable from the icons gallery page.
 
 ## Markup Convention
 
@@ -56,19 +88,19 @@ design-system/
 Custom elements are design containers. Semantic HTML serves content. No Shadow DOM.
 
 ```html
-<site-hero>
+<component-hero>
   <h1>Build faster websites</h1>
   <p>The modern way to ship marketing sites at scale.</p>
-  <site-hero-actions>
+  <component-hero-actions>
     <a href="/start" role="button">Get Started</a>
     <a href="/learn">Learn More</a>
-  </site-hero-actions>
-</site-hero>
+  </component-hero-actions>
+</component-hero>
 ```
 
 **Naming rules:**
-- Component root: `site-{component}` (e.g., `site-hero`, `site-pricing`)
-- Structural children: `site-{component}-{child}` (e.g., `site-hero-actions`)
+- Component root: `component-{name}` (e.g., `component-hero`, `component-pricing`)
+- Structural children: `component-{name}-{child}` (e.g., `component-hero-actions`)
 - Content: semantic HTML (`h1`-`h6`, `p`, `a`, `img`, `ul`, `figure`, `blockquote`)
 - Design roles without semantic equivalent: `data-role` attribute (e.g., `<p data-role="eyebrow">`)
 
@@ -79,7 +111,7 @@ Custom elements are design containers. Semantic HTML serves content. No Shadow D
 Each component's styles scoped to its custom element. No style leakage, no global selectors.
 
 ```css
-@scope (site-hero) {
+@scope (component-hero) {
   :scope {
     max-width: var(--content-width);
     margin-inline: auto;
@@ -101,15 +133,15 @@ Each component's styles scoped to its custom element. No style leakage, no globa
 All responsive behavior uses `@container` so components adapt to their container, not the viewport. This keeps components portable — a card in a 3-column grid adapts differently than the same card in a sidebar, without media query overrides. No `@media` in component files.
 
 ```css
-@scope (site-pricing) {
+@scope (component-pricing) {
   :scope {
     container-type: inline-size;
   }
   @container (min-width: 640px) {
-    site-pricing-grid { grid-template-columns: repeat(2, 1fr); }
+    component-pricing-grid { grid-template-columns: repeat(2, 1fr); }
   }
   @container (min-width: 1024px) {
-    site-pricing-grid { grid-template-columns: repeat(3, 1fr); }
+    component-pricing-grid { grid-template-columns: repeat(3, 1fr); }
   }
 }
 ```
@@ -121,20 +153,20 @@ All states rendered statically. No JavaScript. Attributes, not classes.
 **Primitive vs composite components:** Primitives (button, badge, input) show all their own states and variants in their gallery page. Composite components (hero, pricing, nav) show *their own* variants but render child primitives in default state only — the child's states are already documented in its own gallery page. Don't repeat button hover/focus/disabled states inside every component that uses a button.
 
 ```html
-<site-button>Subscribe</site-button>
-<site-button state="hover">Subscribe</site-button>
-<site-button state="active">Subscribe</site-button>
-<site-button state="focus">Subscribe</site-button>
-<site-button disabled>Subscribe</site-button>
+<component-button>Subscribe</component-button>
+<component-button state="hover">Subscribe</component-button>
+<component-button state="active">Subscribe</component-button>
+<component-button state="focus">Subscribe</component-button>
+<component-button disabled>Subscribe</component-button>
 
 <!-- Variants -->
-<site-button variant="primary">Get Started</site-button>
-<site-button variant="secondary">Learn More</site-button>
-<site-button variant="ghost">Cancel</site-button>
+<component-button variant="primary">Get Started</component-button>
+<component-button variant="secondary">Learn More</component-button>
+<component-button variant="ghost">Cancel</component-button>
 ```
 
 ```css
-@scope (site-button) {
+@scope (component-button) {
   :scope { /* default styles */ }
   :scope[state="hover"] { background: var(--primary-600); }
   :scope[state="active"] { background: var(--primary-700); transform: translateY(1px); }
@@ -156,7 +188,7 @@ Gallery pages have two layers for interactive components:
 CSS includes both patterns so the same stylesheet serves both purposes:
 
 ```css
-@scope (site-button) {
+@scope (component-button) {
   /* Specimens (static documentation) */
   :scope[state="hover"] { background: var(--primary-600); }
   /* Demo + production (real interaction) */
@@ -205,15 +237,15 @@ Then five mandatory outputs:
 - Shadow scale using two-part shadows
 
 **Output:** `system.md` + `tokens.css` + five foundational gallery pages:
-1. `style-guide.html` — Visual preview of all tokens (colors, type scale, spacing, shadows, radii)
-2. `buttons.html` — Sizes (sm, md, lg), variants (primary, secondary, ghost), icon buttons. **Collaborate with user** on specific sizes and icon button patterns.
-3. `icons.html` — Icon gallery showing each icon at multiple sizes and in semantic colors. **Ask user to name a starter set of icons** (e.g., arrow-right, check, menu, close, chevron-down). More can be added later. Icons are inline SVG, styled with `currentColor` so they inherit text color. Show each icon at sm (16px), md (20px), lg (24px), xl (32px) sizes, plus color variants using semantic tokens.
-4. `grid.html` — Section spacing rhythm + column gutter patterns. **Collaborate with user** on grid variants (2-col, 3-col, 4-col, asymmetric) and gutter/section spacing values.
-5. `cards.html` — Basic card patterns (content card, feature card, pricing card shell). **Ask user for feedback** on card variants before proceeding.
+1. `index.astro` (Style Guide) — Visual preview of all tokens (colors, type scale, spacing, shadows, radii). This is the gallery home page.
+2. `buttons.astro` — Sizes (sm, md, lg), variants (primary, secondary, ghost), icon buttons. **Collaborate with user** on specific sizes and icon button patterns.
+3. `icons.astro` — Icon gallery showing each icon at multiple sizes and in semantic colors. Each icon exists as both an Astro component (`src/components/icons/*.astro` with `size` prop, renders inline SVG with `currentColor`) and a downloadable SVG (`public/icons/*.svg`). Gallery page shows each icon at sm (16px), md (20px), lg (24px), xl (32px) sizes, plus color variants using semantic tokens, with download links. **Ask user to name a starter set of icons** (e.g., arrow-right, check, menu, close, chevron-down).
+4. `grid.astro` — Section spacing rhythm + column gutter patterns. **Collaborate with user** on grid variants (2-col, 3-col, 4-col, asymmetric) and gutter/section spacing values.
+5. `cards.astro` — Basic card patterns (content card, feature card, pricing card shell). **Ask user for feedback** on card variants before proceeding.
 
 See Templates Reference below for starter templates.
 
-**Visual review checkpoint.** User opens all five gallery pages in browser. Approves before further component work begins.
+**Visual review checkpoint.** User opens all five gallery pages in browser (`pnpm dev`). Approves before further component work begins.
 
 ### Phase 3: Component Building
 

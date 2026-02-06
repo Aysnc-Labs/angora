@@ -1,0 +1,145 @@
+---
+interface Props {
+  variant?: 'primary' | 'secondary' | 'ghost';
+  state?: 'hover' | 'active' | 'focus';
+  size?: 'sm' | 'md' | 'lg';
+  disabled?: boolean;
+}
+
+const { variant, state, size, disabled } = Astro.props;
+---
+
+<component-button
+  variant={variant}
+  state={state}
+  size={size}
+  disabled={disabled || undefined}
+>
+  <slot />
+</component-button>
+
+<style is:global>
+@scope (component-button) {
+  :scope {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+    font-family: var(--font-family);
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    border-radius: var(--radius-md);
+    background: var(--primary-500);
+    color: white;
+    /* Default: md size */
+    font-size: var(--text-base);
+    padding: var(--space-3) var(--space-6);
+  }
+
+  /* Sizes */
+  :scope[size="sm"] {
+    font-size: var(--text-sm);
+    padding: var(--space-2) var(--space-4);
+    border-radius: var(--radius-sm);
+  }
+  :scope[size="lg"] {
+    font-size: var(--text-lg);
+    padding: var(--space-4) var(--space-8);
+  }
+
+  /* Variants */
+  :scope[variant="primary"],
+  :scope:not([variant]) {
+    background: var(--primary-500);
+    color: white;
+  }
+  :scope[variant="secondary"] {
+    background: transparent;
+    color: var(--color-text-primary);
+    box-shadow: inset 0 0 0 1px var(--color-border);
+  }
+  :scope[variant="ghost"] {
+    background: transparent;
+    color: var(--color-text-secondary);
+  }
+
+  /* States — specimens (static documentation) */
+  :scope[state="hover"] {
+    background: var(--primary-600);
+  }
+  :scope[state="active"] {
+    background: var(--primary-700);
+    transform: translateY(1px);
+  }
+  :scope[state="focus"] {
+    outline: 2px solid var(--primary-300);
+    outline-offset: 2px;
+  }
+  :scope[disabled] {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  /* States — secondary specimens */
+  :scope[variant="secondary"][state="hover"] {
+    background: var(--color-bg-subtle);
+  }
+  :scope[variant="secondary"][state="active"] {
+    background: var(--gray-100);
+    transform: translateY(1px);
+  }
+  :scope[variant="secondary"][state="focus"] {
+    outline: 2px solid var(--primary-300);
+    outline-offset: 2px;
+  }
+
+  /* States — ghost specimens */
+  :scope[variant="ghost"][state="hover"] {
+    background: var(--color-bg-subtle);
+    color: var(--color-text-primary);
+  }
+  :scope[variant="ghost"][state="active"] {
+    background: var(--gray-100);
+    transform: translateY(1px);
+  }
+  :scope[variant="ghost"][state="focus"] {
+    outline: 2px solid var(--primary-300);
+    outline-offset: 2px;
+  }
+
+  /* Demo + production — real interaction */
+  :scope:hover:not([state]):not([disabled]) {
+    background: var(--primary-600);
+    transition: background var(--duration-fast) var(--ease-default);
+  }
+  :scope:active:not([state]):not([disabled]) {
+    background: var(--primary-700);
+    transform: translateY(1px);
+    transition: background var(--duration-fast) var(--ease-default),
+                transform var(--duration-fast) var(--ease-default);
+  }
+  :scope:focus-visible:not([state]) {
+    outline: 2px solid var(--primary-300);
+    outline-offset: 2px;
+  }
+
+  :scope[variant="secondary"]:hover:not([state]):not([disabled]) {
+    background: var(--color-bg-subtle);
+  }
+  :scope[variant="secondary"]:active:not([state]):not([disabled]) {
+    background: var(--gray-100);
+    transform: translateY(1px);
+  }
+
+  :scope[variant="ghost"]:hover:not([state]):not([disabled]) {
+    background: var(--color-bg-subtle);
+    color: var(--color-text-primary);
+  }
+  :scope[variant="ghost"]:active:not([state]):not([disabled]) {
+    background: var(--gray-100);
+    transform: translateY(1px);
+  }
+}
+</style>
