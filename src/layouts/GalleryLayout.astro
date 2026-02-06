@@ -18,6 +18,9 @@ const pages = [
   { href: '/cards', label: 'Cards' },
   { href: '/forms', label: 'Forms' },
 ];
+const layouts = [
+  { href: '/layouts/home', label: 'Home' },
+];
 const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
 ---
 
@@ -39,6 +42,16 @@ const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
               aria-current={currentPath === href.replace(/\/$/, '') ? 'page' : undefined}
             >
               {label}
+            </a>
+          ))}
+          <div class="gallery-nav-divider"></div>
+          <div class="gallery-nav-label">Layouts</div>
+          {layouts.map(({ href, label }) => (
+            <a
+              href={href}
+              target="_blank"
+            >
+              {label} ↗
             </a>
           ))}
         </nav>
