@@ -122,52 +122,27 @@ import ArrowRight from '../components/icons/ArrowRight.astro';
     </div>
   </section>
 
-  <!-- State Matrix -->
+  <!-- Disabled -->
   <section class="specimen-section">
-    <h2>States</h2>
+    <h2>Disabled</h2>
     <p class="text-sm text-gray-600 mb-6 max-w-[65ch]">
-      Every variant across all five states. Specimen mode freezes the visual state via <code class="text-xs bg-gray-100 px-1.5 py-0.5 rounded-sm font-mono">data-state</code> — no pseudo-classes, just the resolved classes for that state. Disabled uses <code class="text-xs bg-gray-100 px-1.5 py-0.5 rounded-sm font-mono">opacity-50</code> + <code class="text-xs bg-gray-100 px-1.5 py-0.5 rounded-sm font-mono">cursor-not-allowed</code>.
+      Disabled buttons get <code class="text-xs bg-gray-100 px-1.5 py-0.5 rounded-sm font-mono">opacity-50</code> and <code class="text-xs bg-gray-100 px-1.5 py-0.5 rounded-sm font-mono">cursor-not-allowed</code>. Works across all variants.
     </p>
-
-    <div class="border border-gray-200 rounded-lg overflow-hidden">
-      <table class="w-full">
-        <thead>
-          <tr class="border-b border-gray-200 bg-gray-50">
-            <th class="text-left py-3 px-6 text-xs font-semibold text-gray-500 uppercase tracking-wide">Variant</th>
-            <th class="text-center py-3 px-4 text-xs font-semibold text-gray-500 uppercase tracking-wide">Default</th>
-            <th class="text-center py-3 px-4 text-xs font-semibold text-gray-500 uppercase tracking-wide">Hover</th>
-            <th class="text-center py-3 px-4 text-xs font-semibold text-gray-500 uppercase tracking-wide">Active</th>
-            <th class="text-center py-3 px-4 text-xs font-semibold text-gray-500 uppercase tracking-wide">Focus</th>
-            <th class="text-center py-3 px-4 text-xs font-semibold text-gray-500 uppercase tracking-wide">Disabled</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr class="border-b border-gray-100">
-            <td class="py-6 px-6 text-xs font-mono text-gray-500">primary</td>
-            <td class="py-6 px-4 text-center"><Button size="sm">Label</Button></td>
-            <td class="py-6 px-4 text-center"><Button size="sm" state="hover">Label</Button></td>
-            <td class="py-6 px-4 text-center"><Button size="sm" state="active">Label</Button></td>
-            <td class="py-6 px-4 text-center"><Button size="sm" state="focus">Label</Button></td>
-            <td class="py-6 px-4 text-center"><Button size="sm" disabled>Label</Button></td>
-          </tr>
-          <tr class="border-b border-gray-100">
-            <td class="py-6 px-6 text-xs font-mono text-gray-500">secondary</td>
-            <td class="py-6 px-4 text-center"><Button size="sm" variant="secondary">Label</Button></td>
-            <td class="py-6 px-4 text-center"><Button size="sm" variant="secondary" state="hover">Label</Button></td>
-            <td class="py-6 px-4 text-center"><Button size="sm" variant="secondary" state="active">Label</Button></td>
-            <td class="py-6 px-4 text-center"><Button size="sm" variant="secondary" state="focus">Label</Button></td>
-            <td class="py-6 px-4 text-center"><Button size="sm" variant="secondary" disabled>Label</Button></td>
-          </tr>
-          <tr>
-            <td class="py-6 px-6 text-xs font-mono text-gray-500">ghost</td>
-            <td class="py-6 px-4 text-center"><Button size="sm" variant="ghost">Label</Button></td>
-            <td class="py-6 px-4 text-center"><Button size="sm" variant="ghost" state="hover">Label</Button></td>
-            <td class="py-6 px-4 text-center"><Button size="sm" variant="ghost" state="active">Label</Button></td>
-            <td class="py-6 px-4 text-center"><Button size="sm" variant="ghost" state="focus">Label</Button></td>
-            <td class="py-6 px-4 text-center"><Button size="sm" variant="ghost" disabled>Label</Button></td>
-          </tr>
-        </tbody>
-      </table>
+    <div class="border border-gray-200 rounded-lg p-8">
+      <div class="flex flex-wrap gap-6 items-center">
+        <div class="flex flex-col items-center gap-3">
+          <Button disabled>Primary</Button>
+          <span class="text-xs font-mono text-gray-400">disabled</span>
+        </div>
+        <div class="flex flex-col items-center gap-3">
+          <Button variant="secondary" disabled>Secondary</Button>
+          <span class="text-xs font-mono text-gray-400">disabled</span>
+        </div>
+        <div class="flex flex-col items-center gap-3">
+          <Button variant="ghost" disabled>Ghost</Button>
+          <span class="text-xs font-mono text-gray-400">disabled</span>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -266,7 +241,7 @@ import ArrowRight from '../components/icons/ArrowRight.astro';
   <section class="specimen-section">
     <h2>Anatomy</h2>
     <p class="text-sm text-gray-600 mb-6 max-w-[65ch]">
-      Class construction breakdown for the default primary button. The Astro component assembles these from <code class="text-xs bg-gray-100 px-1.5 py-0.5 rounded-sm font-mono">variant</code>, <code class="text-xs bg-gray-100 px-1.5 py-0.5 rounded-sm font-mono">size</code>, and <code class="text-xs bg-gray-100 px-1.5 py-0.5 rounded-sm font-mono">state</code> props.
+      Class construction breakdown for the default primary button. The Astro component assembles these from <code class="text-xs bg-gray-100 px-1.5 py-0.5 rounded-sm font-mono">variant</code> and <code class="text-xs bg-gray-100 px-1.5 py-0.5 rounded-sm font-mono">size</code> props. All states use real pseudo-classes — hover, click, and tab to see them in the Demo section.
     </p>
     <div class="border border-gray-200 rounded-lg overflow-hidden">
       <div class="bg-gray-50 p-6 border-b border-gray-200">
@@ -308,31 +283,6 @@ import ArrowRight from '../components/icons/ArrowRight.astro';
             <span class="text-xs font-semibold text-gray-500 uppercase tracking-wide w-20 shrink-0 pt-0.5">Motion</span>
             <code class="text-xs bg-gray-100 px-2 py-1 rounded-sm font-mono text-gray-700 leading-relaxed">transition-colors duration-fast ease-default</code>
           </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Demo -->
-  <section class="specimen-section">
-    <h2>Demo</h2>
-    <div class="demo-area">
-      <h3>Interactive — hover, click, and tab to test</h3>
-      <div class="flex flex-col gap-6">
-        <div class="flex flex-wrap gap-4 items-center">
-          <Button>Primary</Button>
-          <Button variant="secondary">Secondary</Button>
-          <Button variant="ghost">Ghost</Button>
-        </div>
-        <div class="flex flex-wrap gap-4 items-center">
-          <Button size="sm">Small</Button>
-          <Button>Medium</Button>
-          <Button size="lg">Large</Button>
-        </div>
-        <div class="flex flex-wrap gap-4 items-center">
-          <Button>Continue <ArrowRight size={16} /></Button>
-          <Button variant="secondary">Learn More <ArrowRight size={16} /></Button>
-          <Button variant="ghost" size="sm">Dismiss</Button>
         </div>
       </div>
     </div>

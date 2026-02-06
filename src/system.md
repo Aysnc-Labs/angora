@@ -63,6 +63,15 @@ Shadow scale: sm, md, lg, xl (defined in global.css @theme)
 - Override gap per-page: `style="--section-gap: 96px"` on the `page-flow` container
 - Rules: seamless+seamless = 0 (backgrounds butt up), everything else = 64px gap
 
+### Cards
+- Default: bg-white, border border-gray-200, shadow-sm, rounded-lg, p-6
+- Elevated: bg-white, shadow-lg, hover:shadow-xl, transition-shadow (no border)
+- Flat: bg-gray-50, no border, no shadow
+- padding={false} for full-bleed images — add p-6 to body div manually
+- Content card: image top + body (category eyebrow, title, description, link)
+- Feature card: icon in colored square + title + description
+- Pricing card: plan name, price, feature checklist, CTA button
+
 ### Column Grids
 - Card gutters: gap-6 (24px)
 - Section-level columns: gap-8 (32px)

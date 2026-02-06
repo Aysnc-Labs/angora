@@ -1,24 +1,20 @@
 ---
 interface Props {
   variant?: 'primary' | 'secondary' | 'ghost';
-  state?: 'hover' | 'active' | 'focus';
   size?: 'sm' | 'md' | 'lg';
   disabled?: boolean;
 }
 
-const { variant = 'primary', state, size = 'md', disabled } = Astro.props;
+const { variant = 'primary', size = 'md', disabled } = Astro.props;
 
-// Size classes
 const sizeClasses: Record<string, string> = {
   sm: 'text-sm px-4 py-2 rounded-sm',
   md: 'text-base px-6 py-3 rounded-md',
   lg: 'text-lg px-8 py-4 rounded-md',
 };
 
-// Base classes shared by all buttons
 const base = 'inline-flex items-center justify-center gap-2 font-semibold cursor-pointer';
 
-// Variant + state resolution
 function resolveClasses(): string {
   const parts = [base, sizeClasses[size]];
 
@@ -27,60 +23,29 @@ function resolveClasses(): string {
   }
 
   if (variant === 'primary') {
-    if (state === 'hover') {
-      parts.push('bg-primary-600 text-white');
-    } else if (state === 'active') {
-      parts.push('bg-primary-700 text-white translate-y-px');
-    } else if (state === 'focus') {
-      parts.push('bg-primary-500 text-white outline-2 outline-primary-300 outline-offset-2');
-    } else if (!state) {
-      // Demo mode: include pseudo-class variants
-      parts.push(
-        'bg-primary-500 text-white',
-        'hover:bg-primary-600',
-        'active:bg-primary-700 active:translate-y-px',
-        'focus-visible:outline-2 focus-visible:outline-primary-300 focus-visible:outline-offset-2',
-        'transition-colors duration-fast ease-default',
-      );
-    } else {
-      parts.push('bg-primary-500 text-white');
-    }
+    parts.push(
+      'bg-primary-500 text-white',
+      'hover:bg-primary-600',
+      'active:bg-primary-700 active:translate-y-px',
+      'focus-visible:outline-2 focus-visible:outline-primary-300 focus-visible:outline-offset-2',
+      'transition-colors duration-fast ease-default',
+    );
   } else if (variant === 'secondary') {
-    if (state === 'hover') {
-      parts.push('bg-gray-50 text-gray-900 shadow-[inset_0_0_0_1px_var(--color-gray-200)]');
-    } else if (state === 'active') {
-      parts.push('bg-gray-100 text-gray-900 shadow-[inset_0_0_0_1px_var(--color-gray-200)] translate-y-px');
-    } else if (state === 'focus') {
-      parts.push('bg-transparent text-gray-900 shadow-[inset_0_0_0_1px_var(--color-gray-200)] outline-2 outline-primary-300 outline-offset-2');
-    } else if (!state) {
-      parts.push(
-        'bg-transparent text-gray-900 shadow-[inset_0_0_0_1px_var(--color-gray-200)]',
-        'hover:bg-gray-50',
-        'active:bg-gray-100 active:translate-y-px',
-        'focus-visible:outline-2 focus-visible:outline-primary-300 focus-visible:outline-offset-2',
-        'transition-colors duration-fast ease-default',
-      );
-    } else {
-      parts.push('bg-transparent text-gray-900 shadow-[inset_0_0_0_1px_var(--color-gray-200)]');
-    }
+    parts.push(
+      'bg-transparent text-gray-900 shadow-[inset_0_0_0_1px_var(--color-gray-200)]',
+      'hover:bg-gray-50',
+      'active:bg-gray-100 active:translate-y-px',
+      'focus-visible:outline-2 focus-visible:outline-primary-300 focus-visible:outline-offset-2',
+      'transition-colors duration-fast ease-default',
+    );
   } else if (variant === 'ghost') {
-    if (state === 'hover') {
-      parts.push('bg-gray-50 text-gray-900');
-    } else if (state === 'active') {
-      parts.push('bg-gray-100 text-gray-900 translate-y-px');
-    } else if (state === 'focus') {
-      parts.push('bg-transparent text-gray-600 outline-2 outline-primary-300 outline-offset-2');
-    } else if (!state) {
-      parts.push(
-        'bg-transparent text-gray-600',
-        'hover:bg-gray-50 hover:text-gray-900',
-        'active:bg-gray-100 active:translate-y-px',
-        'focus-visible:outline-2 focus-visible:outline-primary-300 focus-visible:outline-offset-2',
-        'transition-colors duration-fast ease-default',
-      );
-    } else {
-      parts.push('bg-transparent text-gray-600');
-    }
+    parts.push(
+      'bg-transparent text-gray-600',
+      'hover:bg-gray-50 hover:text-gray-900',
+      'active:bg-gray-100 active:translate-y-px',
+      'focus-visible:outline-2 focus-visible:outline-primary-300 focus-visible:outline-offset-2',
+      'transition-colors duration-fast ease-default',
+    );
   }
 
   return parts.join(' ');
@@ -92,7 +57,6 @@ const classes = resolveClasses();
 <button
   class={classes}
   disabled={disabled || undefined}
-  data-state={state || undefined}
 >
   <slot />
 </button>

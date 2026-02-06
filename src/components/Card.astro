@@ -1,0 +1,44 @@
+---
+interface Props {
+  variant?: 'default' | 'elevated' | 'flat';
+  padding?: boolean;
+}
+
+const { variant = 'default', padding = true } = Astro.props;
+
+const base = 'rounded-lg overflow-hidden';
+
+function resolveClasses(): string {
+  const parts = [base];
+
+  if (padding) {
+    parts.push('p-6');
+  }
+
+  if (variant === 'default') {
+    parts.push(
+      'bg-white border border-gray-200',
+      'shadow-sm',
+    );
+  } else if (variant === 'elevated') {
+    parts.push(
+      'bg-white',
+      'shadow-lg',
+      'hover:shadow-xl',
+      'transition-shadow duration-normal ease-default',
+    );
+  } else if (variant === 'flat') {
+    parts.push(
+      'bg-gray-50',
+    );
+  }
+
+  return parts.join(' ');
+}
+
+const classes = resolveClasses();
+---
+
+<div class={classes}>
+  <slot />
+</div>
