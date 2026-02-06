@@ -56,6 +56,19 @@ Shadow scale: sm, md, lg, xl (defined in global.css @theme)
 - Labels: text-sm font-medium text-gray-700, placed above input with gap-1.5
 - Hints: text-xs, gray-400 default, red-500 for errors, green-600 for success
 
+### Section Flow (page-flow)
+- `page-flow` Tailwind utility on parent wrapper → `margin-top: var(--section-gap, 64px)` between children
+- `data-seamless` on sections with backgrounds (color or image)
+- Seamless sections use internal padding (py-20 / py-24) for their own rhythm
+- Override gap per-page: `style="--section-gap: 96px"` on the `page-flow` container
+- Rules: seamless+seamless = 0 (backgrounds butt up), everything else = 64px gap
+
+### Column Grids
+- Card gutters: gap-6 (24px)
+- Section-level columns: gap-8 (32px)
+- Asymmetric: flex (flex-1 + fixed w-64) for content+sidebar, grid col-span for proportional splits
+- All responsive via container queries (@sm:, @md:, @lg:)
+
 ## Decisions Log
 | Decision | Chosen | Why |
 |----------|--------|-----|

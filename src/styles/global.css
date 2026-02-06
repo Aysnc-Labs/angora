@@ -96,6 +96,29 @@
   /* sm: 640px | md: 768px | lg: 1024px | xl: 1280px */
 }
 
+/*
+ * Section flow — controls vertical rhythm between page sections.
+ *
+ * page-flow              → Tailwind utility. Parent wrapper for stacked sections.
+ * [data-seamless]        → section with a background (color or image)
+ *
+ * Rules:
+ *   normal   + normal   → section gap (--section-gap, default 64px)
+ *   normal   + seamless → section gap (seamless has its own padding inside)
+ *   seamless + normal   → section gap
+ *   seamless + seamless → 0 (backgrounds butt up, internal padding handles rhythm)
+ *
+ * Override: style="--section-gap: 96px" on the page-flow container.
+ */
+@utility page-flow {
+  & > * + * {
+    margin-top: var(--section-gap, 64px);
+  }
+  & > [data-seamless] + [data-seamless] {
+    margin-top: 0;
+  }
+}
+
 /* Font smoothing — Tailwind preflight handles resets */
 body {
   -webkit-font-smoothing: antialiased;
