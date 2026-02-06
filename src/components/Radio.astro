@@ -1,0 +1,60 @@
+---
+interface Props {
+  state?: 'hover' | 'focus' | 'disabled';
+  size?: 'sm' | 'md' | 'lg';
+  selected?: boolean;
+  label?: string;
+}
+
+const { state, size = 'md', selected, label } = Astro.props;
+
+const sizeMap: Record<string, { outer: string; inner: string; text: string }> = {
+  sm: { outer: 'w-4 h-4', inner: 'w-1.5 h-1.5', text: 'text-sm' },
+  md: { outer: 'w-5 h-5', inner: 'w-2 h-2', text: 'text-base' },
+  lg: { outer: 'w-6 h-6', inner: 'w-2.5 h-2.5', text: 'text-lg' },
+};
+
+const s = sizeMap[size];
+
+function resolveOuterClasses(): string {
+  const parts = [
+    'inline-flex items-center justify-center rounded-full border-2 shrink-0',
+    s.outer,
+  ];
+
+  if (selected) {
+    parts.push('border-primary-500 bg-white');
+    if (state === 'hover') {
+      parts.push('border-primary-600');
+    }
+  } else {
+    parts.push('border-gray-300 bg-white');
+    if (state === 'hover') {
+      parts.push('border-gray-400');
+    }
+  }
+
+  if (state === 'focus') {
+    parts.push('outline-2 outline-primary-300 outline-offset-2');
+  } else if (state === 'disabled') {
+    parts.push('opacity-50 cursor-not-allowed');
+  }
+
+  if (!state) {
+    parts.push('transition-colors duration-fast ease-default');
+  }
+
+  return parts.join(' ');
+}
+
+const outerClasses = resolveOuterClasses();
+---
+
+<label class={`inline-flex items-center gap-2 ${state === 'disabled' ? 'cursor-not-allowed opacity-50' : 'cursor-pointer'}`} data-state={state || undefined}>
+  <span class={outerClasses}>
+    {selected && (
+      <span class={`${s.inner} rounded-full bg-primary-500`}></span>
+    )}
+  </span>
+  {label && <span class={`${s.text} text-gray-900`}>{label}</span>}
+</label>

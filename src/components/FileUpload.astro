@@ -1,0 +1,78 @@
+---
+interface Props {
+  state?: 'hover' | 'focus' | 'disabled' | 'dragover';
+  variant?: 'dropzone' | 'button';
+}
+
+const { state, variant = 'dropzone' } = Astro.props;
+
+function resolveDropzoneClasses(): string {
+  const parts = [
+    'flex flex-col items-center justify-center gap-3 rounded-lg border-2 border-dashed px-6 py-8 text-center',
+  ];
+
+  if (state === 'hover') {
+    parts.push('border-gray-400 bg-gray-50');
+  } else if (state === 'dragover') {
+    parts.push('border-primary-500 bg-primary-50');
+  } else if (state === 'focus') {
+    parts.push('border-gray-300 outline-2 outline-primary-300 outline-offset-2');
+  } else if (state === 'disabled') {
+    parts.push('border-gray-200 bg-gray-50 opacity-50 cursor-not-allowed');
+  } else if (!state) {
+    parts.push(
+      'border-gray-300',
+      'hover:border-gray-400 hover:bg-gray-50',
+      'transition-colors duration-fast ease-default',
+    );
+  } else {
+    parts.push('border-gray-300');
+  }
+
+  return parts.join(' ');
+}
+
+function resolveButtonClasses(): string {
+  const parts = [
+    'inline-flex items-center gap-2 rounded-md border border-gray-300 bg-white px-4 py-2.5 text-sm font-medium text-gray-700 cursor-pointer',
+  ];
+
+  if (state === 'hover') {
+    parts.push('border-gray-400 bg-gray-50');
+  } else if (state === 'focus') {
+    parts.push('outline-2 outline-primary-300 outline-offset-2');
+  } else if (state === 'disabled') {
+    parts.push('opacity-50 cursor-not-allowed');
+  } else if (!state) {
+    parts.push(
+      'hover:border-gray-400 hover:bg-gray-50',
+      'transition-colors duration-fast ease-default',
+    );
+  }
+
+  return parts.join(' ');
+}
+---
+
+{variant === 'dropzone' ? (
+  <div class={resolveDropzoneClasses()} data-state={state || undefined}>
+    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-gray-400">
+      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+      <polyline points="17 8 12 3 7 8" />
+      <line x1="12" y1="3" x2="12" y2="15" />
+    </svg>
+    <div>
+      <p class="text-sm font-medium text-gray-700">Drop files here or click to upload</p>
+      <p class="text-xs text-gray-400 mt-1">PNG, JPG, PDF up to 10MB</p>
+    </div>
+  </div>
+) : (
+  <label class={resolveButtonClasses()} data-state={state || undefined}>
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+      <polyline points="17 8 12 3 7 8" />
+      <line x1="12" y1="3" x2="12" y2="15" />
+    </svg>
+    Choose file
+  </label>
+)}

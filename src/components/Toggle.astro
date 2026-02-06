@@ -1,0 +1,55 @@
+---
+interface Props {
+  state?: 'hover' | 'focus' | 'disabled';
+  size?: 'sm' | 'md' | 'lg';
+  on?: boolean;
+  label?: string;
+}
+
+const { state, size = 'md', on, label } = Astro.props;
+
+const sizeMap: Record<string, { track: string; thumb: string; translate: string; text: string }> = {
+  sm: { track: 'w-8 h-5', thumb: 'w-3.5 h-3.5', translate: 'translate-x-3.5', text: 'text-sm' },
+  md: { track: 'w-10 h-6', thumb: 'w-4.5 h-4.5', translate: 'translate-x-4.5', text: 'text-base' },
+  lg: { track: 'w-12 h-7', thumb: 'w-5.5 h-5.5', translate: 'translate-x-5.5', text: 'text-lg' },
+};
+
+const s = sizeMap[size];
+
+function resolveTrackClasses(): string {
+  const parts = [
+    'relative inline-flex items-center rounded-full p-0.5 shrink-0',
+    s.track,
+  ];
+
+  if (on) {
+    parts.push('bg-primary-500');
+    if (state === 'hover') parts.push('bg-primary-600');
+  } else {
+    parts.push('bg-gray-300');
+    if (state === 'hover') parts.push('bg-gray-400');
+  }
+
+  if (state === 'focus') {
+    parts.push('outline-2 outline-primary-300 outline-offset-2');
+  } else if (state === 'disabled') {
+    parts.push('opacity-50 cursor-not-allowed');
+  }
+
+  if (!state) {
+    parts.push('transition-colors duration-fast ease-default');
+  }
+
+  return parts.join(' ');
+}
+
+const trackClasses = resolveTrackClasses();
+const thumbClasses = `${s.thumb} rounded-full bg-white shadow-sm transition-transform duration-fast ease-default ${on ? s.translate : 'translate-x-0'}`;
+---
+
+<label class={`inline-flex items-center gap-3 ${state === 'disabled' ? 'cursor-not-allowed opacity-50' : 'cursor-pointer'}`} data-state={state || undefined}>
+  <span class={trackClasses}>
+    <span class={thumbClasses}></span>
+  </span>
+  {label && <span class={`${s.text} text-gray-900`}>{label}</span>}
+</label>

@@ -32,17 +32,34 @@ Primary color: [TBD]
 Color shades: 50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950
 Border radius: [TBD]
 Depth strategy: [TBD]
-Shadow scale: sm, md, lg, xl (defined in tokens.css)
+Shadow scale: sm, md, lg, xl (defined in global.css @theme)
 
 ## Component Patterns
 ### Buttons
-- Primary: solid background, white text
-- Secondary: transparent, border, dark text
-- Ghost: transparent, no border, muted text
-- Sizes: sm (14px/8×16), md (16px/12×24), lg (18px/16×32)
+- Primary: solid background (bg-primary-500), white text
+- Secondary: transparent, inset border (shadow-[inset_0_0_0_1px]), dark text
+- Ghost: transparent, no border, muted text (text-gray-600)
+- Sizes: sm (text-sm/px-4 py-2), md (text-base/px-6 py-3), lg (text-lg/px-8 py-4)
+
+### Form Inputs
+- Text input: border-gray-300, rounded-md, placeholder text-gray-400
+- Textarea: same border/radius as text input, resize-y
+- Select: same border/radius, custom chevron icon, appearance-none
+- Checkbox: border-2 rounded-sm, checked=bg-primary-500
+- Radio: border-2 rounded-full, selected=border-primary-500 with inner dot
+- Toggle: track (rounded-full), thumb (white circle with shadow)
+- File upload: dropzone (dashed border) or button style
+- Search: leading search icon, optional clear button
+
+### Shared Form Patterns
+- States: default, hover (border-gray-400), focus (border-primary-500 + outline), disabled (opacity-50), error (border-red-500)
+- Labels: text-sm font-medium text-gray-700, placed above input with gap-1.5
+- Hints: text-xs, gray-400 default, red-500 for errors, green-600 for success
 
 ## Decisions Log
 | Decision | Chosen | Why |
 |----------|--------|-----|
-| Build tool | Astro | Static HTML+CSS output, component model maps 1:1 to custom elements |
-| Element prefix | `component-` | Distinguishes design system elements from generic `site-` prefix |
+| Build tool | Astro | Static HTML+CSS output, component model for gallery assembly |
+| Styling | Tailwind CSS v4 | @theme replaces tokens.css, utility classes replace @scope CSS, design tokens as Tailwind theme |
+| Element approach | Semantic HTML + Tailwind | Replaces custom elements (component-*) with plain HTML + utility classes |
+| State display | data-state attribute | Specimen mode: state prop resolves to static classes. Demo mode: pseudo-class variants |

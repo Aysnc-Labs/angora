@@ -1,0 +1,88 @@
+---
+interface Props {
+  state?: 'hover' | 'focus' | 'disabled' | 'error' | 'success';
+  size?: 'sm' | 'md' | 'lg';
+  placeholder?: string;
+  value?: string;
+  label?: string;
+  hint?: string;
+  withIcon?: boolean;
+}
+
+const { state, size = 'md', placeholder = 'Placeholder text', value, label, hint, withIcon } = Astro.props;
+
+const sizeClasses: Record<string, string> = {
+  sm: 'text-sm px-3 py-1.5',
+  md: 'text-base px-4 py-2.5',
+  lg: 'text-lg px-4 py-3',
+};
+
+const labelSizeClasses: Record<string, string> = {
+  sm: 'text-xs',
+  md: 'text-sm',
+  lg: 'text-base',
+};
+
+function resolveInputClasses(): string {
+  const parts = [
+    'block w-full rounded-md border font-sans bg-white text-gray-900',
+    sizeClasses[size],
+  ];
+
+  if (withIcon) {
+    parts.push(size === 'sm' ? 'pl-8' : size === 'lg' ? 'pl-11' : 'pl-10');
+  }
+
+  if (state === 'hover') {
+    parts.push('border-gray-400');
+  } else if (state === 'focus') {
+    parts.push('border-primary-500 outline-2 outline-primary-300 outline-offset-0');
+  } else if (state === 'error') {
+    parts.push('border-red-500 text-red-900');
+  } else if (state === 'success') {
+    parts.push('border-green-500');
+  } else if (state === 'disabled') {
+    parts.push('border-gray-200 bg-gray-50 text-gray-400 cursor-not-allowed');
+  } else if (!state) {
+    parts.push(
+      'border-gray-300',
+      'hover:border-gray-400',
+      'focus:border-primary-500 focus:outline-2 focus:outline-primary-300 focus:outline-offset-0',
+      'transition-colors duration-fast ease-default',
+    );
+  } else {
+    parts.push('border-gray-300');
+  }
+
+  return parts.join(' ');
+}
+
+const inputClasses = resolveInputClasses();
+---
+
+<div class="flex flex-col gap-1.5">
+  {label && (
+    <label class={`font-medium text-gray-700 ${labelSizeClasses[size]}`}>{label}</label>
+  )}
+  <div class="relative">
+    {withIcon && (
+      <div class={`absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none ${size === 'sm' ? 'left-2.5' : ''}`}>
+        <svg width={size === 'sm' ? 14 : size === 'lg' ? 20 : 16} height={size === 'sm' ? 14 : size === 'lg' ? 20 : 16} viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8" />
+          <line x1="21" y1="21" x2="16.65" y2="16.65" />
+        </svg>
+      </div>
+    )}
+    <input
+      type="text"
+      class={inputClasses}
+      placeholder={placeholder}
+      value={value}
+      disabled={state === 'disabled' || undefined}
+      data-state={state || undefined}
+    />
+  </div>
+  {hint && (
+    <p class={`text-xs ${state === 'error' ? 'text-red-500' : state === 'success' ? 'text-green-600' : 'text-gray-400'}`}>{hint}</p>
+  )}
+</div>

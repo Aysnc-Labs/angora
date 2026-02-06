@@ -28,11 +28,13 @@ Engineering teams consume this the way they'd consume a Figma file: open the gal
 
 ## Build Layer
 
-**Astro** is the build tool. It produces static HTML+CSS — no client-side JavaScript. Astro components are assembly tooling that render custom elements as output. The component model maps 1:1 to the custom element + `@scope` approach.
+**Astro** is the build tool. It produces static HTML+CSS — no client-side JavaScript. **Tailwind CSS v4** is the styling layer, integrated via `@tailwindcss/vite`. Design tokens are defined in `src/styles/global.css` using Tailwind's `@theme` directive — this is the single source of truth for all design values.
 
-- Astro components use `<style is:global>` for `@scope` CSS — this tells Astro to skip its data-attribute scoping but still bundle/deduplicate the CSS.
-- Component props map directly to custom element attributes: `<Button variant="secondary" state="hover">` renders `<component-button variant="secondary" state="hover">`.
-- Astro component names don't need a prefix (just `Button.astro`, not `SiteButton.astro`). The custom elements they render use the `component-` prefix.
+- Astro components render semantic HTML with Tailwind utility classes. No custom elements, no `@scope` CSS.
+- Component props (`variant`, `state`, `size`, `disabled`) resolve to Tailwind class strings at build time. No client-side JavaScript.
+- **Specimen mode** (`state` prop provided): The component outputs the exact Tailwind classes for that visual state, plus a `data-state` attribute as a documentation label for engineer reference.
+- **Demo mode** (`state` prop omitted): The component includes Tailwind pseudo-class variants (`hover:`, `active:`, `focus-visible:`) and transition utilities for real interactivity.
+- Astro component names don't need a prefix (just `Button.astro`, not `SiteButton.astro`).
 - Icon components live in `src/components/icons/` and drop the `Icon` prefix — the directory provides context (e.g., `icons/ArrowRight.astro`, imported as `import ArrowRight from '../components/icons/ArrowRight.astro'`).
 
 ## File Structure
@@ -41,14 +43,22 @@ Engineering teams consume this the way they'd consume a Figma file: open the gal
 src/
   system.md                    <- Design memory (Claude reads this every session)
   styles/
-    tokens.css                 <- Single source of truth (CSS custom properties)
-    reset.css                  <- Box-sizing reset + body typography
+    global.css                 <- @import "tailwindcss" + @theme tokens (single source of truth)
+    reset.css                  <- Font smoothing extras (Tailwind preflight handles resets)
     gallery.css                <- Gallery chrome: sidebar nav, specimen rows, labels, demo areas
   layouts/
     GalleryLayout.astro        <- Sidebar nav + page shell
     FullScreenLayout.astro     <- Bare layout for full-screen component views
   components/
-    Button.astro               <- Renders <component-button> + @scope CSS
+    Button.astro               <- Renders <button> with Tailwind classes
+    TextInput.astro            <- Text input with label, hint, icon support
+    Textarea.astro             <- Textarea with label, hint support
+    Select.astro               <- Select dropdown with custom chevron
+    Checkbox.astro             <- Checkbox with label
+    Radio.astro                <- Radio button with label
+    Toggle.astro               <- Toggle/switch with label
+    FileUpload.astro           <- File upload (dropzone or button style)
+    SearchInput.astro          <- Search input with icon and clear button
     icons/
       ArrowRight.astro         <- Renders inline SVG, accepts size prop
       Close.astro
@@ -60,10 +70,12 @@ src/
     icons.astro                <- Icon gallery, sizes, colors
     grid.astro                 <- Section spacing, column gutters
     cards.astro                <- Card patterns
+    forms.astro                <- Form element specimens + demo
     hero.astro                 <- Hero variants
     ...                        <- One file per component type
     view/
       buttons.astro            <- Full-screen button view (no gallery chrome)
+      forms.astro              <- Full-screen form view (no gallery chrome)
       ...                      <- Full-screen view per component
 public/
   icons/
@@ -73,139 +85,85 @@ public/
 ```
 
 - `system.md` — Design decisions, constraints, patterns. Under 200 lines. See Templates Reference below for template.
-- `tokens.css` — CSS custom properties. No raw values in components. See Templates Reference below for template.
-- `reset.css` — Global reset and body typography. Shared via layout import.
+- `global.css` — `@import "tailwindcss"` + `@theme` block with all design tokens. This replaces `tokens.css`. See Templates Reference below for template.
+- `reset.css` — Font smoothing extras. Tailwind's preflight handles box-sizing and margin resets.
 - `gallery.css` — Gallery chrome: fixed left sidebar nav (scrollable, 240px), specimen rows, labels, demo areas. This is tooling — it doesn't ship to production.
-- `GalleryLayout.astro` — Imports all three CSS files, renders sidebar nav + `<main>` with `<slot />`. Accepts `fullscreenHref` prop to show a "View full screen" link. The sidebar nav lists all gallery pages; the Style Guide is the index/home page.
-- `FullScreenLayout.astro` — Minimal layout (tokens + reset only). Used by `/view/*` pages to render components without gallery chrome.
-- `components/*.astro` — Each component renders its custom element and includes `@scope` CSS via `<style is:global>`. Props map to element attributes.
+- `GalleryLayout.astro` — Imports global.css, reset.css, and gallery.css. Renders sidebar nav + `<main>` with `<slot />`. Accepts `fullscreenHref` prop to show a "View full screen" link. The sidebar nav lists all gallery pages; the Style Guide is the index/home page.
+- `FullScreenLayout.astro` — Minimal layout (global.css + reset.css only). Used by `/view/*` pages to render components without gallery chrome.
+- `components/*.astro` — Each component renders semantic HTML with Tailwind utility classes. Props (`variant`, `state`, `size`, `disabled`) resolve to class strings at build time.
 - `pages/*.astro` — Gallery pages using `GalleryLayout`. Each documents one component type with specimens and a demo section.
 - `pages/view/*.astro` — Full-screen views using `FullScreenLayout`. Linked from gallery pages via the "View full screen" link.
 - `public/icons/*.svg` — Standalone SVG files served statically. Downloadable from the icons gallery page.
 
 ## Markup Convention
 
-### Custom Elements for Structure, Semantic HTML for Content
+### Semantic HTML + Tailwind Classes
 
-Custom elements are design containers. Semantic HTML serves content. No Shadow DOM.
+All components use semantic HTML elements styled with Tailwind utility classes. No custom elements, no Shadow DOM.
 
 ```html
-<component-hero>
-  <h1>Build faster websites</h1>
-  <p>The modern way to ship marketing sites at scale.</p>
-  <component-hero-actions>
-    <a href="/start" role="button">Get Started</a>
-    <a href="/learn">Learn More</a>
-  </component-hero-actions>
-</component-hero>
+<section class="max-w-[var(--container-max)] mx-auto py-20 px-6 text-center">
+  <h1 class="text-5xl font-bold leading-tight text-gray-900 tracking-tight">Build faster websites</h1>
+  <p class="text-xl text-gray-600 mt-4 max-w-[65ch] mx-auto">The modern way to ship marketing sites at scale.</p>
+  <div class="flex gap-4 justify-center mt-8">
+    <a href="/start" class="...button classes...">Get Started</a>
+    <a href="/learn" class="...button classes...">Learn More</a>
+  </div>
+</section>
 ```
 
-**Naming rules:**
-- Component root: `component-{name}` (e.g., `component-hero`, `component-pricing`)
-- Structural children: `component-{name}-{child}` (e.g., `component-hero-actions`)
-- Content: semantic HTML (`h1`-`h6`, `p`, `a`, `img`, `ul`, `figure`, `blockquote`)
+**Rules:**
+- Content: semantic HTML (`h1`-`h6`, `p`, `a`, `img`, `ul`, `figure`, `blockquote`, `section`, `nav`, `footer`)
+- Layout/structure: Tailwind utility classes (`flex`, `grid`, `max-w-*`, `p-*`, `gap-*`)
 - Design roles without semantic equivalent: `data-role` attribute (e.g., `<p data-role="eyebrow">`)
+- No arbitrary values outside Tailwind's theme — all styling references theme tokens via utility classes
 
-**Images: always use `<img>`, never CSS background images.** Use `<img>` with `object-fit: cover` for all imagery including hero backgrounds, card covers, and full-bleed sections. This enables responsive images via `srcset`/`sizes` and `<picture>`, provides `alt` text for accessibility, and lets the browser optimize loading with `loading="lazy"` and `fetchpriority`. Position with CSS (`position: absolute; inset: 0`) inside a relatively-positioned container when used as a backdrop.
-
-### `@scope` for Style Isolation
-
-Each component's styles scoped to its custom element. No style leakage, no global selectors.
-
-```css
-@scope (component-hero) {
-  :scope {
-    max-width: var(--content-width);
-    margin-inline: auto;
-    padding: var(--space-20) var(--space-6);
-    text-align: center;
-  }
-  h1 {
-    font-size: var(--text-5xl);
-    font-weight: 700;
-    line-height: var(--leading-tight);
-    color: var(--color-text-primary);
-    letter-spacing: -0.02em;
-  }
-}
-```
+**Images: always use `<img>`, never CSS background images.** Use `<img>` with `object-fit: cover` (`object-cover` in Tailwind) for all imagery including hero backgrounds, card covers, and full-bleed sections. This enables responsive images via `srcset`/`sizes` and `<picture>`, provides `alt` text for accessibility, and lets the browser optimize loading with `loading="lazy"` and `fetchpriority`. Position with Tailwind classes (`absolute inset-0`) inside a relatively-positioned container when used as a backdrop.
 
 ### Container Queries, Not Media Queries
 
-All responsive behavior uses `@container` so components adapt to their container, not the viewport. This keeps components portable — a card in a 3-column grid adapts differently than the same card in a sidebar, without media query overrides. No `@media` in component files.
+All responsive behavior uses container queries so components adapt to their container, not the viewport. This keeps components portable — a card in a 3-column grid adapts differently than the same card in a sidebar. No viewport-based responsive variants (`sm:`, `md:`, `lg:`) in component markup — only container query variants.
 
-```css
-@scope (component-pricing) {
-  :scope {
-    container-type: inline-size;
-  }
-  @container (min-width: 640px) {
-    component-pricing-grid { grid-template-columns: repeat(2, 1fr); }
-  }
-  @container (min-width: 1024px) {
-    component-pricing-grid { grid-template-columns: repeat(3, 1fr); }
-  }
-}
-```
-
-### States via Attributes
-
-All states rendered statically. No JavaScript. Attributes, not classes.
-
-**Primitive vs composite components:** Primitives (button, badge, input) show all their own states and variants in their gallery page. Composite components (hero, pricing, nav) show *their own* variants but render child primitives in default state only — the child's states are already documented in its own gallery page. Don't repeat button hover/focus/disabled states inside every component that uses a button.
+Tailwind v4 has built-in container query support:
+- `@container` utility sets `container-type: inline-size` on the parent
+- `@sm:`, `@md:`, `@lg:`, `@xl:` variants trigger at container breakpoints (640/768/1024/1280px)
+- Named containers: `@container/card` → `@sm/card:` for targeted queries
 
 ```html
-<component-button>Subscribe</component-button>
-<component-button state="hover">Subscribe</component-button>
-<component-button state="active">Subscribe</component-button>
-<component-button state="focus">Subscribe</component-button>
-<component-button disabled>Subscribe</component-button>
-
-<!-- Variants -->
-<component-button variant="primary">Get Started</component-button>
-<component-button variant="secondary">Learn More</component-button>
-<component-button variant="ghost">Cancel</component-button>
+<section class="@container">
+  <div class="grid grid-cols-1 @sm:grid-cols-2 @lg:grid-cols-3 gap-6">
+    <!-- cards -->
+  </div>
+</section>
 ```
 
-```css
-@scope (component-button) {
-  :scope { /* default styles */ }
-  :scope[state="hover"] { background: var(--primary-600); }
-  :scope[state="active"] { background: var(--primary-700); transform: translateY(1px); }
-  :scope[state="focus"] { outline: 2px solid var(--primary-300); outline-offset: 2px; }
-  :scope[disabled] { opacity: 0.5; cursor: not-allowed; }
-  :scope[variant="secondary"] { background: transparent; border: 1px solid var(--color-border); }
-  :scope[variant="ghost"] { background: transparent; color: var(--color-text-secondary); }
-}
+The only `@media` queries allowed are in `gallery.css` (tooling, not a deliverable).
+
+### States: Specimen Mode vs Demo Mode
+
+Each Astro component operates in two modes based on whether a `state` prop is provided:
+
+**Specimen mode** (`state` prop provided) — The component resolves the `state` value to the exact Tailwind classes for that visual state at build time. No pseudo-class variants included. A `data-state` attribute is added for engineer reference.
+
+```astro
+<!-- Gallery page: frozen specimen -->
+<Button state="hover">Subscribe</Button>
+
+<!-- Renders to: -->
+<button class="... bg-primary-600" data-state="hover">Subscribe</button>
 ```
 
-### Specimens and Demos
+**Demo mode** (`state` prop omitted) — The component includes Tailwind pseudo-class variants (`hover:`, `active:`, `focus-visible:`) and transitions for real interactivity:
 
-Gallery pages have two layers for interactive components:
+```astro
+<!-- Gallery page: interactive demo -->
+<Button>Subscribe</Button>
 
-**Specimens** — Static snapshots of each state, rendered via `state` attributes. These are the documentation: every state frozen side-by-side for visual review.
-
-**Demo section** — A "live" version of the component using real CSS pseudo-classes (`:hover`, `:focus`, `:active`). No `state` attributes. This is the fully-formed component that gets composed into other components and pages.
-
-CSS includes both patterns so the same stylesheet serves both purposes:
-
-```css
-@scope (component-button) {
-  /* Specimens (static documentation) */
-  :scope[state="hover"] { background: var(--primary-600); }
-  /* Demo + production (real interaction) */
-  :scope:hover { background: var(--primary-600); }
-}
+<!-- Renders to: -->
+<button class="... bg-primary-500 hover:bg-primary-600 active:bg-primary-700 focus-visible:outline-2 transition-colors duration-fast">Subscribe</button>
 ```
 
-Transitions apply only to pseudo-class rules (the demo/production path), not to `[state]` specimens. Use transition tokens for consistent timing:
-
-```css
-:scope:hover {
-  background: var(--primary-600);
-  transition: background var(--duration-fast) var(--ease-default);
-}
-```
+**Primitive vs composite components:** Primitives (button, badge, input) show all their own states and variants in their gallery page. Composite components (hero, pricing, nav) show *their own* variants but render child primitives in default state only — the child's states are already documented in its own gallery page.
 
 ## Workflow
 
@@ -238,16 +196,17 @@ Then five mandatory outputs:
 - Border radius scale, depth strategy (consistent application — don't mix soft diffuse shadows with solid flat shadows on similar elements)
 - Shadow scale using two-part shadows
 
-**Output:** `system.md` + `tokens.css` + five foundational gallery pages:
+**Output:** `system.md` + `global.css` (with `@theme` tokens) + six foundational gallery pages:
 1. `index.astro` (Style Guide) — Visual preview of all tokens (colors, type scale, spacing, shadows, radii). This is the gallery home page.
 2. `buttons.astro` — Sizes (sm, md, lg), variants (primary, secondary, ghost), icon buttons. **Collaborate with user** on specific sizes and icon button patterns.
-3. `icons.astro` — Icon gallery showing each icon at multiple sizes and in semantic colors. Each icon exists as both an Astro component (`src/components/icons/*.astro` with `size` prop, renders inline SVG with `currentColor`) and a downloadable SVG (`public/icons/*.svg`). Gallery page shows each icon at sm (16px), md (20px), lg (24px), xl (32px) sizes, plus color variants using semantic tokens, with download links. **Ask user to name a starter set of icons** (e.g., arrow-right, check, menu, close, chevron-down).
+3. `icons.astro` — Icon gallery showing each icon at multiple sizes and in semantic colors. Each icon exists as both an Astro component (`src/components/icons/*.astro` with `size` prop, renders inline SVG with `currentColor`) and a downloadable SVG (`public/icons/*.svg`). Gallery page shows each icon at sm (16px), md (20px), lg (24px), xl (32px) sizes, plus color variants using Tailwind color classes, with download links. **Ask user to name a starter set of icons** (e.g., arrow-right, check, menu, close, chevron-down).
 4. `grid.astro` — Section spacing rhythm + column gutter patterns. **Collaborate with user** on grid variants (2-col, 3-col, 4-col, asymmetric) and gutter/section spacing values.
 5. `cards.astro` — Basic card patterns (content card, feature card, pricing card shell). **Ask user for feedback** on card variants before proceeding.
+6. `forms.astro` — Form elements: text input, textarea, select, checkbox, radio, toggle/switch, file upload, search input. All states, sizes, and variants.
 
 See Templates Reference below for starter templates.
 
-**Visual review checkpoint.** User opens all five gallery pages in browser (`pnpm dev`). Approves before further component work begins.
+**Visual review checkpoint.** User opens all six gallery pages in browser (`pnpm dev`). Approves before further component work begins.
 
 ### Phase 3: Component Building
 
@@ -255,22 +214,22 @@ For each component:
 
 1. **Declare intent** — What is it for? What hierarchy? What states?
 2. **Reference system.md** — Check existing patterns. Extend, don't duplicate.
-3. **Build** — Custom element markup + @scope CSS. All states via attributes. All values from tokens.css.
+3. **Build** — Semantic HTML + Tailwind utility classes. States via `state` prop (specimen) or pseudo-class variants (demo). All values from theme tokens.
 4. **Self-review gate** — Validate against hard rules (see below).
 5. **Visual review** — User opens gallery page. Approves or iterates.
 6. **Update system.md** — Record new reusable patterns.
 
-**Suggested component order:** Typography specimens, Navigation, Hero sections, Feature grids, Pricing tables, Testimonials, Stats, Logo clouds, FAQ, CTA sections, Footer. (Buttons, icons, cards, and grid are already built in Phase 2.)
+**Suggested component order:** Typography specimens, Navigation, Hero sections, Feature grids, Pricing tables, Testimonials, Stats, Logo clouds, FAQ, CTA sections, Footer. (Buttons, icons, cards, grid, and forms are already built in Phase 2.)
 
 ### Phase 4: Self-Review Gate
 
-Dispatch a validation subagent after every component. Fresh context, loaded with the hard rules, `system.md`, `tokens.css`, and the generated component.
+Dispatch a validation subagent after every component. Fresh context, loaded with the hard rules, `system.md`, `global.css` theme, and the generated component.
 
 **Hard rules (always enforced):**
 
 | Rule | Check |
 |------|-------|
-| Token compliance | No raw values. Everything uses `var(--token)` |
+| Token compliance | No arbitrary values. All styling via Tailwind utility classes referencing theme tokens |
 | Hierarchy | Clear primary/secondary/tertiary emphasis (size + weight + color) |
 | Spacing | Related elements closer, groups further apart |
 | Typography | Line length 45-75 chars. Line height proportional to font size |
@@ -278,9 +237,9 @@ Dispatch a validation subagent after every component. Fresh context, loaded with
 | Accessibility | Contrast ratios per the standard chosen in Phase 1 (recorded in `system.md`). Check target sizes if WCAG 2.2. If EAA: verify `lang` on `<html>`, reflow at 320px, non-text contrast ≥ 3:1, text spacing override tolerance, 200% text resize. Don't rely on color alone. |
 | Depth | Consistent application across similar elements. Light source from above. |
 | States | Primitives: default, hover, active, focus, disabled. Composites: own variants only, child primitives in default state |
-| Semantic HTML | Content uses semantic elements. Custom elements only for structure |
-| Scoping | All styles use @scope. No global selectors in component files |
-| Responsiveness | Container queries only. No media queries in component files |
+| Semantic HTML | Content uses semantic elements (`section`, `nav`, `h1`–`h6`, `p`, `a`, `button`, `input`, etc.) |
+| Scoping | Component styles via Tailwind classes on elements. No global CSS selectors in component files |
+| Responsiveness | Container queries via Tailwind `@` variants (`@sm:`, `@md:`, etc.). No `@media` / no viewport-based `sm:`/`md:` in component markup |
 
 **Soft rules** (from `system.md`): anti-pattern violations, pattern consistency, personality alignment (swap test).
 
@@ -293,7 +252,7 @@ For the full set of design principles informing the review, see Design Principle
 Compose approved components into full pages:
 
 1. Define page structure — which components, what order, what content
-2. Assemble — single HTML importing `tokens.css`, containing the components
+2. Assemble — Astro page importing components, composed with Tailwind utility classes
 3. Page-level concerns: section spacing, background alternation for rhythm, visual flow, responsive behavior
 4. Full-page review against hard rules + page coherence
 
@@ -322,13 +281,13 @@ Compose approved components into a full page. Runs Phase 5.
 
 ## What This Is
 
-- **A Figma replacement.** The gallery IS the design file. Components are the visual spec. Tokens are the design annotations. Engineers inspect this instead of a Figma inspect panel.
-- **Framework-agnostic.** Custom element names (`component-hero`) are spec labels — like Figma layer names. `@scope` CSS is the annotated design. Engineers translate to their stack (React + Tailwind, Vue + UnoCSS, etc.).
+- **A Figma replacement.** The gallery IS the design file. Components are the visual spec. Tailwind theme tokens are the design annotations. Engineers inspect this instead of a Figma inspect panel.
+- **Framework-agnostic.** The gallery shows semantic HTML + Tailwind classes — engineers translate to their stack's conventions. The Tailwind class strings on each specimen are the exact visual spec.
 - **The acceptance test.** Does the React component match the gallery specimen? That's the review gate. The gallery is the source of truth, not the framework implementation.
 
 ## What This Is NOT
 
-- **Not a code deliverable.** Nobody ships `<component-hero>` to production. They ship their framework's version of it.
+- **Not a code deliverable.** Nobody ships the gallery HTML to production. They ship their framework's version, validated against the gallery.
 - **Not a component framework.** No JavaScript, no reactivity. Static visual contract.
 - **Not for app UI.** Marketing sites only.
 
@@ -379,7 +338,7 @@ Primary color: hsl([h], [s]%, [l]%) — [why this color]
 Color shades: 50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950
 Border radius: [default]px, [cards]px, 9999px (pills)
 Depth strategy: [chosen strategy]
-Shadow scale: sm, md, lg, xl (defined in tokens.css)
+Shadow scale: sm, md, lg, xl (defined in global.css @theme)
 
 ## Component Patterns
 ### [Component Name]
@@ -400,36 +359,49 @@ Shadow scale: sm, md, lg, xl (defined in tokens.css)
 - Decisions Log: every personality-driven choice gets a "why"
 - Update Component Patterns when a component is used 2+ times
 
-## tokens.css Template
+## global.css Template
 
 ```css
-:root {
+@import "tailwindcss";
+
+@theme {
   /* Spacing */
-  --space-1: 4px;
-  --space-2: 8px;
-  --space-3: 12px;
-  --space-4: 16px;
-  --space-6: 24px;
-  --space-8: 32px;
-  --space-12: 48px;
-  --space-16: 64px;
-  --space-20: 80px;
-  --space-24: 96px;
-  --space-32: 128px;
+  --spacing-1: 4px;
+  --spacing-2: 8px;
+  --spacing-3: 12px;
+  --spacing-4: 16px;
+  --spacing-6: 24px;
+  --spacing-8: 32px;
+  --spacing-12: 48px;
+  --spacing-16: 64px;
+  --spacing-20: 80px;
+  --spacing-24: 96px;
+  --spacing-32: 128px;
 
   /* Typography */
-  --font-family: '[Font]', system-ui, sans-serif;
+  --font-sans: '[Font]', system-ui, sans-serif;
   --text-xs: 12px;
+  --text-xs--line-height: 1.75;
   --text-sm: 14px;
+  --text-sm--line-height: 1.5;
   --text-base: 16px;
+  --text-base--line-height: 1.5;
   --text-lg: 18px;
+  --text-lg--line-height: 1.5;
   --text-xl: 20px;
+  --text-xl--line-height: 1.5;
   --text-2xl: 24px;
+  --text-2xl--line-height: 1.2;
   --text-3xl: 30px;
+  --text-3xl--line-height: 1.2;
   --text-4xl: 36px;
+  --text-4xl--line-height: 1.2;
   --text-5xl: 48px;
+  --text-5xl--line-height: 1;
   --text-6xl: 60px;
+  --text-6xl--line-height: 1;
   --text-7xl: 72px;
+  --text-7xl--line-height: 1;
 
   /* Line height */
   --leading-none: 1;
@@ -438,38 +410,30 @@ Shadow scale: sm, md, lg, xl (defined in tokens.css)
   --leading-relaxed: 1.75;
 
   /* Colors — Grey ([temperature], [hue] base) */
-  --gray-50: hsl([h], 20%, 98%);
-  --gray-100: hsl([h], 18%, 96%);
-  --gray-200: hsl([h], 16%, 90%);
-  --gray-300: hsl([h], 14%, 82%);
-  --gray-400: hsl([h], 12%, 64%);
-  --gray-500: hsl([h], 10%, 46%);
-  --gray-600: hsl([h], 14%, 34%);
-  --gray-700: hsl([h], 18%, 24%);
-  --gray-800: hsl([h], 22%, 16%);
-  --gray-900: hsl([h], 25%, 10%);
-  --gray-950: hsl([h], 30%, 6%);
+  --color-gray-50: hsl([h], 20%, 98%);
+  --color-gray-100: hsl([h], 18%, 96%);
+  --color-gray-200: hsl([h], 16%, 90%);
+  --color-gray-300: hsl([h], 14%, 82%);
+  --color-gray-400: hsl([h], 12%, 64%);
+  --color-gray-500: hsl([h], 10%, 46%);
+  --color-gray-600: hsl([h], 14%, 34%);
+  --color-gray-700: hsl([h], 18%, 24%);
+  --color-gray-800: hsl([h], 22%, 16%);
+  --color-gray-900: hsl([h], 25%, 10%);
+  --color-gray-950: hsl([h], 30%, 6%);
 
   /* Colors — Primary */
-  --primary-50: hsl([h], [s]%, 97%);
-  --primary-100: hsl([h], [s]%, 93%);
-  --primary-200: hsl([h], [s]%, 85%);
-  --primary-300: hsl([h], [s]%, 74%);
-  --primary-400: hsl([h], [s]%, 62%);
-  --primary-500: hsl([h], [s]%, 52%);
-  --primary-600: hsl([h], [s]%, 44%);
-  --primary-700: hsl([h], [s]%, 36%);
-  --primary-800: hsl([h], [s]%, 28%);
-  --primary-900: hsl([h], [s]%, 20%);
-  --primary-950: hsl([h], [s]%, 12%);
-
-  /* Semantic */
-  --color-text-primary: var(--gray-900);
-  --color-text-secondary: var(--gray-600);
-  --color-text-tertiary: var(--gray-400);
-  --color-bg: white;
-  --color-bg-subtle: var(--gray-50);
-  --color-border: var(--gray-200);
+  --color-primary-50: hsl([h], [s]%, 97%);
+  --color-primary-100: hsl([h], [s]%, 93%);
+  --color-primary-200: hsl([h], [s]%, 85%);
+  --color-primary-300: hsl([h], [s]%, 74%);
+  --color-primary-400: hsl([h], [s]%, 62%);
+  --color-primary-500: hsl([h], [s]%, 52%);
+  --color-primary-600: hsl([h], [s]%, 44%);
+  --color-primary-700: hsl([h], [s]%, 36%);
+  --color-primary-800: hsl([h], [s]%, 28%);
+  --color-primary-900: hsl([h], [s]%, 20%);
+  --color-primary-950: hsl([h], [s]%, 12%);
 
   /* Shadows (two-part: direct light + ambient occlusion) */
   --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
@@ -490,16 +454,22 @@ Shadow scale: sm, md, lg, xl (defined in tokens.css)
   --ease-default: cubic-bezier(0.4, 0, 0.2, 1);
 
   /* Layout */
-  --content-width: 1200px;
+  --container-max: 1200px;
 
   /* Container size references (use with @container, not @media) */
   /* sm: 640px | md: 768px | lg: 1024px | xl: 1280px */
 }
+
+/* Font smoothing — Tailwind preflight handles resets */
+body {
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
 ```
 
 **Rules:**
-- No raw values allowed in component files — everything references tokens via `var(--token)`
-- Semantic aliases required (color-text-primary, color-bg, etc.)
+- No arbitrary values in component files — all styling via Tailwind utility classes referencing theme tokens
+- Theme tokens map directly to Tailwind utilities (e.g., `--color-primary-500` → `bg-primary-500`, `text-primary-500`)
 - Adjust grey hue, primary hue/saturation, and shadow opacity to match project personality
 - Increase saturation as lightness moves away from 50% to prevent washed-out shades
 - Rotate hue slightly toward bright hues when lightening, dark hues when darkening (max 20-30 degrees)

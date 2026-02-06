@@ -1,0 +1,88 @@
+---
+interface Props {
+  state?: 'hover' | 'focus' | 'disabled' | 'error';
+  size?: 'sm' | 'md' | 'lg';
+  label?: string;
+  hint?: string;
+  options?: string[];
+  placeholder?: string;
+}
+
+const {
+  state,
+  size = 'md',
+  label,
+  hint,
+  options = ['Option 1', 'Option 2', 'Option 3'],
+  placeholder = 'Select an option',
+} = Astro.props;
+
+const sizeClasses: Record<string, string> = {
+  sm: 'text-sm px-3 py-1.5 pr-8',
+  md: 'text-base px-4 py-2.5 pr-10',
+  lg: 'text-lg px-4 py-3 pr-10',
+};
+
+const labelSizeClasses: Record<string, string> = {
+  sm: 'text-xs',
+  md: 'text-sm',
+  lg: 'text-base',
+};
+
+function resolveClasses(): string {
+  const parts = [
+    'block w-full rounded-md border font-sans bg-white text-gray-900 appearance-none cursor-pointer',
+    sizeClasses[size],
+  ];
+
+  if (state === 'hover') {
+    parts.push('border-gray-400');
+  } else if (state === 'focus') {
+    parts.push('border-primary-500 outline-2 outline-primary-300 outline-offset-0');
+  } else if (state === 'error') {
+    parts.push('border-red-500');
+  } else if (state === 'disabled') {
+    parts.push('border-gray-200 bg-gray-50 text-gray-400 cursor-not-allowed');
+  } else if (!state) {
+    parts.push(
+      'border-gray-300',
+      'hover:border-gray-400',
+      'focus:border-primary-500 focus:outline-2 focus:outline-primary-300 focus:outline-offset-0',
+      'transition-colors duration-fast ease-default',
+    );
+  } else {
+    parts.push('border-gray-300');
+  }
+
+  return parts.join(' ');
+}
+
+const classes = resolveClasses();
+const chevronSize = size === 'sm' ? 14 : size === 'lg' ? 20 : 16;
+---
+
+<div class="flex flex-col gap-1.5">
+  {label && (
+    <label class={`font-medium text-gray-700 ${labelSizeClasses[size]}`}>{label}</label>
+  )}
+  <div class="relative">
+    <select
+      class={classes}
+      disabled={state === 'disabled' || undefined}
+      data-state={state || undefined}
+    >
+      <option value="" disabled selected>{placeholder}</option>
+      {options.map((opt) => (
+        <option>{opt}</option>
+      ))}
+    </select>
+    <div class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none">
+      <svg width={chevronSize} height={chevronSize} viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="6 9 12 15 18 9" />
+      </svg>
+    </div>
+  </div>
+  {hint && (
+    <p class={`text-xs ${state === 'error' ? 'text-red-500' : 'text-gray-400'}`}>{hint}</p>
+  )}
+</div>

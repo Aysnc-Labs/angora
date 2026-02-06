@@ -1,0 +1,71 @@
+---
+interface Props {
+  state?: 'hover' | 'focus' | 'disabled' | 'error';
+  size?: 'sm' | 'md' | 'lg';
+  placeholder?: string;
+  value?: string;
+  label?: string;
+  hint?: string;
+  rows?: number;
+}
+
+const { state, size = 'md', placeholder = 'Enter text...', value, label, hint, rows = 4 } = Astro.props;
+
+const sizeClasses: Record<string, string> = {
+  sm: 'text-sm px-3 py-1.5',
+  md: 'text-base px-4 py-2.5',
+  lg: 'text-lg px-4 py-3',
+};
+
+const labelSizeClasses: Record<string, string> = {
+  sm: 'text-xs',
+  md: 'text-sm',
+  lg: 'text-base',
+};
+
+function resolveClasses(): string {
+  const parts = [
+    'block w-full rounded-md border font-sans bg-white text-gray-900 resize-y',
+    sizeClasses[size],
+  ];
+
+  if (state === 'hover') {
+    parts.push('border-gray-400');
+  } else if (state === 'focus') {
+    parts.push('border-primary-500 outline-2 outline-primary-300 outline-offset-0');
+  } else if (state === 'error') {
+    parts.push('border-red-500 text-red-900');
+  } else if (state === 'disabled') {
+    parts.push('border-gray-200 bg-gray-50 text-gray-400 cursor-not-allowed');
+  } else if (!state) {
+    parts.push(
+      'border-gray-300',
+      'hover:border-gray-400',
+      'focus:border-primary-500 focus:outline-2 focus:outline-primary-300 focus:outline-offset-0',
+      'transition-colors duration-fast ease-default',
+    );
+  } else {
+    parts.push('border-gray-300');
+  }
+
+  return parts.join(' ');
+}
+
+const classes = resolveClasses();
+---
+
+<div class="flex flex-col gap-1.5">
+  {label && (
+    <label class={`font-medium text-gray-700 ${labelSizeClasses[size]}`}>{label}</label>
+  )}
+  <textarea
+    class={classes}
+    placeholder={placeholder}
+    rows={rows}
+    disabled={state === 'disabled' || undefined}
+    data-state={state || undefined}
+  >{value}</textarea>
+  {hint && (
+    <p class={`text-xs ${state === 'error' ? 'text-red-500' : 'text-gray-400'}`}>{hint}</p>
+  )}
+</div>

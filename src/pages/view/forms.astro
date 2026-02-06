@@ -1,0 +1,41 @@
+---
+import FullScreenLayout from '../../layouts/FullScreenLayout.astro';
+import TextInput from '../../components/TextInput.astro';
+import Textarea from '../../components/Textarea.astro';
+import Select from '../../components/Select.astro';
+import Checkbox from '../../components/Checkbox.astro';
+import Radio from '../../components/Radio.astro';
+import Toggle from '../../components/Toggle.astro';
+import FileUpload from '../../components/FileUpload.astro';
+import SearchInput from '../../components/SearchInput.astro';
+import Button from '../../components/Button.astro';
+---
+
+<FullScreenLayout title="Forms">
+  <div class="p-12 max-w-lg mx-auto">
+    <h1 class="text-3xl font-bold text-gray-900 mb-8">Contact Us</h1>
+    <div class="flex flex-col gap-6">
+      <TextInput label="Full name" placeholder="Jane Doe" />
+      <TextInput label="Email" placeholder="jane@example.com" />
+      <Textarea label="Message" placeholder="Write your message..." rows={4} />
+      <Select label="Subject" options={['General inquiry', 'Technical support', 'Billing', 'Partnership']} placeholder="Choose a subject" />
+      <SearchInput placeholder="Search topics..." />
+      <div class="flex flex-col gap-3">
+        <Checkbox label="I agree to the terms and conditions" />
+        <Checkbox label="Subscribe to newsletter" />
+      </div>
+      <div class="flex flex-col gap-3">
+        <p class="text-sm font-medium text-gray-700">Preferred contact method</p>
+        <Radio label="Email" selected />
+        <Radio label="Phone" />
+        <Radio label="Text message" />
+      </div>
+      <Toggle label="Send me updates" />
+      <FileUpload variant="dropzone" />
+      <div class="flex gap-3">
+        <Button>Submit</Button>
+        <Button variant="secondary">Cancel</Button>
+      </div>
+    </div>
+  </div>
+</FullScreenLayout>

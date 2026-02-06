@@ -1,0 +1,461 @@
+---
+import GalleryLayout from '../layouts/GalleryLayout.astro';
+import TextInput from '../components/TextInput.astro';
+import Textarea from '../components/Textarea.astro';
+import Select from '../components/Select.astro';
+import Checkbox from '../components/Checkbox.astro';
+import Radio from '../components/Radio.astro';
+import Toggle from '../components/Toggle.astro';
+import FileUpload from '../components/FileUpload.astro';
+import SearchInput from '../components/SearchInput.astro';
+import Button from '../components/Button.astro';
+---
+
+<GalleryLayout title="Forms" description="Form elements — inputs, selects, checkboxes, radios, toggles, and more." fullscreenHref="/view/forms">
+
+  <!-- Text Input -->
+  <section class="specimen-section">
+    <h2>Text Input</h2>
+
+    <h3 class="text-sm font-semibold text-gray-600 uppercase tracking-wide mb-4">States</h3>
+    <div class="specimen-row" style="align-items: flex-start;">
+      <div class="specimen" style="width: 200px;">
+        <TextInput placeholder="Default" />
+        <span class="specimen-label">default</span>
+      </div>
+      <div class="specimen" style="width: 200px;">
+        <TextInput state="hover" placeholder="Hover" />
+        <span class="specimen-label">hover</span>
+      </div>
+      <div class="specimen" style="width: 200px;">
+        <TextInput state="focus" placeholder="Focus" />
+        <span class="specimen-label">focus</span>
+      </div>
+      <div class="specimen" style="width: 200px;">
+        <TextInput state="disabled" placeholder="Disabled" />
+        <span class="specimen-label">disabled</span>
+      </div>
+      <div class="specimen" style="width: 200px;">
+        <TextInput state="error" placeholder="Error" hint="This field is required" />
+        <span class="specimen-label">error</span>
+      </div>
+      <div class="specimen" style="width: 200px;">
+        <TextInput state="success" value="Valid input" hint="Looks good!" />
+        <span class="specimen-label">success</span>
+      </div>
+    </div>
+
+    <h3 class="text-sm font-semibold text-gray-600 uppercase tracking-wide mb-4 mt-8">Sizes</h3>
+    <div class="specimen-row" style="align-items: flex-start;">
+      <div class="specimen" style="width: 200px;">
+        <TextInput size="sm" placeholder="Small" />
+        <span class="specimen-label">sm</span>
+      </div>
+      <div class="specimen" style="width: 200px;">
+        <TextInput size="md" placeholder="Medium" />
+        <span class="specimen-label">md</span>
+      </div>
+      <div class="specimen" style="width: 200px;">
+        <TextInput size="lg" placeholder="Large" />
+        <span class="specimen-label">lg</span>
+      </div>
+    </div>
+
+    <h3 class="text-sm font-semibold text-gray-600 uppercase tracking-wide mb-4 mt-8">With Label &amp; Icon</h3>
+    <div class="specimen-row" style="align-items: flex-start;">
+      <div class="specimen" style="width: 240px;">
+        <TextInput label="Email address" placeholder="you@example.com" />
+        <span class="specimen-label">with label</span>
+      </div>
+      <div class="specimen" style="width: 240px;">
+        <TextInput label="Search" placeholder="Search..." withIcon />
+        <span class="specimen-label">with icon</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Textarea -->
+  <section class="specimen-section">
+    <h2>Textarea</h2>
+
+    <h3 class="text-sm font-semibold text-gray-600 uppercase tracking-wide mb-4">States</h3>
+    <div class="specimen-row" style="align-items: flex-start;">
+      <div class="specimen" style="width: 240px;">
+        <Textarea placeholder="Default" />
+        <span class="specimen-label">default</span>
+      </div>
+      <div class="specimen" style="width: 240px;">
+        <Textarea state="hover" placeholder="Hover" />
+        <span class="specimen-label">hover</span>
+      </div>
+      <div class="specimen" style="width: 240px;">
+        <Textarea state="focus" placeholder="Focus" />
+        <span class="specimen-label">focus</span>
+      </div>
+      <div class="specimen" style="width: 240px;">
+        <Textarea state="disabled" placeholder="Disabled" />
+        <span class="specimen-label">disabled</span>
+      </div>
+      <div class="specimen" style="width: 240px;">
+        <Textarea state="error" placeholder="Error" hint="Please enter a message" />
+        <span class="specimen-label">error</span>
+      </div>
+    </div>
+
+    <h3 class="text-sm font-semibold text-gray-600 uppercase tracking-wide mb-4 mt-8">Sizes</h3>
+    <div class="specimen-row" style="align-items: flex-start;">
+      <div class="specimen" style="width: 220px;">
+        <Textarea size="sm" placeholder="Small" rows={3} />
+        <span class="specimen-label">sm</span>
+      </div>
+      <div class="specimen" style="width: 220px;">
+        <Textarea size="md" placeholder="Medium" rows={3} />
+        <span class="specimen-label">md</span>
+      </div>
+      <div class="specimen" style="width: 220px;">
+        <Textarea size="lg" placeholder="Large" rows={3} />
+        <span class="specimen-label">lg</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Select -->
+  <section class="specimen-section">
+    <h2>Select</h2>
+
+    <h3 class="text-sm font-semibold text-gray-600 uppercase tracking-wide mb-4">States</h3>
+    <div class="specimen-row" style="align-items: flex-start;">
+      <div class="specimen" style="width: 200px;">
+        <Select />
+        <span class="specimen-label">default</span>
+      </div>
+      <div class="specimen" style="width: 200px;">
+        <Select state="hover" />
+        <span class="specimen-label">hover</span>
+      </div>
+      <div class="specimen" style="width: 200px;">
+        <Select state="focus" />
+        <span class="specimen-label">focus</span>
+      </div>
+      <div class="specimen" style="width: 200px;">
+        <Select state="disabled" />
+        <span class="specimen-label">disabled</span>
+      </div>
+      <div class="specimen" style="width: 200px;">
+        <Select state="error" hint="Please select an option" />
+        <span class="specimen-label">error</span>
+      </div>
+    </div>
+
+    <h3 class="text-sm font-semibold text-gray-600 uppercase tracking-wide mb-4 mt-8">Sizes</h3>
+    <div class="specimen-row" style="align-items: flex-start;">
+      <div class="specimen" style="width: 200px;">
+        <Select size="sm" />
+        <span class="specimen-label">sm</span>
+      </div>
+      <div class="specimen" style="width: 200px;">
+        <Select size="md" />
+        <span class="specimen-label">md</span>
+      </div>
+      <div class="specimen" style="width: 200px;">
+        <Select size="lg" />
+        <span class="specimen-label">lg</span>
+      </div>
+    </div>
+
+    <h3 class="text-sm font-semibold text-gray-600 uppercase tracking-wide mb-4 mt-8">With Label</h3>
+    <div class="specimen-row" style="align-items: flex-start;">
+      <div class="specimen" style="width: 240px;">
+        <Select label="Country" options={['United States', 'Canada', 'United Kingdom', 'Germany', 'France']} placeholder="Choose a country" />
+        <span class="specimen-label">with label</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Checkbox -->
+  <section class="specimen-section">
+    <h2>Checkbox</h2>
+
+    <h3 class="text-sm font-semibold text-gray-600 uppercase tracking-wide mb-4">States</h3>
+    <div class="specimen-row">
+      <div class="specimen">
+        <Checkbox label="Unchecked" />
+        <span class="specimen-label">unchecked</span>
+      </div>
+      <div class="specimen">
+        <Checkbox checked label="Checked" />
+        <span class="specimen-label">checked</span>
+      </div>
+      <div class="specimen">
+        <Checkbox indeterminate label="Indeterminate" />
+        <span class="specimen-label">indeterminate</span>
+      </div>
+      <div class="specimen">
+        <Checkbox state="hover" label="Hover" />
+        <span class="specimen-label">hover</span>
+      </div>
+      <div class="specimen">
+        <Checkbox checked state="hover" label="Hover checked" />
+        <span class="specimen-label">hover checked</span>
+      </div>
+      <div class="specimen">
+        <Checkbox state="focus" label="Focus" />
+        <span class="specimen-label">focus</span>
+      </div>
+      <div class="specimen">
+        <Checkbox state="disabled" label="Disabled" />
+        <span class="specimen-label">disabled</span>
+      </div>
+      <div class="specimen">
+        <Checkbox checked state="disabled" label="Disabled checked" />
+        <span class="specimen-label">disabled checked</span>
+      </div>
+    </div>
+
+    <h3 class="text-sm font-semibold text-gray-600 uppercase tracking-wide mb-4 mt-8">Sizes</h3>
+    <div class="specimen-row">
+      <div class="specimen">
+        <Checkbox size="sm" checked label="Small" />
+        <span class="specimen-label">sm</span>
+      </div>
+      <div class="specimen">
+        <Checkbox size="md" checked label="Medium" />
+        <span class="specimen-label">md</span>
+      </div>
+      <div class="specimen">
+        <Checkbox size="lg" checked label="Large" />
+        <span class="specimen-label">lg</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Radio -->
+  <section class="specimen-section">
+    <h2>Radio</h2>
+
+    <h3 class="text-sm font-semibold text-gray-600 uppercase tracking-wide mb-4">States</h3>
+    <div class="specimen-row">
+      <div class="specimen">
+        <Radio label="Unselected" />
+        <span class="specimen-label">unselected</span>
+      </div>
+      <div class="specimen">
+        <Radio selected label="Selected" />
+        <span class="specimen-label">selected</span>
+      </div>
+      <div class="specimen">
+        <Radio state="hover" label="Hover" />
+        <span class="specimen-label">hover</span>
+      </div>
+      <div class="specimen">
+        <Radio selected state="hover" label="Hover selected" />
+        <span class="specimen-label">hover selected</span>
+      </div>
+      <div class="specimen">
+        <Radio state="focus" label="Focus" />
+        <span class="specimen-label">focus</span>
+      </div>
+      <div class="specimen">
+        <Radio state="disabled" label="Disabled" />
+        <span class="specimen-label">disabled</span>
+      </div>
+      <div class="specimen">
+        <Radio selected state="disabled" label="Disabled selected" />
+        <span class="specimen-label">disabled selected</span>
+      </div>
+    </div>
+
+    <h3 class="text-sm font-semibold text-gray-600 uppercase tracking-wide mb-4 mt-8">Sizes</h3>
+    <div class="specimen-row">
+      <div class="specimen">
+        <Radio size="sm" selected label="Small" />
+        <span class="specimen-label">sm</span>
+      </div>
+      <div class="specimen">
+        <Radio size="md" selected label="Medium" />
+        <span class="specimen-label">md</span>
+      </div>
+      <div class="specimen">
+        <Radio size="lg" selected label="Large" />
+        <span class="specimen-label">lg</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Toggle/Switch -->
+  <section class="specimen-section">
+    <h2>Toggle / Switch</h2>
+
+    <h3 class="text-sm font-semibold text-gray-600 uppercase tracking-wide mb-4">States</h3>
+    <div class="specimen-row">
+      <div class="specimen">
+        <Toggle label="Off" />
+        <span class="specimen-label">off</span>
+      </div>
+      <div class="specimen">
+        <Toggle on label="On" />
+        <span class="specimen-label">on</span>
+      </div>
+      <div class="specimen">
+        <Toggle state="hover" label="Hover off" />
+        <span class="specimen-label">hover</span>
+      </div>
+      <div class="specimen">
+        <Toggle on state="hover" label="Hover on" />
+        <span class="specimen-label">hover on</span>
+      </div>
+      <div class="specimen">
+        <Toggle state="focus" label="Focus" />
+        <span class="specimen-label">focus</span>
+      </div>
+      <div class="specimen">
+        <Toggle state="disabled" label="Disabled" />
+        <span class="specimen-label">disabled</span>
+      </div>
+      <div class="specimen">
+        <Toggle on state="disabled" label="Disabled on" />
+        <span class="specimen-label">disabled on</span>
+      </div>
+    </div>
+
+    <h3 class="text-sm font-semibold text-gray-600 uppercase tracking-wide mb-4 mt-8">Sizes</h3>
+    <div class="specimen-row">
+      <div class="specimen">
+        <Toggle size="sm" on label="Small" />
+        <span class="specimen-label">sm</span>
+      </div>
+      <div class="specimen">
+        <Toggle size="md" on label="Medium" />
+        <span class="specimen-label">md</span>
+      </div>
+      <div class="specimen">
+        <Toggle size="lg" on label="Large" />
+        <span class="specimen-label">lg</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- File Upload -->
+  <section class="specimen-section">
+    <h2>File Upload</h2>
+
+    <h3 class="text-sm font-semibold text-gray-600 uppercase tracking-wide mb-4">Dropzone</h3>
+    <div class="specimen-row" style="align-items: flex-start;">
+      <div class="specimen" style="width: 280px;">
+        <FileUpload variant="dropzone" />
+        <span class="specimen-label">default</span>
+      </div>
+      <div class="specimen" style="width: 280px;">
+        <FileUpload variant="dropzone" state="hover" />
+        <span class="specimen-label">hover</span>
+      </div>
+      <div class="specimen" style="width: 280px;">
+        <FileUpload variant="dropzone" state="dragover" />
+        <span class="specimen-label">dragover</span>
+      </div>
+      <div class="specimen" style="width: 280px;">
+        <FileUpload variant="dropzone" state="disabled" />
+        <span class="specimen-label">disabled</span>
+      </div>
+    </div>
+
+    <h3 class="text-sm font-semibold text-gray-600 uppercase tracking-wide mb-4 mt-8">Button Style</h3>
+    <div class="specimen-row">
+      <div class="specimen">
+        <FileUpload variant="button" />
+        <span class="specimen-label">default</span>
+      </div>
+      <div class="specimen">
+        <FileUpload variant="button" state="hover" />
+        <span class="specimen-label">hover</span>
+      </div>
+      <div class="specimen">
+        <FileUpload variant="button" state="focus" />
+        <span class="specimen-label">focus</span>
+      </div>
+      <div class="specimen">
+        <FileUpload variant="button" state="disabled" />
+        <span class="specimen-label">disabled</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Search Input -->
+  <section class="specimen-section">
+    <h2>Search Input</h2>
+
+    <h3 class="text-sm font-semibold text-gray-600 uppercase tracking-wide mb-4">States</h3>
+    <div class="specimen-row" style="align-items: flex-start;">
+      <div class="specimen" style="width: 220px;">
+        <SearchInput />
+        <span class="specimen-label">default</span>
+      </div>
+      <div class="specimen" style="width: 220px;">
+        <SearchInput state="hover" />
+        <span class="specimen-label">hover</span>
+      </div>
+      <div class="specimen" style="width: 220px;">
+        <SearchInput state="focus" />
+        <span class="specimen-label">focus</span>
+      </div>
+      <div class="specimen" style="width: 220px;">
+        <SearchInput state="disabled" />
+        <span class="specimen-label">disabled</span>
+      </div>
+      <div class="specimen" style="width: 220px;">
+        <SearchInput state="has-value" withClear />
+        <span class="specimen-label">has-value + clear</span>
+      </div>
+    </div>
+
+    <h3 class="text-sm font-semibold text-gray-600 uppercase tracking-wide mb-4 mt-8">Sizes</h3>
+    <div class="specimen-row" style="align-items: flex-start;">
+      <div class="specimen" style="width: 200px;">
+        <SearchInput size="sm" />
+        <span class="specimen-label">sm</span>
+      </div>
+      <div class="specimen" style="width: 200px;">
+        <SearchInput size="md" />
+        <span class="specimen-label">md</span>
+      </div>
+      <div class="specimen" style="width: 200px;">
+        <SearchInput size="lg" />
+        <span class="specimen-label">lg</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Demo Form -->
+  <section class="specimen-section">
+    <h2>Demo</h2>
+    <div class="demo-area">
+      <h3>Interactive — hover, click, and tab to test</h3>
+      <div class="max-w-lg flex flex-col gap-6">
+        <TextInput label="Full name" placeholder="Jane Doe" />
+        <TextInput label="Email" placeholder="jane@example.com" />
+        <Textarea label="Message" placeholder="Write your message..." rows={3} />
+        <Select label="Subject" options={['General inquiry', 'Technical support', 'Billing', 'Partnership']} placeholder="Choose a subject" />
+        <SearchInput placeholder="Search topics..." />
+        <div class="flex flex-col gap-3">
+          <Checkbox label="I agree to the terms and conditions" />
+          <Checkbox label="Subscribe to newsletter" />
+        </div>
+        <div class="flex flex-col gap-3">
+          <p class="text-sm font-medium text-gray-700">Preferred contact method</p>
+          <Radio label="Email" selected />
+          <Radio label="Phone" />
+          <Radio label="Text message" />
+        </div>
+        <div class="flex items-center justify-between">
+          <Toggle label="Send me updates" />
+        </div>
+        <FileUpload variant="dropzone" />
+        <div class="flex gap-3">
+          <Button>Submit</Button>
+          <Button variant="secondary">Cancel</Button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</GalleryLayout>
