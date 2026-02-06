@@ -8,13 +8,13 @@ Design engineering for enterprise marketing sites where HTML + CSS is the design
 
 ### Two Pillars
 
-**Pillar 1 — Systematic Constraints (Refactoring UI):**
+**Pillar 1 — Systematic Constraints:**
 - Define all design tokens upfront: spacing, type scale, color shades, shadows, radii
 - Never pick arbitrary values — choose from constrained sets
 - Design by elimination, not imagination
 - If you're making the same decision twice, you need a system
 
-**Pillar 2 — Intentional Design (interface-design):**
+**Pillar 2 — Intentional Design:**
 - Defaults are the enemy — if another AI would produce the same output, you failed
 - Every choice needs a "why" — if the answer is "it's common" or "it's clean," you defaulted
 - Domain exploration before any visual work
@@ -33,6 +33,10 @@ design-system/
   gallery/
     index.html           <- Links to all components
     _base.html           <- Shared base: reset, body typography, gallery chrome
+    style-guide.html     <- Visual token preview (Phase 2)
+    buttons.html         <- Sizes, variants, icon buttons (Phase 2)
+    grid.html            <- Section spacing, column gutters (Phase 2)
+    cards.html           <- Basic card patterns (Phase 2)
     hero.html            <- All hero variants/states
     navigation.html
     pricing.html
@@ -41,7 +45,7 @@ design-system/
 
 - `system.md` — Design decisions, constraints, patterns. Under 200 lines. See Templates Reference below for template.
 - `tokens.css` — CSS custom properties. No raw values in components. See Templates Reference below for template.
-- `_base.html` — Contains everything shared across gallery pages: the `<head>` (meta, font imports, token link), global reset (`*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }`), body typography (font-family, font-size, line-height, color, background, font-smoothing), and gallery chrome styles (section headings, labels, specimen layout). This is the single source for all global styles — **component pages must not redefine any of this.**
+- `_base.html` — Contains everything shared across gallery pages: the `<head>` (meta, font imports, token link), global reset (`*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }`), body typography (font-family, font-size, line-height, color, background, font-smoothing), and gallery chrome styles (section headings, labels, specimen layout, demo section containers). This is the single source for all global styles — **component pages must not redefine any of this.**
 - `gallery/*.html` — Each component page copies the base structure from `_base.html` and adds ONLY its component-specific `<style>` block (the `@scope` rules). No reset, no body styles, no gallery chrome — those come from the base. When `_base.html` changes, propagate to all component pages.
 
 ## Markup Convention
@@ -91,6 +95,24 @@ Each component's styles scoped to its custom element. No style leakage, no globa
 }
 ```
 
+### Container Queries, Not Media Queries
+
+All responsive behavior uses `@container` so components adapt to their container, not the viewport. This keeps components portable — a card in a 3-column grid adapts differently than the same card in a sidebar, without media query overrides. No `@media` in component files.
+
+```css
+@scope (site-pricing) {
+  :scope {
+    container-type: inline-size;
+  }
+  @container (min-width: 640px) {
+    site-pricing-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @container (min-width: 1024px) {
+    site-pricing-grid { grid-template-columns: repeat(3, 1fr); }
+  }
+}
+```
+
 ### States via Attributes
 
 All states rendered statically. No JavaScript. Attributes, not classes.
@@ -122,6 +144,34 @@ All states rendered statically. No JavaScript. Attributes, not classes.
 }
 ```
 
+### Specimens and Demos
+
+Gallery pages have two layers for interactive components:
+
+**Specimens** — Static snapshots of each state, rendered via `state` attributes. These are the documentation: every state frozen side-by-side for visual review.
+
+**Demo section** — A "live" version of the component using real CSS pseudo-classes (`:hover`, `:focus`, `:active`). No `state` attributes. This is the fully-formed component that gets composed into other components and pages.
+
+CSS includes both patterns so the same stylesheet serves both purposes:
+
+```css
+@scope (site-button) {
+  /* Specimens (static documentation) */
+  :scope[state="hover"] { background: var(--primary-600); }
+  /* Demo + production (real interaction) */
+  :scope:hover { background: var(--primary-600); }
+}
+```
+
+Transitions apply only to pseudo-class rules (the demo/production path), not to `[state]` specimens. Use transition tokens for consistent timing:
+
+```css
+:scope:hover {
+  background: var(--primary-600);
+  transition: background var(--duration-fast) var(--ease-default);
+}
+```
+
 ## Workflow
 
 ### Phase 1: Domain Exploration
@@ -133,12 +183,13 @@ Before any visual work. Four mandatory questions answered **explicitly** (not in
 3. **What should this feel like?** Specific, evocative words — "confident like a bank vault," "energetic like a launchpad." NOT "clean and modern."
 4. **What accessibility standard?** Ask the user which level to target. Common options: WCAG 2.1 AA (most common — 4.5:1 normal text, 3:1 large text), WCAG 2.1 AAA (stricter — 7:1 normal text, 4.5:1 large text), or WCAG 2.2 AA (adds target size ≥ 24x24px for interactive elements, focus-not-obscured, and dragging alternatives). Record the chosen standard in `system.md` and enforce it in the review gate.
 
-Then four mandatory outputs:
+Then five mandatory outputs:
 
 1. **Domain vocabulary** — 5+ words from the product's world (cybersecurity: shields, vaults, perimeters, sentinel)
 2. **Color world** — 5+ colors that exist naturally in the product's domain
 3. **Signature element** — One visual choice that could only exist for THIS product (fails the swap test)
 4. **Defaults to reject** — 3+ obvious/generic choices named explicitly to consciously avoid
+5. **Differentiation** — What makes this UNFORGETTABLE? The one visual thing someone will remember after closing the tab
 
 ### Phase 2: Design System Setup
 
@@ -152,10 +203,15 @@ Then four mandatory outputs:
 - Border radius scale, depth strategy (consistent application — don't mix soft diffuse shadows with solid flat shadows on similar elements)
 - Shadow scale using two-part shadows
 
-**Output:** `system.md` + `tokens.css` + `gallery/style-guide.html` (visual preview of all tokens).
+**Output:** `system.md` + `tokens.css` + four foundational gallery pages:
+1. `style-guide.html` — Visual preview of all tokens (colors, type scale, spacing, shadows, radii)
+2. `buttons.html` — Sizes (sm, md, lg), variants (primary, secondary, ghost), icon buttons. **Collaborate with user** on specific sizes and icon button patterns.
+3. `grid.html` — Section spacing rhythm + column gutter patterns. **Collaborate with user** on grid variants (2-col, 3-col, 4-col, asymmetric) and gutter/section spacing values.
+4. `cards.html` — Basic card patterns (content card, feature card, pricing card shell). **Ask user for feedback** on card variants before proceeding.
+
 See Templates Reference below for starter templates.
 
-**Visual review checkpoint.** User opens `style-guide.html` in browser. Approves before component work begins.
+**Visual review checkpoint.** User opens all four gallery pages in browser. Approves before further component work begins.
 
 ### Phase 3: Component Building
 
@@ -168,7 +224,7 @@ For each component:
 5. **Visual review** — User opens gallery page. Approves or iterates.
 6. **Update system.md** — Record new reusable patterns.
 
-**Suggested component order:** Typography specimens, Buttons/CTAs, Navigation, Hero sections, Feature grids, Pricing tables, Testimonials, Stats, Logo clouds, FAQ, CTA sections, Footer, Cards.
+**Suggested component order:** Typography specimens, Navigation, Hero sections, Feature grids, Pricing tables, Testimonials, Stats, Logo clouds, FAQ, CTA sections, Footer. (Buttons, cards, and grid are already built in Phase 2.)
 
 ### Phase 4: Self-Review Gate
 
@@ -188,6 +244,7 @@ Dispatch a validation subagent after every component. Fresh context, loaded with
 | States | Primitives: default, hover, active, focus, disabled. Composites: own variants only, child primitives in default state |
 | Semantic HTML | Content uses semantic elements. Custom elements only for structure |
 | Scoping | All styles use @scope. No global selectors in component files |
+| Responsiveness | Container queries only. No media queries in component files |
 
 **Soft rules** (from `system.md`): anti-pattern violations, pattern consistency, personality alignment (swap test).
 
@@ -380,8 +437,17 @@ Shadow scale: sm, md, lg, xl (defined in tokens.css)
   --radius-lg: 12px;
   --radius-full: 9999px;
 
+  /* Transition */
+  --duration-fast: 150ms;
+  --duration-normal: 250ms;
+  --duration-slow: 400ms;
+  --ease-default: cubic-bezier(0.4, 0, 0.2, 1);
+
   /* Layout */
   --content-width: 1200px;
+
+  /* Container size references (use with @container, not @media) */
+  /* sm: 640px | md: 768px | lg: 1024px | xl: 1280px */
 }
 ```
 
@@ -396,7 +462,7 @@ Shadow scale: sm, md, lg, xl (defined in tokens.css)
 
 # Design Principles Reference
 
-Principles from Refactoring UI and interface-design that inform the self-review gate and all design decisions.
+Principles that inform the self-review gate and all design decisions.
 
 ## Process & Personality
 
@@ -410,6 +476,7 @@ Principles from Refactoring UI and interface-design that inform the self-review 
 - Systematize everything — define constrained scales for font size, font weight, line-height, color, margin, padding, width, height, box shadows, border-radius, border-width, and opacity. If you're picking a value, it should come from a predefined scale.
 - Design by elimination — pick a value from your scale, try its neighbors, eliminate obviously wrong ones. Never pick arbitrary values.
 - Start mobile-first (~400px), then scale up. You'll change less than you think.
+- Never converge on common defaults across projects — if two different projects end up looking similar, something went wrong. Each design system must feel genuinely tailored to its domain, audience, and personality. Run the swap test on the whole system, not just individual choices.
 
 ## Hierarchy
 
@@ -434,6 +501,7 @@ Principles from Refactoring UI and interface-design that inform the self-review 
 - Relative sizing doesn't scale — large elements shrink faster than small ones at smaller viewports. Don't use proportional relationships.
 - Button padding doesn't scale proportionally — large buttons need disproportionately more padding, small buttons need less. Specify padding per size variant (e.g., `8px 16px` sm, `12px 24px` md, `16px 32px` lg), never use `em` for button padding.
 - Avoid ambiguous spacing — related elements must be closer together than unrelated elements. Always. Applies to form labels/inputs, section headings, list items, horizontal layouts.
+- Spatial composition is a design tool — asymmetry, overlap, diagonal flow, grid-breaking elements, generous negative space OR controlled density. Choose deliberately based on personality. Symmetry is safe but forgettable; asymmetry creates energy and memorability when the project calls for it.
 
 ## Typography
 
@@ -504,7 +572,7 @@ Principles from Refactoring UI and interface-design that inform the self-review 
 
 - Supercharge defaults: replace bullets with icons, promote quotes into visual elements (large colored quotation marks), style links with custom underlines, style checkboxes/radio buttons with brand colors on `:checked`.
 - Add color with accent borders: top of cards, active nav items, side of alerts, under headlines, top of entire layout.
-- Decorate backgrounds: alternate section colors, subtle gradients (hues within 30 degrees max — wider looks garish), repeating patterns at very low contrast (opacity 0.05-0.1), simple geometric shapes (circles, dots, diagonal lines) positioned in corners.
+- Decorate backgrounds: alternate section colors, subtle gradients (hues within 30 degrees max — wider looks garish), repeating patterns at very low contrast (opacity 0.05-0.1), simple geometric shapes (circles, dots, diagonal lines) positioned in corners. Advanced techniques: gradient meshes for organic color blends, noise/grain textures (`filter: url(#noise)` SVG or CSS `background-image` with tiny repeated noise tile), layered transparencies for depth, dramatic shadows on floating elements, and grain overlays at low opacity (0.03-0.08) to add tactile warmth to flat surfaces.
 - Patterns don't have to tile the full background — running along just one edge (top, bottom) of a section is more subtle.
 - Use fewer borders: try box shadows (works best when element color differs from background), different background colors, or extra spacing instead.
 - Empty states matter: use illustrations, emphasize CTAs, and **hide supporting UI** (tabs, filters, sort controls) entirely when there's no content to operate on. Don't show a fully-rendered shell around emptiness.
