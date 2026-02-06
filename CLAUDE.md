@@ -181,7 +181,7 @@ Before any visual work. Four mandatory questions answered **explicitly** (not in
 1. **Who is the audience?** Not "users" — the actual person. A CFO evaluating enterprise software? A developer choosing a tool?
 2. **What must they accomplish?** Not "learn about the product" — the specific action. Sign up? Request a demo? Compare tiers?
 3. **What should this feel like?** Specific, evocative words — "confident like a bank vault," "energetic like a launchpad." NOT "clean and modern."
-4. **What accessibility standard?** Ask the user which level to target. Common options: WCAG 2.1 AA (most common — 4.5:1 normal text, 3:1 large text), WCAG 2.1 AAA (stricter — 7:1 normal text, 4.5:1 large text), or WCAG 2.2 AA (adds target size ≥ 24x24px for interactive elements, focus-not-obscured, and dragging alternatives). Record the chosen standard in `system.md` and enforce it in the review gate.
+4. **What accessibility standard?** Ask the user which level to target. Common options: WCAG 2.1 AA (most common — 4.5:1 normal text, 3:1 large text), WCAG 2.1 AAA (stricter — 7:1 normal text, 4.5:1 large text), WCAG 2.2 AA (adds target size ≥ 24x24px for interactive elements, focus-not-obscured, and dragging alternatives), or EAA/EN 301 549 (European Accessibility Act — required for products/services sold in the EU from June 2025. Baseline is WCAG 2.1 AA plus: `lang` attribute on `<html>`, reflow at 320px CSS width with no horizontal scroll, non-text contrast ≥ 3:1 for UI components and meaningful graphics, text spacing override support — content must remain readable at line-height 1.5×, paragraph spacing 2×, letter-spacing 0.12em, word-spacing 0.16em — and text resizable to 200% without loss of content or function). Record the chosen standard in `system.md` and enforce it in the review gate.
 
 Then five mandatory outputs:
 
@@ -239,7 +239,7 @@ Dispatch a validation subagent after every component. Fresh context, loaded with
 | Spacing | Related elements closer, groups further apart |
 | Typography | Line length 45-75 chars. Line height proportional to font size |
 | Color | Communicates meaning, not decoration. Greys for structure, color for emphasis |
-| Accessibility | Contrast ratios per the standard chosen in Phase 1 (recorded in `system.md`). Check target sizes if WCAG 2.2. Don't rely on color alone. |
+| Accessibility | Contrast ratios per the standard chosen in Phase 1 (recorded in `system.md`). Check target sizes if WCAG 2.2. If EAA: verify `lang` on `<html>`, reflow at 320px, non-text contrast ≥ 3:1, text spacing override tolerance, 200% text resize. Don't rely on color alone. |
 | Depth | Consistent application across similar elements. Light source from above. |
 | States | Primitives: default, hover, active, focus, disabled. Composites: own variants only, child primitives in default state |
 | Semantic HTML | Content uses semantic elements. Custom elements only for structure |
@@ -307,10 +307,15 @@ Starter templates for Phase 2 (init). Adapt to the project's personality — the
 [This is the North Star — every decision traces back here]
 
 ## Accessibility
-Standard: [WCAG 2.1 AA | WCAG 2.1 AAA | WCAG 2.2 AA]
+Standard: [WCAG 2.1 AA | WCAG 2.1 AAA | WCAG 2.2 AA | EAA/EN 301 549]
 Contrast — normal text: [4.5:1 | 7:1]
 Contrast — large text: [3:1 | 4.5:1]
+Non-text contrast: [n/a | ≥ 3:1 (WCAG 2.2, EAA)]
 Target size: [n/a | ≥ 24x24px (WCAG 2.2)]
+Reflow: [n/a | 320px no horizontal scroll (EAA)]
+Text spacing override: [n/a | must support (EAA)]
+Text resize: [n/a | 200% without loss (EAA)]
+Lang attribute: [n/a | required on <html> (EAA)]
 
 ## Anti-Patterns
 [Explicit list of things NOT to do for this project]
