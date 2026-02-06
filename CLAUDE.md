@@ -35,6 +35,7 @@ design-system/
     _base.html           <- Shared base: reset, body typography, gallery chrome
     style-guide.html     <- Visual token preview (Phase 2)
     buttons.html         <- Sizes, variants, icon buttons (Phase 2)
+    icons.html           <- Icon gallery, sizes, colors (Phase 2)
     grid.html            <- Section spacing, column gutters (Phase 2)
     cards.html           <- Basic card patterns (Phase 2)
     hero.html            <- All hero variants/states
@@ -203,15 +204,16 @@ Then five mandatory outputs:
 - Border radius scale, depth strategy (consistent application — don't mix soft diffuse shadows with solid flat shadows on similar elements)
 - Shadow scale using two-part shadows
 
-**Output:** `system.md` + `tokens.css` + four foundational gallery pages:
+**Output:** `system.md` + `tokens.css` + five foundational gallery pages:
 1. `style-guide.html` — Visual preview of all tokens (colors, type scale, spacing, shadows, radii)
 2. `buttons.html` — Sizes (sm, md, lg), variants (primary, secondary, ghost), icon buttons. **Collaborate with user** on specific sizes and icon button patterns.
-3. `grid.html` — Section spacing rhythm + column gutter patterns. **Collaborate with user** on grid variants (2-col, 3-col, 4-col, asymmetric) and gutter/section spacing values.
-4. `cards.html` — Basic card patterns (content card, feature card, pricing card shell). **Ask user for feedback** on card variants before proceeding.
+3. `icons.html` — Icon gallery showing each icon at multiple sizes and in semantic colors. **Ask user to name a starter set of icons** (e.g., arrow-right, check, menu, close, chevron-down). More can be added later. Icons are inline SVG, styled with `currentColor` so they inherit text color. Show each icon at sm (16px), md (20px), lg (24px), xl (32px) sizes, plus color variants using semantic tokens.
+4. `grid.html` — Section spacing rhythm + column gutter patterns. **Collaborate with user** on grid variants (2-col, 3-col, 4-col, asymmetric) and gutter/section spacing values.
+5. `cards.html` — Basic card patterns (content card, feature card, pricing card shell). **Ask user for feedback** on card variants before proceeding.
 
 See Templates Reference below for starter templates.
 
-**Visual review checkpoint.** User opens all four gallery pages in browser. Approves before further component work begins.
+**Visual review checkpoint.** User opens all five gallery pages in browser. Approves before further component work begins.
 
 ### Phase 3: Component Building
 
@@ -224,7 +226,7 @@ For each component:
 5. **Visual review** — User opens gallery page. Approves or iterates.
 6. **Update system.md** — Record new reusable patterns.
 
-**Suggested component order:** Typography specimens, Navigation, Hero sections, Feature grids, Pricing tables, Testimonials, Stats, Logo clouds, FAQ, CTA sections, Footer. (Buttons, cards, and grid are already built in Phase 2.)
+**Suggested component order:** Typography specimens, Navigation, Hero sections, Feature grids, Pricing tables, Testimonials, Stats, Logo clouds, FAQ, CTA sections, Footer. (Buttons, icons, cards, and grid are already built in Phase 2.)
 
 ### Phase 4: Self-Review Gate
 
