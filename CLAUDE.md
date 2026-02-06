@@ -1,6 +1,8 @@
 # designing-with-markup
 
-Design engineering for enterprise marketing sites where HTML + CSS is the design medium. Produces a visual design system + component gallery that serves as the source of truth for engineering teams. No JavaScript, no interactivity — a static visual contract.
+A **design deliverable** — not a code deliverable. This replaces Figma + design tokens as the source of truth for engineering teams. HTML + CSS is the design medium. The gallery is the spec; the tokens are the annotations; the rendered components are the acceptance test.
+
+Engineering teams consume this the way they'd consume a Figma file: open the gallery, inspect the component, translate it into their framework (React + Tailwind, Vue + UnoCSS, Svelte, whatever). Nobody ships this HTML to production — they ship their framework's version, validated against this gallery.
 
 **Scope:** Marketing sites — heroes, pricing, features, testimonials, CTAs, navigation, footers. Not app UI, not dashboards.
 
@@ -318,11 +320,16 @@ Display current state: direction, tokens defined, components built, patterns est
 ### `assemble <page-name>`
 Compose approved components into a full page. Runs Phase 5.
 
+## What This Is
+
+- **A Figma replacement.** The gallery IS the design file. Components are the visual spec. Tokens are the design annotations. Engineers inspect this instead of a Figma inspect panel.
+- **Framework-agnostic.** Custom element names (`component-hero`) are spec labels — like Figma layer names. `@scope` CSS is the annotated design. Engineers translate to their stack (React + Tailwind, Vue + UnoCSS, etc.).
+- **The acceptance test.** Does the React component match the gallery specimen? That's the review gate. The gallery is the source of truth, not the framework implementation.
+
 ## What This Is NOT
 
+- **Not a code deliverable.** Nobody ships `<component-hero>` to production. They ship their framework's version of it.
 - **Not a component framework.** No JavaScript, no reactivity. Static visual contract.
-- **Not framework-specific.** Pure HTML + CSS. Engineers port to their framework.
-- **Not a Figma replacement.** Design in code, not a visual tool.
 - **Not for app UI.** Marketing sites only.
 
 ---
