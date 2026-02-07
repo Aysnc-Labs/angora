@@ -1,8 +1,10 @@
-# Bootstrap: Starting a New Design System
+---
+name: design-system-init
+description: Start a new design system. Runs domain exploration and design system setup.
+disable-model-invocation: true
+---
 
-Read this file when running `init` (Phase 1 + Phase 2). After the design system is set up, this file is not needed — `CLAUDE.md` has the ongoing workflow.
-
-## Phase 1: Domain Exploration
+# Phase 1: Domain Exploration
 
 Before any visual work. Four mandatory questions answered **explicitly** (not internally):
 
@@ -19,7 +21,9 @@ Then five mandatory outputs:
 4. **Defaults to reject** — 3+ obvious/generic choices named explicitly to consciously avoid
 5. **Differentiation** — What makes this UNFORGETTABLE? The one visual thing someone will remember after closing the tab
 
-## Phase 2: Design System Setup
+# Phase 2: Design System Setup
+
+**Reference:** Read [design-principles.md](../docs/design-principles.md) for detailed guidance on color (hue rotation, shade generation, grey temperature), typography (font discovery, line-height rules), and depth (two-part shadows, five-level scale).
 
 **2a. Structural tokens** (personality-agnostic):
 - Spacing scale (base 8px, ~25% jumps: 4, 8, 12, 16, 24, 32, 48, 64, 80, 96, 128)
