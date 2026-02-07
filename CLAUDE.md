@@ -39,53 +39,8 @@ Engineering teams consume this the way they'd consume a Figma file: open the gal
 
 ## File Structure
 
-```
-src/
-  system.md                    <- Design memory (Claude reads this every session)
-  styles/
-    global.css                 <- @import "tailwindcss" + @theme tokens (single source of truth)
-    reset.css                  <- Font smoothing extras (Tailwind preflight handles resets)
-    gallery.css                <- Gallery chrome: sidebar nav, specimen rows, labels, demo areas
-  layouts/
-    GalleryLayout.astro        <- Sidebar nav + page shell
-    FullScreenLayout.astro     <- Bare layout for full-screen component views
-  components/
-    Button.astro               <- Renders <button> with Tailwind classes
-    TextInput.astro            <- Text input with label, hint, icon support
-    Textarea.astro             <- Textarea with label, hint support
-    Select.astro               <- Select dropdown with custom chevron
-    Checkbox.astro             <- Checkbox with label
-    Radio.astro                <- Radio button with label
-    Toggle.astro               <- Toggle/switch with label
-    FileUpload.astro           <- File upload (dropzone or button style)
-    SearchInput.astro          <- Search input with icon and clear button
-    icons/
-      ArrowRight.astro         <- Renders inline SVG, accepts size prop
-      Close.astro
-      ...                      <- One .astro file per icon
-    ...                        <- One .astro file per component
-  pages/
-    index.astro                <- Style Guide (token preview, this IS the home page)
-    buttons.astro              <- Button variants, sizes, compositions
-    icons.astro                <- Icon gallery, sizes, colors
-    grid.astro                 <- Section spacing, column gutters
-    cards.astro                <- Card patterns
-    forms.astro                <- Form elements, states, compositions
-    hero.astro                 <- Hero variants
-    ...                        <- One file per component type
-    view/
-      buttons.astro            <- Full-screen button view (no gallery chrome)
-      forms.astro              <- Full-screen form view (no gallery chrome)
-      ...                      <- Full-screen view per component
-public/
-  icons/
-    arrow-right.svg            <- Downloadable SVG files
-    close.svg
-    ...
-```
-
-- `system.md` — Design decisions, constraints, patterns. Under 200 lines. See Templates Reference below for template.
-- `global.css` — `@import "tailwindcss"` + `@theme` block with all design tokens. This replaces `tokens.css`. See Templates Reference below for template.
+- `system.md` — The "why" file. Intent, accessibility standard, anti-patterns, and decisions log. No token values (that's `global.css`) and no component patterns (that's the components). **Read before building or reviewing a component (Phase 3, Phase 4). Not needed for edits to existing components or page assembly.**
+- `global.css` — `@import "tailwindcss"` + `@theme` block with all design tokens. Single source of truth.
 - `reset.css` — Font smoothing extras. Tailwind's preflight handles box-sizing and margin resets.
 - `gallery.css` — Gallery chrome: fixed left sidebar nav (scrollable, 240px), specimen rows, labels, demo areas. This is tooling — it doesn't ship to production.
 - `GalleryLayout.astro` — Imports global.css, reset.css, and gallery.css. Renders sidebar nav + `<main>` with `<slot />`. Accepts `fullscreenHref` prop to show a "View full screen" link. The sidebar nav lists all gallery pages; the Style Guide is the index/home page.
@@ -159,57 +114,27 @@ Valid `state` values for form components: `error`, `success`, `disabled`, `drago
 
 ## Workflow
 
-### Phase 1: Domain Exploration
+| Goal | Phase |
+|------|-------|
+| Start a new design system | Phase 1 + 2 |
+| Build a component | Phase 3 |
+| Review against the system | Phase 4 |
+| Compose a full page | Phase 5 |
 
-Before any visual work. Four mandatory questions answered **explicitly** (not internally):
+### Phase 1–2: Init
 
-1. **Who is the audience?** Not "users" — the actual person. A CFO evaluating enterprise software? A developer choosing a tool?
-2. **What must they accomplish?** Not "learn about the product" — the specific action. Sign up? Request a demo? Compare tiers?
-3. **What should this feel like?** Specific, evocative words — "confident like a bank vault," "energetic like a launchpad." NOT "clean and modern."
-4. **What accessibility standard?** Ask the user which level to target. Common options: WCAG 2.1 AA (most common — 4.5:1 normal text, 3:1 large text), WCAG 2.1 AAA (stricter — 7:1 normal text, 4.5:1 large text), WCAG 2.2 AA (adds target size ≥ 24x24px for interactive elements, focus-not-obscured, and dragging alternatives), or EAA/EN 301 549 (European Accessibility Act — required for products/services sold in the EU from June 2025. Baseline is WCAG 2.1 AA plus: `lang` attribute on `<html>`, reflow at 320px CSS width with no horizontal scroll, non-text contrast ≥ 3:1 for UI components and meaningful graphics, text spacing override support — content must remain readable at line-height 1.5×, paragraph spacing 2×, letter-spacing 0.12em, word-spacing 0.16em — and text resizable to 200% without loss of content or function). Record the chosen standard in `system.md` and enforce it in the review gate.
-
-Then five mandatory outputs:
-
-1. **Domain vocabulary** — 5+ words from the product's world (cybersecurity: shields, vaults, perimeters, sentinel)
-2. **Color world** — 5+ colors that exist naturally in the product's domain
-3. **Signature element** — One visual choice that could only exist for THIS product (fails the swap test)
-4. **Defaults to reject** — 3+ obvious/generic choices named explicitly to consciously avoid
-5. **Differentiation** — What makes this UNFORGETTABLE? The one visual thing someone will remember after closing the tab
-
-### Phase 2: Design System Setup
-
-**2a. Structural tokens** (personality-agnostic):
-- Spacing scale (base 8px, ~25% jumps: 4, 8, 12, 16, 24, 32, 48, 64, 80, 96, 128)
-- Type scale (hand-crafted, not modular ratio: 12, 14, 16, 18, 20, 24, 30, 36, 48, 60, 72)
-- Line height rules, max content widths, breakpoints
-
-**2b. Personality tokens** (informed by Phase 1):
-- Font family, color palette (full 50-950 shade ranges), grey temperature
-- Border radius scale, depth strategy (consistent application — don't mix soft diffuse shadows with solid flat shadows on similar elements)
-- Shadow scale using two-part shadows
-
-**Output:** `system.md` + `global.css` (with `@theme` tokens) + six foundational gallery pages:
-1. `index.astro` (Style Guide) — Visual preview of all tokens (colors, type scale, spacing, shadows, radii). This is the gallery home page.
-2. `buttons.astro` — Sizes (sm, md, lg), variants (primary, secondary, ghost), icon buttons. **Collaborate with user** on specific sizes and icon button patterns.
-3. `icons.astro` — Icon gallery showing each icon at multiple sizes and in semantic colors. Each icon exists as both an Astro component (`src/components/icons/*.astro` with `size` prop, renders inline SVG with `currentColor`) and a downloadable SVG (`public/icons/*.svg`). Gallery page shows each icon at sm (16px), md (20px), lg (24px), xl (32px) sizes, plus color variants using Tailwind color classes, with download links. **Ask user to name a starter set of icons** (e.g., arrow-right, check, menu, close, chevron-down).
-4. `grid.astro` — Section spacing rhythm + column gutter patterns. **Collaborate with user** on grid variants (2-col, 3-col, 4-col, asymmetric) and gutter/section spacing values.
-5. `cards.astro` — Basic card patterns (content card, feature card, pricing card shell). **Ask user for feedback** on card variants before proceeding.
-6. `forms.astro` — Form elements: text input, textarea, select, checkbox, radio, toggle/switch, file upload, search input. All states, sizes, and variants.
-
-See Templates Reference below for starter templates.
-
-**Visual review checkpoint.** User opens all six gallery pages in browser (`pnpm dev`). Approves before further component work begins.
+Domain exploration + design system setup. Read `BOOTSTRAP.md` for the full process — mandatory questions, outputs, token definitions, and the six foundational gallery pages. **After Phase 2 is complete, delete `BOOTSTRAP.md` and remove this reference.**
 
 ### Phase 3: Component Building
 
 For each component:
 
 1. **Declare intent** — What is it for? What hierarchy? What states?
-2. **Reference system.md** — Check existing patterns. Extend, don't duplicate.
+2. **Reference system.md** — Check anti-patterns and decisions log. Stay consistent.
 3. **Build** — Semantic HTML + Tailwind utility classes. Always interactive (pseudo-class variants). Use `state` prop only for form states that can't be triggered by interaction (error, success, disabled). All values from theme tokens.
 4. **Self-review gate** — Validate against hard rules (see below).
 5. **Visual review** — User opens gallery page. Approves or iterates.
-6. **Update system.md** — Record new reusable patterns.
+6. **Update system.md** — Only if you made a new decision worth recording (added to anti-patterns or decisions log). Most components won't need an update.
 
 **Suggested component order:** Typography specimens, Navigation, Hero sections, Feature grids, Pricing tables, Testimonials, Stats, Logo clouds, FAQ, CTA sections, Footer. (Buttons, icons, cards, grid, and forms are already built in Phase 2.)
 
@@ -250,26 +175,8 @@ Compose approved components into full pages:
 
 ### Phase 6: System Evolution
 
-- Add to `system.md` when a component is used 2+ times or establishes a reusable pattern
-- Update tokens only when truly necessary — resist adding values
-- Keep `system.md` under 200 lines
-
-## Commands
-
-### `init`
-Start new design system. Runs Phase 1 + Phase 2: domain exploration, token definition, style guide preview.
-
-### `component <name>`
-Build a new component. Runs Phase 3 for the specified component type.
-
-### `audit [path]`
-Review existing components or pages against the design system. Runs Phase 4 on demand.
-
-### `status`
-Display current state: direction, tokens defined, components built, patterns established.
-
-### `assemble <page-name>`
-Compose approved components into a full page. Runs Phase 5.
+- `system.md` only grows when you discover a new anti-pattern or make a system-wide decision. Token values live in `global.css`; component patterns live in the components.
+- Update `global.css` tokens only when truly necessary — resist adding values.
 
 ## What This Is
 
@@ -282,189 +189,6 @@ Compose approved components into a full page. Runs Phase 5.
 - **Not a code deliverable.** Nobody ships the gallery HTML to production. They ship their framework's version, validated against the gallery.
 - **Not a component framework.** No JavaScript, no reactivity. Static visual contract.
 - **Not for app UI.** Marketing sites only.
-
----
-
-# Templates Reference
-
-Starter templates for Phase 2 (init). Adapt to the project's personality — these are starting points, not rigid formats.
-
-## system.md Template
-
-```markdown
-# Design System
-
-## Intent
-[2-3 sentences: who is this for, what should it feel like, what is the personality]
-[This is the North Star — every decision traces back here]
-
-## Accessibility
-Standard: [WCAG 2.1 AA | WCAG 2.1 AAA | WCAG 2.2 AA | EAA/EN 301 549]
-Contrast — normal text: [4.5:1 | 7:1]
-Contrast — large text: [3:1 | 4.5:1]
-Non-text contrast: [n/a | ≥ 3:1 (WCAG 2.2, EAA)]
-Target size: [n/a | ≥ 24x24px (WCAG 2.2)]
-Reflow: [n/a | 320px no horizontal scroll (EAA)]
-Text spacing override: [n/a | must support (EAA)]
-Text resize: [n/a | 200% without loss (EAA)]
-Lang attribute: [n/a | required on <html> (EAA)]
-
-## Anti-Patterns
-[Explicit list of things NOT to do for this project]
-- e.g., No sharp corners (conflicts with warm personality)
-- e.g., No dramatic drop shadows
-- e.g., No pure black text
-
-## Tokens — Structural
-Base spacing unit: 8px
-Spacing scale: 4, 8, 12, 16, 24, 32, 48, 64, 80, 96, 128
-Type scale: 12, 14, 16, 18, 20, 24, 30, 36, 48, 60, 72
-Line heights: 1.0 (display), 1.2 (heading), 1.5 (body), 1.75 (small)
-Max content width: 1200px
-Breakpoints: 640px, 768px, 1024px, 1280px
-
-## Tokens — Personality
-Font: [chosen font] ([why])
-Grey temperature: [cool/warm] (hsl [hue] base, [description])
-Primary color: hsl([h], [s]%, [l]%) — [why this color]
-Color shades: 50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950
-Border radius: [default]px, [cards]px, 9999px (pills)
-Depth strategy: [chosen strategy]
-Shadow scale: sm, md, lg, xl (defined in global.css @theme)
-
-## Component Patterns
-### [Component Name]
-- [Key property]: [token reference]
-- [Key property]: [token reference]
-
-## Decisions Log
-| Decision | Chosen | Why |
-|----------|--------|-----|
-| Depth | [strategy] | [reason] |
-| Grey temp | [temp] | [reason] |
-| Radius | [values] | [reason] |
-```
-
-**Rules:**
-- Must stay under 200 lines — if it grows, the most important information gets diluted
-- Intent section is the North Star — every decision traces back to it
-- Decisions Log: every personality-driven choice gets a "why"
-- Update Component Patterns when a component is used 2+ times
-
-## global.css Template
-
-```css
-@import "tailwindcss";
-
-@theme {
-  /* Spacing */
-  --spacing-1: 4px;
-  --spacing-2: 8px;
-  --spacing-3: 12px;
-  --spacing-4: 16px;
-  --spacing-6: 24px;
-  --spacing-8: 32px;
-  --spacing-12: 48px;
-  --spacing-16: 64px;
-  --spacing-20: 80px;
-  --spacing-24: 96px;
-  --spacing-32: 128px;
-
-  /* Typography */
-  --font-sans: '[Font]', system-ui, sans-serif;
-  --text-xs: 12px;
-  --text-xs--line-height: 1.75;
-  --text-sm: 14px;
-  --text-sm--line-height: 1.5;
-  --text-base: 16px;
-  --text-base--line-height: 1.5;
-  --text-lg: 18px;
-  --text-lg--line-height: 1.5;
-  --text-xl: 20px;
-  --text-xl--line-height: 1.5;
-  --text-2xl: 24px;
-  --text-2xl--line-height: 1.2;
-  --text-3xl: 30px;
-  --text-3xl--line-height: 1.2;
-  --text-4xl: 36px;
-  --text-4xl--line-height: 1.2;
-  --text-5xl: 48px;
-  --text-5xl--line-height: 1;
-  --text-6xl: 60px;
-  --text-6xl--line-height: 1;
-  --text-7xl: 72px;
-  --text-7xl--line-height: 1;
-
-  /* Line height */
-  --leading-none: 1;
-  --leading-tight: 1.2;
-  --leading-normal: 1.5;
-  --leading-relaxed: 1.75;
-
-  /* Colors — Grey ([temperature], [hue] base) */
-  --color-gray-50: hsl([h], 20%, 98%);
-  --color-gray-100: hsl([h], 18%, 96%);
-  --color-gray-200: hsl([h], 16%, 90%);
-  --color-gray-300: hsl([h], 14%, 82%);
-  --color-gray-400: hsl([h], 12%, 64%);
-  --color-gray-500: hsl([h], 10%, 46%);
-  --color-gray-600: hsl([h], 14%, 34%);
-  --color-gray-700: hsl([h], 18%, 24%);
-  --color-gray-800: hsl([h], 22%, 16%);
-  --color-gray-900: hsl([h], 25%, 10%);
-  --color-gray-950: hsl([h], 30%, 6%);
-
-  /* Colors — Primary */
-  --color-primary-50: hsl([h], [s]%, 97%);
-  --color-primary-100: hsl([h], [s]%, 93%);
-  --color-primary-200: hsl([h], [s]%, 85%);
-  --color-primary-300: hsl([h], [s]%, 74%);
-  --color-primary-400: hsl([h], [s]%, 62%);
-  --color-primary-500: hsl([h], [s]%, 52%);
-  --color-primary-600: hsl([h], [s]%, 44%);
-  --color-primary-700: hsl([h], [s]%, 36%);
-  --color-primary-800: hsl([h], [s]%, 28%);
-  --color-primary-900: hsl([h], [s]%, 20%);
-  --color-primary-950: hsl([h], [s]%, 12%);
-
-  /* Shadows (two-part: direct light + ambient occlusion) */
-  --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
-  --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.08), 0 2px 4px -2px rgba(0,0,0,0.04);
-  --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.08), 0 4px 6px -4px rgba(0,0,0,0.04);
-  --shadow-xl: 0 20px 25px -5px rgba(0,0,0,0.08), 0 8px 10px -6px rgba(0,0,0,0.04);
-
-  /* Radius */
-  --radius-sm: 4px;
-  --radius-md: 8px;
-  --radius-lg: 12px;
-  --radius-full: 9999px;
-
-  /* Transition */
-  --duration-fast: 150ms;
-  --duration-normal: 250ms;
-  --duration-slow: 400ms;
-  --ease-default: cubic-bezier(0.4, 0, 0.2, 1);
-
-  /* Layout */
-  --container-max: 1200px;
-
-  /* Container size references (use with @container, not @media) */
-  /* sm: 640px | md: 768px | lg: 1024px | xl: 1280px */
-}
-
-/* Font smoothing — Tailwind preflight handles resets */
-body {
-  -webkit-font-smoothing: antialiased;
-  text-rendering: optimizeLegibility;
-}
-```
-
-**Rules:**
-- No arbitrary values in component files — all styling via Tailwind utility classes referencing theme tokens
-- Theme tokens map directly to Tailwind utilities (e.g., `--color-primary-500` → `bg-primary-500`, `text-primary-500`)
-- Adjust grey hue, primary hue/saturation, and shadow opacity to match project personality
-- Increase saturation as lightness moves away from 50% to prevent washed-out shades
-- Rotate hue slightly toward bright hues when lightening, dark hues when darkening (max 20-30 degrees)
 
 ---
 
