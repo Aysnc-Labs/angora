@@ -28,7 +28,8 @@ Then validate the target against the rules below.
 | States | All components interactive by default (pseudo-class variants). Form `state` prop only for non-interactive states (error, success, disabled). Composites: own variants only, child primitives in default state |
 | Semantic HTML | Content uses semantic elements (`section`, `nav`, `h1`-`h6`, `p`, `a`, `button`, `input`, etc.) |
 | Scoping | Component styles via Tailwind classes on elements. No global CSS selectors in component files |
-| Responsiveness | Container queries via Tailwind `@` variants (`@sm:`, `@md:`, etc.). No `@media` / no viewport-based `sm:`/`md:` in component markup |
+| Responsive syntax | Container queries via Tailwind `@` variants (`@sm:`, `@md:`, etc.). No `@media` / no viewport-based `sm:`/`md:` in component markup |
+| Responsive behavior | Component must actually adapt at narrow (~320px), medium (~768px), and wide (~1280px) container widths. Typography scales automatically via `clamp()`/`cqi` tokens — verify a `@container` ancestor exists or text won't scale. Check: multi-column layouts stack to single column at narrow widths; text doesn't overflow or get clipped; interactive targets ≥ 44px at narrow widths; images/media scale without breaking aspect ratio or overflowing; spacing reduces proportionally (not the same large gaps at 320px as 1280px). Flag any component that uses `@container` but has no `@sm:`/`@md:`/`@lg:` layout variants — the wrapper is useless without breakpoint-specific styles |
 
 ## Soft Rules (from system.md)
 

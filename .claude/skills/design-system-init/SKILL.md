@@ -4,9 +4,13 @@ description: Start a new design system. Runs domain exploration and design syste
 disable-model-invocation: true
 ---
 
+**Everything in this repo is scaffolding.** Existing components, gallery pages, wireframes, tokens, and system.md are all starter placeholders — not approved design work. Use their file structure but replace all content. Nothing here is precious.
+
 # Phase 1: Domain Exploration
 
-Before any visual work. Four mandatory questions answered **explicitly** (not internally):
+**Do not read any files yet.** This phase is a conversation with the user — no codebase exploration, no file reads. Everything you need comes from their answers.
+
+Four mandatory questions answered **explicitly** (not internally):
 
 1. **Who is the audience?** Not "users" — the actual person. A CFO evaluating enterprise software? A developer choosing a tool?
 2. **What must they accomplish?** Not "learn about the product" — the specific action. Sign up? Request a demo? Compare tiers?
@@ -21,29 +25,47 @@ Then five mandatory outputs:
 4. **Defaults to reject** — 3+ obvious/generic choices named explicitly to consciously avoid
 5. **Differentiation** — What makes this UNFORGETTABLE? The one visual thing someone will remember after closing the tab
 
+**Checkpoint.** Present all five outputs to the user. Do not proceed to Phase 2 until they approve the creative direction. These outputs drive every visual decision that follows.
+
 # Phase 2: Design System Setup
 
-**Reference:** Read [design-principles.md](../docs/design-principles.md) for detailed guidance on color (hue rotation, shade generation, grey temperature), typography (font discovery, line-height rules), and depth (two-part shadows, five-level scale).
+**Now read files.** Start with [design-principles.md](../docs/design-principles.md) for detailed guidance on color (hue rotation, shade generation, grey temperature), typography (font discovery, line-height rules), and depth (two-part shadows, five-level scale). Then read `src/system.md` and `src/styles/global.css` for the template structure to fill in.
 
-**2a. Structural tokens** (personality-agnostic):
+## 2a. Structural tokens (personality-agnostic)
+
 - Spacing scale (base 8px, ~25% jumps: 4, 8, 12, 16, 24, 32, 48, 64, 80, 96, 128)
-- Type scale (hand-crafted, not modular ratio: 12, 14, 16, 18, 20, 24, 30, 36, 48, 60, 72)
+- Type scale (hand-crafted, not modular ratio). Body text as fixed px: 12, 14, 16, 18, 20. Heading/display sizes use `clamp()` with `cqi` so they scale fluidly with container width: `clamp(floor, Xcqi, max)` where X = max ÷ 12 (hits max at the 1200px container). Requires a `@container` ancestor.
 - Line height rules, max content widths, breakpoints
 
-**2b. Personality tokens** (informed by Phase 1):
-- Font family, color palette (full 50-950 shade ranges), grey temperature
-- Border radius scale, depth strategy (consistent application — don't mix soft diffuse shadows with solid flat shadows on similar elements)
-- Shadow scale using two-part shadows
+## 2b. Personality tokens (from Phase 1)
 
-**Starting points:** Read and modify `src/system.md` and `src/styles/global.css` — they already contain the template structure. Don't start from scratch. `system.md` is the "why" file — fill in Intent, Accessibility, Anti-Patterns, and Decisions Log. All token values go in `global.css` only.
+Translate Phase 1 outputs into concrete token decisions:
 
-**Output:** `system.md` (intent + decisions) + `global.css` (with `@theme` tokens) + six foundational gallery pages:
+- **Color world → palette.** Pick the strongest 1–2 domain colors as primary/accent hue(s). Generate full 50–950 shade ranges. Choose grey temperature (warm/cool) based on the feel — "bank vault" is cool grey, "launchpad" is warm.
+- **Feel → shape and depth.** "Confident" = smaller radii, firm shadows. "Playful" = larger radii, softer shadows. Match border radius scale and shadow strategy to the feel words.
+- **Domain vocabulary → signature element.** The signature element from Phase 1 becomes a concrete CSS/markup choice — a specific color accent, radius treatment, animation, or layout pattern.
+- Font family, full color palette (50–950 shade ranges for primary + grey at minimum)
+- Shadow scale using two-part shadows (consistent application — don't mix soft diffuse with solid flat on similar elements)
 
-1. `index.astro` (Style Guide) — Visual preview of all tokens (colors, type scale, spacing, shadows, radii). This is the gallery home page.
-2. `buttons.astro` — Sizes (sm, md, lg), variants (primary, secondary, ghost), icon buttons. **Collaborate with user** on specific sizes and icon button patterns.
-3. `icons.astro` — Icon gallery at sm (16px), md (20px), lg (24px), xl (32px) sizes, plus color variants, with download links. Each icon exists as both an Astro component (`src/components/icons/*.astro`) and a downloadable SVG (`public/icons/*.svg`). **Ask user to name a starter set of icons.**
-4. `grid.astro` — Section spacing rhythm + column gutter patterns. **Collaborate with user** on grid variants and spacing values.
-5. `cards.astro` — Basic card patterns (content card, feature card, pricing card shell). **Ask user for feedback** on card variants before proceeding.
-6. `forms.astro` — Form elements: text input, textarea, select, checkbox, radio, toggle/switch, file upload, search input. All states, sizes, and variants.
+## 2c. Tokens + Style Guide
 
-**Visual review checkpoint.** User opens all six gallery pages in browser (`pnpm dev`). Approves before further component work begins.
+`src/system.md` and `src/styles/global.css` are **scaffolding** — placeholder structure meant to be replaced with real values from Phase 1. Use the file structure (sections, `@theme` block) but replace all placeholder content (`[TBD]`, `[Placeholder]`, template token values). Don't preserve placeholder values out of caution — they're disposable. `system.md` is the "why" file — fill in Intent, Accessibility, Anti-Patterns, and Decisions Log. All token values go in `global.css` only.
+
+Build **only** these first:
+1. `global.css` — All `@theme` tokens
+2. `system.md` — Intent, accessibility standard, anti-patterns, decisions log
+3. `index.astro` (Style Guide) — Visual preview of all tokens (colors, type scale, spacing, shadows, radii). This is the gallery home page.
+
+**Checkpoint.** User opens the style guide in browser (`pnpm dev`). Tokens must be visually approved before building components on top of them — if the palette, type scale, or shadows are wrong, fix now not after building 5 more pages.
+
+## 2d. Foundational gallery pages
+
+All sections must have a `@container` ancestor (required for responsive type tokens to work).
+
+1. `buttons.astro` — Sizes (sm, md, lg), variants (primary, secondary, ghost), icon buttons. Present 2–3 specific options for icon button layout (icon-left, icon-only, icon-right) and ask the user to pick.
+2. `icons.astro` — Icon gallery at sm (16px), md (20px), lg (24px), xl (32px) sizes, plus color variants, with download links. Each icon exists as both an Astro component (`src/components/icons/*.astro`) and a downloadable SVG (`public/icons/*.svg`). Ask the user to name a starter set of 8–12 icons before building.
+3. `grid.astro` — Section spacing rhythm + column gutter patterns. Show the default spacing values in context and ask if the rhythm feels right before building variants.
+4. `cards.astro` — Basic card patterns (content card, feature card, pricing card shell). Show the 3 variants and ask: are these the right types for your pages? Missing any?
+5. `forms.astro` — Form elements: text input, textarea, select, checkbox, radio, toggle/switch, file upload, search input. All states, sizes, and variants.
+
+**Visual review checkpoint.** User opens all gallery pages in browser (`pnpm dev`). Approves before further component work begins.
