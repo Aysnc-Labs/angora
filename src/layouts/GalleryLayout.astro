@@ -7,11 +7,15 @@ interface Props {
   title: string;
   description?: string;
   fullscreenHref?: string;
+  section?: 'design-system' | 'wireframes' | 'layouts';
 }
 
-const { title, description, fullscreenHref } = Astro.props;
+const { title, description, fullscreenHref, section = 'design-system' } = Astro.props;
+const wireframes = [
+  { href: '/wireframes/home', label: 'Home' },
+];
 const pages = [
-  { href: '/', label: 'Style Guide' },
+  { href: '/style-guide', label: 'Style Guide' },
   { href: '/buttons', label: 'Buttons' },
   { href: '/icons', label: 'Icons' },
   { href: '/grid', label: 'Grid' },
@@ -22,6 +26,14 @@ const layouts = [
   { href: '/layouts/home', label: 'Home' },
 ];
 const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
+
+const navItems = section === 'wireframes' ? wireframes
+  : section === 'layouts' ? layouts
+  : pages;
+
+const sectionLabel = section === 'wireframes' ? 'Wireframes'
+  : section === 'layouts' ? 'Layouts'
+  : 'Design System';
 ---
 
 <!doctype html>
@@ -29,29 +41,20 @@ const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{title} — Design System Gallery</title>
+    <title>{title} — Design System</title>
   </head>
   <body>
     <div class="gallery-shell">
       <aside class="gallery-sidebar">
-        <div class="gallery-sidebar-title">Gallery</div>
+        <a href="/" class="gallery-sidebar-back">← Gallery</a>
+        <div class="gallery-sidebar-title">{sectionLabel}</div>
         <nav class="gallery-nav">
-          {pages.map(({ href, label }) => (
+          {navItems.map(({ href, label }) => (
             <a
               href={href}
               aria-current={currentPath === href.replace(/\/$/, '') ? 'page' : undefined}
             >
               {label}
-            </a>
-          ))}
-          <div class="gallery-nav-divider"></div>
-          <div class="gallery-nav-label">Layouts</div>
-          {layouts.map(({ href, label }) => (
-            <a
-              href={href}
-              target="_blank"
-            >
-              {label} ↗
             </a>
           ))}
         </nav>

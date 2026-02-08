@@ -25,6 +25,7 @@ Engineering teams consume this the way they'd consume a Figma file: open the gal
 - `src/components/*.astro` — Each component renders semantic HTML with Tailwind utility classes.
 - `src/pages/*.astro` — Gallery pages. One per component type.
 - `src/pages/view/*.astro` — Full-screen views without gallery chrome.
+- `src/pages/wireframes/*.astro` — Wireframe pages. Working docs for sketching page structure before building.
 - `public/icons/*.svg` — Downloadable SVG files.
 
 ## Workflow
@@ -34,6 +35,7 @@ Engineering teams consume this the way they'd consume a Figma file: open the gal
 | Start a new design system | `/design-system-init` |
 | Build or update a component | `/design-system-component <name>` |
 | Review against the system | `/design-system-audit [path]` |
+| Sketch a page wireframe | `/design-system-wireframe <page-name>` |
 | Compose a full page | `/design-system-assemble <page-name>` |
 
 ### System Evolution

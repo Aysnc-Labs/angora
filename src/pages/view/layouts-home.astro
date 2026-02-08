@@ -1,9 +1,9 @@
 ---
-import GalleryLayout from '../../layouts/GalleryLayout.astro';
+import FullScreenLayout from '../../layouts/FullScreenLayout.astro';
 import Card from '../../components/Card.astro';
 ---
 
-<GalleryLayout title="Home" description="Feature grid section with elevated cards." section="layouts" fullscreenHref="/view/layouts-home">
+<FullScreenLayout title="Home">
   <section class="@container">
     <div class="max-w-[var(--container-max)] mx-auto px-6 py-24">
       <div class="text-center mb-16">
@@ -35,4 +35,4 @@ import Card from '../../components/Card.astro';
       </div>
     </div>
   </section>
-</GalleryLayout>
+</FullScreenLayout>
