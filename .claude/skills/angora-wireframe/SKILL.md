@@ -55,6 +55,34 @@ Use a `<pre>` block with monospace box-drawing to show page structure:
 </pre>
 ```
 
+## Data source annotations
+
+After sketching the wireframe, guide the user through data source decisions for each section. For each section ask:
+
+- "Will this content change? Is there more than one of these?" → **template** (reference a database table)
+- "Is this one-off copy edited in code?" → **static**
+- User unsure? → `data: undecided`
+
+Output structured frontmatter as a JS comment block in the Astro file's frontmatter:
+
+```astro
+---
+import Layout from '../_layout/Layout.astro';
+/*
+  Data sources:
+  sections:
+    - component: Hero
+      data: static
+    - component: Testimonials
+      data: table:testimonials
+    - component: Pricing
+      data: table:pricing_tiers
+*/
+---
+```
+
+This is consumed by `angora-compose-page` when building the real page.
+
 ### Visual format
 
 Use gray Tailwind boxes with placeholder text:

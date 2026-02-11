@@ -1,62 +1,23 @@
 ---
 name: angora-data
-description: Manage the SQLite content layer — schema discovery, table creation, seeding, and queries.
+description: Quick database operations — schema inspection, column additions, seeding, and read-only queries.
 argument-hint: [command]
 ---
 
 # Data: $ARGUMENTS
 
-Manage the SQLite content layer (`data.sqlite` + `public/media/`).
+Quick operations on the SQLite content layer (`data.sqlite`).
 
-## Two modes
-
-### Mode A: No arguments (or `init`) — Schema discovery conversation
-
-1. **Ensure database exists** — import `src/data/db.js` (creates `data.sqlite` with `media` table if missing).
-2. **Show current schema** — list all tables and their columns. If only `media` exists, say so.
-3. **Ask what content the site needs** — testimonials, features, pricing tiers, team members, blog posts, etc. Use `AskUserQuestion`.
-4. **For each content type, ask what fields matter** — keep it conversational. Suggest sensible defaults.
-5. **Generate `CREATE TABLE IF NOT EXISTS` statements** — every table gets:
-   - `id INTEGER PRIMARY KEY AUTOINCREMENT`
-   - `created_at TEXT NOT NULL DEFAULT (datetime('now'))`
-   - `media_id INTEGER REFERENCES media(id)` (nullable) — for a primary image/asset
-   - Plus the user's chosen fields
-6. **Present schema for approval** before executing. Show the SQL.
-7. **Seed 2–3 example rows per table** with realistic placeholder content.
-
-### Mode B: With arguments — Direct operations
+## Commands
 
 | Command | Action |
 |---------|--------|
-| `schema` | Show full database schema (all tables, columns, types) |
-| `new table <name>` | Conversational table creation (ask fields, generate SQL, confirm, execute) |
-| `add column <table> <column>` | `ALTER TABLE` to add a column (ask type + default) |
-| `seed <table>` | Generate realistic sample data (2–5 rows) |
-| `register media` | Scan `public/media/`, insert/update `media` table rows for all files found |
+| `schema` (or no arguments) | Show full database schema (all tables, columns, types) |
+| `add column <table> <column>` | `ALTER TABLE` to add a column (ask type + default, confirm first) |
+| `seed <table>` | Generate 2-5 realistic sample rows |
 | `query <sql>` | Run a read-only query and display results |
 
-## Rules
-
-- **All schema changes require user approval** before executing.
-- **Foreign keys are ON** — respect referential integrity.
-- Use `TEXT` for dates (ISO 8601 format via `datetime('now')`).
-- Use `INTEGER` for booleans (0/1).
-- Media paths are relative to `public/media/` (e.g., `heroes/product.jpg`).
-- The `media` table is the base — other tables reference it via `media_id`.
-
 ## Running SQL
-
-Use the Bash tool to run queries via `better-sqlite3` through Node:
-
-```bash
-node -e "
-  import db from './src/data/db.js';
-  const rows = db.prepare('SELECT * FROM media').all();
-  console.table(rows);
-"
-```
-
-Or for schema inspection:
 
 ```bash
 node -e "
@@ -69,3 +30,19 @@ node -e "
   }
 "
 ```
+
+## Rules
+
+- **All schema changes require user approval** before executing.
+- **Foreign keys are ON** — respect referential integrity.
+- Use `TEXT` for dates (ISO 8601 format).
+- Use `INTEGER` for booleans (0/1).
+- `query` runs read-only — refuse writes via this command.
+
+## For heavier work
+
+This skill is for quick operations. For more involved work, use `/angora`:
+
+- **Schema design** (new tables, relational modeling, SEO fields) → `/angora-schema`
+- **Data import** (CSV, JSON from inbox) → `/angora-import`
+- **Media processing** (images from inbox) → `/angora-media`

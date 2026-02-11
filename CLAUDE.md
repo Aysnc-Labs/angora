@@ -29,17 +29,29 @@ A design system and site builder. The design system — tokens, components, and 
 - `data.sqlite` — SQLite database. Content store, committed to git. Created on first import of `src/data/db.js`.
 - `public/media/` — Static media assets. Referenced by `path` in the `media` table.
 - `src/data/db.js` — Database utility. Opens/creates `data.sqlite`, ensures the media table exists, exports the `db` instance.
+- `inbox/` — Passive file queue. Drop images, CSVs, JSON here for processing. Contents gitignored.
+- `src/layouts/*.astro` — Site layouts (header/footer wrappers for real pages).
 
 ## Workflow
 
+**Primary entry point: `/angora`** — the lead agent. Tell it what you want and it delegates to specialists.
+
 | Goal | Skill |
 |------|-------|
+| **Any task** (recommended) | `/angora <what you want>` |
 | Start a new design system | `/angora-design-system-init` |
 | Build or update a component | `/angora-component <name>` |
-| Review against the system | `/angora-component-audit [path]` |
+| Review against the system | `/angora-design-system-audit [path]` |
 | Sketch a page wireframe | `/angora-wireframe <page-name>` |
-| Compose a full page | `/angora-assemble <page-name>` |
-| Manage content & schema | `/angora-data [command]` |
+| Compose a full page | `/angora-compose-page <page-name>` |
+| Design database schema | `/angora-schema <what to model>` |
+| Process inbox images | `/angora-media` |
+| Import data from inbox | `/angora-import <filename>` |
+| Quick database operations | `/angora-data [command]` |
+
+### Inbox
+
+The `inbox/` directory is a passive queue. Drop images, CSVs, JSON files here and tell `/angora` about them. Files are never deleted without explicit permission.
 
 ### System Evolution
 

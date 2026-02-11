@@ -15,6 +15,7 @@ db.exec(`
     type TEXT NOT NULL DEFAULT 'image',
     width INTEGER,
     height INTEGER,
+    source_name TEXT,
     created_at TEXT NOT NULL DEFAULT (datetime('now'))
   );
 `);
