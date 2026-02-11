@@ -1,8 +1,6 @@
 # Angora
 
-An AI-driven design and content deliverable. HTML + CSS is the design medium; SQLite is the content layer. The gallery is the spec; the tokens are the annotations; the rendered components are the acceptance test. `data.sqlite` + `public/media/` hold the content — committed to git as part of the deliverable.
-
-Engineering teams consume this the way they'd consume a Figma file: open the gallery, inspect the component, translate it into their framework (React + Tailwind, Vue + UnoCSS, Svelte, whatever). Nobody ships this HTML to production — they ship their framework's version, validated against this gallery.
+A design system and site builder. The design system — tokens, components, and rendered specimens — is the source of truth for the visual language. Engineers consume it like a Figma file and translate to their framework. Add the SQLite content layer to turn the same components into a working prototype or a full static site.
 
 **Scope:** Marketing sites — heroes, pricing, features, testimonials, CTAs, navigation, footers. Not app UI, not dashboards.
 
@@ -19,13 +17,14 @@ Engineering teams consume this the way they'd consume a Figma file: open the gal
 
 - `src/system.md` — The "why" file. Intent, accessibility standard, anti-patterns, and decisions log. No token values (that's `global.css`) and no component patterns (that's the components). **Read before building or reviewing a component.**
 - `src/styles/global.css` — `@import "tailwindcss"` + `@theme` block with all design tokens. Single source of truth. **Read before building a component to know available tokens.**
-- `src/styles/gallery.css` — Gallery chrome: sidebar nav, specimen rows, labels, demo areas. Tooling only — doesn't ship.
-- `src/layouts/GalleryLayout.astro` — Sidebar nav + page shell. Accepts `fullscreenHref` prop.
-- `src/layouts/FullScreenLayout.astro` — Minimal layout for `/view/*` pages (no gallery chrome).
+- `src/styles/design-system.css` — Design system chrome: sidebar nav, specimen rows, labels, demo areas. Tooling only — doesn't ship.
+- `src/pages/design-system/_layout/Layout.astro` — Sidebar nav + page shell for design system pages. Accepts `fullscreenHref` prop.
+- `src/pages/design-system/_layout/FullScreen.astro` — Minimal layout for full-screen views (no design system chrome).
 - `src/components/*.astro` — Each component renders semantic HTML with Tailwind utility classes.
-- `src/pages/*.astro` — Gallery pages. One per component type.
-- `src/pages/view/*.astro` — Full-screen views without gallery chrome.
-- `src/pages/wireframes/*.astro` — Wireframe pages. Working docs for sketching page structure before building.
+- `src/pages/design-system/*.astro` — Design system pages. One per component type.
+- `src/pages/design-system/view/*.astro` — Full-screen views without design system chrome.
+- `src/pages/design-system/wireframes/*.astro` — Wireframe pages. Working docs for sketching page structure before building.
+- `src/pages/*.astro` — Site pages. Real routes like `/about-us`, `/pricing`, etc.
 - `public/icons/*.svg` — Downloadable SVG files.
 - `data.sqlite` — SQLite database. Content store, committed to git. Created on first import of `src/data/db.js`.
 - `public/media/` — Static media assets. Referenced by `path` in the `media` table.

@@ -17,10 +17,8 @@ Compose approved components into a full page.
 
 ## Output files
 
-1. **Gallery page** — `src/pages/<page-name>.astro` (using `GalleryLayout`, shows the assembled page)
-2. **Full-screen view** — `src/pages/view/<page-name>.astro` (using `FullScreenLayout`, the actual page)
-
-Add the page to the sidebar nav in `src/layouts/GalleryLayout.astro`.
+1. **Site page** — `src/pages/<page-name>.astro` — the actual site page
+2. **Full-screen view** — `src/pages/design-system/view/<page-name>.astro` (using `FullScreen` from `_layout/`, the actual page)
 
 ## Steps
 

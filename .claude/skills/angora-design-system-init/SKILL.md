@@ -4,7 +4,7 @@ description: Start a new design system. Runs domain exploration and design syste
 disable-model-invocation: true
 ---
 
-**Everything in this repo is scaffolding.** Existing components, gallery pages, wireframes, tokens, and system.md are all starter placeholders — not approved design work. Use their file structure but replace all content. Nothing here is precious.
+**Everything in this repo is scaffolding.** Existing components, design system pages, wireframes, tokens, and system.md are all starter placeholders — not approved design work. Use their file structure but replace all content. Nothing here is precious.
 
 # Phase 1: Domain Exploration
 
@@ -54,11 +54,11 @@ Translate Phase 1 outputs into concrete token decisions:
 Build **only** these first:
 1. `global.css` — All `@theme` tokens
 2. `system.md` — Intent, accessibility standard, anti-patterns, decisions log
-3. `index.astro` (Style Guide) — Visual preview of all tokens (colors, type scale, spacing, shadows, radii). This is the gallery home page.
+3. `index.astro` (Style Guide) — Visual preview of all tokens (colors, type scale, spacing, shadows, radii). This is the design system home page.
 
 **Checkpoint.** User opens the style guide in browser (`pnpm dev`). Tokens must be visually approved before building components on top of them — if the palette, type scale, or shadows are wrong, fix now not after building 5 more pages.
 
-## 2d. Foundational gallery pages
+## 2d. Foundational design system pages
 
 All sections must have a `@container` ancestor (required for responsive type tokens to work).
 
@@ -68,4 +68,4 @@ All sections must have a `@container` ancestor (required for responsive type tok
 4. `cards.astro` — Basic card patterns (content card, feature card, pricing card shell). Show the 3 variants and ask: are these the right types for your pages? Missing any?
 5. `forms.astro` — Form elements: text input, textarea, select, checkbox, radio, toggle/switch, file upload, search input. All states, sizes, and variants.
 
-**Visual review checkpoint.** User opens all gallery pages in browser (`pnpm dev`). Approves before further component work begins.
+**Visual review checkpoint.** User opens all design system pages in browser (`pnpm dev`). Approves before further component work begins.

@@ -12,7 +12,7 @@ Sketch page structure (hierarchy, layout, flow) before committing to visual desi
 
 1. **Read `src/system.md`** — intent and scope.
 2. **Read `src/styles/global.css`** — know the container max-width and spacing tokens.
-3. **Check if the wireframe already exists** — look for `src/pages/wireframes/<page-name>.astro`. If it exists, read it first.
+3. **Check if the wireframe already exists** — look for `src/pages/design-system/wireframes/<page-name>.astro`. If it exists, read it first.
 
 ## Ask: format preference
 
@@ -23,7 +23,7 @@ Use `AskUserQuestion` to ask the user which wireframe format they prefer:
 
 ## Output files
 
-1. **Gallery page** — `src/pages/wireframes/<page-name>.astro` (using `GalleryLayout`)
+1. **Design system page** — `src/pages/design-system/wireframes/<page-name>.astro` (using `Layout` from `_layout/`)
 
 No full-screen view needed — wireframes are working docs, not deliverables.
 
@@ -31,7 +31,7 @@ No full-screen view needed — wireframes are working docs, not deliverables.
 
 1. **Ask format** — ASCII or Visual (see above).
 2. **Sketch** — create the wireframe page showing page structure: header, hero, sections, footer. Use placeholder text and rough proportions.
-3. **Wire into nav** — add the wireframe to the `wireframes` array in `src/layouts/GalleryLayout.astro`.
+3. **Wire into nav** — add the wireframe to the `wireframes` array in `src/pages/design-system/_layout/Layout.astro`.
 4. **Visual review** — user opens page in browser (`pnpm dev`). Approves or iterates.
 5. **Iterate** — ask user for feedback ("move CTA above fold", "make it 3 columns", etc.) and update the wireframe.
 

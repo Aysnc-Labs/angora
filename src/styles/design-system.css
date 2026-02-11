@@ -1,11 +1,11 @@
-/* Gallery chrome — sidebar nav, specimen layout, labels, demo areas */
+/* Design system chrome — sidebar nav, specimen layout, labels, demo areas */
 
-.gallery-shell {
+.ds-shell {
   display: flex;
   min-height: 100dvh;
 }
 
-.gallery-sidebar {
+.ds-sidebar {
   width: 240px;
   flex-shrink: 0;
   border-right: 1px solid var(--color-gray-200);
@@ -16,7 +16,7 @@
   overflow-y: auto;
 }
 
-.gallery-sidebar-back {
+.ds-sidebar-back {
   font-size: var(--text-sm);
   color: var(--color-gray-400);
   text-decoration: none;
@@ -25,11 +25,11 @@
   transition: color var(--duration-fast) var(--ease-default);
 }
 
-.gallery-sidebar-back:hover {
+.ds-sidebar-back:hover {
   color: var(--color-gray-600);
 }
 
-.gallery-sidebar-title {
+.ds-sidebar-title {
   font-size: var(--text-xs);
   font-weight: 600;
   color: var(--color-gray-400);
@@ -38,14 +38,14 @@
   padding: 0 var(--spacing-6) var(--spacing-4);
 }
 
-.gallery-nav {
+.ds-nav {
   display: flex;
   flex-direction: column;
   gap: var(--spacing-1);
   padding: 0 var(--spacing-3);
 }
 
-.gallery-nav a {
+.ds-nav a {
   font-size: var(--text-sm);
   color: var(--color-gray-600);
   text-decoration: none;
@@ -55,24 +55,24 @@
               color var(--duration-fast) var(--ease-default);
 }
 
-.gallery-nav a:hover {
+.ds-nav a:hover {
   color: var(--color-gray-900);
   background: var(--color-gray-50);
 }
 
-.gallery-nav a[aria-current="page"] {
+.ds-nav a[aria-current="page"] {
   color: var(--color-gray-900);
   font-weight: 600;
   background: var(--color-gray-50);
 }
 
-.gallery-nav-divider {
+.ds-nav-divider {
   height: 1px;
   background: var(--color-gray-200);
   margin: var(--spacing-3) var(--spacing-3);
 }
 
-.gallery-nav-label {
+.ds-nav-label {
   font-size: var(--text-xs);
   font-weight: 600;
   color: var(--color-gray-400);
@@ -81,21 +81,21 @@
   padding: var(--spacing-2) var(--spacing-3) var(--spacing-1);
 }
 
-.gallery-page {
+.ds-page {
   flex: 1;
   min-width: 0;
   max-width: var(--container-max);
   padding: var(--spacing-12) var(--spacing-8);
 }
 
-.gallery-page-header {
+.ds-page-header {
   display: flex;
   align-items: baseline;
   gap: var(--spacing-4);
   margin-bottom: var(--spacing-2);
 }
 
-.gallery-page-header > h1 {
+.ds-page-header > h1 {
   font-size: var(--text-4xl);
   font-weight: 700;
   line-height: var(--leading-tight);
@@ -103,18 +103,18 @@
   text-wrap: balance;
 }
 
-.gallery-fullscreen-link {
+.ds-fullscreen-link {
   font-size: var(--text-sm);
   color: var(--color-gray-400);
   text-decoration: none;
   white-space: nowrap;
 }
 
-.gallery-fullscreen-link:hover {
+.ds-fullscreen-link:hover {
   color: var(--color-gray-600);
 }
 
-.gallery-page > p.gallery-desc {
+.ds-page > p.ds-desc {
   font-size: var(--text-lg);
   color: var(--color-gray-600);
   margin-bottom: var(--spacing-12);
@@ -174,23 +174,23 @@
 
 /* Hub — landing page with section cards */
 
-.gallery-hub {
+.ds-hub {
   max-width: 640px;
   margin: 0 auto;
   padding: var(--spacing-24) var(--spacing-8);
 }
 
-.gallery-hub-header {
+.ds-hub-header {
   margin-bottom: var(--spacing-12);
 }
 
-.gallery-hub-grid {
+.ds-hub-grid {
   display: flex;
   flex-direction: column;
   gap: var(--spacing-4);
 }
 
-.gallery-hub-card {
+.ds-hub-card {
   display: block;
   padding: var(--spacing-6);
   border: 1px solid var(--color-gray-200);
@@ -200,7 +200,7 @@
               box-shadow var(--duration-fast) var(--ease-default);
 }
 
-.gallery-hub-card:hover {
+.ds-hub-card:hover {
   border-color: var(--color-gray-300);
   box-shadow: var(--shadow-sm);
 }
