@@ -1,6 +1,6 @@
-# Designing With Markup
+# Angora
 
-A **design deliverable** — not a code deliverable. This replaces Figma + design tokens as the source of truth for engineering teams. HTML + CSS is the design medium. The gallery is the spec; the tokens are the annotations; the rendered components are the acceptance test.
+An AI-driven design and content deliverable. HTML + CSS is the design medium; SQLite is the content layer. The gallery is the spec; the tokens are the annotations; the rendered components are the acceptance test. `data.sqlite` + `public/media/` hold the content — committed to git as part of the deliverable.
 
 Engineering teams consume this the way they'd consume a Figma file: open the gallery, inspect the component, translate it into their framework (React + Tailwind, Vue + UnoCSS, Svelte, whatever). Nobody ships this HTML to production — they ship their framework's version, validated against this gallery.
 
@@ -27,16 +27,20 @@ Engineering teams consume this the way they'd consume a Figma file: open the gal
 - `src/pages/view/*.astro` — Full-screen views without gallery chrome.
 - `src/pages/wireframes/*.astro` — Wireframe pages. Working docs for sketching page structure before building.
 - `public/icons/*.svg` — Downloadable SVG files.
+- `data.sqlite` — SQLite database. Content store, committed to git. Created on first import of `src/data/db.js`.
+- `public/media/` — Static media assets. Referenced by `path` in the `media` table.
+- `src/data/db.js` — Database utility. Opens/creates `data.sqlite`, ensures the media table exists, exports the `db` instance.
 
 ## Workflow
 
 | Goal | Skill |
 |------|-------|
-| Start a new design system | `/design-system-init` |
-| Build or update a component | `/design-system-component <name>` |
-| Review against the system | `/design-system-audit [path]` |
-| Sketch a page wireframe | `/design-system-wireframe <page-name>` |
-| Compose a full page | `/design-system-assemble <page-name>` |
+| Start a new design system | `/angora-design-system-init` |
+| Build or update a component | `/angora-component <name>` |
+| Review against the system | `/angora-component-audit [path]` |
+| Sketch a page wireframe | `/angora-wireframe <page-name>` |
+| Compose a full page | `/angora-assemble <page-name>` |
+| Manage content & schema | `/angora-data [command]` |
 
 ### System Evolution
 

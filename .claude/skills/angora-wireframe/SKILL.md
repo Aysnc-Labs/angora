@@ -1,5 +1,5 @@
 ---
-name: design-system-wireframe
+name: angora-wireframe
 description: Create or update a wireframe for a page layout. Use when sketching page structure before building components.
 argument-hint: <page-name>
 ---

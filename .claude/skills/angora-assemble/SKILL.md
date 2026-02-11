@@ -1,5 +1,5 @@
 ---
-name: design-system-assemble
+name: angora-assemble
 description: Compose approved components into a full page layout. Use when building a complete marketing page from existing components.
 argument-hint: <page-name>
 ---
@@ -27,5 +27,5 @@ Add the page to the sidebar nav in `src/layouts/GalleryLayout.astro`.
 1. **Define page structure** — which components, what order, what content
 2. **Assemble** — Astro page importing components, composed with Tailwind utility classes
 3. **Page-level concerns** — section spacing, background alternation for rhythm, visual flow, responsive behavior via container queries
-4. **Review** — run `/design-system-audit` on the full page for hard rules + page coherence
+4. **Review** — run `/angora-component-audit` on the full page for hard rules + page coherence
 5. **Visual review** — user opens page in browser (`pnpm dev`). Approves or iterates.

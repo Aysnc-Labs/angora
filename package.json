@@ -6,9 +6,13 @@
     "build": "astro build",
     "preview": "astro preview"
   },
+  "pnpm": {
+    "onlyBuiltDependencies": ["better-sqlite3"]
+  },
   "dependencies": {
     "@tailwindcss/vite": "^4.1.18",
     "astro": "^5",
+    "better-sqlite3": "^12.6.2",
     "tailwindcss": "^4.1.18"
   }
 }

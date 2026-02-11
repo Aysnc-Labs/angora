@@ -1,5 +1,5 @@
 ---
-name: design-system-init
+name: angora-design-system-init
 description: Start a new design system. Runs domain exploration and design system setup.
 disable-model-invocation: true
 ---

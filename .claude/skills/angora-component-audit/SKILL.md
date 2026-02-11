@@ -1,5 +1,5 @@
 ---
-name: design-system-audit
+name: angora-component-audit
 description: Review components or pages against the design system. Use after building a component or when checking existing work for violations.
 argument-hint: [path]
 ---

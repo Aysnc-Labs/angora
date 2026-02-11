@@ -1,5 +1,5 @@
 ---
-name: design-system-component
+name: angora-component
 description: Build or update a component in the design system. Use when creating a new component type (hero, nav, pricing, testimonials, etc.) or modifying an existing one.
 argument-hint: <name>
 ---
@@ -29,7 +29,7 @@ Add the gallery page to the sidebar nav in `src/layouts/GalleryLayout.astro`.
 2. **Build** — Semantic HTML + Tailwind utility classes. Always interactive (pseudo-class variants). Use `state` prop only for form states that can't be triggered by interaction (error, success, disabled). All values from theme tokens.
 3. **Create gallery page** — Import the component into a gallery page showing all variants and states. Create the matching full-screen view page. Wire into sidebar nav.
 4. **Responsive check** — Verify the component works at narrow (~320px), medium (~768px), and wide (~1280px) container widths. Typography scales automatically via `clamp()` tokens (requires a `@container` ancestor). Check: layout collapses/stacks logically, text doesn't overflow, interactive targets stay tappable (≥44px), images/media scale without breaking, spacing tightens proportionally. If layout doesn't adapt, add the missing `@sm:`/`@md:`/`@lg:` container query variants.
-5. **Self-review** — Run `/design-system-audit` on the component before showing to user.
+5. **Self-review** — Run `/angora-component-audit` on the component before showing to user.
 6. **Visual review** — User opens gallery page in browser (`pnpm dev`). Approves or iterates.
 7. **Update system.md** — Only if you made a new decision worth recording (added to anti-patterns or decisions log). Most components won't need an update.
 
