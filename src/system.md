@@ -20,7 +20,7 @@ Lang attribute: [TBD]
 ## Decisions Log
 | Decision | Chosen | Why |
 |----------|--------|-----|
-| Build tool | Astro | Static HTML+CSS output, component model for gallery assembly |
+| Build tool | Astro | Static HTML+CSS output, component model for design system and site assembly |
 | Styling | Tailwind CSS v4 | @theme replaces tokens.css, utility classes replace @scope CSS, design tokens as Tailwind theme |
 | Element approach | Semantic HTML + Tailwind | Replaces custom elements (component-*) with plain HTML + utility classes |
 | State display | Interactive by default | Components always include pseudo-class variants (hover, active, focus). Form components use `state` prop only for non-interactive states (error, success, disabled). No frozen specimens for interaction states — HTML is interactive, unlike Figma |

@@ -1,0 +1,64 @@
+---
+import '../../../styles/global.css';
+import '../../../styles/reset.css';
+import '../../../styles/design-system.css';
+
+interface Props {
+  title: string;
+  description?: string;
+  fullscreenHref?: string;
+  section?: 'design-system' | 'wireframes';
+}
+
+const { title, description, fullscreenHref, section = 'design-system' } = Astro.props;
+const wireframes = [
+  { href: '/design-system/wireframes/home', label: 'Home' },
+];
+const pages = [
+  { href: '/design-system/style-guide', label: 'Style Guide' },
+  { href: '/design-system/buttons', label: 'Buttons' },
+  { href: '/design-system/icons', label: 'Icons' },
+  { href: '/design-system/grid', label: 'Grid' },
+  { href: '/design-system/cards', label: 'Cards' },
+  { href: '/design-system/forms', label: 'Forms' },
+];
+const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
+
+const navItems = section === 'wireframes' ? wireframes : pages;
+const sectionLabel = section === 'wireframes' ? 'Wireframes' : 'Design System';
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title} — Design System</title>
+  </head>
+  <body>
+    <div class="ds-shell">
+      <aside class="ds-sidebar">
+        <a href="/design-system" class="ds-sidebar-back">← Design System</a>
+        <div class="ds-sidebar-title">{sectionLabel}</div>
+        <nav class="ds-nav">
+          {navItems.map(({ href, label }) => (
+            <a
+              href={href}
+              aria-current={currentPath === href.replace(/\/$/, '') ? 'page' : undefined}
+            >
+              {label}
+            </a>
+          ))}
+        </nav>
+      </aside>
+      <main class="ds-page">
+        <div class="ds-page-header">
+          <h1>{title}</h1>
+          {fullscreenHref && <a href={fullscreenHref} class="ds-fullscreen-link" target="_blank">View full screen</a>}
+        </div>
+        {description && <p class="ds-desc">{description}</p>}
+        <slot />
+      </main>
+    </div>
+  </body>
+</html>

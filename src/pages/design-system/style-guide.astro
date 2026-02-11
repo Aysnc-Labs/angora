@@ -1,0 +1,310 @@
+---
+import Layout from './_layout/Layout.astro';
+---
+
+<Layout title="Style Guide" description="Visual reference for all design tokens. Colors, type scale, spacing, shadows, and radii — the constraints that every component is built from.">
+
+  <!-- Colors — Grey -->
+  <section class="specimen-section">
+    <h2>Grey Palette</h2>
+    <p class="text-sm text-gray-600 mb-6 max-w-[65ch]">
+      Cool greys with a <code class="text-xs bg-gray-100 px-1.5 py-0.5 rounded-sm font-mono">hue 220</code> base. Saturation increases at the extremes to maintain warmth. Used for text hierarchy, borders, backgrounds, and structural elements.
+    </p>
+    <div class="border border-gray-200 rounded-lg overflow-hidden">
+      <div class="flex">
+        {[
+          { shade: '50',  class: 'bg-gray-50' },
+          { shade: '100', class: 'bg-gray-100' },
+          { shade: '200', class: 'bg-gray-200' },
+          { shade: '300', class: 'bg-gray-300' },
+          { shade: '400', class: 'bg-gray-400' },
+          { shade: '500', class: 'bg-gray-500' },
+          { shade: '600', class: 'bg-gray-600' },
+          { shade: '700', class: 'bg-gray-700' },
+          { shade: '800', class: 'bg-gray-800' },
+          { shade: '900', class: 'bg-gray-900' },
+          { shade: '950', class: 'bg-gray-950' },
+        ].map(({ shade, class: bg }) => (
+          <div class="flex-1 flex flex-col">
+            <div class={`${bg} h-16`}></div>
+            <div class="px-2 py-2 text-center">
+              <span class="text-xs font-mono text-gray-500 block">{shade}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+      <div class="border-t border-gray-200 px-6 py-4">
+        <div class="flex gap-8 text-sm text-gray-600">
+          <div><span class="font-semibold text-gray-900">Text:</span> 900, 600, 400</div>
+          <div><span class="font-semibold text-gray-900">Borders:</span> 200, 300</div>
+          <div><span class="font-semibold text-gray-900">Backgrounds:</span> 50, 100</div>
+          <div><span class="font-semibold text-gray-900">Hue:</span> 220 (cool)</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Colors — Primary -->
+  <section class="specimen-section">
+    <h2>Primary Palette</h2>
+    <p class="text-sm text-gray-600 mb-6 max-w-[65ch]">
+      Blue at <code class="text-xs bg-gray-100 px-1.5 py-0.5 rounded-sm font-mono">hue 220</code>, <code class="text-xs bg-gray-100 px-1.5 py-0.5 rounded-sm font-mono">saturation ~70%</code>. 500 is the base — works as a button background with white text. 50–100 for tinted backgrounds, 600–700 for hover/active.
+    </p>
+    <div class="border border-gray-200 rounded-lg overflow-hidden">
+      <div class="flex">
+        {[
+          { shade: '50',  class: 'bg-primary-50' },
+          { shade: '100', class: 'bg-primary-100' },
+          { shade: '200', class: 'bg-primary-200' },
+          { shade: '300', class: 'bg-primary-300' },
+          { shade: '400', class: 'bg-primary-400' },
+          { shade: '500', class: 'bg-primary-500' },
+          { shade: '600', class: 'bg-primary-600' },
+          { shade: '700', class: 'bg-primary-700' },
+          { shade: '800', class: 'bg-primary-800' },
+          { shade: '900', class: 'bg-primary-900' },
+          { shade: '950', class: 'bg-primary-950' },
+        ].map(({ shade, class: bg }) => (
+          <div class="flex-1 flex flex-col">
+            <div class={`${bg} h-16`}></div>
+            <div class="px-2 py-2 text-center">
+              <span class="text-xs font-mono text-gray-500 block">{shade}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+      <div class="border-t border-gray-200 px-6 py-4">
+        <div class="flex gap-8 text-sm text-gray-600">
+          <div><span class="font-semibold text-gray-900">Button bg:</span> 500</div>
+          <div><span class="font-semibold text-gray-900">Hover:</span> 600</div>
+          <div><span class="font-semibold text-gray-900">Active:</span> 700</div>
+          <div><span class="font-semibold text-gray-900">Focus ring:</span> 300</div>
+          <div><span class="font-semibold text-gray-900">Tint bg:</span> 50</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Type Scale -->
+  <section class="specimen-section">
+    <h2>Type Scale</h2>
+    <p class="text-sm text-gray-600 mb-6 max-w-[65ch]">
+      Hand-crafted scale, not a modular ratio. Each step has a paired line-height — tighter for display sizes, more generous for body text. Font: <code class="text-xs bg-gray-100 px-1.5 py-0.5 rounded-sm font-mono">system-ui</code> stack.
+    </p>
+    <div class="border border-gray-200 rounded-lg overflow-hidden">
+      {[
+        { name: 'text-xs',  size: '12px', lh: '1.75', sample: 'Caption and fine print' },
+        { name: 'text-sm',  size: '14px', lh: '1.5',  sample: 'Labels, hints, and secondary text' },
+        { name: 'text-base', size: '16px', lh: '1.5', sample: 'Body text — the default reading size' },
+        { name: 'text-lg',  size: '18px', lh: '1.5',  sample: 'Large body or intro paragraph' },
+        { name: 'text-xl',  size: '20px', lh: '1.5',  sample: 'Section subheading' },
+        { name: 'text-2xl', size: '24px', lh: '1.2',  sample: 'Section heading' },
+        { name: 'text-3xl', size: '30px', lh: '1.2',  sample: 'Page heading' },
+        { name: 'text-4xl', size: '36px', lh: '1.2',  sample: 'Large heading' },
+        { name: 'text-5xl', size: '48px', lh: '1.0',  sample: 'Display' },
+        { name: 'text-6xl', size: '60px', lh: '1.0',  sample: 'Hero' },
+        { name: 'text-7xl', size: '72px', lh: '1.0',  sample: 'Hero XL' },
+      ].map(({ name, size, lh, sample }, i, arr) => (
+        <div class={`flex items-baseline gap-6 px-6 py-4 ${i < arr.length - 1 ? 'border-b border-gray-100' : ''}`}>
+          <div class="w-24 shrink-0">
+            <span class="text-xs font-mono text-gray-400">{name}</span>
+          </div>
+          <div class="w-20 shrink-0">
+            <span class="text-xs font-mono text-gray-400">{size} / {lh}</span>
+          </div>
+          <p class={`${name} text-gray-900 truncate`}>{sample}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- Text Hierarchy -->
+  <section class="specimen-section">
+    <h2>Text Hierarchy</h2>
+    <p class="text-sm text-gray-600 mb-6 max-w-[65ch]">
+      Three-tier color system for text. Dark for primary content, medium for secondary, light for tertiary. Only two weights: normal (<code class="text-xs bg-gray-100 px-1.5 py-0.5 rounded-sm font-mono">400</code>) and semibold (<code class="text-xs bg-gray-100 px-1.5 py-0.5 rounded-sm font-mono">600</code>).
+    </p>
+    <div class="border border-gray-200 rounded-lg p-8">
+      <div class="max-w-lg flex flex-col gap-6">
+        <div class="flex gap-4 items-baseline">
+          <span class="w-20 shrink-0 text-xs font-mono text-gray-400">primary</span>
+          <p class="text-base font-semibold text-gray-900">This is primary text — headings, key content, emphasis.</p>
+        </div>
+        <div class="flex gap-4 items-baseline">
+          <span class="w-20 shrink-0 text-xs font-mono text-gray-400">secondary</span>
+          <p class="text-base text-gray-600">This is secondary text — descriptions, supporting content.</p>
+        </div>
+        <div class="flex gap-4 items-baseline">
+          <span class="w-20 shrink-0 text-xs font-mono text-gray-400">tertiary</span>
+          <p class="text-base text-gray-400">This is tertiary text — timestamps, captions, fine print.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Spacing Scale -->
+  <section class="specimen-section">
+    <h2>Spacing Scale</h2>
+    <p class="text-sm text-gray-600 mb-6 max-w-[65ch]">
+      Base 8px with ~25% jumps. Use for padding, margins, and gaps. Smaller values (4–16px) for tight grouping, medium (24–48px) for component spacing, large (64–128px) for section rhythm.
+    </p>
+    <div class="border border-gray-200 rounded-lg p-6">
+      <div class="flex flex-col gap-3">
+        {[
+          { name: '1',  value: '4px',   w: 'w-1' },
+          { name: '2',  value: '8px',   w: 'w-2' },
+          { name: '3',  value: '12px',  w: 'w-3' },
+          { name: '4',  value: '16px',  w: 'w-4' },
+          { name: '6',  value: '24px',  w: 'w-6' },
+          { name: '8',  value: '32px',  w: 'w-8' },
+          { name: '12', value: '48px',  w: 'w-12' },
+          { name: '16', value: '64px',  w: 'w-16' },
+          { name: '20', value: '80px',  w: 'w-20' },
+          { name: '24', value: '96px',  w: 'w-24' },
+          { name: '32', value: '128px', w: 'w-32' },
+        ].map(({ name, value, w }) => (
+          <div class="flex items-center gap-4">
+            <span class="text-xs font-mono text-gray-400 w-8 shrink-0 text-right">{name}</span>
+            <div class={`h-3 ${w} bg-primary-500 rounded-sm`}></div>
+            <span class="text-xs font-mono text-gray-400">{value}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Shadows -->
+  <section class="specimen-section">
+    <h2>Shadows</h2>
+    <p class="text-sm text-gray-600 mb-6 max-w-[65ch]">
+      Four-level elevation scale using two-part shadows (direct light + ambient occlusion). Light source from above. Use <code class="text-xs bg-gray-100 px-1.5 py-0.5 rounded-sm font-mono">sm</code> for buttons, <code class="text-xs bg-gray-100 px-1.5 py-0.5 rounded-sm font-mono">md</code> for cards, <code class="text-xs bg-gray-100 px-1.5 py-0.5 rounded-sm font-mono">lg</code> for dropdowns, <code class="text-xs bg-gray-100 px-1.5 py-0.5 rounded-sm font-mono">xl</code> for modals.
+    </p>
+    <div class="border border-gray-200 rounded-lg p-8">
+      <div class="flex flex-wrap gap-8 items-end">
+        {[
+          { name: 'shadow-sm', class: 'shadow-sm' },
+          { name: 'shadow-md', class: 'shadow-md' },
+          { name: 'shadow-lg', class: 'shadow-lg' },
+          { name: 'shadow-xl', class: 'shadow-xl' },
+        ].map(({ name, class: shadow }) => (
+          <div class="flex flex-col items-center gap-3">
+            <div class={`w-24 h-24 bg-white rounded-lg ${shadow}`}></div>
+            <span class="text-xs font-mono text-gray-400">{name}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Border Radius -->
+  <section class="specimen-section">
+    <h2>Border Radius</h2>
+    <p class="text-sm text-gray-600 mb-6 max-w-[65ch]">
+      Four values. <code class="text-xs bg-gray-100 px-1.5 py-0.5 rounded-sm font-mono">sm</code> for small buttons and badges, <code class="text-xs bg-gray-100 px-1.5 py-0.5 rounded-sm font-mono">md</code> for inputs and default buttons, <code class="text-xs bg-gray-100 px-1.5 py-0.5 rounded-sm font-mono">lg</code> for cards and containers, <code class="text-xs bg-gray-100 px-1.5 py-0.5 rounded-sm font-mono">full</code> for pills and avatars.
+    </p>
+    <div class="border border-gray-200 rounded-lg p-8">
+      <div class="flex flex-wrap gap-8 items-end">
+        {[
+          { name: 'rounded-sm', value: '4px',    class: 'rounded-sm' },
+          { name: 'rounded-md', value: '8px',    class: 'rounded-md' },
+          { name: 'rounded-lg', value: '12px',   class: 'rounded-lg' },
+          { name: 'rounded-full', value: '9999px', class: 'rounded-full' },
+        ].map(({ name, value, class: radius }) => (
+          <div class="flex flex-col items-center gap-3">
+            <div class={`w-20 h-20 bg-primary-100 border-2 border-primary-300 ${radius}`}></div>
+            <span class="text-xs font-mono text-gray-400">{name}</span>
+            <span class="text-xs font-mono text-gray-300">{value}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Transitions -->
+  <section class="specimen-section">
+    <h2>Transitions</h2>
+    <p class="text-sm text-gray-600 mb-6 max-w-[65ch]">
+      Three duration tiers with a shared easing curve. <code class="text-xs bg-gray-100 px-1.5 py-0.5 rounded-sm font-mono">fast</code> for hover/focus micro-interactions, <code class="text-xs bg-gray-100 px-1.5 py-0.5 rounded-sm font-mono">normal</code> for state changes, <code class="text-xs bg-gray-100 px-1.5 py-0.5 rounded-sm font-mono">slow</code> for entrances and larger motions.
+    </p>
+    <div class="border border-gray-200 rounded-lg overflow-hidden">
+      <table class="w-full text-sm">
+        <thead>
+          <tr class="border-b border-gray-200 bg-gray-50">
+            <th class="text-left py-3 px-6 text-xs font-semibold text-gray-500 uppercase tracking-wide">Token</th>
+            <th class="text-left py-3 px-6 text-xs font-semibold text-gray-500 uppercase tracking-wide">Value</th>
+            <th class="text-left py-3 px-6 text-xs font-semibold text-gray-500 uppercase tracking-wide">Use case</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="border-b border-gray-100">
+            <td class="py-3 px-6 font-mono text-xs text-gray-500">duration-fast</td>
+            <td class="py-3 px-6 font-mono text-xs text-gray-500">150ms</td>
+            <td class="py-3 px-6 text-gray-600">Button hover/active, focus rings, color changes</td>
+          </tr>
+          <tr class="border-b border-gray-100">
+            <td class="py-3 px-6 font-mono text-xs text-gray-500">duration-normal</td>
+            <td class="py-3 px-6 font-mono text-xs text-gray-500">250ms</td>
+            <td class="py-3 px-6 text-gray-600">Toggle switch, accordion expand, tab switch</td>
+          </tr>
+          <tr class="border-b border-gray-100">
+            <td class="py-3 px-6 font-mono text-xs text-gray-500">duration-slow</td>
+            <td class="py-3 px-6 font-mono text-xs text-gray-500">400ms</td>
+            <td class="py-3 px-6 text-gray-600">Modal entrance, page transitions, skeleton loading</td>
+          </tr>
+          <tr>
+            <td class="py-3 px-6 font-mono text-xs text-gray-500">ease-default</td>
+            <td class="py-3 px-6 font-mono text-xs text-gray-500">cubic-bezier(0.4, 0, 0.2, 1)</td>
+            <td class="py-3 px-6 text-gray-600">All transitions — fast start, gentle deceleration</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Layout -->
+  <section class="specimen-section">
+    <h2>Layout</h2>
+    <p class="text-sm text-gray-600 mb-6 max-w-[65ch]">
+      Content constrained to <code class="text-xs bg-gray-100 px-1.5 py-0.5 rounded-sm font-mono">--container-max: 1200px</code>. Container queries for responsive behavior — no viewport media queries in components.
+    </p>
+    <div class="border border-gray-200 rounded-lg overflow-hidden">
+      <table class="w-full text-sm">
+        <thead>
+          <tr class="border-b border-gray-200 bg-gray-50">
+            <th class="text-left py-3 px-6 text-xs font-semibold text-gray-500 uppercase tracking-wide">Token</th>
+            <th class="text-left py-3 px-6 text-xs font-semibold text-gray-500 uppercase tracking-wide">Value</th>
+            <th class="text-left py-3 px-6 text-xs font-semibold text-gray-500 uppercase tracking-wide">Notes</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="border-b border-gray-100">
+            <td class="py-3 px-6 font-mono text-xs text-gray-500">container-max</td>
+            <td class="py-3 px-6 font-mono text-xs text-gray-500">1200px</td>
+            <td class="py-3 px-6 text-gray-600">Max content width, centered with mx-auto</td>
+          </tr>
+          <tr class="border-b border-gray-100">
+            <td class="py-3 px-6 font-mono text-xs text-gray-500">@sm</td>
+            <td class="py-3 px-6 font-mono text-xs text-gray-500">640px</td>
+            <td class="py-3 px-6 text-gray-600">Container query breakpoint</td>
+          </tr>
+          <tr class="border-b border-gray-100">
+            <td class="py-3 px-6 font-mono text-xs text-gray-500">@md</td>
+            <td class="py-3 px-6 font-mono text-xs text-gray-500">768px</td>
+            <td class="py-3 px-6 text-gray-600">Container query breakpoint</td>
+          </tr>
+          <tr class="border-b border-gray-100">
+            <td class="py-3 px-6 font-mono text-xs text-gray-500">@lg</td>
+            <td class="py-3 px-6 font-mono text-xs text-gray-500">1024px</td>
+            <td class="py-3 px-6 text-gray-600">Container query breakpoint</td>
+          </tr>
+          <tr>
+            <td class="py-3 px-6 font-mono text-xs text-gray-500">@xl</td>
+            <td class="py-3 px-6 font-mono text-xs text-gray-500">1280px</td>
+            <td class="py-3 px-6 text-gray-600">Container query breakpoint</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+</Layout>

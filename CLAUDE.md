@@ -1,8 +1,6 @@
-# Designing With Markup
+# Angora
 
-A **design deliverable** — not a code deliverable. This replaces Figma + design tokens as the source of truth for engineering teams. HTML + CSS is the design medium. The gallery is the spec; the tokens are the annotations; the rendered components are the acceptance test.
-
-Engineering teams consume this the way they'd consume a Figma file: open the gallery, inspect the component, translate it into their framework (React + Tailwind, Vue + UnoCSS, Svelte, whatever). Nobody ships this HTML to production — they ship their framework's version, validated against this gallery.
+A design system and site builder. The design system — tokens, components, and rendered specimens — is the source of truth for the visual language. Engineers consume it like a Figma file and translate to their framework. Add the SQLite content layer to turn the same components into a working prototype or a full static site.
 
 **Scope:** Marketing sites — heroes, pricing, features, testimonials, CTAs, navigation, footers. Not app UI, not dashboards.
 
@@ -19,24 +17,41 @@ Engineering teams consume this the way they'd consume a Figma file: open the gal
 
 - `src/system.md` — The "why" file. Intent, accessibility standard, anti-patterns, and decisions log. No token values (that's `global.css`) and no component patterns (that's the components). **Read before building or reviewing a component.**
 - `src/styles/global.css` — `@import "tailwindcss"` + `@theme` block with all design tokens. Single source of truth. **Read before building a component to know available tokens.**
-- `src/styles/gallery.css` — Gallery chrome: sidebar nav, specimen rows, labels, demo areas. Tooling only — doesn't ship.
-- `src/layouts/GalleryLayout.astro` — Sidebar nav + page shell. Accepts `fullscreenHref` prop.
-- `src/layouts/FullScreenLayout.astro` — Minimal layout for `/view/*` pages (no gallery chrome).
+- `src/styles/design-system.css` — Design system chrome: sidebar nav, specimen rows, labels, demo areas. Tooling only — doesn't ship.
+- `src/pages/design-system/_layout/Layout.astro` — Sidebar nav + page shell for design system pages. Accepts `fullscreenHref` prop.
+- `src/pages/design-system/_layout/FullScreen.astro` — Minimal layout for full-screen views (no design system chrome).
 - `src/components/*.astro` — Each component renders semantic HTML with Tailwind utility classes.
-- `src/pages/*.astro` — Gallery pages. One per component type.
-- `src/pages/view/*.astro` — Full-screen views without gallery chrome.
-- `src/pages/wireframes/*.astro` — Wireframe pages. Working docs for sketching page structure before building.
+- `src/pages/design-system/*.astro` — Design system pages. One per component type.
+- `src/pages/design-system/view/*.astro` — Full-screen views without design system chrome.
+- `src/pages/design-system/wireframes/*.astro` — Wireframe pages. Working docs for sketching page structure before building.
+- `src/pages/*.astro` — Site pages. Real routes like `/about-us`, `/pricing`, etc.
 - `public/icons/*.svg` — Downloadable SVG files.
+- `data.sqlite` — SQLite database. Content store, committed to git. Created on first import of `src/data/db.js`.
+- `public/media/` — Static media assets. Referenced by `path` in the `media` table.
+- `src/data/db.js` — Database utility. Opens/creates `data.sqlite`, ensures the media table exists, exports the `db` instance.
+- `inbox/` — Passive file queue. Drop images, CSVs, JSON here for processing. Contents gitignored.
+- `src/layouts/*.astro` — Site layouts (header/footer wrappers for real pages).
 
 ## Workflow
 
+Use `/angora` to assess project state and get a recommendation for which skill to run. Or invoke a skill directly:
+
 | Goal | Skill |
 |------|-------|
-| Start a new design system | `/design-system-init` |
-| Build or update a component | `/design-system-component <name>` |
-| Review against the system | `/design-system-audit [path]` |
-| Sketch a page wireframe | `/design-system-wireframe <page-name>` |
-| Compose a full page | `/design-system-assemble <page-name>` |
+| **Assess & recommend** | `/angora <what you want>` |
+| Start a new design system | `/angora-design-system-init` |
+| Build or update a component | `/angora-component <name>` |
+| Review against the system | `/angora-design-system-audit [path]` |
+| Sketch a page wireframe | `/angora-wireframe <page-name>` |
+| Compose a full page | `/angora-compose-page <page-name>` |
+| Design database schema | `/angora-schema <what to model>` |
+| Process inbox images | `/angora-media` |
+| Import data from inbox | `/angora-import <filename>` |
+| Quick database operations | `/angora-data [command]` |
+
+### Inbox
+
+The `inbox/` directory is a passive queue. Drop images, CSVs, JSON files here and tell `/angora` about them. Files are never deleted without explicit permission.
 
 ### System Evolution
 

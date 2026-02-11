@@ -1,0 +1,462 @@
+---
+import Layout from './_layout/Layout.astro';
+import TextInput from '../../components/TextInput.astro';
+import Textarea from '../../components/Textarea.astro';
+import Select from '../../components/Select.astro';
+import Checkbox from '../../components/Checkbox.astro';
+import Radio from '../../components/Radio.astro';
+import Toggle from '../../components/Toggle.astro';
+import FileUpload from '../../components/FileUpload.astro';
+import SearchInput from '../../components/SearchInput.astro';
+import Button from '../../components/Button.astro';
+---
+
+<Layout title="Forms" description="Text inputs, textareas, selects, checkboxes, radios, toggles, file upload, and search. All interactive — hover, focus, and tab to see states." fullscreenHref="/design-system/view/forms">
+
+  <!-- Text Input -->
+  <section class="specimen-section">
+    <h2>Text Input</h2>
+    <p class="text-sm text-gray-600 mb-6 max-w-[65ch]">
+      Block-level input with <code class="text-xs bg-gray-100 px-1.5 py-0.5 rounded-sm font-mono">border-gray-300</code> default, <code class="text-xs bg-gray-100 px-1.5 py-0.5 rounded-sm font-mono">border-primary-500</code> on focus, and semantic colors for error/success. Optional label, hint text, and leading icon.
+    </p>
+
+    <h3 class="text-sm font-semibold text-gray-600 uppercase tracking-wide mb-4">Default, with label, with icon</h3>
+    <div class="border border-gray-200 rounded-lg p-8 mb-6">
+      <div class="flex flex-wrap gap-8" style="align-items: flex-start;">
+        <div class="w-56">
+          <TextInput placeholder="Placeholder text" />
+        </div>
+        <div class="w-56">
+          <TextInput label="Email address" placeholder="you@example.com" />
+        </div>
+        <div class="w-56">
+          <TextInput label="Search" placeholder="Search..." withIcon />
+        </div>
+      </div>
+    </div>
+
+    <h3 class="text-sm font-semibold text-gray-600 uppercase tracking-wide mb-4">Validation &amp; disabled</h3>
+    <div class="border border-gray-200 rounded-lg p-8 mb-6">
+      <div class="flex flex-wrap gap-8" style="align-items: flex-start;">
+        <div class="w-56">
+          <TextInput state="error" label="Username" value="ab" hint="Must be at least 3 characters" />
+        </div>
+        <div class="w-56">
+          <TextInput state="success" label="Username" value="janedoe" hint="Available!" />
+        </div>
+        <div class="w-56">
+          <TextInput state="disabled" label="Account ID" value="ACC-00412" />
+        </div>
+      </div>
+    </div>
+
+    <h3 class="text-sm font-semibold text-gray-600 uppercase tracking-wide mb-4">Sizes</h3>
+    <div class="border border-gray-200 rounded-lg p-8">
+      <div class="flex flex-wrap gap-8 items-end">
+        <div class="w-48">
+          <TextInput size="sm" placeholder="Small" />
+          <span class="text-xs font-mono text-gray-400 mt-2 block text-center">sm</span>
+        </div>
+        <div class="w-48">
+          <TextInput size="md" placeholder="Medium" />
+          <span class="text-xs font-mono text-gray-400 mt-2 block text-center">md</span>
+        </div>
+        <div class="w-48">
+          <TextInput size="lg" placeholder="Large" />
+          <span class="text-xs font-mono text-gray-400 mt-2 block text-center">lg</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Textarea -->
+  <section class="specimen-section">
+    <h2>Textarea</h2>
+    <p class="text-sm text-gray-600 mb-6 max-w-[65ch]">
+      Same border/radius treatment as text input. Defaults to <code class="text-xs bg-gray-100 px-1.5 py-0.5 rounded-sm font-mono">resize-y</code> so users can adjust height. Rows prop controls initial height.
+    </p>
+
+    <div class="border border-gray-200 rounded-lg p-8 mb-6">
+      <div class="flex flex-wrap gap-8" style="align-items: flex-start;">
+        <div class="w-64">
+          <Textarea label="Message" placeholder="Write your message..." rows={3} />
+        </div>
+        <div class="w-64">
+          <Textarea state="error" label="Bio" placeholder="Tell us about yourself" hint="Required field" rows={3} />
+        </div>
+        <div class="w-64">
+          <Textarea state="disabled" label="Notes" value="Read-only content here." rows={3} />
+        </div>
+      </div>
+    </div>
+
+    <h3 class="text-sm font-semibold text-gray-600 uppercase tracking-wide mb-4">Sizes</h3>
+    <div class="border border-gray-200 rounded-lg p-8">
+      <div class="flex flex-wrap gap-8 items-end">
+        <div class="w-52">
+          <Textarea size="sm" placeholder="Small" rows={2} />
+          <span class="text-xs font-mono text-gray-400 mt-2 block text-center">sm</span>
+        </div>
+        <div class="w-52">
+          <Textarea size="md" placeholder="Medium" rows={2} />
+          <span class="text-xs font-mono text-gray-400 mt-2 block text-center">md</span>
+        </div>
+        <div class="w-52">
+          <Textarea size="lg" placeholder="Large" rows={2} />
+          <span class="text-xs font-mono text-gray-400 mt-2 block text-center">lg</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Select -->
+  <section class="specimen-section">
+    <h2>Select</h2>
+    <p class="text-sm text-gray-600 mb-6 max-w-[65ch]">
+      Native <code class="text-xs bg-gray-100 px-1.5 py-0.5 rounded-sm font-mono">&lt;select&gt;</code> with <code class="text-xs bg-gray-100 px-1.5 py-0.5 rounded-sm font-mono">appearance-none</code> and a custom chevron icon positioned absolutely. Same border treatment as text inputs.
+    </p>
+
+    <div class="border border-gray-200 rounded-lg p-8 mb-6">
+      <div class="flex flex-wrap gap-8" style="align-items: flex-start;">
+        <div class="w-56">
+          <Select label="Country" options={['United States', 'Canada', 'United Kingdom', 'Germany']} placeholder="Choose a country" />
+        </div>
+        <div class="w-56">
+          <Select state="error" label="Priority" options={['Low', 'Medium', 'High']} hint="Please select a priority" />
+        </div>
+        <div class="w-56">
+          <Select state="disabled" label="Region" options={['North America']} />
+        </div>
+      </div>
+    </div>
+
+    <h3 class="text-sm font-semibold text-gray-600 uppercase tracking-wide mb-4">Sizes</h3>
+    <div class="border border-gray-200 rounded-lg p-8">
+      <div class="flex flex-wrap gap-8 items-end">
+        <div class="w-48">
+          <Select size="sm" options={['Option A', 'Option B']} />
+          <span class="text-xs font-mono text-gray-400 mt-2 block text-center">sm</span>
+        </div>
+        <div class="w-48">
+          <Select size="md" options={['Option A', 'Option B']} />
+          <span class="text-xs font-mono text-gray-400 mt-2 block text-center">md</span>
+        </div>
+        <div class="w-48">
+          <Select size="lg" options={['Option A', 'Option B']} />
+          <span class="text-xs font-mono text-gray-400 mt-2 block text-center">lg</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Checkbox -->
+  <section class="specimen-section">
+    <h2>Checkbox</h2>
+    <p class="text-sm text-gray-600 mb-6 max-w-[65ch]">
+      Custom-styled box with <code class="text-xs bg-gray-100 px-1.5 py-0.5 rounded-sm font-mono">border-2</code> and <code class="text-xs bg-gray-100 px-1.5 py-0.5 rounded-sm font-mono">rounded-sm</code>. Checked state fills with <code class="text-xs bg-gray-100 px-1.5 py-0.5 rounded-sm font-mono">bg-primary-500</code> and shows an SVG checkmark. Indeterminate uses a minus line.
+    </p>
+
+    <div class="border border-gray-200 rounded-lg p-8 mb-6">
+      <div class="flex flex-wrap gap-8 items-start">
+        <Checkbox label="Unchecked" />
+        <Checkbox checked label="Checked" />
+        <Checkbox indeterminate label="Indeterminate" />
+        <Checkbox state="disabled" label="Disabled" />
+        <Checkbox checked state="disabled" label="Disabled checked" />
+      </div>
+    </div>
+
+    <h3 class="text-sm font-semibold text-gray-600 uppercase tracking-wide mb-4">Sizes</h3>
+    <div class="border border-gray-200 rounded-lg p-8">
+      <div class="flex flex-wrap gap-8 items-center">
+        <div class="flex flex-col items-center gap-3">
+          <Checkbox size="sm" checked label="Small" />
+          <span class="text-xs font-mono text-gray-400">sm</span>
+        </div>
+        <div class="flex flex-col items-center gap-3">
+          <Checkbox size="md" checked label="Medium" />
+          <span class="text-xs font-mono text-gray-400">md</span>
+        </div>
+        <div class="flex flex-col items-center gap-3">
+          <Checkbox size="lg" checked label="Large" />
+          <span class="text-xs font-mono text-gray-400">lg</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Radio -->
+  <section class="specimen-section">
+    <h2>Radio</h2>
+    <p class="text-sm text-gray-600 mb-6 max-w-[65ch]">
+      <code class="text-xs bg-gray-100 px-1.5 py-0.5 rounded-sm font-mono">rounded-full</code> with an inner dot on selection. Border changes to <code class="text-xs bg-gray-100 px-1.5 py-0.5 rounded-sm font-mono">border-primary-500</code> when selected.
+    </p>
+
+    <div class="border border-gray-200 rounded-lg p-8 mb-6">
+      <div class="flex flex-wrap gap-8 items-start">
+        <Radio label="Unselected" />
+        <Radio selected label="Selected" />
+        <Radio state="disabled" label="Disabled" />
+        <Radio selected state="disabled" label="Disabled selected" />
+      </div>
+    </div>
+
+    <h3 class="text-sm font-semibold text-gray-600 uppercase tracking-wide mb-4">Sizes</h3>
+    <div class="border border-gray-200 rounded-lg p-8">
+      <div class="flex flex-wrap gap-8 items-center">
+        <div class="flex flex-col items-center gap-3">
+          <Radio size="sm" selected label="Small" />
+          <span class="text-xs font-mono text-gray-400">sm</span>
+        </div>
+        <div class="flex flex-col items-center gap-3">
+          <Radio size="md" selected label="Medium" />
+          <span class="text-xs font-mono text-gray-400">md</span>
+        </div>
+        <div class="flex flex-col items-center gap-3">
+          <Radio size="lg" selected label="Large" />
+          <span class="text-xs font-mono text-gray-400">lg</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Toggle/Switch -->
+  <section class="specimen-section">
+    <h2>Toggle / Switch</h2>
+    <p class="text-sm text-gray-600 mb-6 max-w-[65ch]">
+      Track + thumb pattern. Off state uses <code class="text-xs bg-gray-100 px-1.5 py-0.5 rounded-sm font-mono">bg-gray-300</code>, on state uses <code class="text-xs bg-gray-100 px-1.5 py-0.5 rounded-sm font-mono">bg-primary-500</code>. Thumb translates horizontally with <code class="text-xs bg-gray-100 px-1.5 py-0.5 rounded-sm font-mono">transition-transform</code>.
+    </p>
+
+    <div class="border border-gray-200 rounded-lg p-8 mb-6">
+      <div class="flex flex-wrap gap-8 items-start">
+        <Toggle label="Off" />
+        <Toggle on label="On" />
+        <Toggle state="disabled" label="Disabled" />
+        <Toggle on state="disabled" label="Disabled on" />
+      </div>
+    </div>
+
+    <h3 class="text-sm font-semibold text-gray-600 uppercase tracking-wide mb-4">Sizes</h3>
+    <div class="border border-gray-200 rounded-lg p-8">
+      <div class="flex flex-wrap gap-8 items-center">
+        <div class="flex flex-col items-center gap-3">
+          <Toggle size="sm" on label="Small" />
+          <span class="text-xs font-mono text-gray-400">sm</span>
+        </div>
+        <div class="flex flex-col items-center gap-3">
+          <Toggle size="md" on label="Medium" />
+          <span class="text-xs font-mono text-gray-400">md</span>
+        </div>
+        <div class="flex flex-col items-center gap-3">
+          <Toggle size="lg" on label="Large" />
+          <span class="text-xs font-mono text-gray-400">lg</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- File Upload -->
+  <section class="specimen-section">
+    <h2>File Upload</h2>
+    <p class="text-sm text-gray-600 mb-6 max-w-[65ch]">
+      Two variants: <code class="text-xs bg-gray-100 px-1.5 py-0.5 rounded-sm font-mono">dropzone</code> (dashed border, upload icon, drag-and-drop target) and <code class="text-xs bg-gray-100 px-1.5 py-0.5 rounded-sm font-mono">button</code> (styled like a secondary button with a hidden file input).
+    </p>
+
+    <h3 class="text-sm font-semibold text-gray-600 uppercase tracking-wide mb-4">Dropzone</h3>
+    <div class="border border-gray-200 rounded-lg p-8 mb-6">
+      <div class="flex flex-wrap gap-8" style="align-items: flex-start;">
+        <div class="w-64">
+          <FileUpload variant="dropzone" />
+          <span class="text-xs font-mono text-gray-400 mt-2 block text-center">default</span>
+        </div>
+        <div class="w-64">
+          <FileUpload variant="dropzone" state="dragover" />
+          <span class="text-xs font-mono text-gray-400 mt-2 block text-center">dragover</span>
+        </div>
+        <div class="w-64">
+          <FileUpload variant="dropzone" state="disabled" />
+          <span class="text-xs font-mono text-gray-400 mt-2 block text-center">disabled</span>
+        </div>
+      </div>
+    </div>
+
+    <h3 class="text-sm font-semibold text-gray-600 uppercase tracking-wide mb-4">Button style</h3>
+    <div class="border border-gray-200 rounded-lg p-8">
+      <div class="flex flex-wrap gap-6 items-center">
+        <div class="flex flex-col items-center gap-3">
+          <FileUpload variant="button" />
+          <span class="text-xs font-mono text-gray-400">default</span>
+        </div>
+        <div class="flex flex-col items-center gap-3">
+          <FileUpload variant="button" state="disabled" />
+          <span class="text-xs font-mono text-gray-400">disabled</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Search Input -->
+  <section class="specimen-section">
+    <h2>Search Input</h2>
+    <p class="text-sm text-gray-600 mb-6 max-w-[65ch]">
+      Text input with a leading search icon and an optional clear button. The <code class="text-xs bg-gray-100 px-1.5 py-0.5 rounded-sm font-mono">has-value</code> state shows the populated input with clear affordance.
+    </p>
+
+    <div class="border border-gray-200 rounded-lg p-8 mb-6">
+      <div class="flex flex-wrap gap-8" style="align-items: flex-start;">
+        <div class="w-56">
+          <SearchInput />
+          <span class="text-xs font-mono text-gray-400 mt-2 block text-center">default</span>
+        </div>
+        <div class="w-56">
+          <SearchInput state="has-value" withClear />
+          <span class="text-xs font-mono text-gray-400 mt-2 block text-center">has-value + clear</span>
+        </div>
+        <div class="w-56">
+          <SearchInput state="disabled" />
+          <span class="text-xs font-mono text-gray-400 mt-2 block text-center">disabled</span>
+        </div>
+      </div>
+    </div>
+
+    <h3 class="text-sm font-semibold text-gray-600 uppercase tracking-wide mb-4">Sizes</h3>
+    <div class="border border-gray-200 rounded-lg p-8">
+      <div class="flex flex-wrap gap-8 items-end">
+        <div class="w-48">
+          <SearchInput size="sm" />
+          <span class="text-xs font-mono text-gray-400 mt-2 block text-center">sm</span>
+        </div>
+        <div class="w-48">
+          <SearchInput size="md" />
+          <span class="text-xs font-mono text-gray-400 mt-2 block text-center">md</span>
+        </div>
+        <div class="w-48">
+          <SearchInput size="lg" />
+          <span class="text-xs font-mono text-gray-400 mt-2 block text-center">lg</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Common Pairings -->
+  <section class="specimen-section">
+    <h2>Common Pairings</h2>
+    <p class="text-sm text-gray-600 mb-6 max-w-[65ch]">
+      Form elements composed into realistic patterns. Labels above inputs with <code class="text-xs bg-gray-100 px-1.5 py-0.5 rounded-sm font-mono">gap-1.5</code>, field groups separated by <code class="text-xs bg-gray-100 px-1.5 py-0.5 rounded-sm font-mono">gap-6</code>.
+    </p>
+
+    <h3 class="text-sm font-semibold text-gray-600 uppercase tracking-wide mb-4">Contact form</h3>
+    <div class="border border-gray-200 rounded-lg p-8 mb-6">
+      <div class="max-w-md flex flex-col gap-6">
+        <div class="grid grid-cols-2 gap-4">
+          <TextInput label="First name" placeholder="Jane" />
+          <TextInput label="Last name" placeholder="Doe" />
+        </div>
+        <TextInput label="Email" placeholder="jane@example.com" />
+        <Select label="Subject" options={['General inquiry', 'Technical support', 'Billing']} placeholder="Choose a subject" />
+        <Textarea label="Message" placeholder="How can we help?" rows={3} />
+        <div class="flex gap-3">
+          <Button>Send Message</Button>
+          <Button variant="ghost">Cancel</Button>
+        </div>
+      </div>
+    </div>
+
+    <h3 class="text-sm font-semibold text-gray-600 uppercase tracking-wide mb-4">Settings panel</h3>
+    <div class="border border-gray-200 rounded-lg p-8 mb-6">
+      <div class="max-w-md flex flex-col gap-6">
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-sm font-medium text-gray-900">Email notifications</p>
+            <p class="text-xs text-gray-400">Receive updates about your account</p>
+          </div>
+          <Toggle on />
+        </div>
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-sm font-medium text-gray-900">Marketing emails</p>
+            <p class="text-xs text-gray-400">New features and product updates</p>
+          </div>
+          <Toggle />
+        </div>
+        <div class="border-t border-gray-200 pt-6">
+          <p class="text-sm font-medium text-gray-900 mb-3">Notification frequency</p>
+          <div class="flex flex-col gap-2">
+            <Radio selected label="Real-time" />
+            <Radio label="Daily digest" />
+            <Radio label="Weekly summary" />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <h3 class="text-sm font-semibold text-gray-600 uppercase tracking-wide mb-4">Search with filters</h3>
+    <div class="border border-gray-200 rounded-lg p-8">
+      <div class="max-w-lg">
+        <SearchInput placeholder="Search products..." size="lg" />
+        <div class="flex flex-wrap gap-4 mt-4">
+          <Checkbox size="sm" checked label="In stock" />
+          <Checkbox size="sm" label="On sale" />
+          <Checkbox size="sm" label="Free shipping" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Shared Patterns -->
+  <section class="specimen-section">
+    <h2>Shared Patterns</h2>
+    <p class="text-sm text-gray-600 mb-6 max-w-[65ch]">
+      Consistent rules across all form elements.
+    </p>
+    <div class="overflow-x-auto">
+      <table class="w-full text-sm">
+        <thead>
+          <tr class="border-b border-gray-200">
+            <th class="text-left py-3 pr-6 font-semibold text-gray-900">Pattern</th>
+            <th class="text-left py-3 pr-6 font-semibold text-gray-900">Classes</th>
+            <th class="text-left py-3 font-semibold text-gray-900">Notes</th>
+          </tr>
+        </thead>
+        <tbody class="text-gray-600">
+          <tr class="border-b border-gray-100">
+            <td class="py-3 pr-6">Label</td>
+            <td class="py-3 pr-6 font-mono text-xs">text-sm font-medium text-gray-700</td>
+            <td class="py-3">Above input with gap-1.5</td>
+          </tr>
+          <tr class="border-b border-gray-100">
+            <td class="py-3 pr-6">Hint (default)</td>
+            <td class="py-3 pr-6 font-mono text-xs">text-xs text-gray-400</td>
+            <td class="py-3">Below input</td>
+          </tr>
+          <tr class="border-b border-gray-100">
+            <td class="py-3 pr-6">Hint (error)</td>
+            <td class="py-3 pr-6 font-mono text-xs">text-xs text-red-500</td>
+            <td class="py-3">+ border-red-500 on input</td>
+          </tr>
+          <tr class="border-b border-gray-100">
+            <td class="py-3 pr-6">Hint (success)</td>
+            <td class="py-3 pr-6 font-mono text-xs">text-xs text-green-600</td>
+            <td class="py-3">+ border-green-500 on input</td>
+          </tr>
+          <tr class="border-b border-gray-100">
+            <td class="py-3 pr-6">Focus ring</td>
+            <td class="py-3 pr-6 font-mono text-xs">border-primary-500 outline-2 outline-primary-300</td>
+            <td class="py-3">All focusable elements</td>
+          </tr>
+          <tr class="border-b border-gray-100">
+            <td class="py-3 pr-6">Disabled</td>
+            <td class="py-3 pr-6 font-mono text-xs">opacity-50 cursor-not-allowed</td>
+            <td class="py-3">+ bg-gray-50 on inputs</td>
+          </tr>
+          <tr>
+            <td class="py-3 pr-6">Field spacing</td>
+            <td class="py-3 pr-6 font-mono text-xs">gap-6</td>
+            <td class="py-3">Between form fields in a group</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+</Layout>

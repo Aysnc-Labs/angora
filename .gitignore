@@ -10,3 +10,7 @@
 !astro.config.mjs
 !package.json
 !pnpm-lock.yaml
+!data.sqlite
+!inbox
+inbox/*
+!inbox/.gitkeep

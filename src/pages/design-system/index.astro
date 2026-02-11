@@ -1,0 +1,43 @@
+---
+import '../../styles/global.css';
+import '../../styles/reset.css';
+import '../../styles/design-system.css';
+
+const sections = [
+  {
+    label: 'Wireframes',
+    description: 'Page structure and layout sketches. Hierarchy, flow, and content placement before visual design.',
+    href: '/design-system/wireframes/home',
+  },
+  {
+    label: 'Components',
+    description: 'Tokens, primitives, and components. The visual language — colors, type, spacing, buttons, cards, forms.',
+    href: '/design-system/style-guide',
+  },
+];
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Design System</title>
+  </head>
+  <body>
+    <div class="ds-hub">
+      <header class="ds-hub-header">
+        <h1 class="text-4xl font-bold text-gray-900 tracking-tight">Design System</h1>
+        <p class="text-lg text-gray-500 mt-2">Wireframes, tokens, and components.</p>
+      </header>
+      <div class="ds-hub-grid">
+        {sections.map(({ label, description, href }) => (
+          <a href={href} class="ds-hub-card">
+            <h2 class="text-lg font-semibold text-gray-900">{label}</h2>
+            <p class="text-sm text-gray-500 mt-1">{description}</p>
+          </a>
+        ))}
+      </div>
+    </div>
+  </body>
+</html>
