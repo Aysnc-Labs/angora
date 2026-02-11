@@ -33,6 +33,15 @@ Add the design system page to the sidebar nav in `src/pages/design-system/_layou
 6. **Visual review** — User opens design system page in browser (`pnpm dev`). Approves or iterates.
 7. **Update system.md** — Only if you made a new decision worth recording (added to anti-patterns or decisions log). Most components won't need an update.
 
+## Teammate mode
+
+When spawned as a teammate by `/angora`, you are a full session — the user can interact with you directly (Shift+Up/Down).
+
+1. **Quick check only** — check if the component exists, read system.md and global.css. Do NOT read every file in the project.
+2. **Ask immediately** — use `AskUserQuestion` to present your plan (what the component does, props/variants, semantic structure) and ask for approval. **Stop completely until the user responds.** Do not read more files or do any work while waiting.
+3. Only create/edit files after the user approves.
+4. If blockers arise, message the lead via `SendMessage`.
+
 **Suggested component order:** Typography specimens, Navigation, Hero sections, Feature grids, Pricing tables, Testimonials, Stats, Logo clouds, FAQ, CTA sections, Footer. (Buttons, icons, cards, grid, and forms are already built during init.)
 
 ## Markup Conventions

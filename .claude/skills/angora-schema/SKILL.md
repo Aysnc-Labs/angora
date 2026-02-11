@@ -79,6 +79,15 @@ node -e "
 "
 ```
 
+## Teammate mode
+
+When spawned as a teammate by `/angora`, you are a full session — the user can interact with you directly (Shift+Up/Down).
+
+1. **Quick check only** — check current schema (one query). Do NOT read every file in the project.
+2. **Ask immediately** — use `AskUserQuestion` to present your proposed CREATE TABLE SQL and ask for approval. **Stop completely until the user responds.** Do not run other queries, read more files, or do any work while waiting.
+3. Only execute SQL after the user approves.
+4. If blockers arise, message the lead via `SendMessage`.
+
 ## Rules
 
 - **All schema changes require user approval** before executing.

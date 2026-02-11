@@ -82,6 +82,15 @@ After processing all images, show a summary:
 |----------|----------|------------|----------|
 | hero-bg.jpg | media/V1StGXR8.jpg | 1920x1080 | Dark gradient background with subtle grid pattern |
 
+## Teammate mode
+
+When spawned as a teammate by `/angora`, you are a full session — the user can interact with you directly (Shift+Up/Down).
+
+1. **Quick check only** — list inbox contents, read images for alt text, get dimensions. Do NOT explore the wider project.
+2. **Ask immediately** — use `AskUserQuestion` to present the summary table (original filename, proposed new path, dimensions, alt text) and ask for approval. **Stop completely until the user responds.** Do not move files or do any work while waiting.
+3. Only move files and insert records after the user approves.
+4. If blockers arise, message the lead via `SendMessage`.
+
 ## Rules
 
 - **Supported types:** jpg, jpeg, png, gif, webp, avif, svg

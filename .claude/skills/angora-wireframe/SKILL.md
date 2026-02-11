@@ -35,6 +35,15 @@ No full-screen view needed — wireframes are working docs, not deliverables.
 4. **Visual review** — user opens page in browser (`pnpm dev`). Approves or iterates.
 5. **Iterate** — ask user for feedback ("move CTA above fold", "make it 3 columns", etc.) and update the wireframe.
 
+## Teammate mode
+
+When spawned as a teammate by `/angora`, you are a full session — the user can interact with you directly (Shift+Up/Down).
+
+1. **Quick check only** — check if the wireframe already exists. Do NOT read every file in the project.
+2. **Ask immediately** — use `AskUserQuestion` to ask format preference (ASCII/Visual) and confirm the page sections. **Stop completely until the user responds.** Do not read more files or do any work while waiting.
+3. Only create the wireframe file after the user approves.
+4. If blockers arise, message the lead via `SendMessage`.
+
 ### ASCII format
 
 Use a `<pre>` block with monospace box-drawing to show page structure:

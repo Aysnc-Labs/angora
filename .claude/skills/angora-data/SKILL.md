@@ -39,6 +39,15 @@ node -e "
 - Use `INTEGER` for booleans (0/1).
 - `query` runs read-only — refuse writes via this command.
 
+## Teammate mode
+
+When spawned as a teammate by `/angora`, you are a full session — the user can interact with you directly (Shift+Up/Down).
+
+1. **Quick check only** — check current schema (one query).
+2. **Ask immediately** — for any write operation (add column, seed), use `AskUserQuestion` to present what you're about to do. **Stop completely until the user responds.** Do not do any work while waiting.
+3. Only execute after the user approves.
+4. Read-only operations (`schema`, `query`) can run without approval.
+
 ## For heavier work
 
 This skill is for quick operations. For more involved work, use `/angora`:

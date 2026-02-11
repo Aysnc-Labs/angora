@@ -35,6 +35,15 @@ Then validate the target against the rules below.
 
 Anti-pattern violations, pattern consistency, personality alignment (swap test).
 
+## Teammate mode
+
+When spawned as a teammate by `/angora`, you are a full session — the user can interact with you directly (Shift+Up/Down).
+
+1. **Read only the target files** — read the file(s) being audited plus system.md and global.css. Do NOT explore the wider project.
+2. **Ask immediately** — use `AskUserQuestion` to present your list of violations and proposed fixes. **Stop completely until the user responds.** Do not read more files or do any work while waiting.
+3. Only apply fixes after the user approves.
+4. If blockers arise, message the lead via `SendMessage`.
+
 ## Output
 
 Report all violations with: file path, line number, rule violated, and suggested fix. Fix all violations before showing components to the user.
