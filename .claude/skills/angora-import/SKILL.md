@@ -87,15 +87,6 @@ node -e "
 "
 ```
 
-## Teammate mode
-
-When spawned as a teammate by `/angora`, you are a full session — the user can interact with you directly (Shift+Up/Down).
-
-1. **Quick check only** — read the inbox file and check current schema (two operations). Do NOT explore the wider project.
-2. **Ask immediately** — use `AskUserQuestion` to present your field mapping, sample rows, and any schema gaps. **Stop completely until the user responds.** Do not do any other work while waiting.
-3. Only insert data after the user approves.
-4. If there are schema gaps, message the lead via `SendMessage`.
-
 ## Rules
 
 - **Never delete inbox files without explicit permission** — ask after processing

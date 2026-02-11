@@ -34,11 +34,11 @@ A design system and site builder. The design system — tokens, components, and 
 
 ## Workflow
 
-**Primary entry point: `/angora`** — the lead agent. Tell it what you want and it delegates to specialists.
+Use `/angora` to assess project state and get a recommendation for which skill to run. Or invoke a skill directly:
 
 | Goal | Skill |
 |------|-------|
-| **Any task** (recommended) | `/angora <what you want>` |
+| **Assess & recommend** | `/angora <what you want>` |
 | Start a new design system | `/angora-design-system-init` |
 | Build or update a component | `/angora-component <name>` |
 | Review against the system | `/angora-design-system-audit [path]` |

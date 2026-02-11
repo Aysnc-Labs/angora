@@ -112,15 +112,6 @@ Site layouts go in `src/layouts/` (Astro convention). A site layout wraps page c
 - `src/pages/<page-name>.astro` — the site page
 - Optional: `src/pages/<collection>/[slug].astro` — for list/detail patterns
 
-## Teammate mode
-
-When spawned as a teammate by `/angora`, you are a full session — the user can interact with you directly (Shift+Up/Down).
-
-1. **Quick check only** — list components, check for wireframe, check for existing page, check for site layout. Keep it to a few file listings — do NOT deep-read every file.
-2. **Ask immediately** — use `AskUserQuestion` to present: what you found, your proposed page plan (components, section order, data sources, layout decisions), and any blockers. **Stop completely until the user responds.** Do not read more files, query the database, or do any work while waiting.
-3. Only create page files after the user approves.
-4. If you discover blockers (missing tables, missing components, no site layout), message the lead via `SendMessage`.
-
 ## Page-level concerns
 
 - Section spacing — consistent vertical rhythm between sections
