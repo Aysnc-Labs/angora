@@ -5,6 +5,8 @@
 !.gitignore
 !BOOTSTRAP.md
 !CLAUDE.md
+!README.md
+!LICENSE
 !public
 !src
 !astro.config.mjs

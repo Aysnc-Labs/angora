@@ -6,10 +6,10 @@ A design system and site builder. The design system — tokens, components, and 
 
 ## Build Layer
 
-**Astro** is the build tool. It produces static HTML+CSS — no client-side JavaScript. **Tailwind CSS v4** is the styling layer, integrated via `@tailwindcss/vite`. Design tokens are defined in `src/styles/global.css` using Tailwind's `@theme` directive — this is the single source of truth for all design values.
+**Astro** is the build tool. **Tailwind CSS v4** is the styling layer, integrated via `@tailwindcss/vite`. Design tokens are defined in `src/styles/global.css` using Tailwind's `@theme` directive — this is the single source of truth for all design values.
 
 - Astro components render semantic HTML with Tailwind utility classes. No custom elements, no `@scope` CSS.
-- Component props (`variant`, `size`, `disabled`) resolve to Tailwind class strings at build time. No client-side JavaScript.
+- Component props (`variant`, `size`, `disabled`) resolve to Tailwind class strings at build time. Components can include client-side JavaScript when interactivity requires it.
 - Astro component names don't need a prefix (just `Button.astro`, not `SiteButton.astro`).
 - Icon components live in `src/components/icons/` and drop the `Icon` prefix — the directory provides context (e.g., `icons/ArrowRight.astro`).
 
@@ -34,7 +34,7 @@ A design system and site builder. The design system — tokens, components, and 
 
 ## Workflow
 
-Use `/angora` to assess project state and get a recommendation for which skill to run. Or invoke a skill directly:
+Start with `/angora-design-system-init` to define brand identity, tokens, and style guide. This is always the first step on a new project. After init is complete, use `/angora` to drive everything else — it assesses project state and recommends the right skill to run. Or invoke a skill directly:
 
 | Goal | Skill |
 |------|-------|
