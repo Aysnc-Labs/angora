@@ -100,6 +100,33 @@ All components use semantic HTML elements styled with Tailwind utility classes. 
 
 **Images: always use `<img>`, never CSS background images.** Use `<img>` with `object-fit: cover` (`object-cover` in Tailwind) for all imagery including hero backgrounds, card covers, and full-bleed sections. Position with Tailwind classes (`absolute inset-0`) inside a relatively-positioned container when used as a backdrop.
 
+### ARIA Regions and Groups
+
+Composites that render as page sections need accessible labels so screen readers can identify them. Primitives generally don't — native semantics are enough.
+
+- **`<section>`** — always pair with `aria-labelledby` pointing to the section's heading, or `aria-label` if there's no visible heading
+- **`<nav>`** — always add `aria-label` (e.g., `aria-label="Main"`, `aria-label="Footer"`). Critical when multiple navs exist on a page
+- **`role="group"`** — use on related control clusters (e.g., a button group, a set of radio cards) with `aria-label` describing the group
+
+```astro
+<!-- Section with visible heading -->
+<section aria-labelledby="pricing-heading">
+  <h2 id="pricing-heading">Pricing</h2>
+  ...
+</section>
+
+<!-- Nav with label -->
+<nav aria-label="Main">...</nav>
+
+<!-- Control group -->
+<div role="group" aria-label="Plan selection">
+  <Card>...</Card>
+  <Card>...</Card>
+</div>
+```
+
+Accept `aria-label` as a prop on composites so consumers can override the default label in context.
+
 ### Container Queries, Not Media Queries
 
 All responsive behavior uses container queries so components adapt to their container, not the viewport. No viewport-based responsive variants (`sm:`, `md:`, `lg:`) in component markup — only container query variants.
