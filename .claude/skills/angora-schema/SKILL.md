@@ -69,15 +69,26 @@ Before running any SQL:
 
 ## Running SQL
 
-Use the Bash tool:
+All DDL must go through `migrate()` so it's recorded in the migration ledger. Use the Bash tool:
 
 ```bash
 node -e "
-  import db from './src/data/db.js';
-  db.exec(\`CREATE TABLE IF NOT EXISTS ...\`);
-  console.log('Table created.');
+  import { migrate } from './src/data/db.js';
+  const file = migrate('create_<table>', \`
+    CREATE TABLE IF NOT EXISTS <table> (
+      ...
+    );
+  \`);
+  console.log('Migration applied:', file);
 "
 ```
+
+The `migrate(name, sql)` function:
+1. Executes the SQL
+2. Writes it to `migrations/<NNN>_<name>.sql`
+3. Records it in the `schema_migrations` ledger
+
+**Name convention:** use snake_case describing the change — `create_testimonials`, `add_status_to_posts`, `create_posts_media_junction`.
 
 ## Rules
 

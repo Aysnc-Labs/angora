@@ -19,6 +19,8 @@ Quick operations on the SQLite content layer (`data.sqlite`).
 
 ## Running SQL
 
+### Schema inspection (read-only)
+
 ```bash
 node -e "
   import db from './src/data/db.js';
@@ -28,6 +30,18 @@ node -e "
     console.log('\n' + t.name + ':');
     console.table(cols.map(c => ({ name: c.name, type: c.type, notnull: c.notnull, dflt: c.dflt_value })));
   }
+"
+```
+
+### Schema changes (ALTER TABLE, etc.)
+
+All DDL must go through `migrate()`:
+
+```bash
+node -e "
+  import { migrate } from './src/data/db.js';
+  const file = migrate('add_<column>_to_<table>', \`ALTER TABLE <table> ADD COLUMN <column> <type>;\`);
+  console.log('Migration applied:', file);
 "
 ```
 
