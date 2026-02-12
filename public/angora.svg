@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="200px" height="200px" viewBox="0 0 200 200" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Group</title>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Group">
+            <rect id="Rectangle" fill="#111111" x="0" y="0" width="200" height="200"></rect>
+            <path d="M50,149 C50,174 150,174 150,149 C150,109 170,69 170,49 C170,29 150,29 130,39 C115,47 85,47 70,39 C50,29 30,29 30,49 C30,69 50,109 50,149 Z" id="Path" fill="#FFFFFF"></path>
+            <circle id="Oval" fill="#5499C7" cx="75" cy="104" r="18"></circle>
+            <circle id="Oval" fill="#D4AC0D" cx="125" cy="104" r="18"></circle>
+        </g>
+    </g>
+</svg>
