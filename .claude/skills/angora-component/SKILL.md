@@ -19,20 +19,26 @@ argument-hint: <name>
 
 Primitives (Button, TextInput, Toggle) take props directly — they're single-purpose elements. Composites (Hero, Header, Pricing, Nav) are layout shells that arrange content. Composites must use composition, not prop bags.
 
-**The rule:** the shell gets *behavior/layout* props (variant, size). Content flows through *named slots/sub-components*.
+**The rule:** the shell gets *behavior/layout* props (variant, size). Content flows through *sub-components*.
+
+**Reference implementation: `Card/`** — the existing Card composite demonstrates this pattern:
 
 ```astro
 <!-- Bad — prop bag, locked layout -->
-<Hero imageSrc="/img.jpg" eyebrow="New" title="Hello" description="..." />
+<Card imageSrc="/img.jpg" eyebrow="Engineering" title="Hello" description="..." />
 
-<!-- Good — composable, content order is up to the consumer -->
-<Hero>
-  <img slot="image" src="/img.jpg" />
-  <span slot="eyebrow">New</span>
-  <h1 slot="title">Hello</h1>
-  <p slot="description">...</p>
-</Hero>
+<!-- Good — composable sub-components -->
+<Card padding={false}>
+  <CardImage src="/img.jpg" alt="..." />
+  <CardBody>
+    <CardEyebrow>Engineering</CardEyebrow>
+    <CardTitle>Building reliable systems</CardTitle>
+    <CardDescription>How we scaled our infrastructure.</CardDescription>
+  </CardBody>
+</Card>
 ```
+
+The shell (`Card`) owns variant/padding. Each sub-component owns its own typography and spacing. Consumers compose only the parts they need — a feature card skips `CardImage` and `CardBody`, a simple card uses just `CardTitle` + `CardDescription`.
 
 ## File organization
 
@@ -42,16 +48,16 @@ Primitives (Button, TextInput, Toggle) take props directly — they're single-pu
 components/
   Button.astro              ← primitive, single file
   TextInput.astro           ← primitive, single file
-  Card.astro                ← simple shell, single file
-  Hero/                     ← composite, directory
-    Hero.astro              ← shell (variant/layout props)
-    HeroImage.astro
-    HeroEyebrow.astro
-    HeroTitle.astro
-    HeroActions.astro
+  Card/                     ← composite, directory
+    Card.astro              ← shell (variant/layout props)
+    CardImage.astro         ← image with placeholder fallback
+    CardBody.astro          ← padded content wrapper
+    CardEyebrow.astro       ← uppercase category label
+    CardTitle.astro         ← title (accepts `as` prop for heading level)
+    CardDescription.astro   ← body text
 ```
 
-The directory groups the shell with its sub-components. Consumers import from the directory: `import Hero from '../components/Hero/Hero.astro'`.
+The directory groups the shell with its sub-components. Consumers import from the directory: `import Card from '../components/Card/Card.astro'`.
 
 ## Output files
 
