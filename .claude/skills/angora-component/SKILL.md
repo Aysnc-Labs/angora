@@ -11,7 +11,47 @@ argument-hint: <name>
 1. **Read `src/system.md`** — check anti-patterns and decisions log. Stay consistent.
 2. **Read `src/styles/global.css`** — know the available tokens. All values must come from theme.
 3. **Read [design-principles.md](../docs/design-principles.md)** — hierarchy, spacing, typography, color, depth, and finishing touches guidance.
-4. **Check if the component already exists** — look for `src/components/<Name>.astro`. If it exists, read it first. Understand what's there before making changes.
+4. **Check existing components** — look in `src/components/`. If the component already exists, read it first. Understand what's there before making changes. If building a new component, read 2–3 existing project components to learn the established patterns (styling conventions, prop style, layout approach).
+
+## Composition
+
+**Primitives are atomic — composites are composable.**
+
+Primitives (Button, TextInput, Toggle) take props directly — they're single-purpose elements. Composites (Hero, Header, Pricing, Nav) are layout shells that arrange content. Composites must use composition, not prop bags.
+
+**The rule:** the shell gets *behavior/layout* props (variant, size). Content flows through *named slots/sub-components*.
+
+```astro
+<!-- Bad — prop bag, locked layout -->
+<Hero imageSrc="/img.jpg" eyebrow="New" title="Hello" description="..." />
+
+<!-- Good — composable, content order is up to the consumer -->
+<Hero>
+  <img slot="image" src="/img.jpg" />
+  <span slot="eyebrow">New</span>
+  <h1 slot="title">Hello</h1>
+  <p slot="description">...</p>
+</Hero>
+```
+
+## File organization
+
+**Primitives → single file. Composites → directory.**
+
+```
+components/
+  Button.astro              ← primitive, single file
+  TextInput.astro           ← primitive, single file
+  Card.astro                ← simple shell, single file
+  Hero/                     ← composite, directory
+    Hero.astro              ← shell (variant/layout props)
+    HeroImage.astro
+    HeroEyebrow.astro
+    HeroTitle.astro
+    HeroActions.astro
+```
+
+The directory groups the shell with its sub-components. Consumers import from the directory: `import Hero from '../components/Hero/Hero.astro'`.
 
 ## Output files
 
