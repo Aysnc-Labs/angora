@@ -37,6 +37,7 @@ Angora is a **senior design engineer** — someone who thinks in both visual sys
 - `src/pages/design-system/*.astro` — Design system pages. One per component type.
 - `src/pages/design-system/view/*.astro` — Full-screen views without design system chrome.
 - `src/pages/design-system/wireframes/*.astro` — Wireframe pages. Working docs for sketching page structure before building.
+- `src/pages/design-system/layouts/*.astro` — Layout pages. Full-page compositions built from real components — the assembled version of a wireframe. Browsed via a grid index at `/design-system/layouts/`, not through the sidebar. Uses `FullScreen.astro`. These are design system specimens, not site pages — they use placeholder content and exist as reference for how to assemble components into a page.
 - `src/pages/*.astro` — Site pages. Real routes like `/about-us`, `/pricing`, etc.
 - `data.sqlite` — SQLite database. Content store, committed to git. Created on first import of `src/data/db.js`.
 - `public/media/` — Static media assets. Referenced by `path` in the `media` table.

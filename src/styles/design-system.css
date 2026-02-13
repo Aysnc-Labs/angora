@@ -175,7 +175,7 @@
 /* Hub — centered landing with side-by-side panels */
 
 .ds-hub {
-  max-width: 640px;
+  max-width: 800px;
   margin: 0 auto;
   padding: var(--spacing-24) var(--spacing-8);
 }
@@ -222,4 +222,76 @@
 /* Hover: dim the panel you're NOT on */
 .ds-hub-row:hover .ds-hub-panel:not(:hover) {
   opacity: 0.35;
+}
+
+/* Layouts index — grid of layout cards */
+
+.ds-layouts {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: var(--spacing-12) var(--spacing-8);
+}
+
+.ds-layouts-header {
+  margin-bottom: var(--spacing-12);
+}
+
+.ds-layouts-back {
+  font-size: var(--text-sm);
+  color: var(--color-gray-400);
+  text-decoration: none;
+  display: inline-block;
+  margin-bottom: var(--spacing-4);
+  transition: color var(--duration-fast) var(--ease-default);
+}
+
+.ds-layouts-back:hover {
+  color: var(--color-gray-600);
+}
+
+.ds-layouts-header > h1 {
+  font-size: var(--text-4xl);
+  font-weight: 700;
+  line-height: var(--leading-tight);
+  letter-spacing: -0.02em;
+  color: var(--color-gray-900);
+}
+
+.ds-layouts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: var(--spacing-6);
+}
+
+.ds-layouts-card {
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-gray-200);
+  overflow: hidden;
+  transition: border-color var(--duration-fast) var(--ease-default);
+}
+
+.ds-layouts-card:hover {
+  border-color: var(--color-gray-400);
+}
+
+.ds-layouts-card-preview {
+  aspect-ratio: 16 / 10;
+  background: var(--color-gray-50);
+  border-bottom: 1px solid var(--color-gray-200);
+}
+
+.ds-layouts-card-label {
+  font-size: var(--text-base);
+  font-weight: 600;
+  color: var(--color-gray-900);
+  padding: var(--spacing-4) var(--spacing-4) var(--spacing-1);
+}
+
+.ds-layouts-card-desc {
+  font-size: var(--text-sm);
+  color: var(--color-gray-400);
+  padding: 0 var(--spacing-4) var(--spacing-4);
 }

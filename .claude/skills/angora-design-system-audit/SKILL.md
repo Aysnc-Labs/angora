@@ -11,7 +11,7 @@ argument-hint: [path]
 1. **Read `src/system.md`** — intent, accessibility standard, anti-patterns, decisions log.
 2. **Read `src/styles/global.css`** — the token definitions you're validating against.
 3. **Read [design-principles.md](../docs/design-principles.md)** — the full set of design principles informing this review.
-4. **Determine the audit scope** — is the target a component (`src/components/`), a design system page (`src/pages/design-system/`), or a site page (`src/pages/*.astro`)? Some rules only apply to specific scopes (marked below).
+4. **Determine the audit scope** — is the target a component (`src/components/`), a design system page (`src/pages/design-system/`), a layout (`src/pages/design-system/layouts/`), or a site page (`src/pages/*.astro`)? Some rules only apply to specific scopes (marked below). Layouts are full-page compositions — audit them like site pages (Page Rules apply) but note they use placeholder content, so skip SEO checks.
 
 Then validate the target against the rules below.
 

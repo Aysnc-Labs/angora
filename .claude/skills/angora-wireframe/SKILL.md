@@ -107,6 +107,8 @@ import Layout from '../_layout/Layout.astro';
 
 This is consumed by `angora-compose-page` when building the real page.
 
+After wireframing, suggest building a layout: *"Want to assemble this as a layout with real components? Run `/angora` to build a layout for this page."* Layouts live at `src/pages/design-system/layouts/<page-name>.astro` and prove the composition works with real components before wiring up data.
+
 ### Visual format
 
 Use gray Tailwind boxes with placeholder text:

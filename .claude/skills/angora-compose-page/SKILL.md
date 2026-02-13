@@ -16,8 +16,9 @@ Build or update a full site page from approved components. Pages are living docu
 4. **Inventory components** — list `src/components/*.astro` to know what's available. Only use approved, built components.
 5. **Read `src/components/Section.astro`** — understand the Section pattern before composing pages. All page sections use this component.
 6. **Check for wireframe** — look for `src/pages/design-system/wireframes/<page-name>.astro`. If it exists, read it — especially the data source annotations in frontmatter.
-7. **Check for existing page** — look for `src/pages/<page-name>.astro`. If it exists, read it first. This is an evolution, not a rewrite.
-8. **Check for site layout** — look in `src/layouts/` for existing site layouts (header/footer wrappers).
+7. **Check for layout** — look for `src/pages/design-system/layouts/<page-name>.astro`. If a layout exists, it's an approved composition showing how components assemble for this page. Use it as the reference — match its section order, component choices, and visual rhythm. The real page replaces placeholder content with real data but follows the same structure.
+8. **Check for existing page** — look for `src/pages/<page-name>.astro`. If it exists, read it first. This is an evolution, not a rewrite.
+9. **Check for site layout** — look in `src/layouts/` for existing site layouts (header/footer wrappers).
 
 ## Entry points
 

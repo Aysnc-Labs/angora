@@ -26,6 +26,7 @@ Check what exists:
 - **Components** — list `src/components/*.astro`
 - **Pages** — list `src/pages/*.astro` (skip design-system/)
 - **Wireframes** — list `src/pages/design-system/wireframes/*.astro`
+- **Layouts** — list `src/pages/design-system/layouts/*.astro` (skip `index.astro`). These are full-page compositions built from real components — the assembled version of wireframes. Browsed at `/design-system/layouts/`.
 - **Database schema** — run:
 ```bash
 node -e "
@@ -70,7 +71,8 @@ Respect dependencies:
 - Schema before import (can't import without a table)
 - Components before compose-page (can't compose without components)
 - Media processing before import (if data references images)
-- Wireframe before compose-page (recommended, not required)
+- Wireframe before layout (recommended — wireframes sketch structure, layouts assemble real components)
+- Layout before compose-page (recommended — layouts prove the composition works before wiring up real data)
 
 ### 4. Present the plan and offer to run the first step
 
