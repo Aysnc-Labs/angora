@@ -19,8 +19,8 @@ import ArrowRight from '@/icons/ArrowRight.astro';
       <code class="text-xs bg-gray-100 px-1.5 py-0.5 rounded-sm font-mono">elevated</code> drops the border and relies on a larger shadow that grows on hover.
       <code class="text-xs bg-gray-100 px-1.5 py-0.5 rounded-sm font-mono">flat</code> uses a tinted background with no border or shadow.
     </p>
-    <div class="border border-gray-200 rounded-lg p-8">
-      <div class="grid grid-cols-3 gap-6">
+    <div class="@container border border-gray-200 rounded-lg p-8">
+      <div class="grid grid-cols-1 @sm:grid-cols-2 @lg:grid-cols-3 grid-gap">
         <div class="flex flex-col gap-3">
           <Card>
             <CardTitle>Default</CardTitle>
@@ -52,8 +52,8 @@ import ArrowRight from '@/icons/ArrowRight.astro';
     <p class="text-sm text-gray-600 mb-6 max-w-[65ch]">
       Image top with <code class="text-xs bg-gray-100 px-1.5 py-0.5 rounded-sm font-mono">padding=false</code> on the card, then a padded body below. The image uses <code class="text-xs bg-gray-100 px-1.5 py-0.5 rounded-sm font-mono">object-fit: cover</code> in a fixed-height container. Good for blog posts, case studies, portfolios.
     </p>
-    <div class="border border-gray-200 rounded-lg p-8">
-      <div class="grid grid-cols-3 gap-6">
+    <div class="@container border border-gray-200 rounded-lg p-8">
+      <div class="grid grid-cols-1 @sm:grid-cols-2 @lg:grid-cols-3 grid-gap">
         <Card padding={false}>
           <CardImage />
           <CardBody>
@@ -91,8 +91,8 @@ import ArrowRight from '@/icons/ArrowRight.astro';
     <p class="text-sm text-gray-600 mb-6 max-w-[65ch]">
       Icon or illustration at top, then title and description. No image, no CTA link — the card itself is the content. Works well in 3- or 4-column grids for feature and benefit sections.
     </p>
-    <div class="border border-gray-200 rounded-lg p-8">
-      <div class="grid grid-cols-3 gap-6">
+    <div class="@container border border-gray-200 rounded-lg p-8">
+      <div class="grid grid-cols-1 @sm:grid-cols-2 @lg:grid-cols-3 grid-gap">
         <Card variant="flat">
           <div class="w-10 h-10 rounded-lg bg-primary-100 text-primary-600 flex items-center justify-center mb-4">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
