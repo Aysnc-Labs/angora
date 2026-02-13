@@ -98,8 +98,11 @@
   --container-max: 1200px;
   --grid-gap: 24px;
 
-  /* Container size references (use with @container, not @media) */
-  /* sm: 640px | md: 768px | lg: 1024px | xl: 1280px */
+  /* Container query breakpoints (@sm:, @md:, @lg:, @xl:) */
+  --container-sm: 640px;
+  --container-md: 768px;
+  --container-lg: 1024px;
+  --container-xl: 1280px;
 }
 
 /*
