@@ -14,9 +14,10 @@ Build or update a full site page from approved components. Pages are living docu
 2. **Read `src/styles/global.css`** — available tokens for page-level spacing and backgrounds.
 3. **Read [design-principles.md](../docs/design-principles.md)** — especially Spacing & Layout and Finishing Touches sections.
 4. **Inventory components** — list `src/components/*.astro` to know what's available. Only use approved, built components.
-5. **Check for wireframe** — look for `src/pages/design-system/wireframes/<page-name>.astro`. If it exists, read it — especially the data source annotations in frontmatter.
-6. **Check for existing page** — look for `src/pages/<page-name>.astro`. If it exists, read it first. This is an evolution, not a rewrite.
-7. **Check for site layout** — look in `src/layouts/` for existing site layouts (header/footer wrappers).
+5. **Read `src/components/Section.astro`** — understand the Section pattern before composing pages. All page sections use this component.
+6. **Check for wireframe** — look for `src/pages/design-system/wireframes/<page-name>.astro`. If it exists, read it — especially the data source annotations in frontmatter.
+7. **Check for existing page** — look for `src/pages/<page-name>.astro`. If it exists, read it first. This is an evolution, not a rewrite.
+8. **Check for site layout** — look in `src/layouts/` for existing site layouts (header/footer wrappers).
 
 ## Entry points
 
@@ -114,7 +115,10 @@ Site layouts go in `src/layouts/` (Astro convention). A site layout wraps page c
 
 ## Page-level concerns
 
-- Section spacing — consistent vertical rhythm between sections
+- **Page wrapper uses `page-flow`** — `<main class="page-flow">` wraps all sections. The `page-flow` utility lives in `global.css` and controls inter-section margin (gap controlled by `--section-gap`).
+- **Every section uses the Section component** — don't render raw `<section>` elements on pages. Section provides `@container`, container max-width, horizontal padding, and accessible labeling. Non-seamless sections have no vertical padding (`page-flow` handles spacing). Seamless sections get standardized vertical padding tied to `--section-gap`.
+- **Section-level components compose Section internally** — if using Hero, Features, or other section-level components, they already render Section under the hood. Don't double-wrap with `<Section><Hero>`.
+- **Backgrounded sections use `seamless`** — `<Section seamless>` for sections with background colors/images. Adjacent seamless sections get 0 gap so backgrounds butt up.
 - Background alternation for visual rhythm (light/dark sections)
 - Visual flow — the eye moves naturally through the page
 - Responsive behavior via container queries

@@ -15,9 +15,17 @@ argument-hint: <name>
 
 ## Composition
 
-**Primitives are atomic — composites are composable.**
+**Three tiers: primitives, composites, and section-level components.**
 
-Primitives (Button, TextInput, Toggle) take props directly — they're single-purpose elements. Composites (Hero, Header, Pricing, Nav) are layout shells that arrange content. Composites must use composition, not prop bags.
+### Primitives
+
+Atomic, single-purpose elements. Single file. Take props directly.
+
+Examples: Button, TextInput, Toggle, Badge, Section.
+
+### Composites
+
+Layout shells that arrange content through sub-components, not prop bags. Directory structure groups the shell with its sub-components.
 
 **The rule:** the shell gets *behavior/layout* props (variant, size). Content flows through *sub-components*.
 
@@ -38,7 +46,29 @@ Primitives (Button, TextInput, Toggle) take props directly — they're single-pu
 </Card>
 ```
 
-The shell (`Card`) owns variant/padding. Each sub-component owns its own typography and spacing. Consumers compose only the parts they need — a feature card skips `CardImage` and `CardBody`, a simple card uses just `CardTitle` + `CardDescription`.
+The shell (`Card`) owns variant/padding. Each sub-component owns its own typography and spacing. Consumers compose only the parts they need.
+
+### Section-level components
+
+Any component that occupies a page section (Hero, Pricing, Features, Testimonials, CTA, Stats, FAQ). These compose the `Section` component internally — the consumer never wraps in Section manually.
+
+**Section rules:**
+
+- Section-level components **always compose `Section` internally**. The consumer writes `<Hero>` or `<Features>`, not `<Section><Hero></Section>`.
+- `Section` provides: `<section>` element, `@container`, container max-width, horizontal padding, `seamless` variant (`data-seamless` for `page-flow`). Non-seamless sections get no vertical padding — `page-flow` handles spacing. Seamless sections get standardized vertical padding tied to `--section-gap`. Headings are composed as children — Section doesn't own title markup.
+- A Hero renders `<Section seamless>` under the hood. A Features block renders `<Section>` with a composed heading under the hood.
+- Section-level components wire `aria-labelledby` internally since they know their own heading markup. Section accepts `aria-label` for sections without a visible heading.
+- Section-level components are composites (directory structure) because they contain sub-components — but they always have Section as their outermost wrapper.
+
+## Spacing
+
+**Internal padding vs. outer spacing — never both on the same boundary.**
+
+- **Non-seamless sections** — no vertical padding from Section. Content has no background to fill. `page-flow` margin provides all inter-section spacing.
+- **Seamless sections** — Section adds vertical padding tied to `--section-gap`, so the breathing room inside a backgrounded section matches the gap between sections. Consistent rhythm everywhere.
+- **Outer spacing** — section-level components NEVER set their own `margin-top`/`margin-bottom` on their outermost element. That's `page-flow`'s job.
+- **`page-flow`** — the page-level utility (defined in `global.css`) that controls vertical rhythm between sections. Gap controlled by `--section-gap`. Adjacent `[data-seamless]` sections get 0 gap so backgrounds butt up.
+- **The doubling rule** — if a non-seamless component adds `py-*` AND sits inside `page-flow`, you get padding + margin = double whitespace. Non-seamless sections avoid this by having no vertical padding. Seamless sections are safe because adjacent seamless sections get 0 margin from `page-flow`, and the standardized padding provides consistent internal rhythm.
 
 ## File organization
 
@@ -47,6 +77,7 @@ The shell (`Card`) owns variant/padding. Each sub-component owns its own typogra
 ```
 components/
   Button.astro              ← primitive, single file
+  Section.astro             ← primitive, single file (the section wrapper)
   TextInput.astro           ← primitive, single file
   Card/                     ← composite, directory
     Card.astro              ← shell (variant/layout props)
@@ -55,6 +86,11 @@ components/
     CardEyebrow.astro       ← uppercase category label
     CardTitle.astro         ← title (accepts `as` prop for heading level)
     CardDescription.astro   ← body text
+  Hero/                     ← section-level composite, directory
+    Hero.astro              ← composes Section internally
+    HeroTitle.astro
+    HeroDescription.astro
+    HeroActions.astro
 ```
 
 The directory groups the shell with its sub-components. Consumers import from the directory: `import Card from '../components/Card/Card.astro'`.
@@ -71,15 +107,59 @@ Add the design system page to the sidebar nav in `src/pages/design-system/_layou
 
 ## Steps
 
-1. **Declare intent** — What is this component for? What hierarchy? What states?
-2. **Build** — Semantic HTML + Tailwind utility classes. Always interactive (pseudo-class variants). Use `state` prop only for form states that can't be triggered by interaction (error, success, disabled). All values from theme tokens.
-3. **Create design system page** — Import the component into a design system page showing all variants and states. Create the matching full-screen view page. Wire into sidebar nav.
-4. **Responsive check** — Verify the component works at narrow (~320px), medium (~768px), and wide (~1280px) container widths. Typography scales automatically via `clamp()` tokens (requires a `@container` ancestor). Check: layout collapses/stacks logically, text doesn't overflow, interactive targets stay tappable (≥44px), images/media scale without breaking, spacing tightens proportionally. If layout doesn't adapt, add the missing `@sm:`/`@md:`/`@lg:` container query variants.
-5. **Present for review** — Show the user what you've built and suggest they open the design system page in browser (`pnpm dev`). Offer to run `/angora-design-system-audit` if they want a system check.
-6. **Visual review** — User reviews in browser. Approves or iterates.
-7. **Update system.md** — Only if you made a new decision worth recording (added to anti-patterns or decisions log). Most components won't need an update.
+### 1. Research (plan mode)
 
-**Suggested component order:** Typography specimens, Navigation, Hero sections, Feature grids, Pricing tables, Testimonials, Stats, Logo clouds, FAQ, CTA sections, Footer. (Buttons, icons, cards, grid, and forms are already built during init.)
+**Call `EnterPlanMode` immediately.** All research and spec work happens in plan mode — nothing gets built until the user approves the spec.
+
+- Read `system.md`, `global.css`, `design-principles.md`
+- Read 2–3 existing components to learn project patterns
+- If the component already exists, read it first
+- If this is a section-level component, read `Section.astro` to understand the Section pattern
+
+### 2. Spec (plan mode — write to plan file)
+
+Write a spec covering:
+
+- **Purpose & hierarchy** — what is this component, who sees it, where on the page
+- **Classification** — primitive (single element), composite (layout shell + sub-components), or section-level (composes Section internally)
+- **Section participation** — is this section-level? If yes: composes Section internally. Specify whether seamless. Heading is always composed as a child, not a Section prop
+- **Composition** — if composite: name each sub-component, its responsibility, which are required vs optional
+- **Variants** — only those that earn their place. Name each, describe the use case. Don't generate variants speculatively
+- **States** — interactive states (hover/focus/active come free via pseudo-class variants), plus any `state` prop values if form-related
+- **Responsive behavior** — how it adapts at narrow/medium/wide container widths
+- **Prop API** — list props with types and defaults
+
+**Call `ExitPlanMode`** — user reviews and approves the spec before any building happens.
+
+### 3. Build (after approval)
+
+- Build component files per the approved spec
+- Semantic HTML + Tailwind utility classes. Always interactive (pseudo-class variants). Use `state` prop only for form states that can't be triggered by interaction (error, success, disabled). All values from theme tokens
+- If section-level: compose Section internally, don't add outer vertical spacing
+- Create design system page + full-screen view
+- Wire into sidebar nav
+
+### 4. Responsive check
+
+Verify the component works at narrow (~320px), medium (~768px), and wide (~1280px) container widths. Typography scales automatically via `clamp()` tokens (requires a `@container` ancestor). Check: layout collapses/stacks logically, text doesn't overflow, interactive targets stay tappable (≥44px), images/media scale without breaking, spacing tightens proportionally. If layout doesn't adapt, add the missing `@sm:`/`@md:`/`@lg:` container query variants.
+
+### 5. Audit + fix
+
+Run `/angora-design-system-audit` on the new component. Fix any issues it finds — no confirmation needed for audit-driven fixes.
+
+### 6. Present for review
+
+Show the user what you've built and suggest they open the design system page in browser (`pnpm dev`).
+
+### 7. Visual review
+
+User reviews in browser. Approves or iterates.
+
+### 8. Update system.md
+
+Only if you made a new decision worth recording (added to anti-patterns or decisions log). Most components won't need an update.
+
+**Suggested component order:** Typography specimens, Navigation, Hero sections, Feature grids, Pricing tables, Testimonials, Stats, Logo clouds, FAQ, CTA sections, Footer. (Buttons, icons, cards, grid, Section, and forms are already built during init.)
 
 ## Markup Conventions
 
@@ -87,22 +167,27 @@ Add the design system page to the sidebar nav in `src/pages/design-system/_layou
 
 All components use semantic HTML elements styled with Tailwind utility classes. No custom elements, no Shadow DOM.
 
-```html
-<section class="max-w-[var(--container-max)] mx-auto py-20 px-6 text-center">
+**Section-level component example (composes Section internally):**
+
+```astro
+---
+import Section from '../Section.astro';
+---
+<Section seamless>
   <h1 class="text-5xl font-bold leading-tight text-gray-900 tracking-tight">Build faster websites</h1>
   <p class="text-xl text-gray-600 mt-4 max-w-[65ch] mx-auto">The modern way to ship marketing sites at scale.</p>
   <div class="flex gap-4 justify-center mt-8">
     <a href="/start" class="...button classes...">Get Started</a>
     <a href="/learn" class="...button classes...">Learn More</a>
   </div>
-</section>
+</Section>
 ```
 
 **Rules:**
 - Content: semantic HTML (`h1`-`h6`, `p`, `a`, `img`, `ul`, `figure`, `blockquote`, `section`, `nav`, `footer`)
 - Layout/structure: Tailwind utility classes (`flex`, `grid`, `max-w-*`, `p-*`, `gap-*`)
-- Design roles without semantic equivalent: `data-role` attribute (e.g., `<p data-role="eyebrow">`)
 - No arbitrary values outside Tailwind's theme — all styling references theme tokens via utility classes
+- Section-level components compose `Section` — don't render raw `<section>` with manual padding
 
 **Images: always use `<img>`, never CSS background images.** Use `<img>` with `object-fit: cover` (`object-cover` in Tailwind) for all imagery including hero backgrounds, card covers, and full-bleed sections. Position with Tailwind classes (`absolute inset-0`) inside a relatively-positioned container when used as a backdrop.
 
@@ -110,16 +195,21 @@ All components use semantic HTML elements styled with Tailwind utility classes. 
 
 Composites that render as page sections need accessible labels so screen readers can identify them. Primitives generally don't — native semantics are enough.
 
-- **`<section>`** — always pair with `aria-labelledby` pointing to the section's heading, or `aria-label` if there's no visible heading
+- **`<section>`** — always pair with `aria-labelledby` pointing to the section's heading, or `aria-label` if there's no visible heading. Section-level components wire `aria-labelledby` internally since they control their own heading markup. Pass `aria-label` on Section for sections without a visible heading.
 - **`<nav>`** — always add `aria-label` (e.g., `aria-label="Main"`, `aria-label="Footer"`). Critical when multiple navs exist on a page
 - **`role="group"`** — use on related control clusters (e.g., a button group, a set of radio cards) with `aria-label` describing the group
 
 ```astro
-<!-- Section with visible heading -->
-<section aria-labelledby="pricing-heading">
+<!-- Section-level component handles its own aria-labelledby -->
+<Section aria-labelledby="pricing-heading">
   <h2 id="pricing-heading">Pricing</h2>
   ...
-</section>
+</Section>
+
+<!-- Section without visible heading -->
+<Section aria-label="Call to action" seamless>
+  ...
+</Section>
 
 <!-- Nav with label -->
 <nav aria-label="Main">...</nav>
@@ -143,11 +233,13 @@ Tailwind v4 container query support:
 - Named containers: `@container/card` → `@sm/card:` for targeted queries
 
 ```html
-<section class="@container">
+<!-- Section component already provides @container — no need to add it -->
+<Section>
+  <h2>Features</h2>
   <div class="grid grid-cols-1 @sm:grid-cols-2 @lg:grid-cols-3 gap-6">
     <!-- cards -->
   </div>
-</section>
+</Section>
 ```
 
 The only `@media` queries allowed are in `design-system.css` (tooling, not a deliverable).

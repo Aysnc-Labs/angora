@@ -1,0 +1,28 @@
+---
+interface Props {
+  seamless?: boolean;
+  withPadding?: boolean;
+  'aria-label'?: string;
+  'aria-labelledby'?: string;
+  class?: string;
+}
+
+const {
+  seamless,
+  withPadding,
+  class: className,
+  'aria-label': ariaLabel,
+  'aria-labelledby': ariaLabelledBy,
+} = Astro.props;
+---
+
+<section
+  data-seamless={seamless || undefined}
+  class={className}
+  aria-label={ariaLabel}
+  aria-labelledby={ariaLabelledBy}
+>
+  <div class:list={['@container max-w-[var(--container-max)] mx-auto px-6', (seamless || withPadding) && 'py-[var(--section-gap,64px)]']}>
+    <slot />
+  </div>
+</section>

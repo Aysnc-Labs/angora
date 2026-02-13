@@ -1,8 +1,80 @@
 ---
 import Layout from './_layout/Layout.astro';
+import Section from '../../components/Section.astro';
 ---
 
 <Layout title="Grid" description="Section spacing rhythm, column gutter patterns, and page flow utilities." fullscreenHref="/design-system/view/grid">
+
+  <!-- Section Component -->
+  <section class="specimen-section">
+    <h2>Section Component</h2>
+    <p class="text-sm text-gray-600 mb-6 max-w-[65ch]">
+      The <code class="text-xs bg-gray-100 px-1.5 py-0.5 rounded-sm font-mono">Section</code> primitive wraps page sections with a <code class="text-xs bg-gray-100 px-1.5 py-0.5 rounded-sm font-mono">&lt;section&gt;</code> element, <code class="text-xs bg-gray-100 px-1.5 py-0.5 rounded-sm font-mono">@container</code>, constrained content width, and horizontal padding. Non-seamless sections have no vertical padding (<code class="text-xs bg-gray-100 px-1.5 py-0.5 rounded-sm font-mono">page-flow</code> handles spacing). Seamless sections get standardized vertical padding tied to <code class="text-xs bg-gray-100 px-1.5 py-0.5 rounded-sm font-mono">--section-gap</code>. Headings are composed as children.
+    </p>
+
+    <h3 class="text-sm font-semibold text-gray-600 uppercase tracking-wide mb-4">Default (with composed heading)</h3>
+    <div class="border border-gray-200 rounded-lg overflow-hidden mb-8">
+      <Section withPadding aria-labelledby="demo-features">
+        <h2 id="demo-features" class="text-2xl font-bold text-gray-900 mb-4">Features</h2>
+        <p class="text-gray-600 max-w-[65ch]">Non-seamless sections have no vertical padding — <code class="text-xs bg-gray-100 px-1.5 py-0.5 rounded-sm font-mono">page-flow</code> handles inter-section spacing. Section provides <code class="text-xs bg-gray-100 px-1.5 py-0.5 rounded-sm font-mono">px-6</code> horizontal padding, <code class="text-xs bg-gray-100 px-1.5 py-0.5 rounded-sm font-mono">@container</code>, and <code class="text-xs bg-gray-100 px-1.5 py-0.5 rounded-sm font-mono">max-w-[var(--container-max)]</code>. The heading is composed as a child — Section doesn't own title markup.</p>
+      </Section>
+    </div>
+
+    <h3 class="text-sm font-semibold text-gray-600 uppercase tracking-wide mb-4">Untitled (aria-label)</h3>
+    <div class="border border-gray-200 rounded-lg overflow-hidden mb-8">
+      <Section withPadding aria-label="Call to action">
+        <p class="text-gray-600 max-w-[65ch]">No visible heading. Uses <code class="text-xs bg-gray-100 px-1.5 py-0.5 rounded-sm font-mono">aria-label</code> for screen readers. Same container behavior, no vertical padding.</p>
+      </Section>
+    </div>
+
+    <h3 class="text-sm font-semibold text-gray-600 uppercase tracking-wide mb-4">With padding (bordered / visual boundary)</h3>
+    <div class="border border-gray-200 rounded-lg overflow-hidden mb-8">
+      <Section withPadding aria-labelledby="demo-bordered" class="bg-gray-50">
+        <h2 id="demo-bordered" class="text-2xl font-bold text-gray-900 mb-4">Bordered Section</h2>
+        <p class="text-gray-600 max-w-[65ch]">Non-seamless sections with a visual boundary (border, background) need internal padding so content doesn't sit flush against the edge. <code class="text-xs bg-gray-100 px-1.5 py-0.5 rounded-sm font-mono">withPadding</code> adds the same standardized vertical padding as seamless, tied to <code class="text-xs bg-gray-100 px-1.5 py-0.5 rounded-sm font-mono">--section-gap</code>.</p>
+      </Section>
+    </div>
+
+    <h3 class="text-sm font-semibold text-gray-600 uppercase tracking-wide mb-4">Seamless (background, standardized vertical padding)</h3>
+    <div class="border border-gray-200 rounded-lg overflow-hidden mb-8">
+      <Section seamless class="bg-gray-900">
+        <div class="text-center">
+          <h2 class="text-2xl font-bold text-white mb-4">Seamless Section</h2>
+          <p class="text-gray-400 max-w-[65ch] mx-auto">Seamless sections add <code class="text-xs bg-gray-700 text-gray-300 px-1.5 py-0.5 rounded-sm font-mono">data-seamless</code> and get standardized vertical padding tied to <code class="text-xs bg-gray-700 text-gray-300 px-1.5 py-0.5 rounded-sm font-mono">--section-gap</code>, matching the inter-section rhythm. Background goes on Section via <code class="text-xs bg-gray-700 text-gray-300 px-1.5 py-0.5 rounded-sm font-mono">class</code>.</p>
+        </div>
+      </Section>
+    </div>
+
+    <h3 class="text-sm font-semibold text-gray-600 uppercase tracking-wide mb-4">Seamless + Seamless in page-flow (zero gap)</h3>
+    <div class="page-flow border border-gray-200 rounded-lg overflow-hidden mb-8">
+      <Section seamless class="bg-gray-900">
+        <div class="text-center">
+          <div class="h-6 w-48 bg-gray-700 rounded-sm mx-auto mb-3"></div>
+          <div class="h-4 w-80 bg-gray-800 rounded-sm mx-auto"></div>
+        </div>
+      </Section>
+      <Section seamless class="bg-primary-500 relative">
+        <div class="absolute left-1/2 -translate-x-1/2 top-0 -translate-y-1/2 text-xs font-mono text-white bg-primary-700 px-2 py-0.5 rounded-full z-10">0 gap</div>
+        <div class="text-center">
+          <div class="h-6 w-48 bg-primary-400 rounded-sm mx-auto mb-3"></div>
+          <div class="h-4 w-80 bg-primary-300 rounded-sm mx-auto"></div>
+        </div>
+      </Section>
+    </div>
+
+    <h3 class="text-sm font-semibold text-gray-600 uppercase tracking-wide mb-4">Default + Default in page-flow (--section-gap)</h3>
+    <div class="page-flow border border-gray-200 rounded-lg overflow-hidden">
+      <Section aria-label="First section">
+        <div class="h-6 w-48 bg-gray-300 rounded-sm mb-3"></div>
+        <div class="h-4 w-80 bg-gray-200 rounded-sm"></div>
+      </Section>
+      <Section aria-label="Second section" class="relative">
+        <div class="absolute left-1/2 -translate-x-1/2 top-0 -translate-y-1/2 text-xs font-mono text-primary-500 bg-primary-50 px-2 py-0.5 rounded-full border border-primary-200 z-10">--section-gap</div>
+        <div class="h-6 w-48 bg-gray-300 rounded-sm mb-3"></div>
+        <div class="h-4 w-80 bg-gray-200 rounded-sm"></div>
+      </Section>
+    </div>
+  </section>
 
   <!-- Section Spacing -->
   <section class="specimen-section">
