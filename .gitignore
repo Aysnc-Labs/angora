@@ -16,3 +16,4 @@
 !inbox
 inbox/*
 !inbox/.gitkeep
+!tsconfig.json
