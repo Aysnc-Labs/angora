@@ -10,6 +10,16 @@ You are the entry point for the Angora design system and site builder. You asses
 
 ## When you receive a request
 
+### 0. Check init status
+
+Read `src/system.md`. If it contains an **Init Progress** section with unchecked items, init is incomplete. Tell the user:
+
+> *"The design system init is still in progress — [list unchecked steps]. Run `/angora-design-system-init` to pick up where you left off before building components or pages."*
+
+Do not proceed with component, page, wireframe, or audit skills until init is complete. Data skills (`/angora-schema`, `/angora-import`, `/angora-media`, `/angora-data`) can run independently — they don't depend on design tokens.
+
+If `system.md` has no Init Progress section and the Intent section is filled in (not a placeholder), init is complete — proceed normally.
+
 ### 1. Assess project state
 
 Check what exists:

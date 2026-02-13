@@ -34,6 +34,8 @@ No full-screen view needed — wireframes are working docs, not deliverables.
 3. **Wire into nav** — add the wireframe to the `wireframes` array in `src/pages/design-system/_layout/Layout.astro`.
 4. **Visual review** — user opens page in browser (`pnpm dev`). Approves or iterates.
 5. **Iterate** — ask user for feedback ("move CTA above fold", "make it 3 columns", etc.) and update the wireframe.
+6. **Notes** — ask if they want to save notes with the wireframe (intent, constraints, open questions).
+7. **Data sources** — walk through each section and capture data source decisions.
 
 ### ASCII format
 
@@ -55,22 +57,44 @@ Use a `<pre>` block with monospace box-drawing to show page structure:
 </pre>
 ```
 
-## Data source annotations
+## Notes and data sources
 
-After sketching the wireframe, guide the user through data source decisions for each section. For each section ask:
+After sketching the wireframe and getting visual approval, capture the thinking behind the layout. This turns the wireframe from a sketch into a brief that `angora-compose-page` can act on.
+
+### Notes
+
+Ask the user: *"Any notes to save with this wireframe? Intent, constraints, open questions — anything the layout alone doesn't capture."*
+
+Capture whatever the user shares. Good notes answer things like:
+- What's the goal of this page? (conversion, education, trust)
+- What constraints matter? (must work without images, CTA above fold)
+- What's the tone? (confident, playful, minimal)
+- Open questions or things still undecided
+
+If the user has nothing to add, skip — notes are optional.
+
+### Data sources
+
+For each section in the wireframe, ask:
 
 - "Will this content change? Is there more than one of these?" → **template** (reference a database table)
 - "Is this one-off copy edited in code?" → **static**
 - User unsure? → `data: undecided`
 
-Output structured frontmatter as a JS comment block in the Astro file's frontmatter:
+### Frontmatter format
+
+Write notes and data sources together as a JS comment block in the Astro file's frontmatter:
 
 ```astro
 ---
 import Layout from '../_layout/Layout.astro';
 /*
+  Notes:
+  - Hero must convert to free trial signups — keep CTA above fold
+  - Testimonials are the trust signal — show faces, not logos
+  - Pricing should feel simple — no feature comparison matrix
+
   Data sources:
-  sections:
     - component: Hero
       data: static
     - component: Testimonials

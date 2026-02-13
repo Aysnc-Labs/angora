@@ -1,10 +1,37 @@
 ---
 name: angora-design-system-init
 description: Start a new design system. Runs domain exploration and design system setup.
-disable-model-invocation: true
 ---
 
 **Everything in this repo is scaffolding.** Existing components, design system pages, wireframes, tokens, and system.md are all starter placeholders — not approved design work. Use their file structure but replace all content. Nothing here is precious.
+
+# Resumability
+
+Before starting, check `system.md` for an **Init Progress** section at the bottom. If it exists:
+1. Read the completed steps — skip them entirely.
+2. Resume from the first uncompleted step.
+3. If a step has pending user decisions noted (e.g., "needs: icon set from user"), ask for those before building.
+4. Tell the user where you're resuming from: *"Picking up from Step X — [step name]. Last completed: [previous step]."*
+
+If no Init Progress section exists, this is a fresh start — begin at Phase 1.
+
+**Progress tracking:** After completing each step, update the Init Progress section in `system.md` immediately. Mark the step as done, note any pending decisions for the next step. This ensures the process survives context compression and new sessions.
+
+# Roadmap
+
+At the start of the process (or when resuming), present the full build sequence to the user so they always know what's ahead:
+
+> **Here's what we're building (you'll approve at each checkpoint):**
+>
+> 1. **Creative direction** — audience, feel, color world, signature element, anti-patterns
+> 2. **Tokens + style guide** — colors, type, spacing, shadows, radii in browser
+> 3. **Buttons** — sizes, variants, icon buttons
+> 4. **Icons** — starter icon set as components + downloadable SVGs
+> 5. **Grid** — section spacing rhythm, column patterns
+> 6. **Cards** — card types for your pages
+> 7. **Forms** — inputs, selects, checkboxes, radios, toggles, all states
+
+Mark the current step with ← and update the marker at each checkpoint. Always tell the user what decisions are coming next.
 
 # Phase 1: Domain Exploration
 
@@ -25,7 +52,7 @@ Then five mandatory outputs:
 4. **Defaults to reject** — 3+ obvious/generic choices named explicitly to consciously avoid
 5. **Differentiation** — What makes this UNFORGETTABLE? The one visual thing someone will remember after closing the tab
 
-**Checkpoint.** Present all five outputs to the user. Do not proceed to Phase 2 until they approve the creative direction. These outputs drive every visual decision that follows.
+**Checkpoint.** Present all five outputs to the user. Ask explicitly: *"Does this creative direction feel right? Anything to adjust before I start translating this into tokens?"* Do not proceed to Phase 2 until they approve. Update Init Progress in `system.md`.
 
 # Phase 2: Design System Setup
 
@@ -56,11 +83,13 @@ Build **only** these first:
 2. `system.md` — Intent, accessibility standard, anti-patterns, decisions log
 3. `index.astro` (Style Guide) — Visual preview of all tokens (colors, type scale, spacing, shadows, radii). This is the design system home page.
 
-**Checkpoint.** User opens the style guide in browser (`pnpm dev`). Tokens must be visually approved before building components on top of them — if the palette, type scale, or shadows are wrong, fix now not after building 5 more pages.
+**Checkpoint.** Ask the user to open the style guide in browser (`pnpm dev`). Then ask explicitly: *"How do the tokens look? Anything to adjust — palette, type scale, shadows, radii?"* Do not proceed to 2d until the user confirms the tokens are correct. If they report issues, fix them and ask again. Update Init Progress in `system.md`.
 
 ## 2d. Foundational design system pages
 
 All sections must have a `@container` ancestor (required for responsive type tokens to work).
+
+Before building each page, ask the user any decisions noted below. Build one page at a time, or batch pages that don't need user input.
 
 1. `buttons.astro` — Sizes (sm, md, lg), variants (primary, secondary, ghost), icon buttons. Present 2–3 specific options for icon button layout (icon-left, icon-only, icon-right) and ask the user to pick.
 2. `icons.astro` — Icon gallery at sm (16px), md (20px), lg (24px), xl (32px) sizes, plus color variants, with download links. Each icon exists as both an Astro component (`src/components/icons/*.astro`) and a downloadable SVG (`public/icons/*.svg`). Ask the user to name a starter set of 8–12 icons before building.
@@ -68,4 +97,6 @@ All sections must have a `@container` ancestor (required for responsive type tok
 4. `cards.astro` — Basic card patterns (content card, feature card, pricing card shell). Show the 3 variants and ask: are these the right types for your pages? Missing any?
 5. `forms.astro` — Form elements: text input, textarea, select, checkbox, radio, toggle/switch, file upload, search input. All states, sizes, and variants.
 
-**Visual review checkpoint.** User opens all design system pages in browser (`pnpm dev`). Approves before further component work begins.
+**Checkpoint.** Ask the user to open all design system pages in browser (`pnpm dev`). Ask explicitly: *"How do the components look? Anything to adjust before we move on to building pages?"*
+
+**Cleanup.** Once the user approves, remove the Init Progress section from `system.md` entirely — it's process scaffolding, not permanent documentation. The completed design system speaks for itself. With Init Progress removed, the `/angora` entry point will recognize init as complete (Intent section filled in, no Init Progress section present).
