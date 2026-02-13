@@ -248,7 +248,7 @@ Tailwind v4 container query support:
 <!-- Section component already provides @container — no need to add it -->
 <Section>
   <h2>Features</h2>
-  <div class="grid grid-cols-1 @sm:grid-cols-2 @lg:grid-cols-3 gap-6">
+  <div class="grid grid-cols-1 @sm:grid-cols-2 @lg:grid-cols-3 grid-gap">
     <!-- cards -->
   </div>
 </Section>

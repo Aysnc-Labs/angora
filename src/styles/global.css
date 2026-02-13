@@ -96,6 +96,7 @@
 
   /* Layout */
   --container-max: 1200px;
+  --grid-gap: 24px;
 
   /* Container size references (use with @container, not @media) */
   /* sm: 640px | md: 768px | lg: 1024px | xl: 1280px */
@@ -122,6 +123,16 @@
   & > [data-seamless] + [data-seamless] {
     margin-top: 0;
   }
+}
+
+/*
+ * Grid gap — standard column gutter for grids.
+ *
+ * One token controls all grid gutters system-wide.
+ * Override: style="--grid-gap: 32px" on an individual grid.
+ */
+@utility grid-gap {
+  gap: var(--grid-gap, 24px);
 }
 
 /* Font smoothing — Tailwind preflight handles resets */

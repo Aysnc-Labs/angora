@@ -27,7 +27,7 @@ At the start of the process (or when resuming), present the full build sequence 
 > 2. **Tokens + style guide** — colors, type, spacing, shadows, radii in browser
 > 3. **Buttons** — sizes, variants, icon buttons
 > 4. **Icons** — starter icon set as components + downloadable SVGs
-> 5. **Grid + Section** — Section container component, section spacing rhythm, column patterns
+> 5. **Grid + Section** — Section container component, section spacing rhythm, grid-gap utility, column patterns
 > 6. **Cards** — card types for your pages
 > 7. **Forms** — inputs, selects, checkboxes, radios, toggles, all states
 
@@ -95,7 +95,7 @@ Before building each page, ask the user any decisions noted below. Build one pag
 
 1. `buttons.astro` — Sizes (sm, md, lg), variants (primary, secondary, ghost), icon buttons. Present 2–3 specific options for icon button layout (icon-left, icon-only, icon-right) and ask the user to pick.
 2. `icons.astro` — Icon gallery at sm (16px), md (20px), lg (24px), xl (32px) sizes, plus color variants, with copy-to-clipboard buttons for raw SVG. Each icon is an Astro component (`src/icons/*.astro`). Ask the user to name a starter set of 8–12 icons before building.
-3. `grid.astro` — Section component + section spacing rhythm + column gutter patterns.
+3. `grid.astro` — Section component + section spacing rhythm + `grid-gap` utility + column patterns.
 
    **Build the Section component first** (`src/components/Section.astro`):
    - Renders `<section>` with `@container`, container max-width, standard vertical padding
@@ -109,7 +109,7 @@ Before building each page, ask the user any decisions noted below. Build one pag
    - Section specimens: section with composed heading, untitled section (`aria-label`), seamless section (backgrounded, `data-seamless`)
    - Two sections stacked in `page-flow` showing correct inter-section rhythm (`--section-gap`)
    - Two seamless sections stacked showing zero gap (backgrounds butt up)
-   - Column gutter patterns inside sections
+   - Column patterns using the `grid-gap` utility (`--grid-gap` token)
    - Show the default spacing values in context and ask if the rhythm feels right before building variants.
 4. `cards.astro` — Basic card patterns (content card, feature card, pricing card shell). Show the 3 variants and ask: are these the right types for your pages? Missing any?
 5. `forms.astro` — Form elements: text input, textarea, select, checkbox, radio, toggle/switch, file upload, search input. All states, sizes, and variants.

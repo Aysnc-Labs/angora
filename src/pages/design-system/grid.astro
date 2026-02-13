@@ -9,12 +9,12 @@ import Section from '../../components/Section.astro';
   <section class="specimen-section">
     <h2>Column Grids</h2>
     <p class="text-sm text-gray-600 mb-6 max-w-[65ch]">
-      Column layouts use CSS grid with <code class="text-xs bg-gray-100 px-1.5 py-0.5 rounded-sm font-mono">gap-6</code> (24px) for card gutters and <code class="text-xs bg-gray-100 px-1.5 py-0.5 rounded-sm font-mono">gap-8</code> (32px) for section-level columns. All examples use container queries for responsive behavior.
+      Column layouts use CSS grid with the <code class="text-xs bg-gray-100 px-1.5 py-0.5 rounded-sm font-mono">grid-gap</code> utility (<code class="text-xs bg-gray-100 px-1.5 py-0.5 rounded-sm font-mono">--grid-gap</code>) for standardized column gutters. All examples use container queries for responsive behavior.
     </p>
 
     <h3 class="text-sm font-semibold text-gray-600 uppercase tracking-wide mb-4">2-column</h3>
     <div class="@container border border-gray-200 rounded-lg p-6 mb-8">
-      <div class="grid grid-cols-1 @sm:grid-cols-2 gap-6">
+      <div class="grid grid-cols-1 @sm:grid-cols-2 grid-gap">
         <div class="bg-gray-100 rounded-md p-6 text-center">
           <div class="text-xs font-mono text-gray-400">1</div>
         </div>
@@ -26,7 +26,7 @@ import Section from '../../components/Section.astro';
 
     <h3 class="text-sm font-semibold text-gray-600 uppercase tracking-wide mb-4">3-column</h3>
     <div class="@container border border-gray-200 rounded-lg p-6 mb-8">
-      <div class="grid grid-cols-1 @sm:grid-cols-2 @lg:grid-cols-3 gap-6">
+      <div class="grid grid-cols-1 @sm:grid-cols-2 @lg:grid-cols-3 grid-gap">
         <div class="bg-gray-100 rounded-md p-6 text-center">
           <div class="text-xs font-mono text-gray-400">1</div>
         </div>
@@ -41,7 +41,7 @@ import Section from '../../components/Section.astro';
 
     <h3 class="text-sm font-semibold text-gray-600 uppercase tracking-wide mb-4">4-column</h3>
     <div class="@container border border-gray-200 rounded-lg p-6 mb-8">
-      <div class="grid grid-cols-1 @sm:grid-cols-2 @lg:grid-cols-4 gap-6">
+      <div class="grid grid-cols-1 @sm:grid-cols-2 @lg:grid-cols-4 grid-gap">
         <div class="bg-gray-100 rounded-md p-6 text-center">
           <div class="text-xs font-mono text-gray-400">1</div>
         </div>
@@ -59,7 +59,7 @@ import Section from '../../components/Section.astro';
 
     <h3 class="text-sm font-semibold text-gray-600 uppercase tracking-wide mb-4">Asymmetric (content + sidebar)</h3>
     <div class="border border-gray-200 rounded-lg p-6 mb-8">
-      <div class="flex gap-8">
+      <div class="flex grid-gap">
         <div class="flex-1 min-w-0 bg-gray-100 rounded-md p-6">
           <div class="text-xs font-mono text-gray-400 mb-2">Main content (flex: 1)</div>
           <div class="h-4 w-full bg-gray-200 rounded-sm mb-2"></div>
@@ -76,7 +76,7 @@ import Section from '../../components/Section.astro';
 
     <h3 class="text-sm font-semibold text-gray-600 uppercase tracking-wide mb-4">Asymmetric (wide + narrow, 2/3 + 1/3)</h3>
     <div class="@container border border-gray-200 rounded-lg p-6">
-      <div class="grid grid-cols-1 @md:grid-cols-3 gap-8">
+      <div class="grid grid-cols-1 @md:grid-cols-3 grid-gap">
         <div class="@md:col-span-2 bg-gray-100 rounded-md p-6">
           <div class="text-xs font-mono text-gray-400 mb-2">Wide column (col-span-2)</div>
           <div class="h-4 w-full bg-gray-200 rounded-sm mb-2"></div>
@@ -241,7 +241,7 @@ import Section from '../../components/Section.astro';
       <!-- Features (normal) -->
       <Section aria-label="Features">
         <div class="h-6 w-40 bg-gray-300 rounded-sm mb-8 mx-auto"></div>
-        <div class="grid grid-cols-3 gap-6">
+        <div class="grid grid-cols-3 grid-gap">
           <div class="bg-gray-50 rounded-lg p-6">
             <div class="h-8 w-8 bg-gray-200 rounded-md mb-3"></div>
             <div class="h-4 w-24 bg-gray-200 rounded-sm mb-2"></div>
@@ -262,7 +262,7 @@ import Section from '../../components/Section.astro';
       <!-- Testimonials (normal) -->
       <Section aria-label="Testimonials">
         <div class="h-6 w-40 bg-gray-300 rounded-sm mb-8 mx-auto"></div>
-        <div class="grid grid-cols-2 gap-6">
+        <div class="grid grid-cols-2 grid-gap">
           <div class="bg-gray-50 rounded-lg p-6">
             <div class="h-3 w-full bg-gray-100 rounded-sm mb-2"></div>
             <div class="h-3 w-4/5 bg-gray-100 rounded-sm mb-4"></div>
