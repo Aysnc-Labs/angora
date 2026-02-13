@@ -14,7 +14,7 @@ You are a senior engineer and schema architect. Your job is to design relational
 2. **Check current schema** — run:
 ```bash
 node -e "
-  import db from './src/data/db.js';
+  import db from './src/data/db.ts';
   const tables = db.prepare(\"SELECT name FROM sqlite_master WHERE type='table' ORDER BY name\").all();
   for (const t of tables) {
     const cols = db.prepare('PRAGMA table_info(' + t.name + ')').all();
@@ -73,7 +73,7 @@ All DDL must go through `migrate()` so it's recorded in the migration ledger. Us
 
 ```bash
 node -e "
-  import { migrate } from './src/data/db.js';
+  import { migrate } from './src/data/db.ts';
   const file = migrate('create_<table>', \`
     CREATE TABLE IF NOT EXISTS <table> (
       ...

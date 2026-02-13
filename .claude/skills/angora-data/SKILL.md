@@ -6,7 +6,7 @@ argument-hint: [command]
 
 # Data: $ARGUMENTS
 
-Quick operations on the SQLite content layer (`data.sqlite`).
+Quick operations on the SQLite content layer (`src/data/data.sqlite`).
 
 ## Commands
 
@@ -23,7 +23,7 @@ Quick operations on the SQLite content layer (`data.sqlite`).
 
 ```bash
 node -e "
-  import db from './src/data/db.js';
+  import db from './src/data/db.ts';
   const tables = db.prepare(\"SELECT name FROM sqlite_master WHERE type='table' ORDER BY name\").all();
   for (const t of tables) {
     const cols = db.prepare('PRAGMA table_info(' + t.name + ')').all();
@@ -39,7 +39,7 @@ All DDL must go through `migrate()`:
 
 ```bash
 node -e "
-  import { migrate } from './src/data/db.js';
+  import { migrate } from './src/data/db.ts';
   const file = migrate('add_<column>_to_<table>', \`ALTER TABLE <table> ADD COLUMN <column> <type>;\`);
   console.log('Migration applied:', file);
 "

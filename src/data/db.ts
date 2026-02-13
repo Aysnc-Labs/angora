@@ -1,10 +1,9 @@
 import Database from 'better-sqlite3';
-import { resolve, join } from 'path';
-import { readdirSync, readFileSync, writeFileSync, mkdirSync, existsSync } from 'fs';
+import { join, resolve } from 'path';
+import { existsSync, mkdirSync, readFileSync, readdirSync, writeFileSync } from 'fs';
 
-const root = resolve(import.meta.dirname, '../..');
-const dbPath = join(root, 'data.sqlite');
-const migrationsDir = join(root, 'src/data/migrations');
+const dbPath = resolve(import.meta.dirname, 'data.sqlite');
+const migrationsDir = resolve(import.meta.dirname, 'migrations');
 
 const db = new Database(dbPath);
 db.pragma('journal_mode = WAL');
@@ -27,7 +26,7 @@ if (!existsSync(migrationsDir)) {
 
 // Apply any pending migration files
 const applied = new Set(
-  db.prepare('SELECT filename FROM schema_migrations').all().map(r => r.filename)
+  db.prepare('SELECT filename FROM schema_migrations').all().map((r: { filename: string }) => r.filename)
 );
 
 const pending = readdirSync(migrationsDir)
@@ -45,8 +44,8 @@ for (const file of pending) {
 }
 
 // Create and apply a new migration
-function migrate(name, sql) {
-  const last = db.prepare('SELECT filename FROM schema_migrations ORDER BY id DESC LIMIT 1').get();
+function migrate(name: string, sql: string): string {
+  const last = db.prepare('SELECT filename FROM schema_migrations ORDER BY id DESC LIMIT 1').get() as { filename: string } | undefined;
   const lastNum = last ? parseInt(last.filename.split('_')[0]) : 0;
   const num = String(lastNum + 1).padStart(3, '0');
   const filename = `${num}_${name}.sql`;

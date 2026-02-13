@@ -30,7 +30,7 @@ Check what exists:
 - **Database schema** — run:
 ```bash
 node -e "
-  import db from './src/data/db.js';
+  import db from './src/data/db.ts';
   const tables = db.prepare(\"SELECT name FROM sqlite_master WHERE type='table' ORDER BY name\").all();
   for (const t of tables) {
     const cols = db.prepare('PRAGMA table_info(' + t.name + ')').all();

@@ -54,7 +54,7 @@ If no wireframe or annotations, ask for each section:
 For **template sections**, verify the table exists:
 ```bash
 node -e "
-  import db from './src/data/db.js';
+  import db from './src/data/db.ts';
   const tables = db.prepare(\"SELECT name FROM sqlite_master WHERE type='table'\").all();
   console.log(tables.map(t => t.name));
 "
@@ -80,7 +80,7 @@ Recognize when cards link to individual pages (blog posts, case studies, cities,
 
 ```astro
 ---
-import db from '../../data/db.js';
+import db from '../../data/db.ts';
 
 export function getStaticPaths() {
   const items = db.prepare("SELECT * FROM <table> WHERE status = 'published'").all();

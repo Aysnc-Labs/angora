@@ -13,7 +13,7 @@ Process images from the `inbox/` directory into the media system.
 2. **Check current media table** — run:
 ```bash
 node -e "
-  import db from './src/data/db.js';
+  import db from './src/data/db.ts';
   const rows = db.prepare('SELECT * FROM media').all();
   console.table(rows);
 "
@@ -61,7 +61,7 @@ mv inbox/<original> public/media/<nanoid>.<ext>
 
 ```bash
 node -e "
-  import db from './src/data/db.js';
+  import db from './src/data/db.ts';
   db.prepare('INSERT INTO media (path, alt, type, width, height, source_name) VALUES (?, ?, ?, ?, ?, ?)').run(
     'media/<nanoid>.<ext>',
     '<alt text>',

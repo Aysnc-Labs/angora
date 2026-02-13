@@ -18,5 +18,8 @@
     "image-size": "^2.0.2",
     "nanoid": "^5.1.6",
     "tailwindcss": "^4.1.18"
+  },
+  "devDependencies": {
+    "@types/better-sqlite3": "^7.6.13"
   }
 }

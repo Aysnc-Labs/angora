@@ -14,7 +14,7 @@ Import structured data from `inbox/` into the SQLite database.
 2. **Check current schema** — run:
 ```bash
 node -e "
-  import db from './src/data/db.js';
+  import db from './src/data/db.ts';
   const tables = db.prepare(\"SELECT name FROM sqlite_master WHERE type='table' ORDER BY name\").all();
   for (const t of tables) {
     const cols = db.prepare('PRAGMA table_info(' + t.name + ')').all();
@@ -65,7 +65,7 @@ All rows insert or none do:
 
 ```bash
 node -e "
-  import db from './src/data/db.js';
+  import db from './src/data/db.ts';
   const insert = db.prepare('INSERT INTO <table> (<columns>) VALUES (<placeholders>)');
   const insertMany = db.transaction((rows) => {
     for (const row of rows) insert.run(...Object.values(row));
@@ -81,7 +81,7 @@ Query and show a sample of inserted data:
 
 ```bash
 node -e "
-  import db from './src/data/db.js';
+  import db from './src/data/db.ts';
   const rows = db.prepare('SELECT * FROM <table> ORDER BY id DESC LIMIT 5').all();
   console.table(rows);
 "
