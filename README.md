@@ -50,7 +50,7 @@ Inventories your components, checks for wireframes, queries your database, compo
 ## Get started
 
 ```bash
-curl -fsSL https://angora.dev/install | bash
+curl -fsSL https://getangora.org/install | bash
 ```
 
 Then open your new project in Claude Code and start designing:
