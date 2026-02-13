@@ -122,6 +122,4 @@ Site layouts go in `src/layouts/` (Astro convention). A site layout wraps page c
 
 ## Review
 
-Run `/angora-design-system-audit` on the composed page for hard rules + page coherence.
-
-User opens page in browser (`pnpm dev`). Approves or iterates.
+Present the completed page to the user and suggest they review in browser (`pnpm dev`). Offer to run `/angora-design-system-audit` for a system check — don't run it automatically.

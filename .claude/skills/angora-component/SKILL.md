@@ -75,8 +75,8 @@ Add the design system page to the sidebar nav in `src/pages/design-system/_layou
 2. **Build** — Semantic HTML + Tailwind utility classes. Always interactive (pseudo-class variants). Use `state` prop only for form states that can't be triggered by interaction (error, success, disabled). All values from theme tokens.
 3. **Create design system page** — Import the component into a design system page showing all variants and states. Create the matching full-screen view page. Wire into sidebar nav.
 4. **Responsive check** — Verify the component works at narrow (~320px), medium (~768px), and wide (~1280px) container widths. Typography scales automatically via `clamp()` tokens (requires a `@container` ancestor). Check: layout collapses/stacks logically, text doesn't overflow, interactive targets stay tappable (≥44px), images/media scale without breaking, spacing tightens proportionally. If layout doesn't adapt, add the missing `@sm:`/`@md:`/`@lg:` container query variants.
-5. **Self-review** — Run `/angora-design-system-audit` on the component before showing to user.
-6. **Visual review** — User opens design system page in browser (`pnpm dev`). Approves or iterates.
+5. **Present for review** — Show the user what you've built and suggest they open the design system page in browser (`pnpm dev`). Offer to run `/angora-design-system-audit` if they want a system check.
+6. **Visual review** — User reviews in browser. Approves or iterates.
 7. **Update system.md** — Only if you made a new decision worth recording (added to anti-patterns or decisions log). Most components won't need an update.
 
 **Suggested component order:** Typography specimens, Navigation, Hero sections, Feature grids, Pricing tables, Testimonials, Stats, Logo clouds, FAQ, CTA sections, Footer. (Buttons, icons, cards, grid, and forms are already built during init.)
