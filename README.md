@@ -1,5 +1,7 @@
 <img src="public/angora.svg" width="120" />
 
+### 🚧 Work In Progress. Things may change!
+
 # Angora
 
 **Your design system is the website.**
