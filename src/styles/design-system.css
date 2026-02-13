@@ -8,6 +8,7 @@
 .ds-sidebar {
   width: 240px;
   flex-shrink: 0;
+  background: var(--color-gray-50);
   border-right: 1px solid var(--color-gray-200);
   padding: var(--spacing-6) 0;
   position: sticky;
@@ -16,69 +17,155 @@
   overflow-y: auto;
 }
 
-.ds-sidebar-back {
+.ds-sidebar-top {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  padding: 0 var(--spacing-6) var(--spacing-6);
+}
+
+.ds-sidebar-brand {
   font-size: var(--text-sm);
-  color: var(--color-gray-400);
+  font-weight: 700;
+  color: var(--color-gray-900);
   text-decoration: none;
-  padding: 0 var(--spacing-6) var(--spacing-4);
-  display: block;
+  letter-spacing: -0.01em;
   transition: color var(--duration-fast) var(--ease-default);
 }
 
-.ds-sidebar-back:hover {
+.ds-sidebar-brand:hover {
+  color: var(--color-primary-500);
+}
+
+.ds-sidebar-site-link {
+  font-size: var(--text-xs);
+  color: var(--color-gray-500);
+  text-decoration: none;
+  transition: color var(--duration-fast) var(--ease-default);
+}
+
+.ds-sidebar-site-link:hover {
   color: var(--color-gray-600);
 }
 
-.ds-sidebar-title {
-  font-size: var(--text-xs);
-  font-weight: 600;
-  color: var(--color-gray-400);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  padding: 0 var(--spacing-6) var(--spacing-4);
+.ds-nav-search {
+  display: block;
+  width: calc(100% - var(--spacing-6));
+  margin: 0 var(--spacing-3) var(--spacing-4);
+  padding: var(--spacing-2) var(--spacing-3);
+  font-size: var(--text-sm);
+  color: var(--color-gray-900);
+  background: white;
+  border: 1px solid var(--color-gray-400);
+  border-radius: var(--radius-sm);
+  outline: none;
+  transition: border-color var(--duration-fast) var(--ease-default);
+}
+
+.ds-nav-search::placeholder {
+  color: var(--color-gray-500);
+}
+
+.ds-nav-search:focus {
+  border-color: var(--color-primary-400);
 }
 
 .ds-nav {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-1);
+  gap: var(--spacing-4);
   padding: 0 var(--spacing-3);
 }
 
-.ds-nav a {
+/* External link icon (used in layout links that open in new tab) */
+
+.ds-nav-external-icon {
+  opacity: 0;
+  margin-left: auto;
+  transition: opacity var(--duration-fast) var(--ease-default);
+}
+
+.ds-nav-group a:hover .ds-nav-external-icon {
+  opacity: 0.4;
+}
+
+/* Collapsible groups */
+
+.ds-nav details {
+  /* Reset browser default styles */
+}
+
+.ds-nav-summary {
+  font-size: var(--text-xs);
+  font-weight: 600;
+  color: var(--color-gray-500);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: var(--spacing-2) var(--spacing-3);
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  border-radius: var(--radius-sm);
+  user-select: none;
+  transition: color var(--duration-fast) var(--ease-default);
+}
+
+.ds-nav-summary::-webkit-details-marker {
+  display: none;
+}
+
+.ds-nav-summary::before {
+  content: "";
+  width: 12px;
+  height: 12px;
+  flex-shrink: 0;
+  background: currentColor;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 18l6-6-6-6'/%3E%3C/svg%3E") center / contain no-repeat;
+  transition: transform var(--duration-fast) var(--ease-default);
+}
+
+details[open] > .ds-nav-summary::before {
+  transform: rotate(90deg);
+}
+
+.ds-nav-summary:hover {
+  color: var(--color-gray-700);
+}
+
+.ds-nav-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-1);
+  padding: var(--spacing-1) 0 0;
+}
+
+.ds-nav-group a {
   font-size: var(--text-sm);
   color: var(--color-gray-600);
   text-decoration: none;
-  padding: var(--spacing-2) var(--spacing-3);
+  display: flex;
+  align-items: center;
+  padding: var(--spacing-1) var(--spacing-3);
+  padding-left: calc(var(--spacing-3) + 12px + var(--spacing-2));
   border-radius: var(--radius-sm);
+  border-left: 2px solid transparent;
   transition: background var(--duration-fast) var(--ease-default),
-              color var(--duration-fast) var(--ease-default);
+              color var(--duration-fast) var(--ease-default),
+              border-color var(--duration-fast) var(--ease-default);
 }
 
-.ds-nav a:hover {
+.ds-nav-group a:hover {
   color: var(--color-gray-900);
-  background: var(--color-gray-50);
+  background: var(--color-gray-100);
 }
 
-.ds-nav a[aria-current="page"] {
-  color: var(--color-gray-900);
+.ds-nav-group a[aria-current="page"] {
+  color: var(--color-primary-700);
   font-weight: 600;
-  background: var(--color-gray-50);
-}
-
-.ds-nav-divider {
-  height: 1px;
-  background: var(--color-gray-200);
-  margin: var(--spacing-3) var(--spacing-3);
-}
-
-.ds-nav-label {
-  font-size: var(--text-xs);
-  font-weight: 600;
-  color: var(--color-gray-400);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  padding: var(--spacing-2) var(--spacing-3) var(--spacing-1);
+  background: var(--color-primary-50);
+  border-left-color: transparent;
 }
 
 .ds-page {
@@ -172,126 +259,4 @@
   margin-bottom: var(--spacing-4);
 }
 
-/* Hub — centered landing with side-by-side panels */
 
-.ds-hub {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: var(--spacing-24) var(--spacing-8);
-}
-
-.ds-hub-header {
-  margin-bottom: var(--spacing-12);
-  text-align: center;
-}
-
-.ds-hub-row {
-  display: flex;
-  align-items: stretch;
-}
-
-.ds-hub-panel {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: var(--spacing-2);
-  padding: var(--spacing-12) var(--spacing-6);
-  text-decoration: none;
-  transition: opacity var(--duration-fast) var(--ease-default);
-}
-
-.ds-hub-label {
-  font-size: var(--text-lg);
-  font-weight: 600;
-  color: var(--color-gray-900);
-}
-
-.ds-hub-desc {
-  font-size: var(--text-sm);
-  color: var(--color-gray-400);
-}
-
-.ds-hub-divider {
-  width: 1px;
-  background: var(--color-gray-200);
-  align-self: stretch;
-}
-
-/* Hover: dim the panel you're NOT on */
-.ds-hub-row:hover .ds-hub-panel:not(:hover) {
-  opacity: 0.35;
-}
-
-/* Layouts index — grid of layout cards */
-
-.ds-layouts {
-  max-width: var(--container-max);
-  margin: 0 auto;
-  padding: var(--spacing-12) var(--spacing-8);
-}
-
-.ds-layouts-header {
-  margin-bottom: var(--spacing-12);
-}
-
-.ds-layouts-back {
-  font-size: var(--text-sm);
-  color: var(--color-gray-400);
-  text-decoration: none;
-  display: inline-block;
-  margin-bottom: var(--spacing-4);
-  transition: color var(--duration-fast) var(--ease-default);
-}
-
-.ds-layouts-back:hover {
-  color: var(--color-gray-600);
-}
-
-.ds-layouts-header > h1 {
-  font-size: var(--text-4xl);
-  font-weight: 700;
-  line-height: var(--leading-tight);
-  letter-spacing: -0.02em;
-  color: var(--color-gray-900);
-}
-
-.ds-layouts-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: var(--spacing-6);
-}
-
-.ds-layouts-card {
-  display: flex;
-  flex-direction: column;
-  text-decoration: none;
-  border-radius: var(--radius-lg);
-  border: 1px solid var(--color-gray-200);
-  overflow: hidden;
-  transition: border-color var(--duration-fast) var(--ease-default);
-}
-
-.ds-layouts-card:hover {
-  border-color: var(--color-gray-400);
-}
-
-.ds-layouts-card-preview {
-  aspect-ratio: 16 / 10;
-  background: var(--color-gray-50);
-  border-bottom: 1px solid var(--color-gray-200);
-}
-
-.ds-layouts-card-label {
-  font-size: var(--text-base);
-  font-weight: 600;
-  color: var(--color-gray-900);
-  padding: var(--spacing-4) var(--spacing-4) var(--spacing-1);
-}
-
-.ds-layouts-card-desc {
-  font-size: var(--text-sm);
-  color: var(--color-gray-400);
-  padding: 0 var(--spacing-4) var(--spacing-4);
-}
