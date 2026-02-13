@@ -5,195 +5,6 @@ import Section from '../../components/Section.astro';
 
 <Layout title="Grid" description="Section spacing rhythm, column gutter patterns, and page flow utilities." fullscreenHref="/design-system/view/grid">
 
-  <!-- Section Component -->
-  <section class="specimen-section">
-    <h2>Section Component</h2>
-    <p class="text-sm text-gray-600 mb-6 max-w-[65ch]">
-      The <code class="text-xs bg-gray-100 px-1.5 py-0.5 rounded-sm font-mono">Section</code> primitive wraps page sections with a <code class="text-xs bg-gray-100 px-1.5 py-0.5 rounded-sm font-mono">&lt;section&gt;</code> element, <code class="text-xs bg-gray-100 px-1.5 py-0.5 rounded-sm font-mono">@container</code>, constrained content width, and horizontal padding. Non-seamless sections have no vertical padding (<code class="text-xs bg-gray-100 px-1.5 py-0.5 rounded-sm font-mono">page-flow</code> handles spacing). Seamless sections get standardized vertical padding tied to <code class="text-xs bg-gray-100 px-1.5 py-0.5 rounded-sm font-mono">--section-gap</code>. Headings are composed as children.
-    </p>
-
-    <h3 class="text-sm font-semibold text-gray-600 uppercase tracking-wide mb-4">Default (with composed heading)</h3>
-    <div class="border border-gray-200 rounded-lg overflow-hidden mb-8">
-      <Section withPadding aria-labelledby="demo-features">
-        <h2 id="demo-features" class="text-2xl font-bold text-gray-900 mb-4">Features</h2>
-        <p class="text-gray-600 max-w-[65ch]">Non-seamless sections have no vertical padding — <code class="text-xs bg-gray-100 px-1.5 py-0.5 rounded-sm font-mono">page-flow</code> handles inter-section spacing. Section provides <code class="text-xs bg-gray-100 px-1.5 py-0.5 rounded-sm font-mono">px-6</code> horizontal padding, <code class="text-xs bg-gray-100 px-1.5 py-0.5 rounded-sm font-mono">@container</code>, and <code class="text-xs bg-gray-100 px-1.5 py-0.5 rounded-sm font-mono">max-w-[var(--container-max)]</code>. The heading is composed as a child — Section doesn't own title markup.</p>
-      </Section>
-    </div>
-
-    <h3 class="text-sm font-semibold text-gray-600 uppercase tracking-wide mb-4">Untitled (aria-label)</h3>
-    <div class="border border-gray-200 rounded-lg overflow-hidden mb-8">
-      <Section withPadding aria-label="Call to action">
-        <p class="text-gray-600 max-w-[65ch]">No visible heading. Uses <code class="text-xs bg-gray-100 px-1.5 py-0.5 rounded-sm font-mono">aria-label</code> for screen readers. Same container behavior, no vertical padding.</p>
-      </Section>
-    </div>
-
-    <h3 class="text-sm font-semibold text-gray-600 uppercase tracking-wide mb-4">With padding (bordered / visual boundary)</h3>
-    <div class="border border-gray-200 rounded-lg overflow-hidden mb-8">
-      <Section withPadding aria-labelledby="demo-bordered" class="bg-gray-50">
-        <h2 id="demo-bordered" class="text-2xl font-bold text-gray-900 mb-4">Bordered Section</h2>
-        <p class="text-gray-600 max-w-[65ch]">Non-seamless sections with a visual boundary (border, background) need internal padding so content doesn't sit flush against the edge. <code class="text-xs bg-gray-100 px-1.5 py-0.5 rounded-sm font-mono">withPadding</code> adds the same standardized vertical padding as seamless, tied to <code class="text-xs bg-gray-100 px-1.5 py-0.5 rounded-sm font-mono">--section-gap</code>.</p>
-      </Section>
-    </div>
-
-    <h3 class="text-sm font-semibold text-gray-600 uppercase tracking-wide mb-4">Seamless (background, standardized vertical padding)</h3>
-    <div class="border border-gray-200 rounded-lg overflow-hidden mb-8">
-      <Section seamless class="bg-gray-900">
-        <div class="text-center">
-          <h2 class="text-2xl font-bold text-white mb-4">Seamless Section</h2>
-          <p class="text-gray-400 max-w-[65ch] mx-auto">Seamless sections add <code class="text-xs bg-gray-700 text-gray-300 px-1.5 py-0.5 rounded-sm font-mono">data-seamless</code> and get standardized vertical padding tied to <code class="text-xs bg-gray-700 text-gray-300 px-1.5 py-0.5 rounded-sm font-mono">--section-gap</code>, matching the inter-section rhythm. Background goes on Section via <code class="text-xs bg-gray-700 text-gray-300 px-1.5 py-0.5 rounded-sm font-mono">class</code>.</p>
-        </div>
-      </Section>
-    </div>
-
-    <h3 class="text-sm font-semibold text-gray-600 uppercase tracking-wide mb-4">Seamless + Seamless in page-flow (zero gap)</h3>
-    <div class="page-flow border border-gray-200 rounded-lg overflow-hidden mb-8">
-      <Section seamless class="bg-gray-900">
-        <div class="text-center">
-          <div class="h-6 w-48 bg-gray-700 rounded-sm mx-auto mb-3"></div>
-          <div class="h-4 w-80 bg-gray-800 rounded-sm mx-auto"></div>
-        </div>
-      </Section>
-      <Section seamless class="bg-primary-500 relative">
-        <div class="absolute left-1/2 -translate-x-1/2 top-0 -translate-y-1/2 text-xs font-mono text-white bg-primary-700 px-2 py-0.5 rounded-full z-10">0 gap</div>
-        <div class="text-center">
-          <div class="h-6 w-48 bg-primary-400 rounded-sm mx-auto mb-3"></div>
-          <div class="h-4 w-80 bg-primary-300 rounded-sm mx-auto"></div>
-        </div>
-      </Section>
-    </div>
-
-    <h3 class="text-sm font-semibold text-gray-600 uppercase tracking-wide mb-4">Default + Default in page-flow (--section-gap)</h3>
-    <div class="page-flow border border-gray-200 rounded-lg overflow-hidden">
-      <Section aria-label="First section">
-        <div class="h-6 w-48 bg-gray-300 rounded-sm mb-3"></div>
-        <div class="h-4 w-80 bg-gray-200 rounded-sm"></div>
-      </Section>
-      <Section aria-label="Second section" class="relative">
-        <div class="absolute left-1/2 -translate-x-1/2 top-0 -translate-y-1/2 text-xs font-mono text-primary-500 bg-primary-50 px-2 py-0.5 rounded-full border border-primary-200 z-10">--section-gap</div>
-        <div class="h-6 w-48 bg-gray-300 rounded-sm mb-3"></div>
-        <div class="h-4 w-80 bg-gray-200 rounded-sm"></div>
-      </Section>
-    </div>
-  </section>
-
-  <!-- Section Spacing -->
-  <section class="specimen-section">
-    <h2>Section Flow</h2>
-    <p class="text-sm text-gray-600 mb-6 max-w-[65ch]">
-      The <code class="text-xs bg-gray-100 px-1.5 py-0.5 rounded-sm font-mono">page-flow</code> utility class on a parent wrapper controls vertical rhythm between sections. Default gap is <code class="text-xs bg-gray-100 px-1.5 py-0.5 rounded-sm font-mono">64px</code>. The only exception: when two seamless sections (with <code class="text-xs bg-gray-100 px-1.5 py-0.5 rounded-sm font-mono">data-seamless</code>) are adjacent, the gap collapses to zero so their backgrounds butt up.
-    </p>
-
-    <h3 class="text-sm font-semibold text-gray-600 uppercase tracking-wide mb-4">Normal + Normal (64px gap)</h3>
-    <div class="page-flow border border-gray-200 rounded-lg overflow-hidden mb-8">
-      <section class="px-8 py-12">
-        <div class="max-w-[var(--container-max)] mx-auto">
-          <div class="h-6 w-48 bg-gray-300 rounded-sm mb-3"></div>
-          <div class="h-4 w-80 bg-gray-200 rounded-sm"></div>
-        </div>
-      </section>
-      <section class="px-8 py-12 relative">
-        <div class="absolute left-1/2 -top-3 -translate-x-1/2 text-xs font-mono text-primary-500 bg-primary-50 px-2 py-0.5 rounded-full border border-primary-200">64px gap</div>
-        <div class="max-w-[var(--container-max)] mx-auto">
-          <div class="h-6 w-48 bg-gray-300 rounded-sm mb-3"></div>
-          <div class="h-4 w-80 bg-gray-200 rounded-sm"></div>
-        </div>
-      </section>
-    </div>
-
-    <h3 class="text-sm font-semibold text-gray-600 uppercase tracking-wide mb-4">Seamless + Seamless (no gap)</h3>
-    <div class="page-flow border border-gray-200 rounded-lg overflow-hidden mb-8">
-      <section data-seamless class="bg-gray-900 px-8 py-20">
-        <div class="max-w-[var(--container-max)] mx-auto">
-          <div class="h-6 w-48 bg-gray-700 rounded-sm mb-3"></div>
-          <div class="h-4 w-80 bg-gray-800 rounded-sm"></div>
-        </div>
-      </section>
-      <section data-seamless class="bg-primary-500 px-8 py-20 relative">
-        <div class="absolute left-1/2 -top-3 -translate-x-1/2 text-xs font-mono text-white bg-primary-700 px-2 py-0.5 rounded-full">0 gap</div>
-        <div class="max-w-[var(--container-max)] mx-auto">
-          <div class="h-6 w-48 bg-primary-400 rounded-sm mb-3"></div>
-          <div class="h-4 w-80 bg-primary-300 rounded-sm"></div>
-        </div>
-      </section>
-    </div>
-
-    <h3 class="text-sm font-semibold text-gray-600 uppercase tracking-wide mb-4">Normal + Seamless + Normal (64px gaps)</h3>
-    <div class="page-flow border border-gray-200 rounded-lg overflow-hidden mb-8">
-      <section class="px-8 py-12">
-        <div class="max-w-[var(--container-max)] mx-auto">
-          <div class="h-6 w-48 bg-gray-300 rounded-sm mb-3"></div>
-          <div class="h-4 w-80 bg-gray-200 rounded-sm"></div>
-        </div>
-      </section>
-      <section data-seamless class="bg-gray-50 px-8 py-20 relative">
-        <div class="absolute left-1/2 -top-3 -translate-x-1/2 text-xs font-mono text-primary-500 bg-primary-50 px-2 py-0.5 rounded-full border border-primary-200">64px gap</div>
-        <div class="max-w-[var(--container-max)] mx-auto">
-          <div class="h-6 w-48 bg-gray-300 rounded-sm mb-3"></div>
-          <div class="h-4 w-80 bg-gray-200 rounded-sm"></div>
-        </div>
-      </section>
-      <section class="px-8 py-12 relative">
-        <div class="absolute left-1/2 -top-3 -translate-x-1/2 text-xs font-mono text-primary-500 bg-primary-50 px-2 py-0.5 rounded-full border border-primary-200">64px gap</div>
-        <div class="max-w-[var(--container-max)] mx-auto">
-          <div class="h-6 w-48 bg-gray-300 rounded-sm mb-3"></div>
-          <div class="h-4 w-80 bg-gray-200 rounded-sm"></div>
-        </div>
-      </section>
-    </div>
-
-    <h3 class="text-sm font-semibold text-gray-600 uppercase tracking-wide mb-4">Custom Gap Override</h3>
-    <p class="text-sm text-gray-600 mb-4 max-w-[65ch]">
-      Override the default gap with <code class="text-xs bg-gray-100 px-1.5 py-0.5 rounded-sm font-mono">style="--section-gap: 96px"</code> on the <code class="text-xs bg-gray-100 px-1.5 py-0.5 rounded-sm font-mono">page-flow</code> container for larger or smaller rhythm.
-    </p>
-    <div class="page-flow border border-gray-200 rounded-lg overflow-hidden" style="--section-gap: 96px;">
-      <section class="px-8 py-12">
-        <div class="max-w-[var(--container-max)] mx-auto">
-          <div class="h-6 w-48 bg-gray-300 rounded-sm mb-3"></div>
-          <div class="h-4 w-80 bg-gray-200 rounded-sm"></div>
-        </div>
-      </section>
-      <section class="px-8 py-12 relative">
-        <div class="absolute left-1/2 -top-3 -translate-x-1/2 text-xs font-mono text-primary-500 bg-primary-50 px-2 py-0.5 rounded-full border border-primary-200">96px gap (overridden)</div>
-        <div class="max-w-[var(--container-max)] mx-auto">
-          <div class="h-6 w-48 bg-gray-300 rounded-sm mb-3"></div>
-          <div class="h-4 w-80 bg-gray-200 rounded-sm"></div>
-        </div>
-      </section>
-    </div>
-  </section>
-
-  <!-- Content Width -->
-  <section class="specimen-section">
-    <h2>Content Width</h2>
-    <p class="text-sm text-gray-600 mb-6 max-w-[65ch]">
-      Content is constrained to <code class="text-xs bg-gray-100 px-1.5 py-0.5 rounded-sm font-mono">--container-max: 1200px</code> and centered. Seamless sections go full-width (background bleeds to edges) with content constrained inside.
-    </p>
-
-    <h3 class="text-sm font-semibold text-gray-600 uppercase tracking-wide mb-4">Constrained content (default)</h3>
-    <div class="border border-gray-200 rounded-lg overflow-hidden mb-8">
-      <div class="bg-gray-50 px-8 py-6">
-        <div class="max-w-[var(--container-max)] mx-auto bg-white border border-dashed border-primary-300 rounded-md px-6 py-8">
-          <div class="text-xs font-mono text-primary-500 mb-3">max-w-[var(--container-max)] mx-auto</div>
-          <div class="h-4 w-full bg-gray-100 rounded-sm mb-2"></div>
-          <div class="h-4 w-4/5 bg-gray-100 rounded-sm mb-2"></div>
-          <div class="h-4 w-3/5 bg-gray-100 rounded-sm"></div>
-        </div>
-      </div>
-    </div>
-
-    <h3 class="text-sm font-semibold text-gray-600 uppercase tracking-wide mb-4">Full-bleed background, constrained content</h3>
-    <div class="border border-gray-200 rounded-lg overflow-hidden">
-      <div class="bg-gray-900 px-8 py-12">
-        <div class="max-w-[var(--container-max)] mx-auto border border-dashed border-gray-600 rounded-md px-6 py-8">
-          <div class="text-xs font-mono text-gray-400 mb-3">Full-width bg → constrained inner content</div>
-          <div class="h-4 w-full bg-gray-800 rounded-sm mb-2"></div>
-          <div class="h-4 w-4/5 bg-gray-800 rounded-sm mb-2"></div>
-          <div class="h-4 w-3/5 bg-gray-800 rounded-sm"></div>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <!-- Column Grids -->
   <section class="specimen-section">
     <h2>Column Grids</h2>
@@ -309,58 +120,94 @@ import Section from '../../components/Section.astro';
     </div>
   </section>
 
-  <!-- Gutter Reference -->
+  <!-- Section Component -->
   <section class="specimen-section">
-    <h2>Gutter Recommendations</h2>
-    <div class="overflow-x-auto">
-      <table class="w-full text-sm">
-        <thead>
-          <tr class="border-b border-gray-200">
-            <th class="text-left py-3 pr-6 font-semibold text-gray-900">Context</th>
-            <th class="text-left py-3 pr-6 font-semibold text-gray-900">Token</th>
-            <th class="text-left py-3 pr-6 font-semibold text-gray-900">Value</th>
-            <th class="text-left py-3 font-semibold text-gray-900">Usage</th>
-          </tr>
-        </thead>
-        <tbody class="text-gray-600">
-          <tr class="border-b border-gray-100">
-            <td class="py-3 pr-6">Card grid gutter</td>
-            <td class="py-3 pr-6 font-mono text-xs">gap-6</td>
-            <td class="py-3 pr-6 font-mono text-xs tabular-nums">24px</td>
-            <td class="py-3">Between cards, feature blocks, pricing columns</td>
-          </tr>
-          <tr class="border-b border-gray-100">
-            <td class="py-3 pr-6">Section-level columns</td>
-            <td class="py-3 pr-6 font-mono text-xs">gap-8</td>
-            <td class="py-3 pr-6 font-mono text-xs tabular-nums">32px</td>
-            <td class="py-3">Content + sidebar, hero split layouts</td>
-          </tr>
-          <tr class="border-b border-gray-100">
-            <td class="py-3 pr-6">Section gap (normal)</td>
-            <td class="py-3 pr-6 font-mono text-xs">--section-gap</td>
-            <td class="py-3 pr-6 font-mono text-xs tabular-nums">64px</td>
-            <td class="py-3">Between page sections (default in page-flow)</td>
-          </tr>
-          <tr class="border-b border-gray-100">
-            <td class="py-3 pr-6">Section padding (seamless)</td>
-            <td class="py-3 pr-6 font-mono text-xs">py-20 / py-24</td>
-            <td class="py-3 pr-6 font-mono text-xs tabular-nums">80–96px</td>
-            <td class="py-3">Internal padding on background sections</td>
-          </tr>
-          <tr class="border-b border-gray-100">
-            <td class="py-3 pr-6">Inline content</td>
-            <td class="py-3 pr-6 font-mono text-xs">px-6 / px-8</td>
-            <td class="py-3 pr-6 font-mono text-xs tabular-nums">24–32px</td>
-            <td class="py-3">Horizontal padding on sections</td>
-          </tr>
-          <tr>
-            <td class="py-3 pr-6">Tight grouping</td>
-            <td class="py-3 pr-6 font-mono text-xs">gap-3 / gap-4</td>
-            <td class="py-3 pr-6 font-mono text-xs tabular-nums">12–16px</td>
-            <td class="py-3">Between related items (form fields, nav items, icon + text)</td>
-          </tr>
-        </tbody>
-      </table>
+    <h2>Section Component</h2>
+    <p class="text-sm text-gray-600 mb-6 max-w-[65ch]">
+      The <code class="text-xs bg-gray-100 px-1.5 py-0.5 rounded-sm font-mono">Section</code> primitive wraps page sections with a <code class="text-xs bg-gray-100 px-1.5 py-0.5 rounded-sm font-mono">&lt;section&gt;</code> element, <code class="text-xs bg-gray-100 px-1.5 py-0.5 rounded-sm font-mono">@container</code>, constrained content width, and horizontal padding. Non-seamless sections have no vertical padding (<code class="text-xs bg-gray-100 px-1.5 py-0.5 rounded-sm font-mono">page-flow</code> handles spacing). Seamless and <code class="text-xs bg-gray-100 px-1.5 py-0.5 rounded-sm font-mono">withPadding</code> sections get standardized vertical padding tied to <code class="text-xs bg-gray-100 px-1.5 py-0.5 rounded-sm font-mono">--section-gap</code>. Headings are composed as children.
+    </p>
+
+    <h3 class="text-sm font-semibold text-gray-600 uppercase tracking-wide mb-4">Seamless (background, standardized vertical padding)</h3>
+    <div class="border border-gray-200 rounded-lg overflow-hidden mb-8">
+      <Section seamless class="bg-gray-900">
+        <div class="text-center">
+          <h2 class="text-2xl font-bold text-white mb-4">Seamless Section</h2>
+          <p class="text-gray-400 max-w-[65ch] mx-auto">Seamless sections add <code class="text-xs bg-gray-700 text-gray-300 px-1.5 py-0.5 rounded-sm font-mono">data-seamless</code> and get standardized vertical padding tied to <code class="text-xs bg-gray-700 text-gray-300 px-1.5 py-0.5 rounded-sm font-mono">--section-gap</code>, matching the inter-section rhythm. Background goes on Section via <code class="text-xs bg-gray-700 text-gray-300 px-1.5 py-0.5 rounded-sm font-mono">class</code>.</p>
+        </div>
+      </Section>
+    </div>
+
+    <h3 class="text-sm font-semibold text-gray-600 uppercase tracking-wide mb-4">Seamless + Seamless in page-flow (zero gap)</h3>
+    <div class="page-flow border border-gray-200 rounded-lg overflow-hidden mb-8">
+      <Section seamless class="bg-gray-900">
+        <div class="text-center">
+          <div class="h-6 w-48 bg-gray-700 rounded-sm mx-auto mb-3"></div>
+          <div class="h-4 w-80 bg-gray-800 rounded-sm mx-auto"></div>
+        </div>
+      </Section>
+      <Section seamless class="bg-primary-500 relative">
+        <div class="absolute left-1/2 -translate-x-1/2 top-0 -translate-y-1/2 text-xs font-mono text-white bg-primary-700 px-2 py-0.5 rounded-full z-10">0 gap</div>
+        <div class="text-center">
+          <div class="h-6 w-48 bg-primary-400 rounded-sm mx-auto mb-3"></div>
+          <div class="h-4 w-80 bg-primary-300 rounded-sm mx-auto"></div>
+        </div>
+      </Section>
+    </div>
+
+    <h3 class="text-sm font-semibold text-gray-600 uppercase tracking-wide mb-4">Default + Seamless + Default in page-flow</h3>
+    <p class="text-sm text-gray-600 mb-4 max-w-[65ch]">
+      Non-seamless sections get <code class="text-xs bg-gray-100 px-1.5 py-0.5 rounded-sm font-mono">--section-gap</code> margin from <code class="text-xs bg-gray-100 px-1.5 py-0.5 rounded-sm font-mono">page-flow</code>. Seamless sections get the same gap relative to non-seamless neighbors, but 0 gap between adjacent seamless sections.
+    </p>
+    <div class="page-flow border border-gray-200 rounded-lg overflow-hidden py-12 mb-8">
+      <Section aria-label="First section">
+        <div class="h-6 w-48 bg-gray-300 rounded-sm mb-3"></div>
+        <div class="h-4 w-80 bg-gray-200 rounded-sm"></div>
+      </Section>
+      <Section seamless class="bg-gray-50 relative">
+        <div class="absolute left-1/2 -translate-x-1/2 top-0 -translate-y-1/2 text-xs font-mono text-primary-500 bg-primary-50 px-2 py-0.5 rounded-full border border-primary-200 z-10">--section-gap</div>
+        <div class="text-center">
+          <div class="h-6 w-48 bg-gray-300 rounded-sm mx-auto mb-3"></div>
+          <div class="h-4 w-80 bg-gray-200 rounded-sm mx-auto"></div>
+        </div>
+        <div class="absolute left-1/2 -translate-x-1/2 bottom-0 translate-y-1/2 text-xs font-mono text-primary-500 bg-primary-50 px-2 py-0.5 rounded-full border border-primary-200 z-10">--section-gap</div>
+      </Section>
+      <Section aria-label="Third section" class="relative">
+        <div class="h-6 w-48 bg-gray-300 rounded-sm mb-3"></div>
+        <div class="h-4 w-80 bg-gray-200 rounded-sm"></div>
+      </Section>
+    </div>
+
+  </section>
+
+  <!-- Content Width -->
+  <section class="specimen-section">
+    <h2>Content Width</h2>
+    <p class="text-sm text-gray-600 mb-6 max-w-[65ch]">
+      Section handles this automatically: <code class="text-xs bg-gray-100 px-1.5 py-0.5 rounded-sm font-mono">&lt;section&gt;</code> is full-width (backgrounds bleed to edges), the inner container constrains content to <code class="text-xs bg-gray-100 px-1.5 py-0.5 rounded-sm font-mono">--container-max</code> and provides <code class="text-xs bg-gray-100 px-1.5 py-0.5 rounded-sm font-mono">@container</code> for responsive queries.
+    </p>
+
+    <h3 class="text-sm font-semibold text-gray-600 uppercase tracking-wide mb-4">Constrained content (default)</h3>
+    <div class="border border-gray-200 rounded-lg overflow-hidden mb-8">
+      <Section withPadding aria-label="Constrained demo">
+        <div class="border border-dashed border-primary-300 rounded-md px-6 py-8">
+          <div class="text-xs font-mono text-primary-500 mb-3">max-w-[var(--container-max)] mx-auto — handled by Section</div>
+          <div class="h-4 w-full bg-gray-100 rounded-sm mb-2"></div>
+          <div class="h-4 w-4/5 bg-gray-100 rounded-sm mb-2"></div>
+          <div class="h-4 w-3/5 bg-gray-100 rounded-sm"></div>
+        </div>
+      </Section>
+    </div>
+
+    <h3 class="text-sm font-semibold text-gray-600 uppercase tracking-wide mb-4">Full-bleed background, constrained content</h3>
+    <div class="border border-gray-200 rounded-lg overflow-hidden">
+      <Section seamless class="bg-gray-900">
+        <div class="border border-dashed border-gray-600 rounded-md px-6 py-8">
+          <div class="text-xs font-mono text-gray-400 mb-3">Full-width bg on &lt;section&gt; → constrained content via Section's inner container</div>
+          <div class="h-4 w-full bg-gray-800 rounded-sm mb-2"></div>
+          <div class="h-4 w-4/5 bg-gray-800 rounded-sm mb-2"></div>
+          <div class="h-4 w-3/5 bg-gray-800 rounded-sm"></div>
+        </div>
+      </Section>
     </div>
   </section>
 
@@ -368,12 +215,12 @@ import Section from '../../components/Section.astro';
   <section class="specimen-section">
     <h2>Composition Example</h2>
     <p class="text-sm text-gray-600 mb-6 max-w-[65ch]">
-      A typical marketing page section flow. All sections get 64px gap by default. Adjacent seamless sections (with backgrounds) butt up against each other — their <code class="text-xs bg-gray-100 px-1.5 py-0.5 rounded-sm font-mono">py-20</code> padding provides internal rhythm.
+      A typical marketing page using <code class="text-xs bg-gray-100 px-1.5 py-0.5 rounded-sm font-mono">Section</code> inside a <code class="text-xs bg-gray-100 px-1.5 py-0.5 rounded-sm font-mono">page-flow</code> wrapper. Adjacent seamless sections butt up (0 gap). Non-seamless sections get <code class="text-xs bg-gray-100 px-1.5 py-0.5 rounded-sm font-mono">--section-gap</code> margin. All spacing comes from one variable.
     </p>
     <div class="page-flow border border-gray-200 rounded-lg overflow-hidden">
       <!-- Hero (seamless, dark) -->
-      <section data-seamless class="bg-gray-900 px-8 py-24">
-        <div class="max-w-[var(--container-max)] mx-auto text-center">
+      <Section seamless class="bg-gray-900">
+        <div class="text-center">
           <div class="h-8 w-64 bg-gray-700 rounded-sm mx-auto mb-4"></div>
           <div class="h-4 w-96 bg-gray-800 rounded-sm mx-auto mb-6"></div>
           <div class="flex gap-3 justify-center">
@@ -381,74 +228,70 @@ import Section from '../../components/Section.astro';
             <div class="h-10 w-32 bg-gray-700 rounded-md"></div>
           </div>
         </div>
-      </section>
+      </Section>
       <!-- Social proof (seamless, subtle bg) -->
-      <section data-seamless class="bg-gray-50 px-8 py-12">
-        <div class="max-w-[var(--container-max)] mx-auto flex justify-center gap-12">
+      <Section seamless class="bg-gray-50">
+        <div class="flex justify-center gap-12">
           <div class="h-6 w-20 bg-gray-300 rounded-sm"></div>
           <div class="h-6 w-20 bg-gray-300 rounded-sm"></div>
           <div class="h-6 w-20 bg-gray-300 rounded-sm"></div>
           <div class="h-6 w-20 bg-gray-300 rounded-sm"></div>
         </div>
-      </section>
+      </Section>
       <!-- Features (normal) -->
-      <section class="px-8 py-12">
-        <div class="max-w-[var(--container-max)] mx-auto">
-          <div class="h-6 w-40 bg-gray-300 rounded-sm mb-8 mx-auto"></div>
-          <div class="grid grid-cols-3 gap-6">
-            <div class="bg-gray-50 rounded-lg p-6">
-              <div class="h-8 w-8 bg-gray-200 rounded-md mb-3"></div>
-              <div class="h-4 w-24 bg-gray-200 rounded-sm mb-2"></div>
-              <div class="h-3 w-full bg-gray-100 rounded-sm"></div>
+      <Section aria-label="Features">
+        <div class="h-6 w-40 bg-gray-300 rounded-sm mb-8 mx-auto"></div>
+        <div class="grid grid-cols-3 gap-6">
+          <div class="bg-gray-50 rounded-lg p-6">
+            <div class="h-8 w-8 bg-gray-200 rounded-md mb-3"></div>
+            <div class="h-4 w-24 bg-gray-200 rounded-sm mb-2"></div>
+            <div class="h-3 w-full bg-gray-100 rounded-sm"></div>
+          </div>
+          <div class="bg-gray-50 rounded-lg p-6">
+            <div class="h-8 w-8 bg-gray-200 rounded-md mb-3"></div>
+            <div class="h-4 w-24 bg-gray-200 rounded-sm mb-2"></div>
+            <div class="h-3 w-full bg-gray-100 rounded-sm"></div>
+          </div>
+          <div class="bg-gray-50 rounded-lg p-6">
+            <div class="h-8 w-8 bg-gray-200 rounded-md mb-3"></div>
+            <div class="h-4 w-24 bg-gray-200 rounded-sm mb-2"></div>
+            <div class="h-3 w-full bg-gray-100 rounded-sm"></div>
+          </div>
+        </div>
+      </Section>
+      <!-- Testimonials (normal) -->
+      <Section aria-label="Testimonials">
+        <div class="h-6 w-40 bg-gray-300 rounded-sm mb-8 mx-auto"></div>
+        <div class="grid grid-cols-2 gap-6">
+          <div class="bg-gray-50 rounded-lg p-6">
+            <div class="h-3 w-full bg-gray-100 rounded-sm mb-2"></div>
+            <div class="h-3 w-4/5 bg-gray-100 rounded-sm mb-4"></div>
+            <div class="flex gap-2 items-center">
+              <div class="h-8 w-8 bg-gray-200 rounded-full"></div>
+              <div class="h-3 w-20 bg-gray-200 rounded-sm"></div>
             </div>
-            <div class="bg-gray-50 rounded-lg p-6">
-              <div class="h-8 w-8 bg-gray-200 rounded-md mb-3"></div>
-              <div class="h-4 w-24 bg-gray-200 rounded-sm mb-2"></div>
-              <div class="h-3 w-full bg-gray-100 rounded-sm"></div>
-            </div>
-            <div class="bg-gray-50 rounded-lg p-6">
-              <div class="h-8 w-8 bg-gray-200 rounded-md mb-3"></div>
-              <div class="h-4 w-24 bg-gray-200 rounded-sm mb-2"></div>
-              <div class="h-3 w-full bg-gray-100 rounded-sm"></div>
+          </div>
+          <div class="bg-gray-50 rounded-lg p-6">
+            <div class="h-3 w-full bg-gray-100 rounded-sm mb-2"></div>
+            <div class="h-3 w-4/5 bg-gray-100 rounded-sm mb-4"></div>
+            <div class="flex gap-2 items-center">
+              <div class="h-8 w-8 bg-gray-200 rounded-full"></div>
+              <div class="h-3 w-20 bg-gray-200 rounded-sm"></div>
             </div>
           </div>
         </div>
-      </section>
-      <!-- Testimonials (normal — 64px gap from features) -->
-      <section class="px-8 py-12">
-        <div class="max-w-[var(--container-max)] mx-auto">
-          <div class="h-6 w-40 bg-gray-300 rounded-sm mb-8 mx-auto"></div>
-          <div class="grid grid-cols-2 gap-6">
-            <div class="bg-gray-50 rounded-lg p-6">
-              <div class="h-3 w-full bg-gray-100 rounded-sm mb-2"></div>
-              <div class="h-3 w-4/5 bg-gray-100 rounded-sm mb-4"></div>
-              <div class="flex gap-2 items-center">
-                <div class="h-8 w-8 bg-gray-200 rounded-full"></div>
-                <div class="h-3 w-20 bg-gray-200 rounded-sm"></div>
-              </div>
-            </div>
-            <div class="bg-gray-50 rounded-lg p-6">
-              <div class="h-3 w-full bg-gray-100 rounded-sm mb-2"></div>
-              <div class="h-3 w-4/5 bg-gray-100 rounded-sm mb-4"></div>
-              <div class="flex gap-2 items-center">
-                <div class="h-8 w-8 bg-gray-200 rounded-full"></div>
-                <div class="h-3 w-20 bg-gray-200 rounded-sm"></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      </Section>
       <!-- CTA (seamless, primary bg) -->
-      <section data-seamless class="bg-primary-500 px-8 py-20">
-        <div class="max-w-[var(--container-max)] mx-auto text-center">
+      <Section seamless class="bg-primary-500">
+        <div class="text-center">
           <div class="h-6 w-56 bg-primary-400 rounded-sm mx-auto mb-4"></div>
           <div class="h-4 w-80 bg-primary-400 rounded-sm mx-auto mb-6"></div>
           <div class="h-10 w-36 bg-white rounded-md mx-auto"></div>
         </div>
-      </section>
+      </Section>
       <!-- Footer (seamless, dark) -->
-      <section data-seamless class="bg-gray-900 px-8 py-12">
-        <div class="max-w-[var(--container-max)] mx-auto flex justify-between">
+      <Section seamless class="bg-gray-900">
+        <div class="flex justify-between">
           <div class="h-4 w-24 bg-gray-700 rounded-sm"></div>
           <div class="flex gap-4">
             <div class="h-4 w-12 bg-gray-700 rounded-sm"></div>
@@ -456,7 +299,7 @@ import Section from '../../components/Section.astro';
             <div class="h-4 w-12 bg-gray-700 rounded-sm"></div>
           </div>
         </div>
-      </section>
+      </Section>
     </div>
   </section>
 
