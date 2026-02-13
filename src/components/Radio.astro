@@ -1,12 +1,14 @@
 ---
 interface Props {
-  state?: 'hover' | 'focus' | 'disabled';
   size?: 'sm' | 'md' | 'lg';
-  selected?: boolean;
+  checked?: boolean;
   label?: string;
+  name?: string;
+  value?: string;
+  disabled?: boolean;
 }
 
-const { state, size = 'md', selected, label } = Astro.props;
+const { size = 'md', checked, label, name, value, disabled } = Astro.props;
 
 const sizeMap: Record<string, { outer: string; inner: string; text: string }> = {
   sm: { outer: 'w-4 h-4', inner: 'w-1.5 h-1.5', text: 'text-sm' },
@@ -15,46 +17,20 @@ const sizeMap: Record<string, { outer: string; inner: string; text: string }> = 
 };
 
 const s = sizeMap[size];
-
-function resolveOuterClasses(): string {
-  const parts = [
-    'inline-flex items-center justify-center rounded-full border-2 shrink-0',
-    s.outer,
-  ];
-
-  if (selected) {
-    parts.push('border-primary-500 bg-white');
-    if (state === 'hover') {
-      parts.push('border-primary-600');
-    }
-  } else {
-    parts.push('border-gray-300 bg-white');
-    if (state === 'hover') {
-      parts.push('border-gray-400');
-    }
-  }
-
-  if (state === 'focus') {
-    parts.push('outline-2 outline-primary-300 outline-offset-2');
-  } else if (state === 'disabled') {
-    parts.push('opacity-50 cursor-not-allowed');
-  }
-
-  if (!state) {
-    parts.push('transition-colors duration-fast ease-default');
-  }
-
-  return parts.join(' ');
-}
-
-const outerClasses = resolveOuterClasses();
 ---
 
-<label data-component="Radio" class={`inline-flex items-center gap-2 ${state === 'disabled' ? 'cursor-not-allowed opacity-50' : 'cursor-pointer'}`} data-state={state || undefined}>
-  <span class={outerClasses}>
-    {selected && (
-      <span class={`${s.inner} rounded-full bg-primary-500`}></span>
-    )}
+<label data-component="Radio" class={`group inline-flex items-center gap-2 ${disabled ? 'cursor-not-allowed opacity-50' : 'cursor-pointer'}`}>
+  <span class={`relative inline-flex items-center justify-center ${s.outer} shrink-0`}>
+    <input
+      type="radio"
+      class="sr-only peer"
+      checked={checked}
+      disabled={disabled}
+      name={name}
+      value={value}
+    />
+    <span class={`absolute inset-0 rounded-full border-2 border-gray-300 bg-white group-hover:border-gray-400 peer-checked:border-primary-500 group-hover:peer-checked:border-primary-600 peer-focus-visible:outline-2 peer-focus-visible:outline-primary-300 peer-focus-visible:outline-offset-2 transition-colors duration-fast ease-default`}></span>
+    <span class={`relative ${s.inner} rounded-full bg-primary-500 opacity-0 peer-checked:opacity-100 pointer-events-none transition-opacity duration-fast ease-default`}></span>
   </span>
   {label && <span class={`${s.text} text-gray-900`}>{label}</span>}
 </label>

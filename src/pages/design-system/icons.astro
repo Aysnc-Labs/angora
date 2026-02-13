@@ -12,8 +12,8 @@ import Close from '@/icons/Close.astro';
     <p class="text-sm text-gray-600 mb-6 max-w-[65ch]">
       Each icon renders as inline SVG with <code class="text-xs bg-gray-100 px-1.5 py-0.5 rounded-sm font-mono">stroke="currentColor"</code>, so it inherits the parent's text color. Default size is <code class="text-xs bg-gray-100 px-1.5 py-0.5 rounded-sm font-mono">24px</code>.
     </p>
-    <div class="border border-gray-200 rounded-lg p-8">
-      <div class="grid grid-cols-2 grid-gap" style="max-width: 400px;">
+    <div class="border border-gray-200 rounded-lg p-8 max-sm:p-4">
+      <div class="grid grid-cols-[repeat(auto-fill,minmax(180px,1fr))] grid-gap">
         <div class="flex items-center gap-4" data-icon-entry>
           <div class="w-12 h-12 flex items-center justify-center bg-gray-50 rounded-lg">
             <ArrowRight />
@@ -42,40 +42,40 @@ import Close from '@/icons/Close.astro';
     <p class="text-sm text-gray-600 mb-6 max-w-[65ch]">
       Pass a <code class="text-xs bg-gray-100 px-1.5 py-0.5 rounded-sm font-mono">size</code> prop to scale. Icons are designed on a 24px grid — smaller sizes work well down to 16px, larger sizes up to 32px.
     </p>
-    <div class="border border-gray-200 rounded-lg overflow-hidden">
+    <div class="border border-gray-200 rounded-lg overflow-x-auto">
       <table class="w-full">
         <thead>
           <tr class="border-b border-gray-200 bg-gray-50">
-            <th class="text-left py-3 px-6 text-xs font-semibold text-gray-500 uppercase tracking-wide">Size</th>
-            <th class="text-center py-3 px-6 text-xs font-semibold text-gray-500 uppercase tracking-wide">ArrowRight</th>
-            <th class="text-center py-3 px-6 text-xs font-semibold text-gray-500 uppercase tracking-wide">Close</th>
-            <th class="text-left py-3 px-6 text-xs font-semibold text-gray-500 uppercase tracking-wide">Use case</th>
+            <th class="text-left py-3 px-3 sm:px-6 text-xs font-semibold text-gray-500 uppercase tracking-wide">Size</th>
+            <th class="text-center py-3 px-3 sm:px-6 text-xs font-semibold text-gray-500 uppercase tracking-wide">ArrowRight</th>
+            <th class="text-center py-3 px-3 sm:px-6 text-xs font-semibold text-gray-500 uppercase tracking-wide">Close</th>
+            <th class="text-left py-3 px-3 sm:px-6 text-xs font-semibold text-gray-500 uppercase tracking-wide">Use case</th>
           </tr>
         </thead>
         <tbody>
           <tr class="border-b border-gray-100">
-            <td class="py-4 px-6 font-mono text-xs text-gray-500">16px</td>
-            <td class="py-4 px-6 text-center"><ArrowRight size={16} /></td>
-            <td class="py-4 px-6 text-center"><Close size={16} /></td>
-            <td class="py-4 px-6 text-sm text-gray-600">Small buttons, inline text, badges</td>
+            <td class="py-4 px-3 sm:px-6 font-mono text-xs text-gray-500">16px</td>
+            <td class="py-4 px-3 sm:px-6 text-center"><ArrowRight size={16} /></td>
+            <td class="py-4 px-3 sm:px-6 text-center"><Close size={16} /></td>
+            <td class="py-4 px-3 sm:px-6 text-sm text-gray-600">Small buttons, inline text, badges</td>
           </tr>
           <tr class="border-b border-gray-100">
-            <td class="py-4 px-6 font-mono text-xs text-gray-500">20px</td>
-            <td class="py-4 px-6 text-center"><ArrowRight size={20} /></td>
-            <td class="py-4 px-6 text-center"><Close size={20} /></td>
-            <td class="py-4 px-6 text-sm text-gray-600">Default buttons, form elements, nav items</td>
+            <td class="py-4 px-3 sm:px-6 font-mono text-xs text-gray-500">20px</td>
+            <td class="py-4 px-3 sm:px-6 text-center"><ArrowRight size={20} /></td>
+            <td class="py-4 px-3 sm:px-6 text-center"><Close size={20} /></td>
+            <td class="py-4 px-3 sm:px-6 text-sm text-gray-600">Default buttons, form elements, nav items</td>
           </tr>
           <tr class="border-b border-gray-100">
-            <td class="py-4 px-6 font-mono text-xs text-gray-500">24px</td>
-            <td class="py-4 px-6 text-center"><ArrowRight size={24} /></td>
-            <td class="py-4 px-6 text-center"><Close size={24} /></td>
-            <td class="py-4 px-6 text-sm text-gray-600">Default (standalone), large buttons, headings</td>
+            <td class="py-4 px-3 sm:px-6 font-mono text-xs text-gray-500">24px</td>
+            <td class="py-4 px-3 sm:px-6 text-center"><ArrowRight size={24} /></td>
+            <td class="py-4 px-3 sm:px-6 text-center"><Close size={24} /></td>
+            <td class="py-4 px-3 sm:px-6 text-sm text-gray-600">Default (standalone), large buttons, headings</td>
           </tr>
           <tr>
-            <td class="py-4 px-6 font-mono text-xs text-gray-500">32px</td>
-            <td class="py-4 px-6 text-center"><ArrowRight size={32} /></td>
-            <td class="py-4 px-6 text-center"><Close size={32} /></td>
-            <td class="py-4 px-6 text-sm text-gray-600">Feature icons, hero accents, empty states</td>
+            <td class="py-4 px-3 sm:px-6 font-mono text-xs text-gray-500">32px</td>
+            <td class="py-4 px-3 sm:px-6 text-center"><ArrowRight size={32} /></td>
+            <td class="py-4 px-3 sm:px-6 text-center"><Close size={32} /></td>
+            <td class="py-4 px-3 sm:px-6 text-sm text-gray-600">Feature icons, hero accents, empty states</td>
           </tr>
         </tbody>
       </table>

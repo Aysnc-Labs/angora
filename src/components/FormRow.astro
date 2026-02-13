@@ -1,0 +1,18 @@
+---
+interface Props {
+  align?: 'start' | 'center' | 'end';
+  grow?: boolean;
+}
+
+const { align = 'start', grow = true } = Astro.props;
+
+const alignClass: Record<string, string> = {
+  start: 'items-start',
+  center: 'items-center',
+  end: 'items-end',
+};
+---
+
+<div data-component="FormRow" class={`flex flex-wrap grid-gap ${grow ? '[&>*]:grow' : ''} ${alignClass[align]}`}>
+  <slot />
+</div>

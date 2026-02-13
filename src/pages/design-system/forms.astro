@@ -9,6 +9,8 @@ import Toggle from '@/components/Toggle.astro';
 import FileUpload from '@/components/FileUpload.astro';
 import SearchInput from '@/components/SearchInput.astro';
 import Button from '@/components/Button.astro';
+import FormRow from '@/components/FormRow.astro';
+import FieldGroup from '@/components/FieldGroup.astro';
 ---
 
 <Layout title="Forms" description="Text inputs, textareas, selects, checkboxes, radios, toggles, file upload, and search. All interactive — hover, focus, and tab to see states." fullscreenHref="/design-system/view/forms">
@@ -22,7 +24,7 @@ import Button from '@/components/Button.astro';
 
     <h3 class="text-sm font-semibold text-gray-600 uppercase tracking-wide mb-4">Default, with label, with icon</h3>
     <div class="border border-gray-200 rounded-lg p-8 mb-6">
-      <div class="flex flex-wrap gap-8" style="align-items: flex-start;">
+      <FormRow>
         <div class="w-56">
           <TextInput placeholder="Placeholder text" />
         </div>
@@ -32,12 +34,12 @@ import Button from '@/components/Button.astro';
         <div class="w-56">
           <TextInput label="Search" placeholder="Search..." withIcon />
         </div>
-      </div>
+      </FormRow>
     </div>
 
     <h3 class="text-sm font-semibold text-gray-600 uppercase tracking-wide mb-4">Validation &amp; disabled</h3>
     <div class="border border-gray-200 rounded-lg p-8 mb-6">
-      <div class="flex flex-wrap gap-8" style="align-items: flex-start;">
+      <FormRow>
         <div class="w-56">
           <TextInput state="error" label="Username" value="ab" hint="Must be at least 3 characters" />
         </div>
@@ -47,12 +49,12 @@ import Button from '@/components/Button.astro';
         <div class="w-56">
           <TextInput state="disabled" label="Account ID" value="ACC-00412" />
         </div>
-      </div>
+      </FormRow>
     </div>
 
     <h3 class="text-sm font-semibold text-gray-600 uppercase tracking-wide mb-4">Sizes</h3>
     <div class="border border-gray-200 rounded-lg p-8">
-      <div class="flex flex-wrap gap-8 items-end">
+      <FormRow align="end">
         <div class="w-48">
           <TextInput size="sm" placeholder="Small" />
           <span class="text-xs font-mono text-gray-400 mt-2 block text-center">sm</span>
@@ -65,7 +67,7 @@ import Button from '@/components/Button.astro';
           <TextInput size="lg" placeholder="Large" />
           <span class="text-xs font-mono text-gray-400 mt-2 block text-center">lg</span>
         </div>
-      </div>
+      </FormRow>
     </div>
   </section>
 
@@ -77,7 +79,7 @@ import Button from '@/components/Button.astro';
     </p>
 
     <div class="border border-gray-200 rounded-lg p-8 mb-6">
-      <div class="flex flex-wrap gap-8" style="align-items: flex-start;">
+      <FormRow>
         <div class="w-64">
           <Textarea label="Message" placeholder="Write your message..." rows={3} />
         </div>
@@ -87,12 +89,12 @@ import Button from '@/components/Button.astro';
         <div class="w-64">
           <Textarea state="disabled" label="Notes" value="Read-only content here." rows={3} />
         </div>
-      </div>
+      </FormRow>
     </div>
 
     <h3 class="text-sm font-semibold text-gray-600 uppercase tracking-wide mb-4">Sizes</h3>
     <div class="border border-gray-200 rounded-lg p-8">
-      <div class="flex flex-wrap gap-8 items-end">
+      <FormRow align="end">
         <div class="w-52">
           <Textarea size="sm" placeholder="Small" rows={2} />
           <span class="text-xs font-mono text-gray-400 mt-2 block text-center">sm</span>
@@ -105,7 +107,7 @@ import Button from '@/components/Button.astro';
           <Textarea size="lg" placeholder="Large" rows={2} />
           <span class="text-xs font-mono text-gray-400 mt-2 block text-center">lg</span>
         </div>
-      </div>
+      </FormRow>
     </div>
   </section>
 
@@ -117,7 +119,7 @@ import Button from '@/components/Button.astro';
     </p>
 
     <div class="border border-gray-200 rounded-lg p-8 mb-6">
-      <div class="flex flex-wrap gap-8" style="align-items: flex-start;">
+      <FormRow>
         <div class="w-56">
           <Select label="Country" options={['United States', 'Canada', 'United Kingdom', 'Germany']} placeholder="Choose a country" />
         </div>
@@ -127,12 +129,12 @@ import Button from '@/components/Button.astro';
         <div class="w-56">
           <Select state="disabled" label="Region" options={['North America']} />
         </div>
-      </div>
+      </FormRow>
     </div>
 
     <h3 class="text-sm font-semibold text-gray-600 uppercase tracking-wide mb-4">Sizes</h3>
     <div class="border border-gray-200 rounded-lg p-8">
-      <div class="flex flex-wrap gap-8 items-end">
+      <FormRow align="end">
         <div class="w-48">
           <Select size="sm" options={['Option A', 'Option B']} />
           <span class="text-xs font-mono text-gray-400 mt-2 block text-center">sm</span>
@@ -145,7 +147,7 @@ import Button from '@/components/Button.astro';
           <Select size="lg" options={['Option A', 'Option B']} />
           <span class="text-xs font-mono text-gray-400 mt-2 block text-center">lg</span>
         </div>
-      </div>
+      </FormRow>
     </div>
   </section>
 
@@ -157,18 +159,18 @@ import Button from '@/components/Button.astro';
     </p>
 
     <div class="border border-gray-200 rounded-lg p-8 mb-6">
-      <div class="flex flex-wrap gap-8 items-start">
+      <FormRow>
         <Checkbox label="Unchecked" />
         <Checkbox checked label="Checked" />
         <Checkbox indeterminate label="Indeterminate" />
-        <Checkbox state="disabled" label="Disabled" />
-        <Checkbox checked state="disabled" label="Disabled checked" />
-      </div>
+        <Checkbox disabled label="Disabled" />
+        <Checkbox checked disabled label="Disabled checked" />
+      </FormRow>
     </div>
 
     <h3 class="text-sm font-semibold text-gray-600 uppercase tracking-wide mb-4">Sizes</h3>
     <div class="border border-gray-200 rounded-lg p-8">
-      <div class="flex flex-wrap gap-8 items-center">
+      <FormRow align="center">
         <div class="flex flex-col items-center gap-3">
           <Checkbox size="sm" checked label="Small" />
           <span class="text-xs font-mono text-gray-400">sm</span>
@@ -181,7 +183,7 @@ import Button from '@/components/Button.astro';
           <Checkbox size="lg" checked label="Large" />
           <span class="text-xs font-mono text-gray-400">lg</span>
         </div>
-      </div>
+      </FormRow>
     </div>
   </section>
 
@@ -193,30 +195,30 @@ import Button from '@/components/Button.astro';
     </p>
 
     <div class="border border-gray-200 rounded-lg p-8 mb-6">
-      <div class="flex flex-wrap gap-8 items-start">
+      <FormRow>
         <Radio label="Unselected" />
-        <Radio selected label="Selected" />
-        <Radio state="disabled" label="Disabled" />
-        <Radio selected state="disabled" label="Disabled selected" />
-      </div>
+        <Radio checked label="Selected" />
+        <Radio disabled label="Disabled" />
+        <Radio checked disabled label="Disabled selected" />
+      </FormRow>
     </div>
 
     <h3 class="text-sm font-semibold text-gray-600 uppercase tracking-wide mb-4">Sizes</h3>
     <div class="border border-gray-200 rounded-lg p-8">
-      <div class="flex flex-wrap gap-8 items-center">
+      <FormRow align="center">
         <div class="flex flex-col items-center gap-3">
-          <Radio size="sm" selected label="Small" />
+          <Radio size="sm" checked label="Small" />
           <span class="text-xs font-mono text-gray-400">sm</span>
         </div>
         <div class="flex flex-col items-center gap-3">
-          <Radio size="md" selected label="Medium" />
+          <Radio size="md" checked label="Medium" />
           <span class="text-xs font-mono text-gray-400">md</span>
         </div>
         <div class="flex flex-col items-center gap-3">
-          <Radio size="lg" selected label="Large" />
+          <Radio size="lg" checked label="Large" />
           <span class="text-xs font-mono text-gray-400">lg</span>
         </div>
-      </div>
+      </FormRow>
     </div>
   </section>
 
@@ -228,30 +230,30 @@ import Button from '@/components/Button.astro';
     </p>
 
     <div class="border border-gray-200 rounded-lg p-8 mb-6">
-      <div class="flex flex-wrap gap-8 items-start">
+      <FormRow>
         <Toggle label="Off" />
-        <Toggle on label="On" />
-        <Toggle state="disabled" label="Disabled" />
-        <Toggle on state="disabled" label="Disabled on" />
-      </div>
+        <Toggle checked label="On" />
+        <Toggle disabled label="Disabled" />
+        <Toggle checked disabled label="Disabled on" />
+      </FormRow>
     </div>
 
     <h3 class="text-sm font-semibold text-gray-600 uppercase tracking-wide mb-4">Sizes</h3>
     <div class="border border-gray-200 rounded-lg p-8">
-      <div class="flex flex-wrap gap-8 items-center">
+      <FormRow align="center">
         <div class="flex flex-col items-center gap-3">
-          <Toggle size="sm" on label="Small" />
+          <Toggle size="sm" checked label="Small" />
           <span class="text-xs font-mono text-gray-400">sm</span>
         </div>
         <div class="flex flex-col items-center gap-3">
-          <Toggle size="md" on label="Medium" />
+          <Toggle size="md" checked label="Medium" />
           <span class="text-xs font-mono text-gray-400">md</span>
         </div>
         <div class="flex flex-col items-center gap-3">
-          <Toggle size="lg" on label="Large" />
+          <Toggle size="lg" checked label="Large" />
           <span class="text-xs font-mono text-gray-400">lg</span>
         </div>
-      </div>
+      </FormRow>
     </div>
   </section>
 
@@ -264,7 +266,7 @@ import Button from '@/components/Button.astro';
 
     <h3 class="text-sm font-semibold text-gray-600 uppercase tracking-wide mb-4">Dropzone</h3>
     <div class="border border-gray-200 rounded-lg p-8 mb-6">
-      <div class="flex flex-wrap gap-8" style="align-items: flex-start;">
+      <FormRow>
         <div class="w-64">
           <FileUpload variant="dropzone" />
           <span class="text-xs font-mono text-gray-400 mt-2 block text-center">default</span>
@@ -277,12 +279,12 @@ import Button from '@/components/Button.astro';
           <FileUpload variant="dropzone" state="disabled" />
           <span class="text-xs font-mono text-gray-400 mt-2 block text-center">disabled</span>
         </div>
-      </div>
+      </FormRow>
     </div>
 
     <h3 class="text-sm font-semibold text-gray-600 uppercase tracking-wide mb-4">Button style</h3>
     <div class="border border-gray-200 rounded-lg p-8">
-      <div class="flex flex-wrap gap-6 items-center">
+      <FormRow align="center">
         <div class="flex flex-col items-center gap-3">
           <FileUpload variant="button" />
           <span class="text-xs font-mono text-gray-400">default</span>
@@ -291,7 +293,7 @@ import Button from '@/components/Button.astro';
           <FileUpload variant="button" state="disabled" />
           <span class="text-xs font-mono text-gray-400">disabled</span>
         </div>
-      </div>
+      </FormRow>
     </div>
   </section>
 
@@ -303,7 +305,7 @@ import Button from '@/components/Button.astro';
     </p>
 
     <div class="border border-gray-200 rounded-lg p-8 mb-6">
-      <div class="flex flex-wrap gap-8" style="align-items: flex-start;">
+      <FormRow>
         <div class="w-56">
           <SearchInput />
           <span class="text-xs font-mono text-gray-400 mt-2 block text-center">default</span>
@@ -316,12 +318,12 @@ import Button from '@/components/Button.astro';
           <SearchInput state="disabled" />
           <span class="text-xs font-mono text-gray-400 mt-2 block text-center">disabled</span>
         </div>
-      </div>
+      </FormRow>
     </div>
 
     <h3 class="text-sm font-semibold text-gray-600 uppercase tracking-wide mb-4">Sizes</h3>
     <div class="border border-gray-200 rounded-lg p-8">
-      <div class="flex flex-wrap gap-8 items-end">
+      <FormRow align="end">
         <div class="w-48">
           <SearchInput size="sm" />
           <span class="text-xs font-mono text-gray-400 mt-2 block text-center">sm</span>
@@ -334,7 +336,7 @@ import Button from '@/components/Button.astro';
           <SearchInput size="lg" />
           <span class="text-xs font-mono text-gray-400 mt-2 block text-center">lg</span>
         </div>
-      </div>
+      </FormRow>
     </div>
   </section>
 
@@ -347,30 +349,36 @@ import Button from '@/components/Button.astro';
 
     <h3 class="text-sm font-semibold text-gray-600 uppercase tracking-wide mb-4">Contact form</h3>
     <div class="border border-gray-200 rounded-lg p-8 mb-6">
-      <div class="max-w-md flex flex-col gap-6">
-        <div class="grid grid-cols-2 gap-4">
+      <FieldGroup class="max-w-md">
+        <FormRow>
           <TextInput label="First name" placeholder="Jane" />
           <TextInput label="Last name" placeholder="Doe" />
-        </div>
-        <TextInput label="Email" placeholder="jane@example.com" />
-        <Select label="Subject" options={['General inquiry', 'Technical support', 'Billing']} placeholder="Choose a subject" />
-        <Textarea label="Message" placeholder="How can we help?" rows={3} />
-        <div class="flex gap-3">
+        </FormRow>
+        <FormRow>
+          <TextInput label="Email" placeholder="jane@example.com" />
+        </FormRow>
+        <FormRow>
+          <Select label="Subject" options={['General inquiry', 'Technical support', 'Billing']} placeholder="Choose a subject" />
+        </FormRow>
+        <FormRow>
+          <Textarea label="Message" placeholder="How can we help?" rows={3} />
+        </FormRow>
+        <FormRow grow={false}>
           <Button>Send Message</Button>
           <Button variant="ghost">Cancel</Button>
-        </div>
-      </div>
+        </FormRow>
+      </FieldGroup>
     </div>
 
     <h3 class="text-sm font-semibold text-gray-600 uppercase tracking-wide mb-4">Settings panel</h3>
     <div class="border border-gray-200 rounded-lg p-8 mb-6">
-      <div class="max-w-md flex flex-col gap-6">
+      <FieldGroup class="max-w-md">
         <div class="flex items-center justify-between">
           <div>
             <p class="text-sm font-medium text-gray-900">Email notifications</p>
             <p class="text-xs text-gray-400">Receive updates about your account</p>
           </div>
-          <Toggle on />
+          <Toggle checked />
         </div>
         <div class="flex items-center justify-between">
           <div>
@@ -382,12 +390,12 @@ import Button from '@/components/Button.astro';
         <div class="border-t border-gray-200 pt-6">
           <p class="text-sm font-medium text-gray-900 mb-3">Notification frequency</p>
           <div class="flex flex-col gap-2">
-            <Radio selected label="Real-time" />
-            <Radio label="Daily digest" />
-            <Radio label="Weekly summary" />
+            <Radio checked name="notification-freq" value="realtime" label="Real-time" />
+            <Radio name="notification-freq" value="daily" label="Daily digest" />
+            <Radio name="notification-freq" value="weekly" label="Weekly summary" />
           </div>
         </div>
-      </div>
+      </FieldGroup>
     </div>
 
     <h3 class="text-sm font-semibold text-gray-600 uppercase tracking-wide mb-4">Search with filters</h3>

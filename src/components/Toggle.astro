@@ -1,55 +1,36 @@
 ---
 interface Props {
-  state?: 'hover' | 'focus' | 'disabled';
   size?: 'sm' | 'md' | 'lg';
-  on?: boolean;
+  checked?: boolean;
   label?: string;
+  name?: string;
+  value?: string;
+  disabled?: boolean;
 }
 
-const { state, size = 'md', on, label } = Astro.props;
+const { size = 'md', checked, label, name, value, disabled } = Astro.props;
 
 const sizeMap: Record<string, { track: string; thumb: string; translate: string; text: string }> = {
-  sm: { track: 'w-8 h-5', thumb: 'w-3.5 h-3.5', translate: 'translate-x-3.5', text: 'text-sm' },
-  md: { track: 'w-10 h-6', thumb: 'w-4.5 h-4.5', translate: 'translate-x-4.5', text: 'text-base' },
-  lg: { track: 'w-12 h-7', thumb: 'w-5.5 h-5.5', translate: 'translate-x-5.5', text: 'text-lg' },
+  sm: { track: 'w-8 h-5', thumb: 'w-3.5 h-3.5', translate: 'peer-checked:translate-x-3.5', text: 'text-sm' },
+  md: { track: 'w-10 h-6', thumb: 'w-4.5 h-4.5', translate: 'peer-checked:translate-x-4.5', text: 'text-base' },
+  lg: { track: 'w-12 h-7', thumb: 'w-5.5 h-5.5', translate: 'peer-checked:translate-x-5.5', text: 'text-lg' },
 };
 
 const s = sizeMap[size];
-
-function resolveTrackClasses(): string {
-  const parts = [
-    'relative inline-flex items-center rounded-full p-0.5 shrink-0',
-    s.track,
-  ];
-
-  if (on) {
-    parts.push('bg-primary-500');
-    if (state === 'hover') parts.push('bg-primary-600');
-  } else {
-    parts.push('bg-gray-300');
-    if (state === 'hover') parts.push('bg-gray-400');
-  }
-
-  if (state === 'focus') {
-    parts.push('outline-2 outline-primary-300 outline-offset-2');
-  } else if (state === 'disabled') {
-    parts.push('opacity-50 cursor-not-allowed');
-  }
-
-  if (!state) {
-    parts.push('transition-colors duration-fast ease-default');
-  }
-
-  return parts.join(' ');
-}
-
-const trackClasses = resolveTrackClasses();
-const thumbClasses = `${s.thumb} rounded-full bg-white shadow-sm transition-transform duration-fast ease-default ${on ? s.translate : 'translate-x-0'}`;
 ---
 
-<label data-component="Toggle" class={`inline-flex items-center gap-3 ${state === 'disabled' ? 'cursor-not-allowed opacity-50' : 'cursor-pointer'}`} data-state={state || undefined}>
-  <span class={trackClasses}>
-    <span class={thumbClasses}></span>
+<label data-component="Toggle" class={`group inline-flex items-center gap-3 ${disabled ? 'cursor-not-allowed opacity-50' : 'cursor-pointer'}`}>
+  <span class={`relative inline-flex items-center p-0.5 ${s.track} shrink-0`}>
+    <input
+      type="checkbox"
+      class="sr-only peer"
+      checked={checked}
+      disabled={disabled}
+      name={name}
+      value={value}
+    />
+    <span class={`absolute inset-0 rounded-full bg-gray-300 group-hover:bg-gray-400 peer-checked:bg-primary-500 group-hover:peer-checked:bg-primary-600 peer-focus-visible:outline-2 peer-focus-visible:outline-primary-300 peer-focus-visible:outline-offset-2 transition-colors duration-fast ease-default`}></span>
+    <span class={`relative ${s.thumb} rounded-full bg-white shadow-sm translate-x-0 ${s.translate} transition-transform duration-fast ease-default`}></span>
   </span>
   {label && <span class={`${s.text} text-gray-900`}>{label}</span>}
 </label>

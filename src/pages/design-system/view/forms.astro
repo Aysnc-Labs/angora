@@ -78,8 +78,8 @@ import Button from '@/components/Button.astro';
       <Checkbox label="Unchecked" />
       <Checkbox checked label="Checked" />
       <Checkbox indeterminate label="Indeterminate" />
-      <Checkbox state="disabled" label="Disabled" />
-      <Checkbox checked state="disabled" label="Disabled checked" />
+      <Checkbox disabled label="Disabled" />
+      <Checkbox checked disabled label="Disabled checked" />
     </div>
 
     <!-- Checkbox sizes -->
@@ -92,31 +92,31 @@ import Button from '@/components/Button.astro';
     <!-- Radios -->
     <div class="flex flex-wrap gap-8 items-start">
       <Radio label="Unselected" />
-      <Radio selected label="Selected" />
-      <Radio state="disabled" label="Disabled" />
-      <Radio selected state="disabled" label="Disabled selected" />
+      <Radio checked label="Selected" />
+      <Radio disabled label="Disabled" />
+      <Radio checked disabled label="Disabled selected" />
     </div>
 
     <!-- Radio sizes -->
     <div class="flex flex-wrap gap-8 items-center">
-      <Radio size="sm" selected label="Small" />
-      <Radio size="md" selected label="Medium" />
-      <Radio size="lg" selected label="Large" />
+      <Radio size="sm" checked label="Small" />
+      <Radio size="md" checked label="Medium" />
+      <Radio size="lg" checked label="Large" />
     </div>
 
     <!-- Toggles -->
     <div class="flex flex-wrap gap-8 items-start">
       <Toggle label="Off" />
-      <Toggle on label="On" />
-      <Toggle state="disabled" label="Disabled" />
-      <Toggle on state="disabled" label="Disabled on" />
+      <Toggle checked label="On" />
+      <Toggle disabled label="Disabled" />
+      <Toggle checked disabled label="Disabled on" />
     </div>
 
     <!-- Toggle sizes -->
     <div class="flex flex-wrap gap-8 items-center">
-      <Toggle size="sm" on label="Small" />
-      <Toggle size="md" on label="Medium" />
-      <Toggle size="lg" on label="Large" />
+      <Toggle size="sm" checked label="Small" />
+      <Toggle size="md" checked label="Medium" />
+      <Toggle size="lg" checked label="Large" />
     </div>
 
     <!-- Search inputs -->
