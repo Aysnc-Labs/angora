@@ -172,7 +172,7 @@
   margin-bottom: var(--spacing-4);
 }
 
-/* Hub — landing page with section cards */
+/* Hub — centered landing with side-by-side panels */
 
 .ds-hub {
   max-width: 640px;
@@ -182,25 +182,44 @@
 
 .ds-hub-header {
   margin-bottom: var(--spacing-12);
+  text-align: center;
 }
 
-.ds-hub-grid {
+.ds-hub-row {
+  display: flex;
+  align-items: stretch;
+}
+
+.ds-hub-panel {
+  flex: 1;
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-4);
-}
-
-.ds-hub-card {
-  display: block;
-  padding: var(--spacing-6);
-  border: 1px solid var(--color-gray-200);
-  border-radius: var(--radius-lg);
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-2);
+  padding: var(--spacing-12) var(--spacing-6);
   text-decoration: none;
-  transition: border-color var(--duration-fast) var(--ease-default),
-              box-shadow var(--duration-fast) var(--ease-default);
+  transition: opacity var(--duration-fast) var(--ease-default);
 }
 
-.ds-hub-card:hover {
-  border-color: var(--color-gray-300);
-  box-shadow: var(--shadow-sm);
+.ds-hub-label {
+  font-size: var(--text-lg);
+  font-weight: 600;
+  color: var(--color-gray-900);
+}
+
+.ds-hub-desc {
+  font-size: var(--text-sm);
+  color: var(--color-gray-400);
+}
+
+.ds-hub-divider {
+  width: 1px;
+  background: var(--color-gray-200);
+  align-self: stretch;
+}
+
+/* Hover: dim the panel you're NOT on */
+.ds-hub-row:hover .ds-hub-panel:not(:hover) {
+  opacity: 0.35;
 }

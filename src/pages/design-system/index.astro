@@ -2,19 +2,6 @@
 import '../../styles/global.css';
 import '../../styles/reset.css';
 import '../../styles/design-system.css';
-
-const sections = [
-  {
-    label: 'Wireframes',
-    description: 'Page structure and layout sketches. Hierarchy, flow, and content placement before visual design.',
-    href: '/design-system/wireframes/home',
-  },
-  {
-    label: 'Components',
-    description: 'Tokens, primitives, and components. The visual language — colors, type, spacing, buttons, cards, forms.',
-    href: '/design-system/style-guide',
-  },
-];
 ---
 
 <!doctype html>
@@ -23,21 +10,24 @@ const sections = [
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="robots" content="noindex, nofollow" />
-    <title>Design System</title>
+    <title>Angora Design System</title>
   </head>
   <body>
     <div class="ds-hub">
       <header class="ds-hub-header">
-        <h1 class="text-4xl font-bold text-gray-900 tracking-tight">Design System</h1>
+        <h1 class="text-4xl font-bold text-gray-900 tracking-tight">Angora Design System</h1>
         <p class="text-lg text-gray-500 mt-2">Wireframes, tokens, and components.</p>
       </header>
-      <div class="ds-hub-grid">
-        {sections.map(({ label, description, href }) => (
-          <a href={href} class="ds-hub-card">
-            <h2 class="text-lg font-semibold text-gray-900">{label}</h2>
-            <p class="text-sm text-gray-500 mt-1">{description}</p>
-          </a>
-        ))}
+      <div class="ds-hub-row">
+        <a href="/design-system/wireframes/home" class="ds-hub-panel">
+          <span class="ds-hub-label">Wireframes</span>
+          <span class="ds-hub-desc">Structure & layout</span>
+        </a>
+        <div class="ds-hub-divider"></div>
+        <a href="/design-system/style-guide" class="ds-hub-panel">
+          <span class="ds-hub-label">Components</span>
+          <span class="ds-hub-desc">Tokens & primitives</span>
+        </a>
       </div>
     </div>
   </body>
