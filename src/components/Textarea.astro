@@ -54,7 +54,7 @@ function resolveClasses(): string {
 const classes = resolveClasses();
 ---
 
-<div class="flex flex-col gap-1.5">
+<div data-component="Textarea" class="flex flex-col gap-1.5">
   {label && (
     <label class={`font-medium text-gray-700 ${labelSizeClasses[size]}`}>{label}</label>
   )}

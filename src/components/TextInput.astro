@@ -60,7 +60,7 @@ function resolveInputClasses(): string {
 const inputClasses = resolveInputClasses();
 ---
 
-<div class="flex flex-col gap-1.5">
+<div data-component="TextInput" class="flex flex-col gap-1.5">
   {label && (
     <label class={`font-medium text-gray-700 ${labelSizeClasses[size]}`}>{label}</label>
   )}

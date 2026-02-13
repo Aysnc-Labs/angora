@@ -9,7 +9,7 @@ const { src, alt = '', height = 'h-40' } = Astro.props;
 ---
 
 {src ? (
-  <img src={src} alt={alt} class={`w-full ${height} object-cover`} />
+  <img data-component="CardImage" src={src} alt={alt} class={`w-full ${height} object-cover`} />
 ) : (
-  <div class={`w-full ${height} bg-gray-200`}></div>
+  <div data-component="CardImage" class={`w-full ${height} bg-gray-200`}></div>
 )}

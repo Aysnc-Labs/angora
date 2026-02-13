@@ -61,7 +61,7 @@ const classes = resolveClasses();
 const chevronSize = size === 'sm' ? 14 : size === 'lg' ? 20 : 16;
 ---
 
-<div class="flex flex-col gap-1.5">
+<div data-component="Select" class="flex flex-col gap-1.5">
   {label && (
     <label class={`font-medium text-gray-700 ${labelSizeClasses[size]}`}>{label}</label>
   )}

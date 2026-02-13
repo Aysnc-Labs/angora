@@ -163,6 +163,18 @@ Only if you made a new decision worth recording (added to anti-patterns or decis
 
 ## Markup Conventions
 
+### Dev Tools Identification
+
+Every component's root element gets a `data-component` attribute matching the component name (PascalCase). This makes components instantly identifiable in browser dev tools, where Tailwind class soup otherwise gives no hint which component rendered an element.
+
+```html
+<button data-component="Button" class="inline-flex items-center ...">
+<div data-component="Card" class="rounded-lg overflow-hidden ...">
+<section data-component="Section" class="...">
+```
+
+Sub-components get it too: `data-component="CardBody"`, `data-component="HeroTitle"`. The DOM reads like a component tree. This attribute is always first in the attribute list for consistency.
+
 ### Semantic HTML + Tailwind Classes
 
 All components use semantic HTML elements styled with Tailwind utility classes. No custom elements, no Shadow DOM.

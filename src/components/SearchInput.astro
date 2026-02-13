@@ -52,7 +52,7 @@ const iconSize = size === 'sm' ? 14 : size === 'lg' ? 20 : 16;
 const showClear = withClear && (state === 'has-value' || value);
 ---
 
-<div class="relative">
+<div data-component="SearchInput" class="relative">
   <div class={`absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none ${size === 'sm' ? 'left-2.5' : ''}`}>
     <svg width={iconSize} height={iconSize} viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
       <circle cx="11" cy="11" r="8" />

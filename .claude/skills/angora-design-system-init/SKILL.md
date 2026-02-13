@@ -89,6 +89,8 @@ Build **only** these first:
 
 All sections must have a `@container` ancestor (required for responsive type tokens to work).
 
+**Dev tools convention:** every component's root element gets `data-component="ComponentName"` (PascalCase). Sub-components too (`data-component="CardBody"`). This makes components identifiable in browser dev tools. Always first attribute in the list.
+
 Before building each page, ask the user any decisions noted below. Build one page at a time, or batch pages that don't need user input.
 
 1. `buttons.astro` — Sizes (sm, md, lg), variants (primary, secondary, ghost), icon buttons. Present 2–3 specific options for icon button layout (icon-left, icon-only, icon-right) and ask the user to pick.
