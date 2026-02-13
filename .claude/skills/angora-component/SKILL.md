@@ -103,7 +103,7 @@ Every component requires three files:
 2. **Design system page** — `src/pages/design-system/<name>.astro` (using `Layout` from `_layout/`, shows all variants/states)
 3. **Full-screen view** — `src/pages/design-system/view/<name>.astro` (using `FullScreen` from `_layout/`, no design system chrome)
 
-Add the design system page to the sidebar nav in `src/pages/design-system/_layout/Layout.astro`.
+The sidebar auto-discovers design system pages via `import.meta.glob` — no manual nav registration needed. Just create the file and it appears.
 
 ## Steps
 

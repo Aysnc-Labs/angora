@@ -31,8 +31,7 @@ No full-screen view needed — wireframes are working docs, not deliverables.
 
 1. **Ask format** — ASCII or Visual (see above).
 2. **Sketch** — create the wireframe page showing page structure: header, hero, sections, footer. Use placeholder text and rough proportions.
-3. **Wire into nav** — add the wireframe to the `wireframes` array in `src/pages/design-system/_layout/Layout.astro`.
-4. **Visual review** — user opens page in browser (`pnpm dev`). Approves or iterates.
+3. **Visual review** — user opens page in browser (`pnpm dev`). The sidebar auto-discovers wireframe pages via `import.meta.glob` — no manual nav registration needed. Approves or iterates.
 5. **Iterate** — ask user for feedback ("move CTA above fold", "make it 3 columns", etc.) and update the wireframe.
 6. **Notes** — ask if they want to save notes with the wireframe (intent, constraints, open questions).
 7. **Data sources** — walk through each section and capture data source decisions.

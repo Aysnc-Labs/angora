@@ -91,10 +91,6 @@
 
 /* Collapsible groups */
 
-.ds-nav details {
-  /* Reset browser default styles */
-}
-
 .ds-nav-summary {
   font-size: var(--text-xs);
   font-weight: 600;
@@ -102,31 +98,24 @@
   text-transform: uppercase;
   letter-spacing: 0.05em;
   padding: var(--spacing-2) var(--spacing-3);
+  width: 100%;
   cursor: pointer;
-  list-style: none;
   display: flex;
   align-items: center;
   gap: var(--spacing-2);
+  border: none;
   border-radius: var(--radius-sm);
+  background: none;
   user-select: none;
   transition: color var(--duration-fast) var(--ease-default);
 }
 
-.ds-nav-summary::-webkit-details-marker {
-  display: none;
-}
-
-.ds-nav-summary::before {
-  content: "";
-  width: 12px;
-  height: 12px;
+.ds-nav-chevron {
   flex-shrink: 0;
-  background: currentColor;
-  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 18l6-6-6-6'/%3E%3C/svg%3E") center / contain no-repeat;
   transition: transform var(--duration-fast) var(--ease-default);
 }
 
-details[open] > .ds-nav-summary::before {
+.ds-nav-summary[aria-expanded="true"] .ds-nav-chevron {
   transform: rotate(90deg);
 }
 
@@ -150,10 +139,8 @@ details[open] > .ds-nav-summary::before {
   padding: var(--spacing-1) var(--spacing-3);
   padding-left: calc(var(--spacing-3) + 12px + var(--spacing-2));
   border-radius: var(--radius-sm);
-  border-left: 2px solid transparent;
   transition: background var(--duration-fast) var(--ease-default),
-              color var(--duration-fast) var(--ease-default),
-              border-color var(--duration-fast) var(--ease-default);
+              color var(--duration-fast) var(--ease-default);
 }
 
 .ds-nav-group a:hover {
@@ -165,7 +152,6 @@ details[open] > .ds-nav-summary::before {
   color: var(--color-primary-700);
   font-weight: 600;
   background: var(--color-primary-50);
-  border-left-color: transparent;
 }
 
 .ds-page {

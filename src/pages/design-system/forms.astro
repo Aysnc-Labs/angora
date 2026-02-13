@@ -155,14 +155,13 @@ import FieldGroup from '@/components/FieldGroup.astro';
   <section class="specimen-section">
     <h2>Checkbox</h2>
     <p class="text-sm text-gray-600 mb-6 max-w-[65ch]">
-      Custom-styled box with <code class="text-xs bg-gray-100 px-1.5 py-0.5 rounded-sm font-mono">border-2</code> and <code class="text-xs bg-gray-100 px-1.5 py-0.5 rounded-sm font-mono">rounded-sm</code>. Checked state fills with <code class="text-xs bg-gray-100 px-1.5 py-0.5 rounded-sm font-mono">bg-primary-500</code> and shows an SVG checkmark. Indeterminate uses a minus line.
+      Custom-styled box with <code class="text-xs bg-gray-100 px-1.5 py-0.5 rounded-sm font-mono">border-2</code> and <code class="text-xs bg-gray-100 px-1.5 py-0.5 rounded-sm font-mono">rounded-sm</code>. Checked state fills with <code class="text-xs bg-gray-100 px-1.5 py-0.5 rounded-sm font-mono">bg-primary-500</code> and shows an SVG checkmark.
     </p>
 
     <div class="border border-gray-200 rounded-lg p-8 mb-6">
       <FormRow>
         <Checkbox label="Unchecked" />
         <Checkbox checked label="Checked" />
-        <Checkbox indeterminate label="Indeterminate" />
         <Checkbox disabled label="Disabled" />
         <Checkbox checked disabled label="Disabled checked" />
       </FormRow>

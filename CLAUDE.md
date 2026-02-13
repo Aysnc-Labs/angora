@@ -22,7 +22,8 @@ Angora is a **senior design engineer** — someone who thinks in both visual sys
 **Astro** is the build tool. **Tailwind CSS v4** is the styling layer, integrated via `@tailwindcss/vite`. Design tokens are defined in `src/styles/global.css` using Tailwind's `@theme` directive — this is the single source of truth for all design values.
 
 - Astro components render semantic HTML with Tailwind utility classes. No custom elements, no `@scope` CSS.
-- Component props (`variant`, `size`, `disabled`) resolve to Tailwind class strings at build time. Components can include client-side JavaScript when interactivity requires it.
+- Component props (`variant`, `size`, `disabled`) resolve to Tailwind class strings at build time.
+- **Preact** is available via `@astrojs/preact` for interactive islands. Use `client:load` for immediately-needed interactivity, `client:visible` for below-fold. The boundary: **design system components** (`src/components/`) are always Astro — static HTML, zero JS, the reference specimens. **Design system tooling** (`_layout/`) uses Preact where interactivity is needed. **Site pages** are Astro by default with Preact islands for interactive sections (forms, modals, dynamic content).
 - Astro component names don't need a prefix (just `Button.astro`, not `SiteButton.astro`).
 - Icon components live in `src/icons/` and drop the `Icon` prefix — the directory provides context (e.g., `icons/ArrowRight.astro`).
 
@@ -31,13 +32,14 @@ Angora is a **senior design engineer** — someone who thinks in both visual sys
 - `src/system.md` — The "why" file. Intent, accessibility standard, anti-patterns, and decisions log. No token values (that's `global.css`) and no component patterns (that's the components). **Read before building or reviewing a component.**
 - `src/styles/global.css` — `@import "tailwindcss"` + `@theme` block with all design tokens. Single source of truth. **Read before building a component to know available tokens.**
 - `src/styles/design-system.css` — Design system chrome: sidebar nav, specimen rows, labels, demo areas. Tooling only — doesn't ship.
-- `src/pages/design-system/_layout/Layout.astro` — Sidebar nav + page shell for design system pages. Accepts `fullscreenHref` prop.
+- `src/pages/design-system/_layout/Layout.astro` — Page shell for design system pages. Accepts `fullscreenHref` prop. Auto-discovers pages via `import.meta.glob` — no manual nav registration needed.
+- `src/pages/design-system/_layout/Sidebar.tsx` — Preact sidebar component. Search, collapsible nav groups, active page highlighting. Receives auto-discovered nav structure as props from Layout.astro.
 - `src/pages/design-system/_layout/FullScreen.astro` — Minimal layout for full-screen views (no design system chrome).
 - `src/components/*.astro` — Each component renders semantic HTML with Tailwind utility classes.
 - `src/pages/design-system/*.astro` — Design system pages. One per component type.
 - `src/pages/design-system/view/*.astro` — Full-screen views without design system chrome.
 - `src/pages/design-system/wireframes/*.astro` — Wireframe pages. Working docs for sketching page structure before building.
-- `src/pages/design-system/layouts/*.astro` — Layout pages. Full-page compositions built from real components — the assembled version of a wireframe. Browsed via a grid index at `/design-system/layouts/`, not through the sidebar. Uses `FullScreen.astro`. These are design system specimens, not site pages — they use placeholder content and exist as reference for how to assemble components into a page.
+- `src/pages/design-system/layouts/*.astro` — Layout pages. Full-page compositions built from real components — the assembled version of a wireframe. Uses `FullScreen.astro`. Auto-discovered in the sidebar nav. These are design system specimens, not site pages — they use placeholder content and exist as reference for how to assemble components into a page.
 - `src/pages/*.astro` — Site pages. Real routes like `/about-us`, `/pricing`, etc.
 - `src/data/data.sqlite` — SQLite database. Content store, committed to git. Created on first import of `src/data/db.ts`.
 - `public/media/` — Static media assets. Referenced by `path` in the `media` table.

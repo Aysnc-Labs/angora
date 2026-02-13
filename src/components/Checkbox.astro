@@ -2,14 +2,13 @@
 interface Props {
   size?: 'sm' | 'md' | 'lg';
   checked?: boolean;
-  indeterminate?: boolean;
   label?: string;
   name?: string;
   value?: string;
   disabled?: boolean;
 }
 
-const { size = 'md', checked, indeterminate, label, name, value, disabled } = Astro.props;
+const { size = 'md', checked, label, name, value, disabled } = Astro.props;
 
 const sizeMap: Record<string, { box: string; icon: number; text: string }> = {
   sm: { box: 'w-4 h-4', icon: 10, text: 'text-sm' },
@@ -29,24 +28,11 @@ const s = sizeMap[size];
       disabled={disabled}
       name={name}
       value={value}
-      data-indeterminate={indeterminate || undefined}
     />
-    <span class={`absolute inset-0 rounded-sm border-2 border-gray-300 bg-white group-hover:border-gray-400 peer-checked:bg-primary-500 peer-checked:border-primary-500 group-hover:peer-checked:bg-primary-600 group-hover:peer-checked:border-primary-600 peer-indeterminate:bg-primary-500 peer-indeterminate:border-primary-500 group-hover:peer-indeterminate:bg-primary-600 group-hover:peer-indeterminate:border-primary-600 peer-focus-visible:outline-2 peer-focus-visible:outline-primary-300 peer-focus-visible:outline-offset-2 transition-colors duration-fast ease-default`}></span>
-    {indeterminate ? (
-      <svg class="relative opacity-0 peer-indeterminate:opacity-100 text-white pointer-events-none" width={s.icon} height={s.icon} viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round">
-        <line x1="5" y1="12" x2="19" y2="12" />
-      </svg>
-    ) : (
-      <svg class="relative opacity-0 peer-checked:opacity-100 text-white pointer-events-none" width={s.icon} height={s.icon} viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-        <polyline points="20 6 9 17 4 12" />
-      </svg>
-    )}
+    <span class={`absolute inset-0 rounded-sm border-2 border-gray-300 bg-white group-hover:border-gray-400 peer-checked:bg-primary-500 peer-checked:border-primary-500 group-hover:peer-checked:bg-primary-600 group-hover:peer-checked:border-primary-600 peer-focus-visible:outline-2 peer-focus-visible:outline-primary-300 peer-focus-visible:outline-offset-2 transition-colors duration-fast ease-default`}></span>
+    <svg class="relative opacity-0 peer-checked:opacity-100 text-white pointer-events-none" width={s.icon} height={s.icon} viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="20 6 9 17 4 12" />
+    </svg>
   </span>
   {label && <span class={`${s.text} text-gray-900`}>{label}</span>}
 </label>
-
-<script>
-  document.querySelectorAll<HTMLInputElement>('input[data-indeterminate]').forEach(el => {
-    el.indeterminate = true;
-  });
-</script>
