@@ -21,7 +21,7 @@ argument-hint: <name>
 
 Atomic, single-purpose elements. Single file. Take props directly.
 
-Examples: Button, TextInput, Toggle, Badge, Section.
+Examples: Button, TextInput, Toggle, Badge, Section, FormRow, FieldGroup.
 
 ### Composites
 
@@ -260,7 +260,9 @@ The only `@media` queries allowed are in `design-system.css` (tooling, not a del
 
 Components are interactive by default — they include pseudo-class variants (`hover:`, `active:`, `focus-visible:`) and transitions. No frozen "specimen mode" — this is the advantage of HTML over Figma.
 
-**Form components** use a `state` prop for states that can't be triggered by design system interaction:
+**Form controls with native inputs** (Checkbox, Radio, Toggle) use hidden `<input>` elements with `sr-only peer` and Tailwind's `peer-checked:` variants. Interactivity, keyboard support, and accessibility come from the native element — no `state` prop needed. Use boolean props: `checked`, `disabled`. Add `name`/`value` for form submission and radio grouping.
+
+**Form controls without native checked state** (TextInput, Textarea, Select) use a `state` prop for states that can't be triggered by design system interaction:
 
 ```astro
 <!-- Error state — can't be triggered by clicking -->
@@ -271,5 +273,27 @@ Components are interactive by default — they include pseudo-class variants (`h
 ```
 
 Valid `state` values: `error`, `success`, `disabled`, `dragover` (file upload), `has-value` (search).
+
+### Form Layout
+
+Two primitives handle form layout spacing, both using `grid-gap` (`var(--grid-gap)`):
+
+- **FormRow** — horizontal row (`flex flex-wrap`). Children grow to fill space by default (`grow` prop, defaults `true`). Set `grow={false}` for rows where children should stay at natural width (e.g., buttons). `align` prop controls vertical alignment (`start` | `center` | `end`).
+- **FieldGroup** — vertical stack (`flex flex-col`). Wraps multiple FormRows or fields with standard vertical spacing.
+
+```astro
+<FieldGroup>
+  <FormRow>
+    <TextInput label="First name" />
+    <TextInput label="Last name" />
+  </FormRow>
+  <FormRow>
+    <TextInput label="Email" />
+  </FormRow>
+  <FormRow grow={false}>
+    <Button>Submit</Button>
+  </FormRow>
+</FieldGroup>
+```
 
 **Primitive vs composite:** Primitives (button, badge, input) show all their own variants. Composites (hero, pricing, nav) show *their own* variants but render child primitives in default state only.

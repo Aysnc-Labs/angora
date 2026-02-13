@@ -114,6 +114,15 @@ Site layouts go in `src/layouts/` (Astro convention). A site layout wraps page c
 - `src/pages/<page-name>.astro` — the site page
 - Optional: `src/pages/<collection>/[slug].astro` — for list/detail patterns
 
+## Form sections
+
+When a page includes forms (contact, signup, settings), use the form layout primitives:
+
+- **FieldGroup** — vertical stack of form rows with standard `grid-gap` spacing
+- **FormRow** — horizontal row within a FieldGroup. Children grow to fill space by default. Use `grow={false}` for button rows
+
+Every field inside a FieldGroup should be wrapped in a FormRow. Don't use raw `<div>` wrappers for form layout.
+
 ## Page-level concerns
 
 - **Page wrapper uses `page-flow`** — `<main class="page-flow">` wraps all sections. The `page-flow` utility lives in `global.css` and controls inter-section margin (gap controlled by `--section-gap`).
