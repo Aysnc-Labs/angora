@@ -92,7 +92,7 @@ All sections must have a `@container` ancestor (required for responsive type tok
 Before building each page, ask the user any decisions noted below. Build one page at a time, or batch pages that don't need user input.
 
 1. `buttons.astro` — Sizes (sm, md, lg), variants (primary, secondary, ghost), icon buttons. Present 2–3 specific options for icon button layout (icon-left, icon-only, icon-right) and ask the user to pick.
-2. `icons.astro` — Icon gallery at sm (16px), md (20px), lg (24px), xl (32px) sizes, plus color variants, with download links. Each icon exists as both an Astro component (`src/components/icons/*.astro`) and a downloadable SVG (`public/icons/*.svg`). Ask the user to name a starter set of 8–12 icons before building.
+2. `icons.astro` — Icon gallery at sm (16px), md (20px), lg (24px), xl (32px) sizes, plus color variants, with copy-to-clipboard buttons for raw SVG. Each icon is an Astro component (`src/icons/*.astro`). Ask the user to name a starter set of 8–12 icons before building.
 3. `grid.astro` — Section spacing rhythm + column gutter patterns. Show the default spacing values in context and ask if the rhythm feels right before building variants.
 4. `cards.astro` — Basic card patterns (content card, feature card, pricing card shell). Show the 3 variants and ask: are these the right types for your pages? Missing any?
 5. `forms.astro` — Form elements: text input, textarea, select, checkbox, radio, toggle/switch, file upload, search input. All states, sizes, and variants.

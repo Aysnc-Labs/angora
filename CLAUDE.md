@@ -11,7 +11,7 @@ A design system and site builder. The design system — tokens, components, and 
 - Astro components render semantic HTML with Tailwind utility classes. No custom elements, no `@scope` CSS.
 - Component props (`variant`, `size`, `disabled`) resolve to Tailwind class strings at build time. Components can include client-side JavaScript when interactivity requires it.
 - Astro component names don't need a prefix (just `Button.astro`, not `SiteButton.astro`).
-- Icon components live in `src/components/icons/` and drop the `Icon` prefix — the directory provides context (e.g., `icons/ArrowRight.astro`).
+- Icon components live in `src/icons/` and drop the `Icon` prefix — the directory provides context (e.g., `icons/ArrowRight.astro`).
 
 ## Key Files
 
@@ -25,7 +25,6 @@ A design system and site builder. The design system — tokens, components, and 
 - `src/pages/design-system/view/*.astro` — Full-screen views without design system chrome.
 - `src/pages/design-system/wireframes/*.astro` — Wireframe pages. Working docs for sketching page structure before building.
 - `src/pages/*.astro` — Site pages. Real routes like `/about-us`, `/pricing`, etc.
-- `public/icons/*.svg` — Downloadable SVG files.
 - `data.sqlite` — SQLite database. Content store, committed to git. Created on first import of `src/data/db.js`.
 - `public/media/` — Static media assets. Referenced by `path` in the `media` table.
 - `src/data/db.js` — Database utility. Opens/creates `data.sqlite`, ensures the media table exists, exports the `db` instance.

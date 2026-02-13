@@ -1,10 +1,10 @@
 ---
 import Layout from './_layout/Layout.astro';
-import ArrowRight from '../../components/icons/ArrowRight.astro';
-import Close from '../../components/icons/Close.astro';
+import ArrowRight from '../../icons/ArrowRight.astro';
+import Close from '../../icons/Close.astro';
 ---
 
-<Layout title="Icons" description="Inline SVG icons using currentColor. Each icon is an Astro component with a size prop, plus a downloadable SVG in public/icons/.">
+<Layout title="Icons" description="Inline SVG icons using currentColor. Each icon is an Astro component with a size prop. Copy the raw SVG from the gallery.">
 
   <!-- Icon Gallery -->
   <section class="specimen-section">
@@ -14,22 +14,22 @@ import Close from '../../components/icons/Close.astro';
     </p>
     <div class="border border-gray-200 rounded-lg p-8">
       <div class="grid grid-cols-2 gap-6" style="max-width: 400px;">
-        <div class="flex items-center gap-4">
+        <div class="flex items-center gap-4" data-icon-entry>
           <div class="w-12 h-12 flex items-center justify-center bg-gray-50 rounded-lg">
             <ArrowRight />
           </div>
           <div>
             <p class="text-sm font-medium text-gray-900">ArrowRight</p>
-            <a href="/icons/arrow-right.svg" download class="text-xs text-primary-500 hover:text-primary-600">Download SVG</a>
+            <button data-copy-svg class="text-xs text-primary-500 hover:text-primary-600 cursor-pointer">Copy SVG</button>
           </div>
         </div>
-        <div class="flex items-center gap-4">
+        <div class="flex items-center gap-4" data-icon-entry>
           <div class="w-12 h-12 flex items-center justify-center bg-gray-50 rounded-lg">
             <Close />
           </div>
           <div>
             <p class="text-sm font-medium text-gray-900">Close</p>
-            <a href="/icons/close.svg" download class="text-xs text-primary-500 hover:text-primary-600">Download SVG</a>
+            <button data-copy-svg class="text-xs text-primary-500 hover:text-primary-600 cursor-pointer">Copy SVG</button>
           </div>
         </div>
       </div>
@@ -193,5 +193,19 @@ import Close from '../../components/icons/Close.astro';
       </div>
     </div>
   </section>
+
+  <script>
+    document.querySelectorAll('[data-copy-svg]').forEach((btn) => {
+      btn.addEventListener('click', async () => {
+        const entry = btn.closest('[data-icon-entry]');
+        const svg = entry?.querySelector('svg');
+        if (!svg) return;
+        await navigator.clipboard.writeText(svg.outerHTML);
+        const original = btn.textContent;
+        btn.textContent = 'Copied!';
+        setTimeout(() => { btn.textContent = original; }, 1500);
+      });
+    });
+  </script>
 
 </Layout>
