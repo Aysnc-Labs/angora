@@ -101,6 +101,8 @@ pnpm db:migrate
 
 **Each step requires user approval before executing.**
 
+After applying, mention: "You can browse the data with `pnpm db:studio` whenever you're ready to seed some content."
+
 ## Rules
 
 - **All schema changes require user approval** before executing.
