@@ -22,6 +22,7 @@ Then validate the target against the rules below.
 | Rule | Check |
 |------|-------|
 | Token compliance | No arbitrary values. All styling via Tailwind utility classes referencing theme tokens |
+| Pixel translation | No hard-coded pixel values in components. User-provided pixel values should map to the nearest theme token (e.g., "32px" → `spacing-8` / `p-8`). If no token fits, use `rem` for sizing and `em` for prose-relative spacing. Flag any arbitrary `[Xpx]` values |
 | Scoping | Component styles via Tailwind classes on elements. No global CSS selectors in component files |
 | No true black | Never `#000`, `rgb(0,0,0)`, or `black`. Always near-black from the grey scale (e.g., `gray-900`, `gray-950`) |
 | No generated colors | No `color-mix()`, `lighten()`, `darken()`, or `rgba()` for text on colored backgrounds. All colors from explicit palette values |

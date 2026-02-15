@@ -200,6 +200,7 @@ import Section from '../Section.astro';
 - Layout/structure: Tailwind utility classes (`flex`, `grid`, `max-w-*`, `p-*`, `gap-*`)
 - Long-form content: use the `prose` utility class for sections with flowing editorial text (paragraphs, lists, blockquotes). Components like cards and heroes should NOT use `prose` — they own their spacing explicitly via `gap-*` classes
 - No arbitrary values outside Tailwind's theme — all styling references theme tokens via utility classes
+- Pixel translation: when a user specifies a value in pixels, map it to the nearest theme token first (e.g., "32px padding" → `p-8`). If no token fits, use `rem` for sizing and `em` for prose-relative spacing. Never hard-code arbitrary pixel values in components
 - Section-level components compose `Section` — don't render raw `<section>` with manual padding
 
 **Images: always use `<img>`, never CSS background images.** Use `<img>` with `object-fit: cover` (`object-cover` in Tailwind) for all imagery including hero backgrounds, card covers, and full-bleed sections. Position with Tailwind classes (`absolute inset-0`) inside a relatively-positioned container when used as a backdrop.
