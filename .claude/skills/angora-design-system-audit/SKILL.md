@@ -86,8 +86,8 @@ Then validate the target against the rules below.
 |------|-------|
 | Line length | 45–75 characters. Use `max-w-[Xch]` (prefer `ch` units) on text containers. Constrain paragraphs independently if container has full-width elements |
 | Line height | Proportional to font size: 1.5–1.75 for body text, 1.0–1.2 for display/heading text. Wider content may need up to 2.0 |
-| `text-wrap: balance` | Headings (`h1`–`h4`, display text) should have `text-wrap: balance` to prevent orphan lines |
-| `text-wrap: pretty` | Body text (`p`, `li`, `blockquote`) should have `text-wrap: pretty` to prevent single-word last lines |
+| `text-wrap: balance` | Headings (`h1`–`h4`, display text) should have `text-wrap: balance` to prevent orphan lines. The `prose` utility applies this automatically |
+| `text-wrap: pretty` | Body text (`p`, `li`, `blockquote`) should have `text-wrap: pretty` to prevent single-word last lines. The `prose` utility applies this automatically |
 | Letter-spacing | Headlines should tighten tracking (`tracking-tight` or `tracking-tighter`). All-caps text should widen (`tracking-wide` or `tracking-wider`) |
 | Center-align limits | Center-aligned text only for very short blocks (1–3 lines). Body copy and longer text must be left-aligned. Flag centered paragraphs |
 | Tabular numbers | Numbers in tables, stats, and vertically-aligned contexts should use `tabular-nums` (`font-variant-numeric: tabular-nums`) |
@@ -125,6 +125,7 @@ Skip this section when auditing components or design system specimen pages.
 - **Anti-pattern violations** — anything listed in `system.md` Anti-Patterns section.
 - **Pattern consistency** — does this component follow the conventions established by existing components? Read 2–3 peers to compare.
 - **Personality alignment (swap test)** — could you swap this component's styling for the most generic version and the design wouldn't feel different? If yes, it's defaulting — flag it.
+- **Prose utility** — content-heavy sections (articles, about copy, rich text from CMS) should use the `prose` utility class from `global.css`. It handles heading sizes, vertical rhythm, list styling, blockquotes, links, `text-wrap`, and inline treatments. Components (cards, heroes) should NOT use `prose` — they own their spacing explicitly via `gap-*` classes.
 - **Finishing touches** — are there opportunities to supercharge defaults? Custom list bullets, styled blockquotes, accent borders, subtle background decoration. Don't mandate these, but suggest where they'd elevate the work.
 
 ## Output

@@ -198,6 +198,7 @@ import Section from '../Section.astro';
 **Rules:**
 - Content: semantic HTML (`h1`-`h6`, `p`, `a`, `img`, `ul`, `figure`, `blockquote`, `section`, `nav`, `footer`)
 - Layout/structure: Tailwind utility classes (`flex`, `grid`, `max-w-*`, `p-*`, `gap-*`)
+- Long-form content: use the `prose` utility class for sections with flowing editorial text (paragraphs, lists, blockquotes). Components like cards and heroes should NOT use `prose` — they own their spacing explicitly via `gap-*` classes
 - No arbitrary values outside Tailwind's theme — all styling references theme tokens via utility classes
 - Section-level components compose `Section` — don't render raw `<section>` with manual padding
 

@@ -142,6 +142,90 @@ import Layout from './_layout/Layout.astro';
     </div>
   </section>
 
+  <!-- Typography -->
+  <section class="specimen-section">
+    <h2>Typography</h2>
+    <p class="text-sm text-gray-600 mb-6 max-w-[65ch]">
+      Composed prose specimen using the <code class="text-xs bg-gray-100 px-1.5 py-0.5 rounded-sm font-mono">prose</code> utility class. Shows headings, body text, lists, blockquotes, figures, and inline treatments in natural flow — evaluate the rhythm and spacing between elements, not just individual styles. Select any text to see <code class="text-xs bg-gray-100 px-1.5 py-0.5 rounded-sm font-mono">::selection</code> styling.
+    </p>
+    <div class="border border-gray-200 rounded-lg p-8 lg:p-12">
+      <div class="prose max-w-[65ch]">
+
+        <h1>The Foundation of Visual Systems</h1>
+        <p>A design system is more than a collection of components — it's a <strong>shared language</strong> that bridges the gap between design intent and engineering execution. Every decision, from the weight of a heading to the rhythm between sections, serves the reader.</p>
+
+        <h2>Hierarchy and Rhythm</h2>
+        <p>Visual hierarchy guides the eye through content. Headings establish structure, body text carries the narrative, and <mark>emphasis marks the pivotal moments</mark> a reader shouldn't miss.</p>
+        <p>The space between elements matters as much as the elements themselves. A heading couples tightly to the paragraph it introduces — but separates clearly from the content above it. This <em>asymmetric spacing</em> creates the rhythm that makes content feel considered rather than mechanical.</p>
+
+        <h3>Inline Treatments</h3>
+        <p>Text within a paragraph can carry <strong>strong emphasis</strong>, <em>subtle stress</em>, or <mark>highlighted importance</mark>. Use <code>inline code</code> for technical references, <kbd>⌘K</kbd> for keyboard shortcuts, and <del>strikethrough</del> for outdated information. Links like <a href="#">design token documentation</a> use the primary color with an underline offset. Superscripts handle footnotes<sup>1</sup> and ordinals like 2<sup>nd</sup>.</p>
+
+        <h3>Lists</h3>
+        <p>Unordered lists group related items without implying sequence:</p>
+        <ul>
+          <li>Tokens encode color, spacing, and typography decisions</li>
+          <li>Components consume tokens — never hard-coded values</li>
+          <li>Specimens render the component in every supported state</li>
+        </ul>
+        <p>Ordered lists communicate steps or priority:</p>
+        <ol>
+          <li>Define the token in the theme</li>
+          <li>Apply it via utility classes or custom properties</li>
+          <li>Verify the specimen renders correctly</li>
+        </ol>
+
+        <blockquote>
+          <p>Typography exists to honor content.</p>
+          <footer>— Robert Bringhurst, <cite>The Elements of Typographic Style</cite></footer>
+        </blockquote>
+
+        <h2>Image and Caption</h2>
+        <p>Figures pair an image with a descriptive caption, providing context that the image alone cannot convey.</p>
+        <figure>
+          <div class="aspect-[3/2] bg-gray-100 rounded-lg"></div>
+          <figcaption>Fig. 1 — A placeholder demonstrating how figures and captions integrate into the typographic flow.</figcaption>
+        </figure>
+
+        <hr>
+
+        <h4>Spacing Outside Prose</h4>
+        <p>On cards, heroes, and other components, spacing is intentional and explicit rather than rhythm-based:</p>
+        <ul>
+          <li><strong>Tight grouping</strong> (heading + supporting text): <code>gap-2</code> (8px)</li>
+          <li><strong>Standard grouping</strong> (heading + body + CTA): <code>gap-4</code> (16px)</li>
+          <li><strong>Section rhythm</strong> (between content blocks): <code>gap-8</code> to <code>gap-12</code></li>
+        </ul>
+
+        <h5>Level Five Heading</h5>
+        <p>Fifth-level headings are rare in practice but available when deep nesting is required — typically inside documentation or structured reference material.</p>
+
+        <h6>Level Six Heading</h6>
+        <p>The smallest heading level. Visually identical to semibold body text — distinguished only by its semantic role in the document outline.</p>
+
+      </div>
+      <!-- Prose rhythm reference -->
+      <div class="border-t border-gray-200 mt-8 pt-4">
+        <table class="w-full text-sm">
+          <thead>
+            <tr>
+              <th class="text-left py-1.5 text-xs font-semibold text-gray-500 uppercase tracking-wide">Transition</th>
+              <th class="text-left py-1.5 text-xs font-semibold text-gray-500 uppercase tracking-wide">Spacing</th>
+            </tr>
+          </thead>
+          <tbody class="font-mono text-xs text-gray-500">
+            <tr><td class="py-1.5">paragraph + paragraph</td><td class="py-1.5">1.25em (~20px)</td></tr>
+            <tr><td class="py-1.5">* → h1 / h2 / h3</td><td class="py-1.5">1.4em (~22px)</td></tr>
+            <tr><td class="py-1.5">* → h4 / h5 / h6</td><td class="py-1.5">1.2em (~19px)</td></tr>
+            <tr><td class="py-1.5">heading → content</td><td class="py-1.5">0.4em (~6px)</td></tr>
+            <tr><td class="py-1.5">li + li</td><td class="py-1.5">0.375em (~6px)</td></tr>
+            <tr><td class="py-1.5">around hr</td><td class="py-1.5">2em (~32px)</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
   <!-- Spacing Scale -->
   <section class="specimen-section">
     <h2>Spacing Scale</h2>

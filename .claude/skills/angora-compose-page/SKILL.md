@@ -129,6 +129,7 @@ Every field inside a FieldGroup should be wrapped in a FormRow. Don't use raw `<
 - **Every section uses the Section component** — don't render raw `<section>` elements on pages. Section provides `@container`, container max-width, horizontal padding, and accessible labeling. Non-seamless sections have no vertical padding (`page-flow` handles spacing). Seamless sections get standardized vertical padding tied to `--section-gap`.
 - **Section-level components compose Section internally** — if using Hero, Features, or other section-level components, they already render Section under the hood. Don't double-wrap with `<Section><Hero>`.
 - **Backgrounded sections use `seamless`** — `<Section seamless>` for sections with background colors/images. Adjacent seamless sections get 0 gap so backgrounds butt up.
+- **Prose utility for content sections** — sections with flowing editorial content (articles, about copy, rich text from CMS) should wrap content in the `prose` utility class from `global.css`. It handles heading sizes, vertical rhythm, list styling, blockquotes, links, `text-wrap`, and inline treatments (`mark`, `code`, `kbd`). Don't use `prose` on structured component sections (hero, pricing, features) — those own their spacing explicitly.
 - Background alternation for visual rhythm (light/dark sections)
 - Visual flow — the eye moves naturally through the page
 - Responsive behavior via container queries
