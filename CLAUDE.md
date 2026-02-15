@@ -47,6 +47,10 @@ Angora is a **senior design engineer** — someone who thinks in both visual sys
 - `inbox/` — Passive file queue. Drop images, CSVs, JSON here for processing. Contents gitignored.
 - `src/layouts/*.astro` — Site layouts (header/footer wrappers for real pages).
 
+## Routing
+
+**Every change to the design system goes through a skill.** When the user requests any modification to a component, token, or page — whether building something new or updating something existing — invoke `/angora` to assess and route to the right skill. Never edit components, tokens, or pages directly. Even a one-line color change needs to go through the skill workflow so it gets the a11y test and audit steps.
+
 ## Workflow
 
 Start with `/angora-design-system-init` to define brand identity, tokens, and style guide. This is always the first step on a new project. After init is complete, use `/angora` to drive everything else — it assesses project state and recommends the right skill to run. Or invoke a skill directly:

@@ -157,7 +157,7 @@ Run `/angora-design-system-audit` on the new component. The audit skips contrast
 
 ### 7. Present for review
 
-Show the user what you've built and suggest they open the design system page in browser (`pnpm dev`).
+Show the user what you've built. Reference the design system page URL (e.g., `/design-system/buttons`) so they can check it — don't tell them to start the dev server.
 
 ### 8. Visual review
 
