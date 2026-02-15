@@ -55,7 +55,7 @@ function resolveButtonClasses(): string {
 ---
 
 {variant === 'dropzone' ? (
-  <div data-component="FileUpload" class={resolveDropzoneClasses()} data-state={state || undefined}>
+  <div data-component="FileUpload" class={resolveDropzoneClasses()} data-state={state || undefined} aria-disabled={state === 'disabled' ? 'true' : undefined}>
     <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-gray-400">
       <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
       <polyline points="17 8 12 3 7 8" />
@@ -63,11 +63,11 @@ function resolveButtonClasses(): string {
     </svg>
     <div>
       <p class="text-sm font-medium text-gray-700">Drop files here or click to upload</p>
-      <p class="text-xs text-gray-400 mt-1">PNG, JPG, PDF up to 10MB</p>
+      <p class="text-xs text-gray-600 mt-1">PNG, JPG, PDF up to 10MB</p>
     </div>
   </div>
 ) : (
-  <label data-component="FileUpload" class={resolveButtonClasses()} data-state={state || undefined}>
+  <label data-component="FileUpload" class={resolveButtonClasses()} data-state={state || undefined} aria-disabled={state === 'disabled' ? 'true' : undefined}>
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
       <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
       <polyline points="17 8 12 3 7 8" />

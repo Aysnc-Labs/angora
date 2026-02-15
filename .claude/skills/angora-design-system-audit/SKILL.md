@@ -39,13 +39,13 @@ Then validate the target against the rules below.
 
 ### ARIA & Accessibility
 
+Contrast ratios and ARIA labeling are covered by the automated a11y test suite (`pnpm test:a11y`). The audit focuses on what automated testing can't catch:
+
 | Rule | Check |
 |------|-------|
-| Contrast ratios | Per the standard in `system.md`. Non-text contrast ≥ 3:1 if WCAG 2.2 or EAA |
 | Target sizes | Interactive targets ≥ 44px. Check at narrow widths too |
-| ARIA regions | `<section>` has `aria-labelledby` (pointing to its heading) or `aria-label` (if no visible heading). `<nav>` has `aria-label` (critical when multiple navs on page). Related control clusters use `role="group"` with `aria-label` |
 | Color independence | Don't rely on color alone to convey meaning — always a secondary indicator (icon, text, border, pattern) |
-| EAA extras | If standard is EAA: verify `lang` on `<html>`, reflow at 320px, text spacing override tolerance, 200% text resize |
+| EAA extras (manual) | If standard is EAA: verify text spacing override tolerance, 200% text resize. (`lang` and reflow are covered by the a11y test) |
 
 ### Semantic HTML
 

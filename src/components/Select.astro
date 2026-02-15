@@ -59,17 +59,20 @@ function resolveClasses(): string {
 
 const classes = resolveClasses();
 const chevronSize = size === 'sm' ? 14 : size === 'lg' ? 20 : 16;
+const inputId = `select-${crypto.randomUUID().slice(0, 8)}`;
 ---
 
 <div data-component="Select" class="flex flex-col gap-1.5">
   {label && (
-    <label class={`font-medium text-gray-700 ${labelSizeClasses[size]}`}>{label}</label>
+    <label for={inputId} class={`font-medium text-gray-700 ${labelSizeClasses[size]}`}>{label}</label>
   )}
   <div class="relative">
     <select
+      id={inputId}
       class={classes}
       disabled={state === 'disabled' || undefined}
       data-state={state || undefined}
+      aria-label={!label ? placeholder : undefined}
     >
       <option value="" disabled selected>{placeholder}</option>
       {options.map((opt) => (
@@ -83,6 +86,6 @@ const chevronSize = size === 'sm' ? 14 : size === 'lg' ? 20 : 16;
     </div>
   </div>
   {hint && (
-    <p class={`text-xs ${state === 'error' ? 'text-red-500' : 'text-gray-400'}`}>{hint}</p>
+    <p class={`text-xs ${state === 'error' ? 'text-red-600' : 'text-gray-500'}`}>{hint}</p>
   )}
 </div>

@@ -66,6 +66,7 @@ const showClear = withClear && (state === 'has-value' || value);
     value={value || (state === 'has-value' ? 'Search term' : undefined)}
     disabled={state === 'disabled' || undefined}
     data-state={state || undefined}
+    aria-label={placeholder}
   />
   {showClear && (
     <button class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600" type="button" aria-label="Clear search">

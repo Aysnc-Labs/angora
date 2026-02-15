@@ -58,11 +58,12 @@ function resolveInputClasses(): string {
 }
 
 const inputClasses = resolveInputClasses();
+const inputId = `text-${crypto.randomUUID().slice(0, 8)}`;
 ---
 
 <div data-component="TextInput" class="flex flex-col gap-1.5">
   {label && (
-    <label class={`font-medium text-gray-700 ${labelSizeClasses[size]}`}>{label}</label>
+    <label for={inputId} class={`font-medium text-gray-700 ${labelSizeClasses[size]}`}>{label}</label>
   )}
   <div class="relative">
     {withIcon && (
@@ -74,15 +75,17 @@ const inputClasses = resolveInputClasses();
       </div>
     )}
     <input
+      id={inputId}
       type="text"
       class={inputClasses}
       placeholder={placeholder}
       value={value}
       disabled={state === 'disabled' || undefined}
       data-state={state || undefined}
+      aria-label={!label ? placeholder : undefined}
     />
   </div>
   {hint && (
-    <p class={`text-xs ${state === 'error' ? 'text-red-500' : state === 'success' ? 'text-green-600' : 'text-gray-400'}`}>{hint}</p>
+    <p class={`text-xs ${state === 'error' ? 'text-red-600' : state === 'success' ? 'text-green-700' : 'text-gray-500'}`}>{hint}</p>
   )}
 </div>

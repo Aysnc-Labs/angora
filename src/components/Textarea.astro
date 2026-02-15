@@ -52,20 +52,23 @@ function resolveClasses(): string {
 }
 
 const classes = resolveClasses();
+const inputId = `textarea-${crypto.randomUUID().slice(0, 8)}`;
 ---
 
 <div data-component="Textarea" class="flex flex-col gap-1.5">
   {label && (
-    <label class={`font-medium text-gray-700 ${labelSizeClasses[size]}`}>{label}</label>
+    <label for={inputId} class={`font-medium text-gray-700 ${labelSizeClasses[size]}`}>{label}</label>
   )}
   <textarea
+    id={inputId}
     class={classes}
     placeholder={placeholder}
     rows={rows}
     disabled={state === 'disabled' || undefined}
     data-state={state || undefined}
+    aria-label={!label ? placeholder : undefined}
   >{value}</textarea>
   {hint && (
-    <p class={`text-xs ${state === 'error' ? 'text-red-500' : 'text-gray-400'}`}>{hint}</p>
+    <p class={`text-xs ${state === 'error' ? 'text-red-600' : 'text-gray-500'}`}>{hint}</p>
   )}
 </div>

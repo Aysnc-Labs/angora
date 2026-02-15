@@ -4,7 +4,9 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
-    "preview": "astro preview"
+    "preview": "astro preview",
+    "test:a11y": "playwright test",
+    "prepare": "playwright install chromium"
   },
   "pnpm": {
     "onlyBuiltDependencies": [
@@ -22,6 +24,8 @@
     "tailwindcss": "^4.1.18"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.11.1",
+    "@playwright/test": "^1.58.2",
     "@types/better-sqlite3": "^7.6.13"
   }
 }

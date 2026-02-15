@@ -66,7 +66,15 @@ Synthesize everything — the references, audience, goal, and feel — into the 
 1. **Named audience** — the specific persona (from Step 2)
 2. **Goal** — the specific action (from Step 3)
 3. **Feel** — the evocative description (from Step 4)
-4. **Accessibility standard** — default to EAA/EN 301 549 (European Accessibility Act — WCAG 2.1 AA plus: `lang` on `<html>`, reflow at 320px, non-text contrast ≥ 3:1, text spacing override support, text resizable to 200%). Recommend this as the default: *"I'd go with EAA/EN 301 549 — it's the most complete standard and future-proofs against European requirements. Override if you prefer a different level."* Record the chosen standard in `system.md`.
+4. **Accessibility standard** — default to EAA/EN 301 549 (European Accessibility Act — WCAG 2.1 AA plus: `lang` on `<html>`, reflow at 320px, non-text contrast ≥ 3:1, text spacing override support, text resizable to 200%). Recommend this as the default: *"I'd go with EAA/EN 301 549 — it's the most complete standard and future-proofs against European requirements. Override if you prefer a different level."* Record the chosen standard in `system.md`. Then write `tests/a11y/config.json` with the matching axe tags:
+
+   | Standard | `tags` value |
+   |----------|-------------|
+   | WCAG 2.0 AA | `["wcag2a", "wcag2aa"]` |
+   | WCAG 2.1 AA | `["wcag2a", "wcag2aa", "wcag21aa"]` |
+   | WCAG 2.2 AA | `["wcag2a", "wcag2aa", "wcag21aa", "wcag22aa"]` |
+   | EAA / EN 301 549 | `["wcag2a", "wcag2aa", "wcag21aa", "EN-301-549"]` |
+
 5. **Domain vocabulary** — 5+ words from the product's world (cybersecurity: shields, vaults, perimeters, sentinel)
 6. **Color world** — 5+ colors that exist naturally in the product's domain
 7. **Signature element** — One visual choice that could only exist for THIS product (fails the swap test)

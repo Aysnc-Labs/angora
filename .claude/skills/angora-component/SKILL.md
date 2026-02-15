@@ -143,19 +143,27 @@ Write a spec covering:
 
 Verify the component works at narrow (~320px), medium (~768px), and wide (~1280px) container widths. Typography scales automatically via `clamp()` tokens (requires a `@container` ancestor). Check: layout collapses/stacks logically, text doesn't overflow, interactive targets stay tappable (≥44px), images/media scale without breaking, spacing tightens proportionally. If layout doesn't adapt, add the missing `@sm:`/`@md:`/`@lg:` container query variants.
 
-### 5. Audit + fix
+### 5. Accessibility test
 
-Run `/angora-design-system-audit` on the new component. Fix any issues it finds — no confirmation needed for audit-driven fixes.
+Run `pnpm test:a11y` (dev server must be running). Read the output and interpret every finding for the user:
+- **Real issue** — explain what's wrong in plain language, propose a specific fix, explain why it matters.
+- **False positive** — explain why it's safe to ignore (e.g., disabled states are intentionally dimmed, specimen context lacks form wrapping). Don't fix these.
 
-### 6. Present for review
+Present findings and proposed fixes to the user. Wait for approval before changing anything.
+
+### 6. Audit + fix
+
+Run `/angora-design-system-audit` on the new component. The audit skips contrast and ARIA labeling (already covered by the a11y test) and focuses on design rules, token compliance, and responsive behavior. Fix any issues it finds — no confirmation needed for audit-driven fixes.
+
+### 7. Present for review
 
 Show the user what you've built and suggest they open the design system page in browser (`pnpm dev`).
 
-### 7. Visual review
+### 8. Visual review
 
 User reviews in browser. Approves or iterates.
 
-### 8. Update system.md
+### 9. Update system.md
 
 Only if you made a new decision worth recording (added to anti-patterns or decisions log). Most components won't need an update.
 

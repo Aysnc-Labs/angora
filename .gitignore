@@ -1,3 +1,4 @@
+.DS_Store
 /*
 !.bin
 !.claude
@@ -5,6 +6,7 @@
 !.claude/hooks
 !.claude/skills
 !.claude/settings.json
+!tests
 !.gitignore
 !BOOTSTRAP.md
 !CLAUDE.md
