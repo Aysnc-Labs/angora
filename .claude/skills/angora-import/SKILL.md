@@ -11,18 +11,7 @@ Import structured data from `inbox/` into the SQLite database.
 ## Before you start
 
 1. **Check inbox** — verify the target file exists in `inbox/`.
-2. **Check current schema** — run:
-```bash
-node -e "
-  import db from './src/data/db.ts';
-  const tables = db.prepare(\"SELECT name FROM sqlite_master WHERE type='table' ORDER BY name\").all();
-  for (const t of tables) {
-    const cols = db.prepare('PRAGMA table_info(' + t.name + ')').all();
-    console.log('\n' + t.name + ':');
-    console.table(cols.map(c => ({ name: c.name, type: c.type, notnull: c.notnull, dflt: c.dflt_value })));
-  }
-"
-```
+2. **Read schema** — glob `src/data/schema/tables/*.ts` to discover tables, read relevant files for column details.
 
 ## Workflow
 
@@ -61,19 +50,17 @@ Show the user:
 
 ### 5. Import with transactions
 
-All rows insert or none do:
-
 ```bash
 node -e "
   import db from './src/data/db.ts';
-  const insert = db.prepare('INSERT INTO <table> (<columns>) VALUES (<placeholders>)');
-  const insertMany = db.transaction((rows) => {
-    for (const row of rows) insert.run(...Object.values(row));
-  });
-  insertMany(<data>);
-  console.log('Inserted <count> rows.');
+  import { <table> } from './src/data/schema/tables/<table>.ts';
+  const rows = <data>;
+  db.insert(<table>).values(rows).run();
+  console.log('Inserted ' + rows.length + ' rows.');
 "
 ```
+
+Drizzle wraps multi-row inserts in a transaction by default.
 
 ### 6. Verify
 
@@ -82,7 +69,9 @@ Query and show a sample of inserted data:
 ```bash
 node -e "
   import db from './src/data/db.ts';
-  const rows = db.prepare('SELECT * FROM <table> ORDER BY id DESC LIMIT 5').all();
+  import { <table> } from './src/data/schema/tables/<table>.ts';
+  import { desc } from 'drizzle-orm';
+  const rows = db.select().from(<table>).orderBy(desc(<table>.id)).limit(5).all();
   console.table(rows);
 "
 ```
@@ -94,4 +83,3 @@ node -e "
 - **All imports require user approval** before executing
 - Report validation errors with row numbers and field names
 - Supports JSON and CSV (more formats can be added)
-- Use transactions — all rows succeed or none do

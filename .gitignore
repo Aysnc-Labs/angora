@@ -18,8 +18,10 @@ src/data/*.sqlite-wal
 src/data/*.sqlite-shm
 !astro.config.mjs
 !package.json
+!playwright.config.ts
 !pnpm-lock.yaml
 !inbox
 inbox/*
 !inbox/.gitkeep
+!drizzle.config.ts
 !tsconfig.json

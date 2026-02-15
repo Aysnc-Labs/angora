@@ -6,7 +6,10 @@
     "build": "astro build",
     "preview": "astro preview",
     "test:a11y": "playwright test",
-    "prepare": "playwright install chromium"
+    "prepare": "playwright install chromium",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "drizzle-kit migrate",
+    "db:studio": "drizzle-kit studio"
   },
   "pnpm": {
     "onlyBuiltDependencies": [
@@ -18,6 +21,7 @@
     "@tailwindcss/vite": "^4.1.18",
     "astro": "^5",
     "better-sqlite3": "^12.6.2",
+    "drizzle-orm": "^0.45.1",
     "image-size": "^2.0.2",
     "nanoid": "^5.1.6",
     "preact": "^10.28.3",
@@ -26,6 +30,7 @@
   "devDependencies": {
     "@axe-core/playwright": "^4.11.1",
     "@playwright/test": "^1.58.2",
-    "@types/better-sqlite3": "^7.6.13"
+    "@types/better-sqlite3": "^7.6.13",
+    "drizzle-kit": "^0.31.9"
   }
 }

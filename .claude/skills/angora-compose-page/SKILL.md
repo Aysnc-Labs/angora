@@ -51,14 +51,7 @@ If no wireframe or annotations, ask for each section:
 - "Will this content change? Is there more than one?" → **template** (table reference)
 - "Is this one-off copy edited in code?" → **static**
 
-For **template sections**, verify the table exists:
-```bash
-node -e "
-  import db from './src/data/db.ts';
-  const tables = db.prepare(\"SELECT name FROM sqlite_master WHERE type='table'\").all();
-  console.log(tables.map(t => t.name));
-"
-```
+For **template sections**, verify the table exists by globbing `src/data/schema/tables/*.ts` — each file is a table definition.
 
 If a required table doesn't exist, flag it: "The `testimonials` table doesn't exist yet. This needs schema work first. Run `/angora-schema testimonials` to design it."
 
@@ -81,9 +74,11 @@ Recognize when cards link to individual pages (blog posts, case studies, cities,
 ```astro
 ---
 import db from '../../data/db.ts';
+import { <table> } from '../../data/schema/tables/<table>';
+import { eq } from 'drizzle-orm';
 
 export function getStaticPaths() {
-  const items = db.prepare("SELECT * FROM <table> WHERE status = 'published'").all();
+  const items = db.select().from(<table>).where(eq(<table>.status, 'published')).all();
   return items.map(item => ({
     params: { slug: item.slug },
     props: { item },
@@ -94,8 +89,8 @@ const { item } = Astro.props;
 ---
 <html>
 <head>
-  <title>{item.meta_title || item.title}</title>
-  <meta name="description" content={item.meta_description || ''} />
+  <title>{item.metaTitle || item.title}</title>
+  <meta name="description" content={item.metaDescription || ''} />
 </head>
 ...
 </html>

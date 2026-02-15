@@ -17,17 +17,7 @@ Check what exists:
 - **Pages** — list `src/pages/*.astro` (skip design-system/)
 - **Wireframes** — list `src/pages/design-system/wireframes/*.astro`
 - **Layouts** — list `src/pages/design-system/layouts/*.astro` (skip `index.astro`). These are full-page compositions built from real components — the assembled version of wireframes. Browsed at `/design-system/layouts/`.
-- **Database schema** — run:
-```bash
-node -e "
-  import db from './src/data/db.ts';
-  const tables = db.prepare(\"SELECT name FROM sqlite_master WHERE type='table' ORDER BY name\").all();
-  for (const t of tables) {
-    const cols = db.prepare('PRAGMA table_info(' + t.name + ')').all();
-    console.log(t.name + ':', cols.map(c => c.name).join(', '));
-  }
-"
-```
+- **Database schema** — glob `src/data/schema/tables/*.ts` to discover tables (file names = table names).
 - **Inbox** — list `inbox/` contents
 - **Site layouts** — check `src/layouts/`
 

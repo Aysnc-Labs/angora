@@ -14,7 +14,8 @@ Process images from the `inbox/` directory into the media system.
 ```bash
 node -e "
   import db from './src/data/db.ts';
-  const rows = db.prepare('SELECT * FROM media').all();
+  import { media } from './src/data/schema/tables/media.ts';
+  const rows = db.select().from(media).all();
   console.table(rows);
 "
 ```
@@ -62,14 +63,15 @@ mv inbox/<original> public/media/<nanoid>.<ext>
 ```bash
 node -e "
   import db from './src/data/db.ts';
-  db.prepare('INSERT INTO media (path, alt, type, width, height, source_name) VALUES (?, ?, ?, ?, ?, ?)').run(
-    'media/<nanoid>.<ext>',
-    '<alt text>',
-    'image',
-    <width>,
-    <height>,
-    '<original filename>'
-  );
+  import { media } from './src/data/schema/tables/media.ts';
+  db.insert(media).values({
+    path: 'media/<nanoid>.<ext>',
+    alt: '<alt text>',
+    type: 'image',
+    width: <width>,
+    height: <height>,
+    sourceName: '<original filename>',
+  }).run();
   console.log('Inserted.');
 "
 ```

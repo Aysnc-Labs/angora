@@ -11,18 +11,7 @@ You are a senior engineer and schema architect. Your job is to design relational
 ## Before you start
 
 1. **Read `src/system.md`** — understand the site's intent and scope.
-2. **Check current schema** — run:
-```bash
-node -e "
-  import db from './src/data/db.ts';
-  const tables = db.prepare(\"SELECT name FROM sqlite_master WHERE type='table' ORDER BY name\").all();
-  for (const t of tables) {
-    const cols = db.prepare('PRAGMA table_info(' + t.name + ')').all();
-    console.log('\n' + t.name + ':');
-    console.table(cols.map(c => ({ name: c.name, type: c.type, notnull: c.notnull, dflt: c.dflt_value })));
-  }
-"
-```
+2. **Read schema** — glob `src/data/schema/tables/*.ts` to discover tables, then read the relevant files. One file per table.
 
 ## Analysis phase (always happens)
 
@@ -60,42 +49,64 @@ Use `media_id INTEGER REFERENCES media(id)` for a primary image/asset. For multi
 
 ## Presentation before execution
 
-Before running any SQL:
+Before changing any files:
 
-1. **Show CREATE TABLE statements** — formatted, readable
+1. **Show the Drizzle table definition** — the TypeScript that will go in its own file under `schema/`
 2. **Show example data** — 2-3 realistic rows per table
-3. **Show example queries** — the queries page templates will need (e.g., "get all published testimonials with their author photos")
+3. **Show example queries** — Drizzle queries page templates will need (e.g., `db.select().from(testimonials).where(eq(testimonials.status, 'published'))`)
 4. **Wait for user approval** — all schema changes require explicit approval
 
-## Running SQL
+## Applying schema changes
 
-All DDL must go through `migrate()` so it's recorded in the migration ledger. Use the Bash tool:
+Schema changes follow a three-step process:
 
-```bash
-node -e "
-  import { migrate } from './src/data/db.ts';
-  const file = migrate('create_<table>', \`
-    CREATE TABLE IF NOT EXISTS <table> (
-      ...
-    );
-  \`);
-  console.log('Migration applied:', file);
-"
+### 1. Create a new file in `src/data/schema/tables/`
+
+One file per table. Example — `src/data/schema/tables/testimonials.ts`:
+
+```ts
+import { sqliteTable, text, integer } from 'drizzle-orm/sqlite-core';
+import { sql } from 'drizzle-orm';
+import { media } from './media';
+
+export const testimonials = sqliteTable('testimonials', {
+  id: integer('id').primaryKey({ autoIncrement: true }),
+  name: text('name').notNull(),
+  quote: text('quote').notNull(),
+  mediaId: integer('media_id').references(() => media.id),
+  status: text('status').notNull().default('draft'),
+  createdAt: text('created_at').notNull().default(sql`(datetime('now'))`),
+});
 ```
 
-The `migrate(name, sql)` function:
-1. Executes the SQL
-2. Writes it to `migrations/<NNN>_<name>.sql`
-3. Records it in the `schema_migrations` ledger
+Then add the re-export to `src/data/schema/index.ts`:
 
-**Name convention:** use snake_case describing the change — `create_testimonials`, `add_status_to_posts`, `create_posts_media_junction`.
+```ts
+export * from './tables/testimonials';
+```
+
+### 2. Generate migration
+
+```bash
+pnpm db:generate
+```
+
+This creates a readable `.sql` file in `src/data/migrations/`. Show it to the user.
+
+### 3. Apply migration
+
+```bash
+pnpm db:migrate
+```
+
+**Each step requires user approval before executing.**
 
 ## Rules
 
 - **All schema changes require user approval** before executing.
 - **Foreign keys are ON** — respect referential integrity.
-- Use `TEXT` for dates (ISO 8601 format via `datetime('now')`).
-- Use `INTEGER` for booleans (0/1).
+- Use `text()` for dates (ISO 8601 format via `datetime('now')`).
+- Use `integer()` for booleans (0/1).
 - Media paths are relative to `public/media/`.
 - The `media` table is the base — other tables reference it via `media_id`.
 - **Never modify data** — that's the import specialist's job.
