@@ -17,6 +17,8 @@ If no Init Progress section exists, this is a fresh start — begin at Phase 1.
 
 **Progress tracking:** After completing each step, update the Init Progress section in `system.md` immediately. Mark the step as done, note any pending decisions for the next step. This ensures the process survives context compression and new sessions.
 
+**Phase 1 resumability:** Since Phase 1 is a multi-step conversation, record each answer in Init Progress as it's received (e.g., "Step 2 done — audience: mid-stage startup CTO evaluating developer tools"). Include reference analysis notes if applicable. This way a new session can pick up mid-conversation without re-asking questions the user already answered.
+
 # Roadmap
 
 At the start of the process (or when resuming), present the full build sequence to the user so they always know what's ahead:
@@ -35,24 +37,45 @@ Mark the current step with ← and update the marker at each checkpoint. Always 
 
 # Phase 1: Domain Exploration
 
-**Do not read any files yet.** This phase is a conversation with the user — no codebase exploration, no file reads. Everything you need comes from their answers.
+**Do not read any files yet.** This phase is a conversation with the user — no codebase exploration, no file reads. Everything you need comes from their answers. Ask one question at a time, respond to each answer before moving on, and let earlier answers inform how you frame later questions.
 
-Four mandatory questions answered **explicitly** (not internally):
+## Step 1: Kickoff — project overview + references
 
-1. **Who is the audience?** Not "users" — the actual person. A CFO evaluating enterprise software? A developer choosing a tool?
-2. **What must they accomplish?** Not "learn about the product" — the specific action. Sign up? Request a demo? Compare tiers?
-3. **What should this feel like?** Specific, evocative words — "confident like a bank vault," "energetic like a launchpad." NOT "clean and modern."
-4. **What accessibility standard?** Ask the user which level to target. Common options: WCAG 2.1 AA (most common — 4.5:1 normal text, 3:1 large text), WCAG 2.1 AAA (stricter — 7:1 normal text, 4.5:1 large text), WCAG 2.2 AA (adds target size ≥ 24x24px, focus-not-obscured, dragging alternatives), or EAA/EN 301 549 (European Accessibility Act — WCAG 2.1 AA plus: `lang` on `<html>`, reflow at 320px, non-text contrast ≥ 3:1, text spacing override support, text resizable to 200%). Record the chosen standard in `system.md`.
+Start with a single open prompt:
 
-Then five mandatory outputs:
+> *"Tell me about the project. And if you have any reference sites or screenshots that capture something about the direction — the typography, color palette, layout feel, overall vibe — share URLs or drop screenshots in `inbox/`. Not 'copy this' — 'there's something in here worth pulling from.'"*
 
-1. **Domain vocabulary** — 5+ words from the product's world (cybersecurity: shields, vaults, perimeters, sentinel)
-2. **Color world** — 5+ colors that exist naturally in the product's domain
-3. **Signature element** — One visual choice that could only exist for THIS product (fails the swap test)
-4. **Defaults to reject** — 3+ obvious/generic choices named explicitly to consciously avoid
-5. **Differentiation** — What makes this UNFORGETTABLE? The one visual thing someone will remember after closing the tab
+**If references are provided:** Analyze them before asking anything else. For URLs, fetch and study the visual language. For screenshots in `inbox/`, read and study them. Extract: color palette choices, type treatment, spacing rhythm, signature visual elements, overall density/whitespace approach. Summarize what you see — what's worth borrowing and what to deliberately avoid. This analysis informs every subsequent question.
 
-**Checkpoint.** Present all five outputs to the user. Ask explicitly: *"Does this creative direction feel right? Anything to adjust before I start translating this into tokens?"* Do not proceed to Phase 2 until they approve. Update Init Progress in `system.md`.
+## Step 2: Audience
+
+Ask who specifically is landing on this site. Not "users" — the actual person. A CFO evaluating enterprise software? A developer choosing a tool? If the references or project description already imply an audience, propose one and ask the user to confirm or correct: *"From what you've described, I'd say this is a [specific persona] — does that track?"*
+
+## Step 3: Goal
+
+Ask what that person must accomplish. Not "learn about the product" — the specific action. Sign up? Request a demo? Compare tiers? Informed by the audience answer — a developer evaluating a tool has different goals than a founder comparing vendors.
+
+## Step 4: Feel
+
+Ask how this should feel. Push for specific, evocative language — "confident like a bank vault," "energetic like a launchpad." NOT "clean and modern." If references were shared, anchor the question: *"The [reference] reads as [your interpretation] — is that the territory, or something different?"*
+
+## Step 5: Propose the creative direction
+
+Synthesize everything — the references, audience, goal, and feel — into the full structured output. Every field must be filled:
+
+1. **Named audience** — the specific persona (from Step 2)
+2. **Goal** — the specific action (from Step 3)
+3. **Feel** — the evocative description (from Step 4)
+4. **Accessibility standard** — default to EAA/EN 301 549 (European Accessibility Act — WCAG 2.1 AA plus: `lang` on `<html>`, reflow at 320px, non-text contrast ≥ 3:1, text spacing override support, text resizable to 200%). Recommend this as the default: *"I'd go with EAA/EN 301 549 — it's the most complete standard and future-proofs against European requirements. Override if you prefer a different level."* Record the chosen standard in `system.md`.
+5. **Domain vocabulary** — 5+ words from the product's world (cybersecurity: shields, vaults, perimeters, sentinel)
+6. **Color world** — 5+ colors that exist naturally in the product's domain
+7. **Signature element** — One visual choice that could only exist for THIS product (fails the swap test)
+8. **Defaults to reject** — 3+ obvious/generic choices named explicitly to consciously avoid
+9. **Differentiation** — What makes this UNFORGETTABLE? The one visual thing someone will remember after closing the tab
+
+**Checkpoint.** Present the full creative direction to the user. Ask explicitly: *"Does this creative direction feel right? Anything to adjust before I start translating this into tokens?"* Do not proceed to Phase 2 until they approve. Update Init Progress in `system.md`.
+
+Once approved, let the user know: *"Creative direction is saved to `system.md`. If you'd like to free up context for the build phase, you can run `/clear` and then `/angora-design-system-init` to continue — I'll pick up from Phase 2 using what's saved."*
 
 # Phase 2: Design System Setup
 

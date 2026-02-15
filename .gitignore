@@ -2,7 +2,9 @@
 !.bin
 !.claude
 .claude/*
+!.claude/hooks
 !.claude/skills
+!.claude/settings.json
 !.gitignore
 !BOOTSTRAP.md
 !CLAUDE.md
