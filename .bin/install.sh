@@ -29,6 +29,16 @@ ok()   { printf "  ${GREEN}✓${RESET} %s\n" "$1"; }
 warn() { printf "  ${YELLOW}!${RESET} %s\n" "$1"; }
 fail() { printf "  ${RED}✗${RESET} %s\n" "$1"; }
 
+link() { printf "\033]8;;%s\a%s\033]8;;\a" "$1" "${2:-$1}"; }
+
+open_url() {
+  local url=$1
+  if command -v open &>/dev/null; then open "$url"
+  elif command -v xdg-open &>/dev/null; then xdg-open "$url"
+  elif command -v wslview &>/dev/null; then wslview "$url"
+  fi
+}
+
 spin() {
   local pid=$1 msg=$2
   local frames=('⠋' '⠙' '⠹' '⠸' '⠼' '⠴' '⠦' '⠧' '⠇' '⠏')
@@ -192,7 +202,8 @@ if [ "$HAS_CLAUDE" = true ]; then
     printf "\r\033[2K"
 
     if kill -0 "$DEV_PID" 2>/dev/null; then
-      ok "Dev server → localhost:4321"
+      ok "Dev server → $(link "http://localhost:4321" "localhost:4321")"
+      open_url "http://localhost:4321"
     else
       warn "Dev server failed — run ${BOLD}pnpm run dev${RESET} manually"
     fi
