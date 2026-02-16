@@ -25,13 +25,14 @@ At the start of the process (or when resuming), present the full build sequence 
 
 > **Here's what we're building (you'll approve at each checkpoint):**
 >
-> 1. **Creative direction** — audience, feel, color world, signature element, anti-patterns
-> 2. **Tokens + style guide** — colors, type, spacing, shadows, radii in browser
-> 3. **Buttons** — sizes, variants, icon buttons
-> 4. **Icons** — starter icon set as components + downloadable SVGs
-> 5. **Grid + Section** — Section container component, section spacing rhythm, grid-gap utility, column patterns
-> 6. **Cards** — card types for your pages
-> 7. **Forms** — inputs, selects, checkboxes, radios, toggles, all states
+> 1. **Creative direction** — audience, feel, color world, signature element, anti-patterns, dark mode decision
+> 2. **Tokens + style guide** — OKLCH palette, semantic tokens, type, spacing, shadows, radii in browser
+> 3. **Dark mode** *(if opted in)* — `.dark` overrides, sidebar toggle, light/dark view routes
+> 4. **Buttons** — sizes, variants, icon buttons
+> 5. **Icons** — starter icon set as components + downloadable SVGs
+> 6. **Grid + Section** — Section container component, section spacing rhythm, grid-gap utility, column patterns
+> 7. **Cards** — card types for your pages
+> 8. **Forms** — inputs, selects, checkboxes, radios, toggles, all states
 
 Mark the current step with ← and update the marker at each checkpoint. Always tell the user what decisions are coming next.
 
@@ -80,6 +81,7 @@ Synthesize everything — the references, audience, goal, and feel — into the 
 7. **Signature element** — One visual choice that could only exist for THIS product (fails the swap test)
 8. **Defaults to reject** — 3+ obvious/generic choices named explicitly to consciously avoid
 9. **Differentiation** — What makes this UNFORGETTABLE? The one visual thing someone will remember after closing the tab
+10. **Dark mode** — Ask: *"Do you want dark mode support? If yes, I'll generate a full dark palette and wire up the toggle. If no, you still get the semantic token architecture — dark mode can be added later without changing components."* Record the answer. Dark mode is a token + tooling concern — component code is identical either way
 
 **Checkpoint.** Present the full creative direction to the user. Ask explicitly: *"Does this creative direction feel right? Anything to adjust before I start translating this into tokens?"* Do not proceed to Phase 2 until they approve. Update Init Progress in `system.md`.
 
@@ -99,28 +101,80 @@ Once approved, let the user know: *"Creative direction is saved to `system.md`. 
 
 Translate Phase 1 outputs into concrete token decisions:
 
-- **Color world → palette.** Pick the strongest 1–2 domain colors as primary/accent hue(s). Generate full 50–950 shade ranges. Choose grey temperature (warm/cool) based on the feel — "bank vault" is cool grey, "launchpad" is warm.
+- **Color world → OKLCH palette.** Pick the strongest 1–2 domain colors as primary/accent hue(s). Generate full 50–950 shade ranges in **OKLCH color space** (perceptually uniform lightness — L=0.7 looks equally bright regardless of hue, making palette generation reliable). Choose grey temperature (warm/cool) based on the feel — "bank vault" is cool grey (blue hue ~264°), "launchpad" is warm grey (yellow/orange hue ~60°). Greys get a subtle chroma (0.005–0.018) for temperature.
 - **Feel → shape and depth.** "Confident" = smaller radii, firm shadows. "Playful" = larger radii, softer shadows. Match border radius scale and shadow strategy to the feel words.
 - **Domain vocabulary → signature element.** The signature element from Phase 1 becomes a concrete CSS/markup choice — a specific color accent, radius treatment, animation, or layout pattern.
 - Font family, full color palette (50–950 shade ranges for primary + grey at minimum)
 - Shadow scale using two-part shadows (consistent application — don't mix soft diffuse with solid flat on similar elements)
+- **Hover/active tokens** for every brand color: `--color-primary-hover`, `--color-primary-active` (and destructive, etc.). Light mode steps darker down the scale (600→700→800), dark mode steps lighter (300→200). Dedicated tokens, not opacity — better visual quality on vibrant brand colors
 
 ## 2c. Tokens + Style Guide
 
 `src/system.md` and `src/styles/global.css` are **scaffolding** — placeholder structure meant to be replaced with real values from Phase 1. Use the file structure (sections, `@theme` block) but replace all placeholder content (`[TBD]`, `[Placeholder]`, template token values). Don't preserve placeholder values out of caution — they're disposable. `system.md` is the "why" file — fill in Intent, Accessibility, Anti-Patterns, and Decisions Log. All token values go in `global.css` only.
 
-Build **only** these first:
-1. `global.css` — All `@theme` tokens
-2. `system.md` — Intent, accessibility standard, anti-patterns, decisions log
-3. `index.astro` (Style Guide) — Visual preview of all tokens (colors, type scale, spacing, shadows, radii). This is the design system home page.
+### Three-tier token architecture
 
-**Checkpoint.** Ask the user to open the style guide in browser (`pnpm dev`). Then ask explicitly: *"How do the tokens look? Anything to adjust — palette, type scale, shadows, radii?"* Do not proceed to 2d until the user confirms the tokens are correct. If they report issues, fix them and ask again. Update Init Progress in `system.md`.
+`global.css` uses a three-tier structure that enforces correct usage architecturally:
+
+**Tier 1 — Primitive palette** (`:root` block, outside `@theme`). Raw OKLCH values for the full shade range: `--gray-50` through `--gray-950`, `--primary-50` through `--primary-950`, plus any additional palettes. These are plain CSS custom properties with **no `--color-` prefix** — this means Tailwind generates no utility classes for them. Components cannot use `bg-gray-50` or `text-primary-500` because those classes don't exist.
+
+**Tier 2 — Semantic tokens** (`@theme` block). Role-based aliases using shadcn naming: `--color-background`, `--color-foreground`, `--color-card`, `--color-card-foreground`, `--color-primary`, `--color-primary-foreground`, `--color-secondary`, `--color-secondary-foreground`, `--color-muted`, `--color-muted-foreground`, `--color-accent`, `--color-accent-foreground`, `--color-destructive`, `--color-destructive-foreground`, `--color-border`, `--color-input`, `--color-ring`, `--color-success`, `--color-success-foreground`, `--color-warning`, `--color-warning-foreground`, `--color-highlight`, `--color-highlight-foreground`, plus hover/active tokens. These reference Tier 1 values (e.g., `--color-background: var(--gray-50)`). Only these generate Tailwind utilities (`bg-background`, `text-foreground`, `border-border`, etc.).
+
+**Tier 3 — Component tokens** (not needed yet). Would be `--button-bg`, `--card-border`, etc. Only add if a component needs to deviate from semantic defaults.
+
+### Additional infrastructure in `global.css`
+
+- `@custom-variant dark (&:where(.dark, .dark *))` — enables Tailwind `dark:` variants
+- `@layer base` — applies `border-border outline-ring/50` to all elements, `bg-background text-foreground` to body
+- `:root` also sets `color-scheme: light`
+- Shadow tokens in `@theme` use two-part shadows (direct + ambient). Dark mode overrides increase opacity (e.g., 0.08 → 0.25)
+
+### Dark mode (if opted in)
+
+After the semantic tokens in `@theme`, add a `.dark` block that remaps every semantic color token to dark-appropriate values:
+- Background: darkest gray (~L=0.16), never pure black (halation)
+- Foreground: near-white (~L=0.98)
+- Card/popover: one step lighter than background (~L=0.21) for tonal elevation
+- Muted/secondary/accent: dark gray (~L=0.27)
+- Primary: shift lighter and reduce chroma to avoid visual vibration
+- Borders: can use alpha transparency (e.g., `oklch(1 0 0 / 10%)`) for natural blending
+- `.dark` also sets `color-scheme: dark` and overrides shadow opacity
+
+If dark mode is **not** opted in, still use the same semantic token architecture (same `@theme` structure, same shadcn names) — just omit the `.dark` block. Components are identical either way, and dark mode can be added later by only touching `global.css`.
+
+### Style guide page
+
+The `index.astro` style guide shows palette swatches using **inline `style` attributes** referencing CSS custom properties (e.g., `style="background-color: var(--gray-50)"`), since palette utility classes don't exist. Semantic token specimens use Tailwind utilities (`bg-background`, `bg-card`, etc.).
+
+### Build sequence
+
+1. `global.css` — Full three-tier token structure
+2. `system.md` — Intent, accessibility standard, anti-patterns, decisions log (include dark mode decision)
+3. `index.astro` (Style Guide) — Visual preview of all tokens (palette swatches with inline styles, semantic token specimens, type scale, spacing, shadows, radii)
+
+**Checkpoint.** Ask the user to open the style guide in browser (`pnpm dev`). Then ask explicitly: *"How do the tokens look? Anything to adjust — palette, type scale, shadows, radii?"* Do not proceed until the user confirms the tokens are correct. If they report issues, fix them and ask again. Update Init Progress in `system.md`.
+
+## 2c-dark. Dark mode infrastructure (if opted in)
+
+Skip this step if the user opted out of dark mode in Phase 1.
+
+1. **Sidebar toggle** — Add a dark mode toggle to `Sidebar.tsx` (below search, above nav). Reads/writes `localStorage` under `angora-ds-theme`. Toggles `.dark` class and `color-scheme` style on `<html>`. Use sun/moon icons.
+2. **Full-screen view routing** — Create `src/pages/design-system/view/[theme]/[...slug].astro` dynamic route. `getStaticPaths()` generates `light` × `dark` × all slugs. View content goes in `view/_content/<name>.astro` (pure markup, no layout wrapper). The dynamic route imports content and wraps in `FullScreen.astro` with the theme prop.
+3. **FullScreen.astro** — Accepts `theme` prop (`'light' | 'dark'`, defaults to `'light'`). Sets `.dark` on `<html>` and `color-scheme` meta tag when dark.
+4. **Layout.astro** — Add `<meta name="color-scheme" content="light dark">`.
+5. **A11y tests** — Update test discovery to find `view/_content/*.astro` and test both `/view/light/*` and `/view/dark/*` routes.
+
+**Checkpoint.** Ask the user to toggle dark mode in the sidebar. Verify the whole design system shell switches. Check a full-screen view at both `/view/light/` and `/view/dark/` paths. Update Init Progress in `system.md`.
 
 ## 2d. Foundational design system pages
 
 All sections must have a `@container` ancestor (required for responsive type tokens to work).
 
 **Dev tools convention:** every component's root element gets `data-component="ComponentName"` (PascalCase). Sub-components too (`data-component="CardBody"`). This makes components identifiable in browser dev tools. Always first attribute in the list.
+
+**Token usage:** All components use semantic token utility classes only (`bg-card`, `text-foreground`, `border-border`, etc.). Never use raw palette classes — they don't exist. Read `global.css` to see available semantic tokens in the `@theme` block.
+
+**Full-screen views:** Each design system page that has a full-screen view creates a content file at `src/pages/design-system/view/_content/<name>.astro` (pure markup, no FullScreen wrapper). The dynamic route at `view/[theme]/[...slug].astro` handles wrapping with FullScreen and applying the theme. If dark mode is enabled, both `/view/light/<name>` and `/view/dark/<name>` are generated automatically.
 
 Before building each page, ask the user any decisions noted below. Build one page at a time, or batch pages that don't need user input.
 

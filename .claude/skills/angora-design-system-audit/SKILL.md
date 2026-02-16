@@ -22,10 +22,11 @@ Then validate the target against the rules below.
 | Rule | Check |
 |------|-------|
 | Token compliance | No arbitrary values. All styling via Tailwind utility classes referencing theme tokens |
+| **Semantic token enforcement** | **No raw palette utility classes.** Components and pages must use only semantic token classes (`bg-background`, `bg-card`, `text-foreground`, `text-muted-foreground`, `border-border`, `bg-primary`, etc.). Grep for violations: `bg-gray-*`, `text-gray-*`, `border-gray-*`, `bg-white`, `text-white`, `bg-black`, `text-black`, `bg-primary-[0-9]`, `text-primary-[0-9]`, `border-primary-[0-9]` (raw scale references). The primitive palette lives outside `@theme` so these classes shouldn't exist — but inline styles, arbitrary values (`bg-[#...]`, `text-[var(--gray-*)]`), and accidental palette references still need catching. **Exception:** style guide page (`index.astro`) uses inline `style` attributes with `var(--gray-50)` etc. for palette swatches — this is intentional |
 | Pixel translation | No hard-coded pixel values in components. User-provided pixel values should map to the nearest theme token (e.g., "32px" → `spacing-8` / `p-8`). If no token fits, use `rem` for sizing and `em` for prose-relative spacing. Flag any arbitrary `[Xpx]` values |
 | Scoping | Component styles via Tailwind classes on elements. No global CSS selectors in component files |
-| No true black | Never `#000`, `rgb(0,0,0)`, or `black`. Always near-black from the grey scale (e.g., `gray-900`, `gray-950`) |
-| No generated colors | No `color-mix()`, `lighten()`, `darken()`, or `rgba()` for text on colored backgrounds. All colors from explicit palette values |
+| No true black | Never `#000`, `rgb(0,0,0)`, or `black`. Use semantic tokens (`text-foreground`, `bg-foreground`) which resolve to near-black |
+| No generated colors | No `color-mix()`, `lighten()`, `darken()`, or `rgba()` for text on colored backgrounds. All colors from semantic tokens or explicit palette values |
 
 ### Component Contracts
 
@@ -39,13 +40,14 @@ Then validate the target against the rules below.
 
 ### ARIA & Accessibility
 
-Contrast ratios and ARIA labeling are covered by the automated a11y test suite (`pnpm test:a11y`). The audit focuses on what automated testing can't catch:
+Contrast ratios and ARIA labeling are covered by the automated a11y test suite (`pnpm test:a11y`). When dark mode exists, tests run against both `/view/light/*` and `/view/dark/*` routes — each mode must independently meet AA. The audit focuses on what automated testing can't catch:
 
 | Rule | Check |
 |------|-------|
 | Target sizes | Interactive targets ≥ 44px. Check at narrow widths too |
 | Color independence | Don't rely on color alone to convey meaning — always a secondary indicator (icon, text, border, pattern) |
 | EAA extras (manual) | If standard is EAA: verify text spacing override tolerance, 200% text resize. (`lang` and reflow are covered by the a11y test) |
+| Dark mode contrast | If dark mode exists: verify semantic token pairs provide sufficient contrast in both modes. Check that `--color-*-foreground` has ≥ 4.5:1 contrast against its paired `--color-*` in both light and dark values. The a11y test catches most issues, but token-level mismatches (e.g., light primary text on light primary bg) need manual verification when new tokens are added |
 
 ### Semantic HTML
 
@@ -69,10 +71,10 @@ Contrast ratios and ARIA labeling are covered by the automated a11y test suite (
 | Rule | Check |
 |------|-------|
 | Three-tier emphasis | Clear primary/secondary/tertiary emphasis using size + weight + color together |
-| Three-tier text color | Exactly three text color tiers: dark (e.g., `gray-900`) for primary, medium (e.g., `gray-500`) for secondary, light (e.g., `gray-400`) for tertiary. Flag arbitrary in-between greys that don't serve one of these three roles |
+| Three-tier text color | Exactly three text color tiers: `text-foreground` (or `text-card-foreground`) for primary content, `text-muted-foreground` for secondary/tertiary. Flag any raw grey class usage — semantic tokens enforce the correct tiers. If a third visual tier is needed, use font size or weight rather than an additional color |
 | Font weight discipline | Only two weights: normal (`font-normal`/`font-medium`, 400–500) and bold (`font-semibold`/`font-bold`, 600–700). Flag `font-thin`, `font-extralight`, `font-light` (under 400) |
 | Label treatment | Labels should be de-emphasized (smaller, lighter, thinner). Combine labels and values when possible ("12 left in stock" not "In stock: 12") |
-| Grey on colored backgrounds | No `text-gray-*` or opacity-based text on colored backgrounds. Hand-pick a same-hue color with adjusted saturation/lightness |
+| Grey on colored backgrounds | No grey text on colored backgrounds. On primary/destructive/colored surfaces, use the paired `-foreground` token (e.g., `text-primary-foreground` on `bg-primary`). Never use opacity-based text on colored backgrounds — it looks washed out |
 
 ### Spacing
 
@@ -104,7 +106,7 @@ Contrast ratios and ARIA labeling are covered by the automated a11y test suite (
 
 | Rule | Check |
 |------|-------|
-| Consistent application | Similar elements at the same elevation. Light source from above |
+| Consistent application | Similar elements at the same elevation. Light source from above. In dark mode, tonal elevation (lighter surface = higher) conveys depth — shadows have reduced visibility |
 | Shadow interaction | Interactive elevated elements: hover increases shadow (lift), active decreases shadow (press). Flag elevated buttons/cards without shadow transitions |
 | Fewer borders | Prefer box shadows, different background colors, or extra spacing over borders for visual separation. Flag heavy `border` usage where a subtler technique would work |
 

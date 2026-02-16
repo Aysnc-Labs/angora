@@ -20,6 +20,7 @@ Check what exists:
 - **Database schema** — glob `src/data/schema/tables/*.ts` to discover tables (file names = table names).
 - **Inbox** — list `inbox/` contents
 - **Site layouts** — check `src/layouts/`
+- **Dark mode** — check `src/system.md` decisions log for the dark mode decision. If enabled, new components automatically get both light and dark full-screen views via the dynamic route at `view/[theme]/[...slug].astro`. If disabled (or not yet decided), the system uses semantic tokens but without dark mode switching
 
 ### 2. Understand intent
 
