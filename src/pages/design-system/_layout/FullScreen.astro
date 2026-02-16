@@ -4,17 +4,20 @@ import '../../../styles/reset.css';
 
 interface Props {
   title: string;
+  theme?: 'light' | 'dark';
 }
 
-const { title } = Astro.props;
+const { title, theme = 'light' } = Astro.props;
+const isDark = theme === 'dark';
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en" class:list={[{ dark: isDark }]}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="robots" content="noindex, nofollow" />
+    <meta name="color-scheme" content={isDark ? 'dark' : 'light'} />
     <title>{title} — Design System</title>
   </head>
   <body>

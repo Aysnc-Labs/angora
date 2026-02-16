@@ -1,0 +1,88 @@
+---
+import Section from '@/components/Section.astro';
+---
+
+<div class="page-flow">
+  <!-- Hero (seamless, dark) -->
+  <Section seamless class="bg-gray-900">
+    <div class="text-center">
+      <div class="h-8 w-64 bg-gray-700 rounded-sm mx-auto mb-4"></div>
+      <div class="h-4 w-96 bg-gray-800 rounded-sm mx-auto mb-6"></div>
+      <div class="flex gap-3 justify-center">
+        <div class="h-10 w-32 bg-primary-500 rounded-md"></div>
+        <div class="h-10 w-32 bg-gray-700 rounded-md"></div>
+      </div>
+    </div>
+  </Section>
+  <!-- Social proof (seamless, subtle bg) -->
+  <Section seamless class="bg-gray-50">
+    <div class="flex justify-center gap-12">
+      <div class="h-6 w-20 bg-gray-300 rounded-sm"></div>
+      <div class="h-6 w-20 bg-gray-300 rounded-sm"></div>
+      <div class="h-6 w-20 bg-gray-300 rounded-sm"></div>
+      <div class="h-6 w-20 bg-gray-300 rounded-sm"></div>
+    </div>
+  </Section>
+  <!-- Features (normal) -->
+  <Section aria-label="Features">
+    <div class="h-6 w-40 bg-gray-300 rounded-sm mb-8 mx-auto"></div>
+    <div class="grid grid-cols-3 grid-gap">
+      <div class="bg-gray-50 rounded-lg p-6">
+        <div class="h-8 w-8 bg-gray-200 rounded-md mb-3"></div>
+        <div class="h-4 w-24 bg-gray-200 rounded-sm mb-2"></div>
+        <div class="h-3 w-full bg-gray-100 rounded-sm"></div>
+      </div>
+      <div class="bg-gray-50 rounded-lg p-6">
+        <div class="h-8 w-8 bg-gray-200 rounded-md mb-3"></div>
+        <div class="h-4 w-24 bg-gray-200 rounded-sm mb-2"></div>
+        <div class="h-3 w-full bg-gray-100 rounded-sm"></div>
+      </div>
+      <div class="bg-gray-50 rounded-lg p-6">
+        <div class="h-8 w-8 bg-gray-200 rounded-md mb-3"></div>
+        <div class="h-4 w-24 bg-gray-200 rounded-sm mb-2"></div>
+        <div class="h-3 w-full bg-gray-100 rounded-sm"></div>
+      </div>
+    </div>
+  </Section>
+  <!-- Testimonials (normal) -->
+  <Section aria-label="Testimonials">
+    <div class="h-6 w-40 bg-gray-300 rounded-sm mb-8 mx-auto"></div>
+    <div class="grid grid-cols-2 grid-gap">
+      <div class="bg-gray-50 rounded-lg p-6">
+        <div class="h-3 w-full bg-gray-100 rounded-sm mb-2"></div>
+        <div class="h-3 w-4/5 bg-gray-100 rounded-sm mb-4"></div>
+        <div class="flex gap-2 items-center">
+          <div class="h-8 w-8 bg-gray-200 rounded-full"></div>
+          <div class="h-3 w-20 bg-gray-200 rounded-sm"></div>
+        </div>
+      </div>
+      <div class="bg-gray-50 rounded-lg p-6">
+        <div class="h-3 w-full bg-gray-100 rounded-sm mb-2"></div>
+        <div class="h-3 w-4/5 bg-gray-100 rounded-sm mb-4"></div>
+        <div class="flex gap-2 items-center">
+          <div class="h-8 w-8 bg-gray-200 rounded-full"></div>
+          <div class="h-3 w-20 bg-gray-200 rounded-sm"></div>
+        </div>
+      </div>
+    </div>
+  </Section>
+  <!-- CTA (seamless, primary bg) -->
+  <Section seamless class="bg-primary-500">
+    <div class="text-center">
+      <div class="h-6 w-56 bg-primary-400 rounded-sm mx-auto mb-4"></div>
+      <div class="h-4 w-80 bg-primary-400 rounded-sm mx-auto mb-6"></div>
+      <div class="h-10 w-36 bg-white rounded-md mx-auto"></div>
+    </div>
+  </Section>
+  <!-- Footer (seamless, dark) -->
+  <Section seamless class="bg-gray-900">
+    <div class="flex justify-between">
+      <div class="h-4 w-24 bg-gray-700 rounded-sm"></div>
+      <div class="flex gap-4">
+        <div class="h-4 w-12 bg-gray-700 rounded-sm"></div>
+        <div class="h-4 w-12 bg-gray-700 rounded-sm"></div>
+        <div class="h-4 w-12 bg-gray-700 rounded-sm"></div>
+      </div>
+    </div>
+  </Section>
+</div>

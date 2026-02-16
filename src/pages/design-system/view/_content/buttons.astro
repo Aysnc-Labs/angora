@@ -1,0 +1,50 @@
+---
+import Button from '@/components/Button.astro';
+import ArrowRight from '@/icons/ArrowRight.astro';
+---
+
+<div class="p-12 max-w-[var(--container-max)] mx-auto flex flex-col gap-12">
+
+  <!-- Variants -->
+  <div class="flex flex-wrap gap-4 items-center">
+    <Button>Primary</Button>
+    <Button variant="secondary">Secondary</Button>
+    <Button variant="ghost">Ghost</Button>
+  </div>
+
+  <!-- Sizes -->
+  <div class="flex flex-wrap gap-4 items-end">
+    <Button size="sm">Small</Button>
+    <Button>Medium</Button>
+    <Button size="lg">Large</Button>
+  </div>
+
+  <!-- Sizes across variants -->
+  <div class="flex flex-wrap gap-4 items-end">
+    <Button size="sm" variant="secondary">Small</Button>
+    <Button variant="secondary">Medium</Button>
+    <Button size="lg" variant="secondary">Large</Button>
+  </div>
+
+  <!-- Trailing icons -->
+  <div class="flex flex-wrap gap-4 items-center">
+    <Button size="sm">Next <ArrowRight size={14} /></Button>
+    <Button>Continue <ArrowRight size={16} /></Button>
+    <Button size="lg">Get Started <ArrowRight size={18} /></Button>
+  </div>
+
+  <!-- Leading icons -->
+  <div class="flex flex-wrap gap-4 items-center">
+    <Button variant="secondary"><ArrowRight size={16} /> Go Back</Button>
+    <Button variant="ghost"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg> Search</Button>
+    <Button variant="secondary"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg> Upload</Button>
+  </div>
+
+  <!-- Disabled -->
+  <div class="flex flex-wrap gap-4 items-center">
+    <Button disabled>Primary</Button>
+    <Button variant="secondary" disabled>Secondary</Button>
+    <Button variant="ghost" disabled>Ghost</Button>
+  </div>
+
+</div>
