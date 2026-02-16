@@ -34,7 +34,7 @@ import ArrowRight from '@/icons/ArrowRight.astro';
         <CardEyebrow>Engineering</CardEyebrow>
         <CardTitle>Building reliable distributed systems</CardTitle>
         <CardDescription>How we scaled our infrastructure to handle 10x traffic growth.</CardDescription>
-        <a class="text-sm font-semibold text-primary-500 inline-flex items-center gap-1 hover:text-primary-600 transition-colors duration-fast ease-default mt-4" href="#">Read more <ArrowRight size={14} /></a>
+        <a class="text-sm font-semibold text-primary inline-flex items-center gap-1 hover:text-primary-hover transition-colors duration-fast ease-default mt-4" href="#">Read more <ArrowRight size={14} /></a>
       </CardBody>
     </Card>
     <Card padding={false}>
@@ -43,7 +43,7 @@ import ArrowRight from '@/icons/ArrowRight.astro';
         <CardEyebrow>Product</CardEyebrow>
         <CardTitle>Announcing our new dashboard</CardTitle>
         <CardDescription>A redesigned analytics experience with real-time insights.</CardDescription>
-        <a class="text-sm font-semibold text-primary-500 inline-flex items-center gap-1 hover:text-primary-600 transition-colors duration-fast ease-default mt-4" href="#">Read more <ArrowRight size={14} /></a>
+        <a class="text-sm font-semibold text-primary inline-flex items-center gap-1 hover:text-primary-hover transition-colors duration-fast ease-default mt-4" href="#">Read more <ArrowRight size={14} /></a>
       </CardBody>
     </Card>
     <Card padding={false}>
@@ -52,7 +52,7 @@ import ArrowRight from '@/icons/ArrowRight.astro';
         <CardEyebrow>Design</CardEyebrow>
         <CardTitle>Our approach to accessible color</CardTitle>
         <CardDescription>Why we rebuilt our palette around WCAG AA from day one.</CardDescription>
-        <a class="text-sm font-semibold text-primary-500 inline-flex items-center gap-1 hover:text-primary-600 transition-colors duration-fast ease-default mt-4" href="#">Read more <ArrowRight size={14} /></a>
+        <a class="text-sm font-semibold text-primary inline-flex items-center gap-1 hover:text-primary-hover transition-colors duration-fast ease-default mt-4" href="#">Read more <ArrowRight size={14} /></a>
       </CardBody>
     </Card>
   </div>
@@ -60,21 +60,21 @@ import ArrowRight from '@/icons/ArrowRight.astro';
   <!-- Feature cards -->
   <div class="grid grid-cols-3 gap-6">
     <Card variant="flat">
-      <div class="w-10 h-10 rounded-lg bg-primary-100 text-primary-600 flex items-center justify-center mb-4">
+      <div class="w-10 h-10 rounded-lg bg-primary/10 text-primary flex items-center justify-center mb-4">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
       </div>
       <CardTitle>Lightning fast</CardTitle>
       <CardDescription>Sub-100ms response times with edge computing.</CardDescription>
     </Card>
     <Card variant="flat">
-      <div class="w-10 h-10 rounded-lg bg-primary-100 text-primary-600 flex items-center justify-center mb-4">
+      <div class="w-10 h-10 rounded-lg bg-primary/10 text-primary flex items-center justify-center mb-4">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
       </div>
       <CardTitle>Secure by default</CardTitle>
       <CardDescription>End-to-end encryption and SOC 2 compliance.</CardDescription>
     </Card>
     <Card variant="flat">
-      <div class="w-10 h-10 rounded-lg bg-primary-100 text-primary-600 flex items-center justify-center mb-4">
+      <div class="w-10 h-10 rounded-lg bg-primary/10 text-primary flex items-center justify-center mb-4">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
       </div>
       <CardTitle>Global scale</CardTitle>
@@ -86,11 +86,11 @@ import ArrowRight from '@/icons/ArrowRight.astro';
   <div class="max-w-lg">
     <Card variant="flat">
       <div class="flex gap-4">
-        <div class="w-10 h-10 rounded-full bg-gray-300 shrink-0"></div>
+        <div class="w-10 h-10 rounded-full bg-input shrink-0"></div>
         <div>
-          <p class="text-sm text-gray-900 mb-2">"This completely changed how we think about our marketing pipeline. The analytics alone paid for itself in the first month."</p>
-          <p class="text-xs font-semibold text-gray-900">Sarah Chen</p>
-          <p class="text-xs text-gray-500">VP Marketing, Acme Corp</p>
+          <p class="text-sm text-foreground mb-2">"This completely changed how we think about our marketing pipeline. The analytics alone paid for itself in the first month."</p>
+          <p class="text-xs font-semibold text-foreground">Sarah Chen</p>
+          <p class="text-xs text-muted-foreground">VP Marketing, Acme Corp</p>
         </div>
       </div>
     </Card>

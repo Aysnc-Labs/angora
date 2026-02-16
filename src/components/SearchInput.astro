@@ -17,7 +17,7 @@ const sizeClasses: Record<string, string> = {
 
 function resolveClasses(): string {
   const parts = [
-    'block w-full rounded-md border font-sans bg-white text-gray-900',
+    'block w-full rounded-md border font-sans bg-card text-foreground',
     sizeClasses[size],
   ];
 
@@ -26,22 +26,22 @@ function resolveClasses(): string {
   }
 
   if (state === 'hover') {
-    parts.push('border-gray-400');
+    parts.push('border-muted-foreground');
   } else if (state === 'focus') {
-    parts.push('border-primary-500 outline-2 outline-primary-300 outline-offset-0');
+    parts.push('border-primary outline-2 outline-ring outline-offset-0');
   } else if (state === 'disabled') {
-    parts.push('border-gray-200 bg-gray-50 text-gray-400 cursor-not-allowed');
+    parts.push('border-border bg-muted text-muted-foreground cursor-not-allowed');
   } else if (state === 'has-value') {
-    parts.push('border-gray-300');
+    parts.push('border-input');
   } else if (!state) {
     parts.push(
-      'border-gray-300',
-      'hover:border-gray-400',
-      'focus:border-primary-500 focus:outline-2 focus:outline-primary-300 focus:outline-offset-0',
+      'border-input',
+      'hover:border-muted-foreground',
+      'focus:border-primary focus:outline-2 focus:outline-ring focus:outline-offset-0',
       'transition-colors duration-fast ease-default',
     );
   } else {
-    parts.push('border-gray-300');
+    parts.push('border-input');
   }
 
   return parts.join(' ');
@@ -53,7 +53,7 @@ const showClear = withClear && (state === 'has-value' || value);
 ---
 
 <div data-component="SearchInput" class="relative">
-  <div class={`absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none ${size === 'sm' ? 'left-2.5' : ''}`}>
+  <div class={`absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground pointer-events-none ${size === 'sm' ? 'left-2.5' : ''}`}>
     <svg width={iconSize} height={iconSize} viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
       <circle cx="11" cy="11" r="8" />
       <line x1="21" y1="21" x2="16.65" y2="16.65" />
@@ -69,7 +69,7 @@ const showClear = withClear && (state === 'has-value' || value);
     aria-label={placeholder}
   />
   {showClear && (
-    <button class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600" type="button" aria-label="Clear search">
+    <button class="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground" type="button" aria-label="Clear search">
       <svg width={iconSize} height={iconSize} viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <line x1="18" y1="6" x2="6" y2="18" />
         <line x1="6" y1="6" x2="18" y2="18" />

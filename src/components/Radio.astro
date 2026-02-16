@@ -29,8 +29,8 @@ const s = sizeMap[size];
       name={name}
       value={value}
     />
-    <span class={`absolute inset-0 rounded-full border-2 border-gray-300 bg-white group-hover:border-gray-400 peer-checked:border-primary-500 group-hover:peer-checked:border-primary-600 peer-focus-visible:outline-2 peer-focus-visible:outline-primary-300 peer-focus-visible:outline-offset-2 transition-colors duration-fast ease-default`}></span>
-    <span class={`relative ${s.inner} rounded-full bg-primary-500 opacity-0 peer-checked:opacity-100 pointer-events-none transition-opacity duration-fast ease-default`}></span>
+    <span class={`absolute inset-0 rounded-full border-2 border-input bg-card group-hover:border-muted-foreground peer-checked:border-primary group-hover:peer-checked:border-primary-hover peer-focus-visible:outline-2 peer-focus-visible:outline-ring peer-focus-visible:outline-offset-2 transition-colors duration-fast ease-default`}></span>
+    <span class={`relative ${s.inner} rounded-full bg-primary opacity-0 peer-checked:opacity-100 pointer-events-none transition-opacity duration-fast ease-default`}></span>
   </span>
-  {label && <span class={`${s.text} text-gray-900`}>{label}</span>}
+  {label && <span class={`${s.text} text-foreground`}>{label}</span>}
 </label>

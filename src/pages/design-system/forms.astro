@@ -18,12 +18,12 @@ import FieldGroup from '@/components/FieldGroup.astro';
   <!-- Text Input -->
   <section class="specimen-section">
     <h2>Text Input</h2>
-    <p class="text-sm text-gray-600 mb-6 max-w-[65ch]">
-      Block-level input with <code class="text-xs bg-gray-100 px-1.5 py-0.5 rounded-sm font-mono">border-gray-300</code> default, <code class="text-xs bg-gray-100 px-1.5 py-0.5 rounded-sm font-mono">border-primary-500</code> on focus, and semantic colors for error/success. Optional label, hint text, and leading icon.
+    <p class="text-sm text-muted-foreground mb-6 max-w-[65ch]">
+      Block-level input with <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm font-mono">border-input</code> default, <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm font-mono">border-primary</code> on focus, and semantic colors for error/success. Optional label, hint text, and leading icon.
     </p>
 
-    <h3 class="text-sm font-semibold text-gray-600 uppercase tracking-wide mb-4">Default, with label, with icon</h3>
-    <div class="border border-gray-200 rounded-lg p-8 mb-6">
+    <h3 class="text-sm font-semibold text-muted-foreground uppercase tracking-wide mb-4">Default, with label, with icon</h3>
+    <div class="border border-border rounded-lg p-8 mb-6">
       <FormRow>
         <div class="w-56">
           <TextInput placeholder="Placeholder text" />
@@ -37,8 +37,8 @@ import FieldGroup from '@/components/FieldGroup.astro';
       </FormRow>
     </div>
 
-    <h3 class="text-sm font-semibold text-gray-600 uppercase tracking-wide mb-4">Validation &amp; disabled</h3>
-    <div class="border border-gray-200 rounded-lg p-8 mb-6">
+    <h3 class="text-sm font-semibold text-muted-foreground uppercase tracking-wide mb-4">Validation &amp; disabled</h3>
+    <div class="border border-border rounded-lg p-8 mb-6">
       <FormRow>
         <div class="w-56">
           <TextInput state="error" label="Username" value="ab" hint="Must be at least 3 characters" />
@@ -52,20 +52,20 @@ import FieldGroup from '@/components/FieldGroup.astro';
       </FormRow>
     </div>
 
-    <h3 class="text-sm font-semibold text-gray-600 uppercase tracking-wide mb-4">Sizes</h3>
-    <div class="border border-gray-200 rounded-lg p-8">
+    <h3 class="text-sm font-semibold text-muted-foreground uppercase tracking-wide mb-4">Sizes</h3>
+    <div class="border border-border rounded-lg p-8">
       <FormRow align="end">
         <div class="w-48">
           <TextInput size="sm" placeholder="Small" />
-          <span class="text-xs font-mono text-gray-400 mt-2 block text-center">sm</span>
+          <span class="text-xs font-mono text-muted-foreground mt-2 block text-center">sm</span>
         </div>
         <div class="w-48">
           <TextInput size="md" placeholder="Medium" />
-          <span class="text-xs font-mono text-gray-400 mt-2 block text-center">md</span>
+          <span class="text-xs font-mono text-muted-foreground mt-2 block text-center">md</span>
         </div>
         <div class="w-48">
           <TextInput size="lg" placeholder="Large" />
-          <span class="text-xs font-mono text-gray-400 mt-2 block text-center">lg</span>
+          <span class="text-xs font-mono text-muted-foreground mt-2 block text-center">lg</span>
         </div>
       </FormRow>
     </div>
@@ -74,11 +74,11 @@ import FieldGroup from '@/components/FieldGroup.astro';
   <!-- Textarea -->
   <section class="specimen-section">
     <h2>Textarea</h2>
-    <p class="text-sm text-gray-600 mb-6 max-w-[65ch]">
-      Same border/radius treatment as text input. Defaults to <code class="text-xs bg-gray-100 px-1.5 py-0.5 rounded-sm font-mono">resize-y</code> so users can adjust height. Rows prop controls initial height.
+    <p class="text-sm text-muted-foreground mb-6 max-w-[65ch]">
+      Same border/radius treatment as text input. Defaults to <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm font-mono">resize-y</code> so users can adjust height. Rows prop controls initial height.
     </p>
 
-    <div class="border border-gray-200 rounded-lg p-8 mb-6">
+    <div class="border border-border rounded-lg p-8 mb-6">
       <FormRow>
         <div class="w-64">
           <Textarea label="Message" placeholder="Write your message..." rows={3} />
@@ -92,20 +92,20 @@ import FieldGroup from '@/components/FieldGroup.astro';
       </FormRow>
     </div>
 
-    <h3 class="text-sm font-semibold text-gray-600 uppercase tracking-wide mb-4">Sizes</h3>
-    <div class="border border-gray-200 rounded-lg p-8">
+    <h3 class="text-sm font-semibold text-muted-foreground uppercase tracking-wide mb-4">Sizes</h3>
+    <div class="border border-border rounded-lg p-8">
       <FormRow align="end">
         <div class="w-52">
           <Textarea size="sm" placeholder="Small" rows={2} />
-          <span class="text-xs font-mono text-gray-400 mt-2 block text-center">sm</span>
+          <span class="text-xs font-mono text-muted-foreground mt-2 block text-center">sm</span>
         </div>
         <div class="w-52">
           <Textarea size="md" placeholder="Medium" rows={2} />
-          <span class="text-xs font-mono text-gray-400 mt-2 block text-center">md</span>
+          <span class="text-xs font-mono text-muted-foreground mt-2 block text-center">md</span>
         </div>
         <div class="w-52">
           <Textarea size="lg" placeholder="Large" rows={2} />
-          <span class="text-xs font-mono text-gray-400 mt-2 block text-center">lg</span>
+          <span class="text-xs font-mono text-muted-foreground mt-2 block text-center">lg</span>
         </div>
       </FormRow>
     </div>
@@ -114,11 +114,11 @@ import FieldGroup from '@/components/FieldGroup.astro';
   <!-- Select -->
   <section class="specimen-section">
     <h2>Select</h2>
-    <p class="text-sm text-gray-600 mb-6 max-w-[65ch]">
-      Native <code class="text-xs bg-gray-100 px-1.5 py-0.5 rounded-sm font-mono">&lt;select&gt;</code> with <code class="text-xs bg-gray-100 px-1.5 py-0.5 rounded-sm font-mono">appearance-none</code> and a custom chevron icon positioned absolutely. Same border treatment as text inputs.
+    <p class="text-sm text-muted-foreground mb-6 max-w-[65ch]">
+      Native <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm font-mono">&lt;select&gt;</code> with <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm font-mono">appearance-none</code> and a custom chevron icon positioned absolutely. Same border treatment as text inputs.
     </p>
 
-    <div class="border border-gray-200 rounded-lg p-8 mb-6">
+    <div class="border border-border rounded-lg p-8 mb-6">
       <FormRow>
         <div class="w-56">
           <Select label="Country" options={['United States', 'Canada', 'United Kingdom', 'Germany']} placeholder="Choose a country" />
@@ -132,20 +132,20 @@ import FieldGroup from '@/components/FieldGroup.astro';
       </FormRow>
     </div>
 
-    <h3 class="text-sm font-semibold text-gray-600 uppercase tracking-wide mb-4">Sizes</h3>
-    <div class="border border-gray-200 rounded-lg p-8">
+    <h3 class="text-sm font-semibold text-muted-foreground uppercase tracking-wide mb-4">Sizes</h3>
+    <div class="border border-border rounded-lg p-8">
       <FormRow align="end">
         <div class="w-48">
           <Select size="sm" options={['Option A', 'Option B']} />
-          <span class="text-xs font-mono text-gray-400 mt-2 block text-center">sm</span>
+          <span class="text-xs font-mono text-muted-foreground mt-2 block text-center">sm</span>
         </div>
         <div class="w-48">
           <Select size="md" options={['Option A', 'Option B']} />
-          <span class="text-xs font-mono text-gray-400 mt-2 block text-center">md</span>
+          <span class="text-xs font-mono text-muted-foreground mt-2 block text-center">md</span>
         </div>
         <div class="w-48">
           <Select size="lg" options={['Option A', 'Option B']} />
-          <span class="text-xs font-mono text-gray-400 mt-2 block text-center">lg</span>
+          <span class="text-xs font-mono text-muted-foreground mt-2 block text-center">lg</span>
         </div>
       </FormRow>
     </div>
@@ -154,11 +154,11 @@ import FieldGroup from '@/components/FieldGroup.astro';
   <!-- Checkbox -->
   <section class="specimen-section">
     <h2>Checkbox</h2>
-    <p class="text-sm text-gray-600 mb-6 max-w-[65ch]">
-      Custom-styled box with <code class="text-xs bg-gray-100 px-1.5 py-0.5 rounded-sm font-mono">border-2</code> and <code class="text-xs bg-gray-100 px-1.5 py-0.5 rounded-sm font-mono">rounded-sm</code>. Checked state fills with <code class="text-xs bg-gray-100 px-1.5 py-0.5 rounded-sm font-mono">bg-primary-500</code> and shows an SVG checkmark.
+    <p class="text-sm text-muted-foreground mb-6 max-w-[65ch]">
+      Custom-styled box with <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm font-mono">border-2</code> and <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm font-mono">rounded-sm</code>. Checked state fills with <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm font-mono">bg-primary</code> and shows an SVG checkmark.
     </p>
 
-    <div class="border border-gray-200 rounded-lg p-8 mb-6">
+    <div class="border border-border rounded-lg p-8 mb-6">
       <FormRow>
         <Checkbox label="Unchecked" />
         <Checkbox checked label="Checked" />
@@ -167,20 +167,20 @@ import FieldGroup from '@/components/FieldGroup.astro';
       </FormRow>
     </div>
 
-    <h3 class="text-sm font-semibold text-gray-600 uppercase tracking-wide mb-4">Sizes</h3>
-    <div class="border border-gray-200 rounded-lg p-8">
+    <h3 class="text-sm font-semibold text-muted-foreground uppercase tracking-wide mb-4">Sizes</h3>
+    <div class="border border-border rounded-lg p-8">
       <FormRow align="center">
         <div class="flex flex-col items-center gap-3">
           <Checkbox size="sm" checked label="Small" />
-          <span class="text-xs font-mono text-gray-400">sm</span>
+          <span class="text-xs font-mono text-muted-foreground">sm</span>
         </div>
         <div class="flex flex-col items-center gap-3">
           <Checkbox size="md" checked label="Medium" />
-          <span class="text-xs font-mono text-gray-400">md</span>
+          <span class="text-xs font-mono text-muted-foreground">md</span>
         </div>
         <div class="flex flex-col items-center gap-3">
           <Checkbox size="lg" checked label="Large" />
-          <span class="text-xs font-mono text-gray-400">lg</span>
+          <span class="text-xs font-mono text-muted-foreground">lg</span>
         </div>
       </FormRow>
     </div>
@@ -189,11 +189,11 @@ import FieldGroup from '@/components/FieldGroup.astro';
   <!-- Radio -->
   <section class="specimen-section">
     <h2>Radio</h2>
-    <p class="text-sm text-gray-600 mb-6 max-w-[65ch]">
-      <code class="text-xs bg-gray-100 px-1.5 py-0.5 rounded-sm font-mono">rounded-full</code> with an inner dot on selection. Border changes to <code class="text-xs bg-gray-100 px-1.5 py-0.5 rounded-sm font-mono">border-primary-500</code> when selected.
+    <p class="text-sm text-muted-foreground mb-6 max-w-[65ch]">
+      <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm font-mono">rounded-full</code> with an inner dot on selection. Border changes to <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm font-mono">border-primary</code> when selected.
     </p>
 
-    <div class="border border-gray-200 rounded-lg p-8 mb-6">
+    <div class="border border-border rounded-lg p-8 mb-6">
       <FormRow>
         <Radio label="Unselected" />
         <Radio checked label="Selected" />
@@ -202,20 +202,20 @@ import FieldGroup from '@/components/FieldGroup.astro';
       </FormRow>
     </div>
 
-    <h3 class="text-sm font-semibold text-gray-600 uppercase tracking-wide mb-4">Sizes</h3>
-    <div class="border border-gray-200 rounded-lg p-8">
+    <h3 class="text-sm font-semibold text-muted-foreground uppercase tracking-wide mb-4">Sizes</h3>
+    <div class="border border-border rounded-lg p-8">
       <FormRow align="center">
         <div class="flex flex-col items-center gap-3">
           <Radio size="sm" checked label="Small" />
-          <span class="text-xs font-mono text-gray-400">sm</span>
+          <span class="text-xs font-mono text-muted-foreground">sm</span>
         </div>
         <div class="flex flex-col items-center gap-3">
           <Radio size="md" checked label="Medium" />
-          <span class="text-xs font-mono text-gray-400">md</span>
+          <span class="text-xs font-mono text-muted-foreground">md</span>
         </div>
         <div class="flex flex-col items-center gap-3">
           <Radio size="lg" checked label="Large" />
-          <span class="text-xs font-mono text-gray-400">lg</span>
+          <span class="text-xs font-mono text-muted-foreground">lg</span>
         </div>
       </FormRow>
     </div>
@@ -224,11 +224,11 @@ import FieldGroup from '@/components/FieldGroup.astro';
   <!-- Toggle/Switch -->
   <section class="specimen-section">
     <h2>Toggle / Switch</h2>
-    <p class="text-sm text-gray-600 mb-6 max-w-[65ch]">
-      Track + thumb pattern. Off state uses <code class="text-xs bg-gray-100 px-1.5 py-0.5 rounded-sm font-mono">bg-gray-300</code>, on state uses <code class="text-xs bg-gray-100 px-1.5 py-0.5 rounded-sm font-mono">bg-primary-500</code>. Thumb translates horizontally with <code class="text-xs bg-gray-100 px-1.5 py-0.5 rounded-sm font-mono">transition-transform</code>.
+    <p class="text-sm text-muted-foreground mb-6 max-w-[65ch]">
+      Track + thumb pattern. Off state uses <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm font-mono">bg-input</code>, on state uses <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm font-mono">bg-primary</code>. Thumb translates horizontally with <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm font-mono">transition-transform</code>.
     </p>
 
-    <div class="border border-gray-200 rounded-lg p-8 mb-6">
+    <div class="border border-border rounded-lg p-8 mb-6">
       <FormRow>
         <Toggle label="Off" />
         <Toggle checked label="On" />
@@ -237,20 +237,20 @@ import FieldGroup from '@/components/FieldGroup.astro';
       </FormRow>
     </div>
 
-    <h3 class="text-sm font-semibold text-gray-600 uppercase tracking-wide mb-4">Sizes</h3>
-    <div class="border border-gray-200 rounded-lg p-8">
+    <h3 class="text-sm font-semibold text-muted-foreground uppercase tracking-wide mb-4">Sizes</h3>
+    <div class="border border-border rounded-lg p-8">
       <FormRow align="center">
         <div class="flex flex-col items-center gap-3">
           <Toggle size="sm" checked label="Small" />
-          <span class="text-xs font-mono text-gray-400">sm</span>
+          <span class="text-xs font-mono text-muted-foreground">sm</span>
         </div>
         <div class="flex flex-col items-center gap-3">
           <Toggle size="md" checked label="Medium" />
-          <span class="text-xs font-mono text-gray-400">md</span>
+          <span class="text-xs font-mono text-muted-foreground">md</span>
         </div>
         <div class="flex flex-col items-center gap-3">
           <Toggle size="lg" checked label="Large" />
-          <span class="text-xs font-mono text-gray-400">lg</span>
+          <span class="text-xs font-mono text-muted-foreground">lg</span>
         </div>
       </FormRow>
     </div>
@@ -259,38 +259,38 @@ import FieldGroup from '@/components/FieldGroup.astro';
   <!-- File Upload -->
   <section class="specimen-section">
     <h2>File Upload</h2>
-    <p class="text-sm text-gray-600 mb-6 max-w-[65ch]">
-      Two variants: <code class="text-xs bg-gray-100 px-1.5 py-0.5 rounded-sm font-mono">dropzone</code> (dashed border, upload icon, drag-and-drop target) and <code class="text-xs bg-gray-100 px-1.5 py-0.5 rounded-sm font-mono">button</code> (styled like a secondary button with a hidden file input).
+    <p class="text-sm text-muted-foreground mb-6 max-w-[65ch]">
+      Two variants: <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm font-mono">dropzone</code> (dashed border, upload icon, drag-and-drop target) and <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm font-mono">button</code> (styled like a secondary button with a hidden file input).
     </p>
 
-    <h3 class="text-sm font-semibold text-gray-600 uppercase tracking-wide mb-4">Dropzone</h3>
-    <div class="border border-gray-200 rounded-lg p-8 mb-6">
+    <h3 class="text-sm font-semibold text-muted-foreground uppercase tracking-wide mb-4">Dropzone</h3>
+    <div class="border border-border rounded-lg p-8 mb-6">
       <FormRow>
         <div class="w-64">
           <FileUpload variant="dropzone" />
-          <span class="text-xs font-mono text-gray-400 mt-2 block text-center">default</span>
+          <span class="text-xs font-mono text-muted-foreground mt-2 block text-center">default</span>
         </div>
         <div class="w-64">
           <FileUpload variant="dropzone" state="dragover" />
-          <span class="text-xs font-mono text-gray-400 mt-2 block text-center">dragover</span>
+          <span class="text-xs font-mono text-muted-foreground mt-2 block text-center">dragover</span>
         </div>
         <div class="w-64">
           <FileUpload variant="dropzone" state="disabled" />
-          <span class="text-xs font-mono text-gray-400 mt-2 block text-center">disabled</span>
+          <span class="text-xs font-mono text-muted-foreground mt-2 block text-center">disabled</span>
         </div>
       </FormRow>
     </div>
 
-    <h3 class="text-sm font-semibold text-gray-600 uppercase tracking-wide mb-4">Button style</h3>
-    <div class="border border-gray-200 rounded-lg p-8">
+    <h3 class="text-sm font-semibold text-muted-foreground uppercase tracking-wide mb-4">Button style</h3>
+    <div class="border border-border rounded-lg p-8">
       <FormRow align="center">
         <div class="flex flex-col items-center gap-3">
           <FileUpload variant="button" />
-          <span class="text-xs font-mono text-gray-400">default</span>
+          <span class="text-xs font-mono text-muted-foreground">default</span>
         </div>
         <div class="flex flex-col items-center gap-3">
           <FileUpload variant="button" state="disabled" />
-          <span class="text-xs font-mono text-gray-400">disabled</span>
+          <span class="text-xs font-mono text-muted-foreground">disabled</span>
         </div>
       </FormRow>
     </div>
@@ -299,41 +299,41 @@ import FieldGroup from '@/components/FieldGroup.astro';
   <!-- Search Input -->
   <section class="specimen-section">
     <h2>Search Input</h2>
-    <p class="text-sm text-gray-600 mb-6 max-w-[65ch]">
-      Text input with a leading search icon and an optional clear button. The <code class="text-xs bg-gray-100 px-1.5 py-0.5 rounded-sm font-mono">has-value</code> state shows the populated input with clear affordance.
+    <p class="text-sm text-muted-foreground mb-6 max-w-[65ch]">
+      Text input with a leading search icon and an optional clear button. The <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm font-mono">has-value</code> state shows the populated input with clear affordance.
     </p>
 
-    <div class="border border-gray-200 rounded-lg p-8 mb-6">
+    <div class="border border-border rounded-lg p-8 mb-6">
       <FormRow>
         <div class="w-56">
           <SearchInput />
-          <span class="text-xs font-mono text-gray-400 mt-2 block text-center">default</span>
+          <span class="text-xs font-mono text-muted-foreground mt-2 block text-center">default</span>
         </div>
         <div class="w-56">
           <SearchInput state="has-value" withClear />
-          <span class="text-xs font-mono text-gray-400 mt-2 block text-center">has-value + clear</span>
+          <span class="text-xs font-mono text-muted-foreground mt-2 block text-center">has-value + clear</span>
         </div>
         <div class="w-56">
           <SearchInput state="disabled" />
-          <span class="text-xs font-mono text-gray-400 mt-2 block text-center">disabled</span>
+          <span class="text-xs font-mono text-muted-foreground mt-2 block text-center">disabled</span>
         </div>
       </FormRow>
     </div>
 
-    <h3 class="text-sm font-semibold text-gray-600 uppercase tracking-wide mb-4">Sizes</h3>
-    <div class="border border-gray-200 rounded-lg p-8">
+    <h3 class="text-sm font-semibold text-muted-foreground uppercase tracking-wide mb-4">Sizes</h3>
+    <div class="border border-border rounded-lg p-8">
       <FormRow align="end">
         <div class="w-48">
           <SearchInput size="sm" />
-          <span class="text-xs font-mono text-gray-400 mt-2 block text-center">sm</span>
+          <span class="text-xs font-mono text-muted-foreground mt-2 block text-center">sm</span>
         </div>
         <div class="w-48">
           <SearchInput size="md" />
-          <span class="text-xs font-mono text-gray-400 mt-2 block text-center">md</span>
+          <span class="text-xs font-mono text-muted-foreground mt-2 block text-center">md</span>
         </div>
         <div class="w-48">
           <SearchInput size="lg" />
-          <span class="text-xs font-mono text-gray-400 mt-2 block text-center">lg</span>
+          <span class="text-xs font-mono text-muted-foreground mt-2 block text-center">lg</span>
         </div>
       </FormRow>
     </div>
@@ -342,12 +342,12 @@ import FieldGroup from '@/components/FieldGroup.astro';
   <!-- Common Pairings -->
   <section class="specimen-section">
     <h2>Common Pairings</h2>
-    <p class="text-sm text-gray-600 mb-6 max-w-[65ch]">
-      Form elements composed into realistic patterns. Labels above inputs with <code class="text-xs bg-gray-100 px-1.5 py-0.5 rounded-sm font-mono">gap-1.5</code>, field groups separated by <code class="text-xs bg-gray-100 px-1.5 py-0.5 rounded-sm font-mono">gap-6</code>.
+    <p class="text-sm text-muted-foreground mb-6 max-w-[65ch]">
+      Form elements composed into realistic patterns. Labels above inputs with <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm font-mono">gap-1.5</code>, field groups separated by <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm font-mono">gap-6</code>.
     </p>
 
-    <h3 class="text-sm font-semibold text-gray-600 uppercase tracking-wide mb-4">Contact form</h3>
-    <div class="border border-gray-200 rounded-lg p-8 mb-6">
+    <h3 class="text-sm font-semibold text-muted-foreground uppercase tracking-wide mb-4">Contact form</h3>
+    <div class="border border-border rounded-lg p-8 mb-6">
       <FieldGroup class="max-w-md">
         <FormRow>
           <TextInput label="First name" placeholder="Jane" />
@@ -369,25 +369,25 @@ import FieldGroup from '@/components/FieldGroup.astro';
       </FieldGroup>
     </div>
 
-    <h3 class="text-sm font-semibold text-gray-600 uppercase tracking-wide mb-4">Settings panel</h3>
-    <div class="border border-gray-200 rounded-lg p-8 mb-6">
+    <h3 class="text-sm font-semibold text-muted-foreground uppercase tracking-wide mb-4">Settings panel</h3>
+    <div class="border border-border rounded-lg p-8 mb-6">
       <FieldGroup class="max-w-md">
         <div class="flex items-center justify-between">
           <div>
-            <p class="text-sm font-medium text-gray-900">Email notifications</p>
-            <p class="text-xs text-gray-400">Receive updates about your account</p>
+            <p class="text-sm font-medium text-foreground">Email notifications</p>
+            <p class="text-xs text-muted-foreground">Receive updates about your account</p>
           </div>
           <Toggle checked />
         </div>
         <div class="flex items-center justify-between">
           <div>
-            <p class="text-sm font-medium text-gray-900">Marketing emails</p>
-            <p class="text-xs text-gray-400">New features and product updates</p>
+            <p class="text-sm font-medium text-foreground">Marketing emails</p>
+            <p class="text-xs text-muted-foreground">New features and product updates</p>
           </div>
           <Toggle />
         </div>
-        <div class="border-t border-gray-200 pt-6">
-          <p class="text-sm font-medium text-gray-900 mb-3">Notification frequency</p>
+        <div class="border-t border-border pt-6">
+          <p class="text-sm font-medium text-foreground mb-3">Notification frequency</p>
           <div class="flex flex-col gap-2">
             <Radio checked name="notification-freq" value="realtime" label="Real-time" />
             <Radio name="notification-freq" value="daily" label="Daily digest" />
@@ -397,8 +397,8 @@ import FieldGroup from '@/components/FieldGroup.astro';
       </FieldGroup>
     </div>
 
-    <h3 class="text-sm font-semibold text-gray-600 uppercase tracking-wide mb-4">Search with filters</h3>
-    <div class="border border-gray-200 rounded-lg p-8">
+    <h3 class="text-sm font-semibold text-muted-foreground uppercase tracking-wide mb-4">Search with filters</h3>
+    <div class="border border-border rounded-lg p-8">
       <div class="max-w-lg">
         <SearchInput placeholder="Search products..." size="lg" />
         <div class="flex flex-wrap gap-4 mt-4">
@@ -413,48 +413,48 @@ import FieldGroup from '@/components/FieldGroup.astro';
   <!-- Shared Patterns -->
   <section class="specimen-section">
     <h2>Shared Patterns</h2>
-    <p class="text-sm text-gray-600 mb-6 max-w-[65ch]">
+    <p class="text-sm text-muted-foreground mb-6 max-w-[65ch]">
       Consistent rules across all form elements.
     </p>
     <div class="overflow-x-auto">
       <table class="w-full text-sm">
         <thead>
-          <tr class="border-b border-gray-200">
-            <th class="text-left py-3 pr-6 font-semibold text-gray-900">Pattern</th>
-            <th class="text-left py-3 pr-6 font-semibold text-gray-900">Classes</th>
-            <th class="text-left py-3 font-semibold text-gray-900">Notes</th>
+          <tr class="border-b border-border">
+            <th class="text-left py-3 pr-6 font-semibold text-foreground">Pattern</th>
+            <th class="text-left py-3 pr-6 font-semibold text-foreground">Classes</th>
+            <th class="text-left py-3 font-semibold text-foreground">Notes</th>
           </tr>
         </thead>
-        <tbody class="text-gray-600">
-          <tr class="border-b border-gray-100">
+        <tbody class="text-muted-foreground">
+          <tr class="border-b border-border">
             <td class="py-3 pr-6">Label</td>
-            <td class="py-3 pr-6 font-mono text-xs">text-sm font-medium text-gray-700</td>
+            <td class="py-3 pr-6 font-mono text-xs">text-sm font-medium text-foreground</td>
             <td class="py-3">Above input with gap-1.5</td>
           </tr>
-          <tr class="border-b border-gray-100">
+          <tr class="border-b border-border">
             <td class="py-3 pr-6">Hint (default)</td>
-            <td class="py-3 pr-6 font-mono text-xs">text-xs text-gray-400</td>
+            <td class="py-3 pr-6 font-mono text-xs">text-xs text-muted-foreground</td>
             <td class="py-3">Below input</td>
           </tr>
-          <tr class="border-b border-gray-100">
+          <tr class="border-b border-border">
             <td class="py-3 pr-6">Hint (error)</td>
-            <td class="py-3 pr-6 font-mono text-xs">text-xs text-red-500</td>
-            <td class="py-3">+ border-red-500 on input</td>
+            <td class="py-3 pr-6 font-mono text-xs">text-xs text-destructive</td>
+            <td class="py-3">+ border-destructive on input</td>
           </tr>
-          <tr class="border-b border-gray-100">
+          <tr class="border-b border-border">
             <td class="py-3 pr-6">Hint (success)</td>
-            <td class="py-3 pr-6 font-mono text-xs">text-xs text-green-600</td>
-            <td class="py-3">+ border-green-500 on input</td>
+            <td class="py-3 pr-6 font-mono text-xs">text-xs text-success</td>
+            <td class="py-3">+ border-success on input</td>
           </tr>
-          <tr class="border-b border-gray-100">
+          <tr class="border-b border-border">
             <td class="py-3 pr-6">Focus ring</td>
-            <td class="py-3 pr-6 font-mono text-xs">border-primary-500 outline-2 outline-primary-300</td>
+            <td class="py-3 pr-6 font-mono text-xs">border-primary outline-2 outline-ring</td>
             <td class="py-3">All focusable elements</td>
           </tr>
-          <tr class="border-b border-gray-100">
+          <tr class="border-b border-border">
             <td class="py-3 pr-6">Disabled</td>
             <td class="py-3 pr-6 font-mono text-xs">opacity-50 cursor-not-allowed</td>
-            <td class="py-3">+ bg-gray-50 on inputs</td>
+            <td class="py-3">+ bg-muted on inputs</td>
           </tr>
           <tr>
             <td class="py-3 pr-6">Field spacing</td>
