@@ -1,4 +1,5 @@
 ---
+import { config } from '../../../../config';
 import FullScreen from '../../_layout/FullScreen.astro';
 import ButtonsContent from '../_content/buttons.astro';
 import CardsContent from '../_content/cards.astro';
@@ -13,7 +14,7 @@ const views: Record<string, { title: string; component: any }> = {
 };
 
 export function getStaticPaths() {
-  const themes = ['light', 'dark'];
+  const themes = config.darkMode ? ['light', 'dark'] : ['light'];
   const slugs = ['buttons', 'cards', 'forms', 'grid'];
 
   return themes.flatMap((theme) =>

@@ -142,6 +142,27 @@ After the semantic tokens in `@theme`, add a `.dark` block that remaps every sem
 
 If dark mode is **not** opted in, still use the same semantic token architecture (same `@theme` structure, same shadcn names) — just omit the `.dark` block. Components are identical either way, and dark mode can be added later by only touching `global.css`.
 
+### Disabling dark mode (if opted out)
+
+Dark mode is controlled by a single flag in `src/config.ts`:
+
+```ts
+export const config = {
+  darkMode: false, // set to true to enable
+};
+```
+
+When `darkMode` is `false`:
+- **Sidebar** — toggle button is hidden (prop-gated, not deleted)
+- **FullscreenLink** — renders a plain link, no theme swapping
+- **`view/[theme]/[...slug].astro`** — `getStaticPaths()` only generates `/view/light/*` routes
+- **`global.css`** — still needs the `.dark` block and `@custom-variant dark` removed (or left inert — no routes generate dark pages anyway). For a clean build, remove them
+
+When `darkMode` is `true`:
+- Toggle appears, link swaps light/dark, both route sets are generated
+
+The result: flip one boolean to enable/disable. No file deletion needed. Adding dark mode later is `config.darkMode = true` + adding the `.dark` block to `global.css`.
+
 ### Style guide page
 
 The `index.astro` style guide shows palette swatches using **inline `style` attributes** referencing CSS custom properties (e.g., `style="background-color: var(--gray-50)"`), since palette utility classes don't exist. Semantic token specimens use Tailwind utilities (`bg-background`, `bg-card`, etc.).

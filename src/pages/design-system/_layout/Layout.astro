@@ -3,6 +3,7 @@ import '../../../styles/global.css';
 import '../../../styles/reset.css';
 import '../../../styles/design-system.css';
 import Sidebar from './Sidebar.tsx';
+import FullscreenLink from './FullscreenLink.tsx';
 
 interface Props {
   title: string;
@@ -62,7 +63,7 @@ const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
       <main class="ds-page">
         <div class="ds-page-header">
           <h1>{title}</h1>
-          {fullscreenHref && <a href={fullscreenHref} class="ds-fullscreen-link" target="_blank">View full screen</a>}
+          {fullscreenHref && <FullscreenLink client:load href={fullscreenHref} />}
         </div>
         {description && <p class="ds-desc">{description}</p>}
         <slot />

@@ -14,6 +14,7 @@ interface NavGroup {
 interface Props {
   groups: NavGroup[];
   currentPath: string;
+  darkMode?: boolean;
 }
 
 const ExternalIcon = () => (
@@ -90,7 +91,7 @@ const MoonIcon = () => (
 
 const THEME_KEY = 'angora-ds-theme';
 
-export default function Sidebar({ groups, currentPath }: Props) {
+export default function Sidebar({ groups, currentPath, darkMode = false }: Props) {
   const [dark, setDark] = useState(() => {
     if (typeof window === 'undefined') return false;
     const stored = localStorage.getItem(THEME_KEY);
@@ -163,29 +164,31 @@ export default function Sidebar({ groups, currentPath }: Props) {
         onInput={(e) => setQuery((e.target as HTMLInputElement).value)}
       />
 
-      <button
-        type="button"
-        onClick={() => setDark((d) => !d)}
-        aria-label={dark ? 'Switch to light mode' : 'Switch to dark mode'}
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: 'var(--spacing-2)',
-          margin: '0 var(--spacing-3) var(--spacing-4)',
-          padding: 'var(--spacing-2) var(--spacing-3)',
-          fontSize: 'var(--text-xs)',
-          color: 'var(--color-muted-foreground)',
-          background: 'none',
-          border: '1px solid var(--color-border)',
-          borderRadius: 'var(--radius-sm)',
-          cursor: 'pointer',
-          width: 'calc(100% - var(--spacing-6))',
-          transition: 'color var(--duration-fast) var(--ease-default), border-color var(--duration-fast) var(--ease-default)',
-        }}
-      >
-        {dark ? <SunIcon /> : <MoonIcon />}
-        {dark ? 'Light mode' : 'Dark mode'}
-      </button>
+      {darkMode && (
+        <button
+          type="button"
+          onClick={() => setDark((d) => !d)}
+          aria-label={dark ? 'Switch to light mode' : 'Switch to dark mode'}
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 'var(--spacing-2)',
+            margin: '0 var(--spacing-3) var(--spacing-4)',
+            padding: 'var(--spacing-2) var(--spacing-3)',
+            fontSize: 'var(--text-xs)',
+            color: 'var(--color-muted-foreground)',
+            background: 'none',
+            border: '1px solid var(--color-border)',
+            borderRadius: 'var(--radius-sm)',
+            cursor: 'pointer',
+            width: 'calc(100% - var(--spacing-6))',
+            transition: 'color var(--duration-fast) var(--ease-default), border-color var(--duration-fast) var(--ease-default)',
+          }}
+        >
+          {dark ? <SunIcon /> : <MoonIcon />}
+          {dark ? 'Light mode' : 'Dark mode'}
+        </button>
+      )}
 
       <nav class="ds-nav">
         {filtered.map((group) => (
