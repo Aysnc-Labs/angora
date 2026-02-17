@@ -43,24 +43,6 @@ open_url() {
   fi
 }
 
-launch_terminal() {
-  local dir=$1 cmd=$2
-  if [[ "$OSTYPE" == darwin* ]]; then
-    osascript -e "
-      tell application \"Terminal\"
-        activate
-        do script \"cd '$dir' && $cmd\"
-      end tell
-    " &>/dev/null
-  elif command -v gnome-terminal &>/dev/null; then
-    gnome-terminal -- bash -c "cd '$dir' && $cmd; exec bash" &>/dev/null &
-  elif command -v xterm &>/dev/null; then
-    xterm -e "cd '$dir' && $cmd; exec bash" &>/dev/null &
-  else
-    return 1
-  fi
-}
-
 spin() {
   local pid=$1 msg=$2
   local frames=('⠋' '⠙' '⠹' '⠸' '⠼' '⠴' '⠦' '⠧' '⠇' '⠏')
@@ -230,7 +212,7 @@ if [ "$HAS_CLAUDE" = true ]; then
   printf "\n"
   printf "  ${WHITE}${BOLD}Ready.${RESET}\n"
   printf "\n"
-  printf "  ${DIM}Starts the dev server here, opens Claude in a new tab.${RESET}\n"
+  printf "  ${DIM}Launches dev server + Claude Code.${RESET}\n"
   printf "\n"
 
   read -r -p "  Start building? [Y/n] " response < /dev/tty
@@ -239,21 +221,29 @@ if [ "$HAS_CLAUDE" = true ]; then
   if [[ "$response" =~ ^[Yy]$ ]]; then
     printf "\n"
 
-    # Launch Claude in a new terminal tab
-    if launch_terminal "$TARGET_DIR" "claude /angora-design-system-init"; then
-      ok "Claude opened in new tab"
+    # Dev server in background
+    pnpm run dev > /dev/null 2>&1 &
+    DEV_PID=$!
+    frames=('⠋' '⠙' '⠹' '⠸' '⠼' '⠴' '⠦' '⠧' '⠇' '⠏')
+    tput civis 2>/dev/null
+    for ((j=0; j<20; j++)); do
+      printf "\r  ${DIM}%s${RESET} Starting dev server..." "${frames[$((j % 10))]}"
+      sleep 0.08
+    done
+    tput cnorm 2>/dev/null
+    printf "\r\033[2K"
+
+    if kill -0 "$DEV_PID" 2>/dev/null; then
+      ok "Dev server → $(link "http://localhost:4321" "localhost:4321")"
+      open_url "http://localhost:4321"
     else
-      warn "Couldn't open a new tab — run ${BOLD}claude${RESET} manually"
+      warn "Dev server failed — run ${BOLD}pnpm run dev${RESET} manually"
     fi
 
-    # Start dev server in this terminal
+    # Claude in foreground
     printf "\n"
-    ok "Dev server → $(link "http://localhost:4321" "localhost:4321")"
-    open_url "http://localhost:4321"
-    printf "\n"
-
-    # Hand over to dev server (replaces this process)
-    exec pnpm run dev
+    claude "/angora-design-system-init" || true
+    exit 0
   fi
 
   # User declined
@@ -261,7 +251,7 @@ if [ "$HAS_CLAUDE" = true ]; then
   printf "  ${DIM}Whenever you're ready:${RESET}\n"
   printf "\n"
   printf "  ${BOLD}pnpm run dev${RESET}\n"
-  printf "  ${BOLD}claude${RESET} → ${BOLD}/angora-design-system-init${RESET}\n"
+  printf "  ${BOLD}claude /angora-design-system-init${RESET}\n"
   printf "\n"
 
 else
