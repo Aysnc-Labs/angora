@@ -1,8 +1,8 @@
 <img src="public/angora.svg" width="120" />
 
-### 🚧 Work In Progress. Things may change!
-
 # Angora
+
+> **Alpha** — Angora is in early development. APIs and workflows may change between releases.
 
 **Your design system is the website.**
 
