@@ -153,13 +153,14 @@ export const config = {
 ```
 
 When `darkMode` is `false`:
+- **Layout.astro** — imports `config` and passes `darkMode={config.darkMode}` to Sidebar. This is the wiring that makes the flag work
 - **Sidebar** — toggle button is hidden (prop-gated, not deleted)
 - **FullscreenLink** — renders a plain link, no theme swapping
 - **`view/[theme]/[...slug].astro`** — `getStaticPaths()` only generates `/view/light/*` routes
 - **`global.css`** — still needs the `.dark` block and `@custom-variant dark` removed (or left inert — no routes generate dark pages anyway). For a clean build, remove them
 
 When `darkMode` is `true`:
-- Toggle appears, link swaps light/dark, both route sets are generated
+- Layout passes the prop, toggle appears, link swaps light/dark, both route sets are generated
 
 The result: flip one boolean to enable/disable. No file deletion needed. Adding dark mode later is `config.darkMode = true` + adding the `.dark` block to `global.css`.
 

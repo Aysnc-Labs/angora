@@ -11,11 +11,12 @@
   flex-shrink: 0;
   background: var(--color-muted);
   border-right: 1px solid var(--color-border);
-  padding: var(--spacing-6) 0;
+  padding: var(--spacing-6) 0 0;
   position: sticky;
   top: 0;
   height: 100dvh;
-  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
 }
 
 .ds-sidebar-top {
@@ -76,6 +77,8 @@
   flex-direction: column;
   gap: var(--spacing-4);
   padding: 0 var(--spacing-3);
+  flex: 1;
+  overflow-y: auto;
 }
 
 /* External link icon (used in layout links that open in new tab) */
@@ -179,13 +182,18 @@
 
 .ds-fullscreen-link {
   font-size: var(--text-sm);
-  color: var(--color-muted-foreground);
-  text-decoration: none;
+  color: var(--color-primary);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: color-mix(in oklch, var(--color-primary) 40%, transparent);
   white-space: nowrap;
+  transition: color 200ms var(--ease-default),
+    text-decoration-color 200ms var(--ease-default);
 }
 
 .ds-fullscreen-link:hover {
-  color: var(--color-foreground);
+  color: var(--color-primary);
+  text-decoration-color: var(--color-primary);
 }
 
 .ds-page > p.ds-desc {

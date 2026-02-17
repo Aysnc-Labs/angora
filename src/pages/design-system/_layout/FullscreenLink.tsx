@@ -25,7 +25,11 @@ export default function FullscreenLink({ href, darkMode = false }: Props) {
     : href;
 
   return (
-    <a href={resolvedHref} class="ds-fullscreen-link" target="_blank">
+    <a
+      href={resolvedHref}
+      class="ds-fullscreen-link"
+      target="_blank"
+    >
       View full screen
     </a>
   );

@@ -4,6 +4,7 @@ import '../../../styles/reset.css';
 import '../../../styles/design-system.css';
 import Sidebar from './Sidebar.tsx';
 import FullscreenLink from './FullscreenLink.tsx';
+import { config } from '../../../config';
 
 interface Props {
   title: string;
@@ -59,11 +60,11 @@ const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
   </head>
   <body>
     <div class="ds-shell">
-      <Sidebar client:load groups={groups} currentPath={currentPath} />
+      <Sidebar client:load groups={groups} currentPath={currentPath} darkMode={config.darkMode} />
       <main class="ds-page">
         <div class="ds-page-header">
           <h1>{title}</h1>
-          {fullscreenHref && <FullscreenLink client:load href={fullscreenHref} />}
+          {fullscreenHref && <FullscreenLink client:load href={fullscreenHref} darkMode={config.darkMode} />}
         </div>
         {description && <p class="ds-desc">{description}</p>}
         <slot />
