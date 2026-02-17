@@ -11,17 +11,20 @@ function discoverPages(dir: string) {
     .map((f) => f.replace('.astro', ''));
 }
 
-// Components (full-screen views)
-const viewPages = discoverPages('src/pages/design-system/view');
+// Components (full-screen views) — test both light and dark
+const viewPages = discoverPages('src/pages/design-system/view/_content');
+const themes = ['light', 'dark'];
 
-for (const page of viewPages) {
-  test(`components / ${page}`, async ({ page: p }) => {
-    await p.goto(`/design-system/view/${page}`);
-    const results = await new AxeBuilder({ page: p })
-      .withTags(config.tags)
-      .analyze();
-    expect(results.violations).toEqual([]);
-  });
+for (const theme of themes) {
+  for (const page of viewPages) {
+    test(`components / ${page} (${theme})`, async ({ page: p }) => {
+      await p.goto(`/design-system/view/${theme}/${page}`);
+      const results = await new AxeBuilder({ page: p })
+        .withTags(config.tags)
+        .analyze();
+      expect(results.violations).toEqual([]);
+    });
+  }
 }
 
 // Layouts (full-page compositions)

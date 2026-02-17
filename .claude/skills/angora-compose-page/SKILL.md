@@ -11,8 +11,8 @@ Build or update a full site page from approved components. Pages are living docu
 ## Before you start
 
 1. **Read `src/system.md`** — intent, accessibility standard, anti-patterns.
-2. **Read `src/styles/global.css`** — available tokens for page-level spacing and backgrounds.
-3. **Read [design-principles.md](../docs/design-principles.md)** — especially Spacing & Layout and Finishing Touches sections.
+2. **Read `src/styles/global.css`** — available tokens for page-level spacing and backgrounds. All color references must use **semantic token utilities** — raw palette classes don't exist.
+3. **Read [design-principles.md](../docs/design-principles.md)** — especially Spacing & Layout, Dark Mode, and Finishing Touches sections.
 4. **Inventory components** — list `src/components/*.astro` to know what's available. Only use approved, built components.
 5. **Read `src/components/Section.astro`** — understand the Section pattern before composing pages. All page sections use this component.
 6. **Check for wireframe** — look for `src/pages/design-system/wireframes/<page-name>.astro`. If it exists, read it — especially the data source annotations in frontmatter.
@@ -125,10 +125,12 @@ Every field inside a FieldGroup should be wrapped in a FormRow. Don't use raw `<
 - **Section-level components compose Section internally** — if using Hero, Features, or other section-level components, they already render Section under the hood. Don't double-wrap with `<Section><Hero>`.
 - **Backgrounded sections use `seamless`** — `<Section seamless>` for sections with background colors/images. Adjacent seamless sections get 0 gap so backgrounds butt up.
 - **Prose utility for content sections** — sections with flowing editorial content (articles, about copy, rich text from CMS) should wrap content in the `prose` utility class from `global.css`. It handles heading sizes, vertical rhythm, list styling, blockquotes, links, `text-wrap`, and inline treatments (`mark`, `code`, `kbd`). Don't use `prose` on structured component sections (hero, pricing, features) — those own their spacing explicitly.
-- Background alternation for visual rhythm (light/dark sections)
+- Background alternation for visual rhythm — use semantic surface tokens for section variety. These automatically adapt in dark mode
 - Visual flow — the eye moves naturally through the page
 - Responsive behavior via container queries
 - SEO: `<title>`, `<meta name="description">`, OG tags
+- **`color-scheme` meta tag** — already handled by `Layout.astro` for design system pages. For site pages, include `<meta name="color-scheme" content="light dark">` if the site supports dark mode, or `<meta name="color-scheme" content="light">` if light-only
+- **Images in dark mode** — photographs on dark backgrounds can feel jarring. Use `dark:brightness-80 dark:contrast-125` on `<img>` elements to dim slightly. Avoid images with baked-in white backgrounds — they become glowing rectangles in dark mode. Prefer transparent or neutral backgrounds for logos and illustrations
 
 ## Review
 

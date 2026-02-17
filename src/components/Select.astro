@@ -31,27 +31,27 @@ const labelSizeClasses: Record<string, string> = {
 
 function resolveClasses(): string {
   const parts = [
-    'block w-full rounded-md border font-sans bg-white text-gray-900 appearance-none cursor-pointer',
+    'block w-full rounded-md border font-sans bg-card text-foreground appearance-none cursor-pointer',
     sizeClasses[size],
   ];
 
   if (state === 'hover') {
-    parts.push('border-gray-400');
+    parts.push('border-muted-foreground');
   } else if (state === 'focus') {
-    parts.push('border-primary-500 outline-2 outline-primary-300 outline-offset-0');
+    parts.push('border-primary outline-2 outline-ring outline-offset-0');
   } else if (state === 'error') {
-    parts.push('border-red-500');
+    parts.push('border-destructive');
   } else if (state === 'disabled') {
-    parts.push('border-gray-200 bg-gray-50 text-gray-400 cursor-not-allowed');
+    parts.push('border-border bg-muted text-muted-foreground cursor-not-allowed');
   } else if (!state) {
     parts.push(
-      'border-gray-300',
-      'hover:border-gray-400',
-      'focus:border-primary-500 focus:outline-2 focus:outline-primary-300 focus:outline-offset-0',
+      'border-input',
+      'hover:border-muted-foreground',
+      'focus:border-primary focus:outline-2 focus:outline-ring focus:outline-offset-0',
       'transition-colors duration-fast ease-default',
     );
   } else {
-    parts.push('border-gray-300');
+    parts.push('border-input');
   }
 
   return parts.join(' ');
@@ -64,7 +64,7 @@ const inputId = `select-${crypto.randomUUID().slice(0, 8)}`;
 
 <div data-component="Select" class="flex flex-col gap-1.5">
   {label && (
-    <label for={inputId} class={`font-medium text-gray-700 ${labelSizeClasses[size]}`}>{label}</label>
+    <label for={inputId} class={`font-medium text-foreground ${labelSizeClasses[size]}`}>{label}</label>
   )}
   <div class="relative">
     <select
@@ -79,13 +79,13 @@ const inputId = `select-${crypto.randomUUID().slice(0, 8)}`;
         <option>{opt}</option>
       ))}
     </select>
-    <div class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none">
+    <div class="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground pointer-events-none">
       <svg width={chevronSize} height={chevronSize} viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <polyline points="6 9 12 15 18 9" />
       </svg>
     </div>
   </div>
   {hint && (
-    <p class={`text-xs ${state === 'error' ? 'text-red-600' : 'text-gray-500'}`}>{hint}</p>
+    <p class={`text-xs ${state === 'error' ? 'text-destructive' : 'text-muted-foreground'}`}>{hint}</p>
   )}
 </div>

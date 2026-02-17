@@ -43,7 +43,7 @@ Principles that inform the audit and all design decisions.
 - Separate visual hierarchy from document hierarchy — an `h1` doesn't need to be the biggest visual element. Section titles often act as labels and should be small. Style based on hierarchy role, not HTML tag.
 - Balance weight and contrast — icons are visually "heavy" (high surface area), so give them a softer color to balance with adjacent text. Thin borders that are too subtle should be made wider (2px), not darker.
 - Semantics are secondary — primary actions: solid high-contrast backgrounds. Secondary: outline or lower contrast. Tertiary: styled like links. Destructive actions aren't always big and red — use secondary treatment with a confirmation step where it becomes primary.
-- Don't use grey text on colored backgrounds — hand-pick a same-hue color with adjusted saturation/lightness. Never use `opacity` or `rgba(255,255,255,0.5)` — it looks washed out and lets the background bleed through on images/patterns.
+- Don't use grey text on colored backgrounds — hand-pick a same-hue color with adjusted chroma/lightness. Never use `opacity` or `rgba(255,255,255,0.5)` — it looks washed out and lets the background bleed through on images/patterns.
 
 ## Spacing & Layout
 
@@ -87,27 +87,61 @@ Principles that inform the audit and all design decisions.
 
 ## Color
 
-- Use HSL, not hex or RGB — human-perceivable attributes. Warning: design tools (Figma, Sketch) use HSB, not HSL. The values are NOT interchangeable — lightness in HSL ≠ brightness in HSB. Always convert to HSL for CSS.
-- True black looks unnatural — always use near-black (e.g., `hsl(220, 13%, 10%)`), never `#000` or `rgb(0,0,0)` for text or backgrounds.
+- Use OKLCH, not hex or RGB — perceptually uniform lightness means L=0.5 looks equally bright regardless of hue, so palette generation is predictable. `oklch(L C H)` where L = lightness (0–1), C = chroma (0–0.4), H = hue angle (0–360). HSL is acceptable but inferior — equal HSL lightness values look different across hues. Warning: design tools (Figma, Sketch) use HSB/HSV, not HSL or OKLCH. Always convert for CSS.
+- True black looks unnatural — always use near-black (e.g., `oklch(0.16 0.014 264)` / `hsl(220, 13%, 10%)`), never `#000` or `rgb(0,0,0)` for text or backgrounds.
 - You need more colors than you think: 8-10 greys, 5-10 shades per primary/accent, plus semantic colors (yellow for warnings, red for errors/destructive, green for success, plus highlight colors for badges).
 - Nine shades per color (100-900): base at 500 (must work as button background with white text), darkest at 900 (for text), lightest at 100 (for tinted backgrounds like alerts). Fill: 700/300 first, then 800/600/400/200.
-- Increase saturation as lightness moves away from 50% to prevent washed-out shades.
-- Rotate hue toward bright hues (60/180/300) to lighten, toward dark hues (0/120/240) to darken — preserves saturation. Max 20-30 degree rotation. Why these numbers: perceived brightness has three peaks (yellow 60, cyan 180, magenta 300) and three valleys (red 0, green 120, blue 240). Rotating toward a peak brightens; toward a valley darkens.
-- Greys don't have to be grey — saturate with blue for cool, yellow/orange for warm. Increase saturation for lighter/darker shades to maintain temperature. Build grey scale from endpoints: darkest = your darkest text color, lightest = a subtle off-white background.
+- Increase saturation (chroma in OKLCH) as lightness moves away from the midpoint to prevent washed-out shades.
+- Rotate hue toward bright hues (60°/180°/300°) to lighten, toward dark hues (0°/120°/240°) to darken — preserves chroma. Max 20-30° rotation. Why these numbers: perceived brightness has three peaks (yellow 60°, cyan 180°, magenta 300°) and three valleys (red 0°, green 120°, blue 240°). Rotating toward a peak brightens; toward a valley darkens.
+- Greys don't have to be grey — add chroma with a blue hue for cool, yellow/orange hue for warm. Increase chroma for lighter/darker shades to maintain temperature. Build grey scale from endpoints: darkest = your darkest text color, lightest = a subtle off-white background.
 - Accessible doesn't mean ugly — flip contrast (dark text on light tinted background). For colored text on colored backgrounds, rotate hue toward cyan/magenta/yellow to increase contrast while staying colorful, instead of approaching white.
 - Don't rely on color alone — always provide a secondary indicator (icon, text, contrast). For charts, use light vs dark shades of one hue rather than distinct colors (more accessible for colorblind users).
 - Never use CSS `lighten()`/`darken()` or `color-mix()` — these generate arbitrary shades outside your palette. Always use explicit predefined shade values.
+- **Semantic token layer:** Raw palette values (gray-50 through gray-950, primary-50 through primary-950) are defined as CSS custom properties outside `@theme`. Semantic role-based tokens (`--color-background`, `--color-foreground`, `--color-card`, etc.) are defined inside `@theme` and reference the primitives. Only semantic tokens generate Tailwind utility classes — components use `bg-card`, `text-foreground`, `border-border`, never `bg-gray-50` or `text-gray-900`. This is structural enforcement: incorrect usage is impossible because the raw palette utilities don't exist.
 
 ## Depth
 
 - Shadows, flat-color depth, solid shadows, and overlapping are complementary depth tools — use them together, but keep the application consistent (e.g., don't mix soft diffuse shadows with solid flat shadows on similar elements).
-- Emulate a light source from above. Raised elements: lighter top edge (`inset box-shadow` or `border-top` with lighter shade) + dark, sharp-edged shadow below (low blur radius — a couple of pixels). Hand-pick the lighter color — don't use semi-transparent white (`rgba(255,255,255,0.1)` sucks saturation from colored surfaces). Keep it subtle — borrow cues from the real world, but don't aim for photo-realism.
+- Emulate a light source from above. Raised elements: lighter top edge (`inset box-shadow` or `border-top` with lighter shade) + dark, sharp-edged shadow below (low blur radius — a couple of pixels). Hand-pick the lighter color — don't use semi-transparent white (`rgba(255,255,255,0.1)` drains chroma from colored surfaces). Keep it subtle — borrow cues from the real world, but don't aim for photo-realism.
 - Inset/recessed elements: dark `inset box-shadow` at top (positive y-offset) + lighter bottom edge. Use for wells, text inputs, checkboxes.
 - Shadows: use two-part shadows (one larger/softer for direct light, one tighter/darker for ambient occlusion). At higher elevations, the ambient (tight) shadow fades away.
 - Define a shadow scale — five levels is usually enough (sm, md, lg, xl, 2xl). Start by defining the smallest and largest, then fill the middle linearly. Smaller = slightly raised (buttons), medium = dropdowns, large = modals.
 - Shadow interaction states: hover = increase shadow (element lifts), active/click = decrease or remove shadow (element presses). Exception: drag-and-drop — shadow *increases* on click to lift the item above its peers for dragging. Always transition shadow size on interactive elements.
 - Flat designs can have depth: lighter = closer, darker = recessed. Solid shadows (no blur) for flat aesthetic.
 - Overlap elements to create layers — offset cards across background transitions, make elements taller than parents. For overlapping images, use a border matching the background color (`border: 3px solid white`) to create separation, not `gap` or `margin`.
+
+## Dark Mode
+
+### Color
+
+- **Dark mode is a first-class theme, not an inversion.** Every color and elevation decision must be deliberate for both modes. Never algorithmically invert.
+- **Use dark gray, never pure black.** Background around OKLCH L=0.15. Pure black causes halation — white text glows/bleeds for people with astigmatism (30-60% of population).
+- **Desaturate accent colors.** Reduce chroma for colors on dark surfaces. Saturated colors cause visual vibration — an optical shimmer that strains eyes. Maintain brand hue; shift lightness and chroma only.
+- **Pair every background with a guaranteed-contrast foreground.** The `--color-*` / `--color-*-foreground` convention enforces this structurally. When you define `--color-primary`, you must define `--color-primary-foreground`.
+- **Meet WCAG AA in both modes independently.** Dark mode does not get a pass. 4.5:1 for normal text, 3:1 for large text and non-text elements, in both modes.
+
+### Elevation
+
+- **Replace shadows with tonal elevation.** Higher surfaces are lighter; lower surfaces are darker. Shadows vanish against dark backgrounds — use surface lightness to convey depth instead.
+- **Material approach:** Semi-transparent white overlay on base surface, opacity increasing with elevation (0% at base, ~16% at highest). Material 3 uses primary-tinted overlay for brand warmth.
+- **Apple approach:** Binary system — "base" (dimmer) and "elevated" (brighter). Simpler than Material's continuous gradient.
+- **If shadows must exist**, the background must be light enough (dark gray, not black) to provide contrast. Shadow tokens use increased opacity in dark mode (e.g., 0.08 → 0.25 for main shadow).
+
+### Images & Media
+
+- **Photographs:** Dim slightly — `filter: brightness(0.8) contrast(1.2)` via `.dark` class. Prevents bright images from being jarring against dark surfaces.
+- **Logos & illustrations:** Use `<picture>` with `prefers-color-scheme` media query for alternate assets. Or ensure transparent backgrounds.
+- **Avoid baked-in white backgrounds.** They become glowing rectangles in dark mode. Prefer transparent or neutral backgrounds.
+
+### Transitions
+
+- **Transition color properties**, not the entire page. 200-500ms on `background-color` and `color`.
+- **Respect `prefers-reduced-motion`.** No transition animation for users who requested reduced motion.
+- **Set `color-scheme` in CSS.** This single declaration fixes scrollbars, form controls, and browser-native UI. Both as CSS property on `html` and `<meta name="color-scheme">` in `<head>`.
+
+### Anti-Aliasing
+
+- **Light text on dark backgrounds** can show halo effects from sub-pixel rendering. Mitigated by `-webkit-font-smoothing: antialiased` (set globally), but be aware during testing — check both modes.
 
 ## Images & Icons
 

@@ -12,21 +12,21 @@ function resolveDropzoneClasses(): string {
   ];
 
   if (state === 'hover') {
-    parts.push('border-gray-400 bg-gray-50');
+    parts.push('border-muted-foreground bg-muted');
   } else if (state === 'dragover') {
-    parts.push('border-primary-500 bg-primary-50');
+    parts.push('border-primary bg-primary/10');
   } else if (state === 'focus') {
-    parts.push('border-gray-300 outline-2 outline-primary-300 outline-offset-2');
+    parts.push('border-input outline-2 outline-ring outline-offset-2');
   } else if (state === 'disabled') {
-    parts.push('border-gray-200 bg-gray-50 opacity-50 cursor-not-allowed');
+    parts.push('border-border bg-muted opacity-50 cursor-not-allowed');
   } else if (!state) {
     parts.push(
-      'border-gray-300',
-      'hover:border-gray-400 hover:bg-gray-50',
+      'border-input',
+      'hover:border-muted-foreground hover:bg-muted',
       'transition-colors duration-fast ease-default',
     );
   } else {
-    parts.push('border-gray-300');
+    parts.push('border-input');
   }
 
   return parts.join(' ');
@@ -34,18 +34,18 @@ function resolveDropzoneClasses(): string {
 
 function resolveButtonClasses(): string {
   const parts = [
-    'inline-flex items-center gap-2 rounded-md border border-gray-300 bg-white px-4 py-2.5 text-sm font-medium text-gray-700 cursor-pointer',
+    'inline-flex items-center gap-2 rounded-md border border-input bg-card px-4 py-2.5 text-sm font-medium text-foreground cursor-pointer',
   ];
 
   if (state === 'hover') {
-    parts.push('border-gray-400 bg-gray-50');
+    parts.push('border-muted-foreground bg-accent');
   } else if (state === 'focus') {
-    parts.push('outline-2 outline-primary-300 outline-offset-2');
+    parts.push('outline-2 outline-ring outline-offset-2');
   } else if (state === 'disabled') {
     parts.push('opacity-50 cursor-not-allowed');
   } else if (!state) {
     parts.push(
-      'hover:border-gray-400 hover:bg-gray-50',
+      'hover:border-muted-foreground hover:bg-accent',
       'transition-colors duration-fast ease-default',
     );
   }
@@ -56,14 +56,14 @@ function resolveButtonClasses(): string {
 
 {variant === 'dropzone' ? (
   <div data-component="FileUpload" class={resolveDropzoneClasses()} data-state={state || undefined} aria-disabled={state === 'disabled' ? 'true' : undefined}>
-    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-gray-400">
+    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-muted-foreground">
       <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
       <polyline points="17 8 12 3 7 8" />
       <line x1="12" y1="3" x2="12" y2="15" />
     </svg>
     <div>
-      <p class="text-sm font-medium text-gray-700">Drop files here or click to upload</p>
-      <p class="text-xs text-gray-600 mt-1">PNG, JPG, PDF up to 10MB</p>
+      <p class="text-sm font-medium text-foreground">Drop files here or click to upload</p>
+      <p class="text-xs text-muted-foreground mt-1">PNG, JPG, PDF up to 10MB</p>
     </div>
   </div>
 ) : (

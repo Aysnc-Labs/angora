@@ -9,27 +9,27 @@ import Close from '@/icons/Close.astro';
   <!-- Icon Gallery -->
   <section class="specimen-section">
     <h2>Gallery</h2>
-    <p class="text-sm text-gray-600 mb-6 max-w-[65ch]">
-      Each icon renders as inline SVG with <code class="text-xs bg-gray-100 px-1.5 py-0.5 rounded-sm font-mono">stroke="currentColor"</code>, so it inherits the parent's text color. Default size is <code class="text-xs bg-gray-100 px-1.5 py-0.5 rounded-sm font-mono">24px</code>.
+    <p class="text-sm text-muted-foreground mb-6 max-w-[65ch]">
+      Each icon renders as inline SVG with <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm font-mono">stroke="currentColor"</code>, so it inherits the parent's text color. Default size is <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm font-mono">24px</code>.
     </p>
-    <div class="border border-gray-200 rounded-lg p-8 max-sm:p-4">
+    <div class="border border-border rounded-lg p-8 max-sm:p-4">
       <div class="grid grid-cols-[repeat(auto-fill,minmax(180px,1fr))] grid-gap">
         <div class="flex items-center gap-4" data-icon-entry>
-          <div class="w-12 h-12 flex items-center justify-center bg-gray-50 rounded-lg">
+          <div class="w-12 h-12 flex items-center justify-center bg-muted rounded-lg">
             <ArrowRight />
           </div>
           <div>
-            <p class="text-sm font-medium text-gray-900">ArrowRight</p>
-            <button data-copy-svg class="text-xs text-primary-500 hover:text-primary-600 cursor-pointer">Copy SVG</button>
+            <p class="text-sm font-medium text-foreground">ArrowRight</p>
+            <button data-copy-svg class="text-xs text-primary hover:text-primary-hover cursor-pointer">Copy SVG</button>
           </div>
         </div>
         <div class="flex items-center gap-4" data-icon-entry>
-          <div class="w-12 h-12 flex items-center justify-center bg-gray-50 rounded-lg">
+          <div class="w-12 h-12 flex items-center justify-center bg-muted rounded-lg">
             <Close />
           </div>
           <div>
-            <p class="text-sm font-medium text-gray-900">Close</p>
-            <button data-copy-svg class="text-xs text-primary-500 hover:text-primary-600 cursor-pointer">Copy SVG</button>
+            <p class="text-sm font-medium text-foreground">Close</p>
+            <button data-copy-svg class="text-xs text-primary hover:text-primary-hover cursor-pointer">Copy SVG</button>
           </div>
         </div>
       </div>
@@ -39,43 +39,43 @@ import Close from '@/icons/Close.astro';
   <!-- Sizes -->
   <section class="specimen-section">
     <h2>Sizes</h2>
-    <p class="text-sm text-gray-600 mb-6 max-w-[65ch]">
-      Pass a <code class="text-xs bg-gray-100 px-1.5 py-0.5 rounded-sm font-mono">size</code> prop to scale. Icons are designed on a 24px grid — smaller sizes work well down to 16px, larger sizes up to 32px.
+    <p class="text-sm text-muted-foreground mb-6 max-w-[65ch]">
+      Pass a <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm font-mono">size</code> prop to scale. Icons are designed on a 24px grid — smaller sizes work well down to 16px, larger sizes up to 32px.
     </p>
-    <div class="border border-gray-200 rounded-lg overflow-x-auto">
+    <div class="border border-border rounded-lg overflow-x-auto">
       <table class="w-full">
         <thead>
-          <tr class="border-b border-gray-200 bg-gray-50">
-            <th class="text-left py-3 px-3 sm:px-6 text-xs font-semibold text-gray-500 uppercase tracking-wide">Size</th>
-            <th class="text-center py-3 px-3 sm:px-6 text-xs font-semibold text-gray-500 uppercase tracking-wide">ArrowRight</th>
-            <th class="text-center py-3 px-3 sm:px-6 text-xs font-semibold text-gray-500 uppercase tracking-wide">Close</th>
-            <th class="text-left py-3 px-3 sm:px-6 text-xs font-semibold text-gray-500 uppercase tracking-wide">Use case</th>
+          <tr class="border-b border-border bg-muted">
+            <th class="text-left py-3 px-3 sm:px-6 text-xs font-semibold text-muted-foreground uppercase tracking-wide">Size</th>
+            <th class="text-center py-3 px-3 sm:px-6 text-xs font-semibold text-muted-foreground uppercase tracking-wide">ArrowRight</th>
+            <th class="text-center py-3 px-3 sm:px-6 text-xs font-semibold text-muted-foreground uppercase tracking-wide">Close</th>
+            <th class="text-left py-3 px-3 sm:px-6 text-xs font-semibold text-muted-foreground uppercase tracking-wide">Use case</th>
           </tr>
         </thead>
         <tbody>
-          <tr class="border-b border-gray-100">
-            <td class="py-4 px-3 sm:px-6 font-mono text-xs text-gray-500">16px</td>
+          <tr class="border-b border-border">
+            <td class="py-4 px-3 sm:px-6 font-mono text-xs text-muted-foreground">16px</td>
             <td class="py-4 px-3 sm:px-6 text-center"><ArrowRight size={16} /></td>
             <td class="py-4 px-3 sm:px-6 text-center"><Close size={16} /></td>
-            <td class="py-4 px-3 sm:px-6 text-sm text-gray-600">Small buttons, inline text, badges</td>
+            <td class="py-4 px-3 sm:px-6 text-sm text-muted-foreground">Small buttons, inline text, badges</td>
           </tr>
-          <tr class="border-b border-gray-100">
-            <td class="py-4 px-3 sm:px-6 font-mono text-xs text-gray-500">20px</td>
+          <tr class="border-b border-border">
+            <td class="py-4 px-3 sm:px-6 font-mono text-xs text-muted-foreground">20px</td>
             <td class="py-4 px-3 sm:px-6 text-center"><ArrowRight size={20} /></td>
             <td class="py-4 px-3 sm:px-6 text-center"><Close size={20} /></td>
-            <td class="py-4 px-3 sm:px-6 text-sm text-gray-600">Default buttons, form elements, nav items</td>
+            <td class="py-4 px-3 sm:px-6 text-sm text-muted-foreground">Default buttons, form elements, nav items</td>
           </tr>
-          <tr class="border-b border-gray-100">
-            <td class="py-4 px-3 sm:px-6 font-mono text-xs text-gray-500">24px</td>
+          <tr class="border-b border-border">
+            <td class="py-4 px-3 sm:px-6 font-mono text-xs text-muted-foreground">24px</td>
             <td class="py-4 px-3 sm:px-6 text-center"><ArrowRight size={24} /></td>
             <td class="py-4 px-3 sm:px-6 text-center"><Close size={24} /></td>
-            <td class="py-4 px-3 sm:px-6 text-sm text-gray-600">Default (standalone), large buttons, headings</td>
+            <td class="py-4 px-3 sm:px-6 text-sm text-muted-foreground">Default (standalone), large buttons, headings</td>
           </tr>
           <tr>
-            <td class="py-4 px-3 sm:px-6 font-mono text-xs text-gray-500">32px</td>
+            <td class="py-4 px-3 sm:px-6 font-mono text-xs text-muted-foreground">32px</td>
             <td class="py-4 px-3 sm:px-6 text-center"><ArrowRight size={32} /></td>
             <td class="py-4 px-3 sm:px-6 text-center"><Close size={32} /></td>
-            <td class="py-4 px-3 sm:px-6 text-sm text-gray-600">Feature icons, hero accents, empty states</td>
+            <td class="py-4 px-3 sm:px-6 text-sm text-muted-foreground">Feature icons, hero accents, empty states</td>
           </tr>
         </tbody>
       </table>
@@ -85,34 +85,34 @@ import Close from '@/icons/Close.astro';
   <!-- Color Inheritance -->
   <section class="specimen-section">
     <h2>Color Inheritance</h2>
-    <p class="text-sm text-gray-600 mb-6 max-w-[65ch]">
-      Icons use <code class="text-xs bg-gray-100 px-1.5 py-0.5 rounded-sm font-mono">currentColor</code> for stroke — set the parent's <code class="text-xs bg-gray-100 px-1.5 py-0.5 rounded-sm font-mono">color</code> via Tailwind text color classes. No separate icon color prop needed.
+    <p class="text-sm text-muted-foreground mb-6 max-w-[65ch]">
+      Icons use <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm font-mono">currentColor</code> for stroke — set the parent's <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm font-mono">color</code> via Tailwind text color classes. No separate icon color prop needed.
     </p>
-    <div class="border border-gray-200 rounded-lg p-8">
+    <div class="border border-border rounded-lg p-8">
       <div class="flex flex-wrap gap-8 items-center">
-        <div class="flex flex-col items-center gap-3 text-gray-900">
+        <div class="flex flex-col items-center gap-3 text-foreground">
           <ArrowRight size={28} />
-          <span class="text-xs font-mono text-gray-400">gray-900</span>
+          <span class="text-xs font-mono text-muted-foreground">foreground</span>
         </div>
-        <div class="flex flex-col items-center gap-3 text-gray-600">
+        <div class="flex flex-col items-center gap-3 text-muted-foreground">
           <ArrowRight size={28} />
-          <span class="text-xs font-mono text-gray-400">gray-600</span>
+          <span class="text-xs font-mono text-muted-foreground">muted-foreground</span>
         </div>
-        <div class="flex flex-col items-center gap-3 text-gray-400">
+        <div class="flex flex-col items-center gap-3 text-muted-foreground">
           <ArrowRight size={28} />
-          <span class="text-xs font-mono text-gray-400">gray-400</span>
+          <span class="text-xs font-mono text-muted-foreground">muted-foreground</span>
         </div>
-        <div class="flex flex-col items-center gap-3 text-primary-500">
+        <div class="flex flex-col items-center gap-3 text-primary">
           <ArrowRight size={28} />
-          <span class="text-xs font-mono text-gray-400">primary-500</span>
+          <span class="text-xs font-mono text-muted-foreground">primary</span>
         </div>
-        <div class="flex flex-col items-center gap-3 text-red-500">
+        <div class="flex flex-col items-center gap-3 text-destructive">
           <ArrowRight size={28} />
-          <span class="text-xs font-mono text-gray-400">red-500</span>
+          <span class="text-xs font-mono text-muted-foreground">destructive</span>
         </div>
-        <div class="flex flex-col items-center gap-3 text-green-500">
+        <div class="flex flex-col items-center gap-3 text-success">
           <ArrowRight size={28} />
-          <span class="text-xs font-mono text-gray-400">green-500</span>
+          <span class="text-xs font-mono text-muted-foreground">success</span>
         </div>
       </div>
     </div>
@@ -121,40 +121,40 @@ import Close from '@/icons/Close.astro';
   <!-- On Backgrounds -->
   <section class="specimen-section">
     <h2>On Backgrounds</h2>
-    <p class="text-sm text-gray-600 mb-6 max-w-[65ch]">
+    <p class="text-sm text-muted-foreground mb-6 max-w-[65ch]">
       Enclose icons in a shape with a background color when used as standalone visual elements (features, empty states). Don't scale raw icons beyond 32px — use a container instead.
     </p>
-    <div class="border border-gray-200 rounded-lg p-8">
+    <div class="border border-border rounded-lg p-8">
       <div class="flex flex-wrap gap-6 items-center">
         <div class="flex flex-col items-center gap-3">
-          <div class="w-10 h-10 flex items-center justify-center bg-primary-50 text-primary-500 rounded-lg">
+          <div class="w-10 h-10 flex items-center justify-center bg-primary/10 text-primary rounded-lg">
             <ArrowRight size={20} />
           </div>
-          <span class="text-xs font-mono text-gray-400">tinted bg</span>
+          <span class="text-xs font-mono text-muted-foreground">tinted bg</span>
         </div>
         <div class="flex flex-col items-center gap-3">
-          <div class="w-10 h-10 flex items-center justify-center bg-primary-500 text-white rounded-lg">
+          <div class="w-10 h-10 flex items-center justify-center bg-primary text-primary-foreground rounded-lg">
             <ArrowRight size={20} />
           </div>
-          <span class="text-xs font-mono text-gray-400">solid bg</span>
+          <span class="text-xs font-mono text-muted-foreground">solid bg</span>
         </div>
         <div class="flex flex-col items-center gap-3">
-          <div class="w-10 h-10 flex items-center justify-center bg-gray-100 text-gray-600 rounded-full">
+          <div class="w-10 h-10 flex items-center justify-center bg-muted text-muted-foreground rounded-full">
             <Close size={20} />
           </div>
-          <span class="text-xs font-mono text-gray-400">circle</span>
+          <span class="text-xs font-mono text-muted-foreground">circle</span>
         </div>
         <div class="flex flex-col items-center gap-3">
-          <div class="w-12 h-12 flex items-center justify-center bg-gray-900 text-white rounded-lg">
+          <div class="w-12 h-12 flex items-center justify-center bg-foreground text-primary-foreground rounded-lg">
             <ArrowRight size={24} />
           </div>
-          <span class="text-xs font-mono text-gray-400">dark lg</span>
+          <span class="text-xs font-mono text-muted-foreground">dark lg</span>
         </div>
         <div class="flex flex-col items-center gap-3">
-          <div class="w-14 h-14 flex items-center justify-center bg-primary-50 text-primary-500 rounded-xl">
+          <div class="w-14 h-14 flex items-center justify-center bg-primary/10 text-primary rounded-xl">
             <ArrowRight size={28} />
           </div>
-          <span class="text-xs font-mono text-gray-400">feature xl</span>
+          <span class="text-xs font-mono text-muted-foreground">feature xl</span>
         </div>
       </div>
     </div>
@@ -163,30 +163,30 @@ import Close from '@/icons/Close.astro';
   <!-- Usage with Text -->
   <section class="specimen-section">
     <h2>Inline with Text</h2>
-    <p class="text-sm text-gray-600 mb-6 max-w-[65ch]">
-      Icons pair with text at matching sizes. Use <code class="text-xs bg-gray-100 px-1.5 py-0.5 rounded-sm font-mono">inline-flex items-center gap-2</code> for alignment.
+    <p class="text-sm text-muted-foreground mb-6 max-w-[65ch]">
+      Icons pair with text at matching sizes. Use <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm font-mono">inline-flex items-center gap-2</code> for alignment.
     </p>
-    <div class="border border-gray-200 rounded-lg p-8">
+    <div class="border border-border rounded-lg p-8">
       <div class="flex flex-col gap-6">
         <div class="flex flex-wrap gap-8 items-center">
-          <span class="inline-flex items-center gap-1.5 text-sm text-gray-600">
+          <span class="inline-flex items-center gap-1.5 text-sm text-muted-foreground">
             <ArrowRight size={14} /> <span>Small link</span>
           </span>
-          <span class="inline-flex items-center gap-2 text-base text-gray-900">
+          <span class="inline-flex items-center gap-2 text-base text-foreground">
             <ArrowRight size={16} /> <span>Body text</span>
           </span>
-          <span class="inline-flex items-center gap-2 text-lg font-semibold text-gray-900">
+          <span class="inline-flex items-center gap-2 text-lg font-semibold text-foreground">
             <ArrowRight size={20} /> <span>Heading text</span>
           </span>
         </div>
         <div class="flex flex-wrap gap-8 items-center">
-          <span class="inline-flex items-center gap-1.5 text-sm text-red-500">
+          <span class="inline-flex items-center gap-1.5 text-sm text-destructive">
             <Close size={14} /> <span>Remove item</span>
           </span>
-          <span class="inline-flex items-center gap-2 text-sm text-gray-500">
+          <span class="inline-flex items-center gap-2 text-sm text-muted-foreground">
             <span>Next page</span> <ArrowRight size={14} />
           </span>
-          <span class="inline-flex items-center gap-2 text-sm text-primary-500">
+          <span class="inline-flex items-center gap-2 text-sm text-primary">
             <span>Learn more</span> <ArrowRight size={14} />
           </span>
         </div>

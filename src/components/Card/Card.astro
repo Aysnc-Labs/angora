@@ -17,19 +17,19 @@ function resolveClasses(): string {
 
   if (variant === 'default') {
     parts.push(
-      'bg-white border border-gray-200',
+      'bg-card border',
       'shadow-sm',
     );
   } else if (variant === 'elevated') {
     parts.push(
-      'bg-white',
+      'bg-card',
       'shadow-lg',
       'hover:shadow-xl',
       'transition-shadow duration-normal ease-default',
     );
   } else if (variant === 'flat') {
     parts.push(
-      'bg-gray-50',
+      'bg-muted',
     );
   }
 

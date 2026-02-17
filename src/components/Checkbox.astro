@@ -29,10 +29,10 @@ const s = sizeMap[size];
       name={name}
       value={value}
     />
-    <span class={`absolute inset-0 rounded-sm border-2 border-gray-300 bg-white group-hover:border-gray-400 peer-checked:bg-primary-500 peer-checked:border-primary-500 group-hover:peer-checked:bg-primary-600 group-hover:peer-checked:border-primary-600 peer-focus-visible:outline-2 peer-focus-visible:outline-primary-300 peer-focus-visible:outline-offset-2 transition-colors duration-fast ease-default`}></span>
-    <svg class="relative opacity-0 peer-checked:opacity-100 text-white pointer-events-none" width={s.icon} height={s.icon} viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+    <span class={`absolute inset-0 rounded-sm border-2 border-input bg-card group-hover:border-muted-foreground peer-checked:bg-primary peer-checked:border-primary group-hover:peer-checked:bg-primary-hover group-hover:peer-checked:border-primary-hover peer-focus-visible:outline-2 peer-focus-visible:outline-ring peer-focus-visible:outline-offset-2 transition-colors duration-fast ease-default`}></span>
+    <svg class="relative opacity-0 peer-checked:opacity-100 text-primary-foreground pointer-events-none" width={s.icon} height={s.icon} viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
       <polyline points="20 6 9 17 4 12" />
     </svg>
   </span>
-  {label && <span class={`${s.text} text-gray-900`}>{label}</span>}
+  {label && <span class={`${s.text} text-foreground`}>{label}</span>}
 </label>

@@ -9,10 +9,9 @@ argument-hint: <name>
 ## Before you start
 
 1. **Read `src/system.md`** — check anti-patterns and decisions log. Stay consistent.
-2. **Read `src/styles/global.css`** — know the available tokens. All values must come from theme.
-3. **Read [design-principles.md](../docs/design-principles.md)** — hierarchy, spacing, typography, color, depth, and finishing touches guidance.
+2. **Read `src/styles/global.css`** — know the available tokens. All color values must come from the **semantic tokens inside `@theme`**. The primitive palette (defined outside `@theme`) generates **no Tailwind utility classes** — only semantic tokens produce usable classes. This is structural enforcement for dark mode compatibility.
+3. **Read [design-principles.md](../docs/design-principles.md)** — hierarchy, spacing, typography, color, depth, dark mode, and finishing touches guidance.
 4. **Check existing components** — look in `src/components/`. If the component already exists, read it first. Understand what's there before making changes. If building a new component, read 2–3 existing project components to learn the established patterns (styling conventions, prop style, layout approach).
-
 ## Composition
 
 **Three tiers: primitives, composites, and section-level components.**
@@ -101,9 +100,9 @@ Every component requires three files:
 
 1. **Component** — `src/components/<Name>.astro`
 2. **Design system page** — `src/pages/design-system/<name>.astro` (using `Layout` from `_layout/`, shows all variants/states)
-3. **Full-screen view** — `src/pages/design-system/view/<name>.astro` (using `FullScreen` from `_layout/`, no design system chrome)
+3. **Full-screen view content** — `src/pages/design-system/view/_content/<name>.astro` (pure markup, no FullScreen wrapper). The dynamic route at `view/[theme]/[...slug].astro` wraps this in FullScreen and applies the theme. This generates `/view/light/<name>` always, plus `/view/dark/<name>` when dark mode is enabled.
 
-The sidebar auto-discovers design system pages via `import.meta.glob` — no manual nav registration needed. Just create the file and it appears.
+The sidebar auto-discovers design system pages via `import.meta.glob` — no manual nav registration needed. Just create the file and it appears. The `fullscreenHref` prop on `Layout` should point to `/design-system/view/light/<name>` (the toggle in the sidebar handles switching to the dark route).
 
 ## Steps
 
@@ -134,7 +133,7 @@ Write a spec covering:
 ### 3. Build (after approval)
 
 - Build component files per the approved spec
-- Semantic HTML + Tailwind utility classes. Always interactive (pseudo-class variants). Use `state` prop only for form states that can't be triggered by interaction (error, success, disabled). All values from theme tokens
+- Semantic HTML + Tailwind utility classes. Always interactive (pseudo-class variants). Use `state` prop only for form states that can't be triggered by interaction (error, success, disabled). All color values from **semantic token utilities only** (`bg-card`, `text-foreground`, `border-border`, etc.) — never raw palette classes
 - If section-level: compose Section internally, don't add outer vertical spacing
 - Create design system page + full-screen view
 - Wire into sidebar nav
@@ -153,7 +152,7 @@ Present findings and proposed fixes to the user. Wait for approval before changi
 
 ### 6. Audit + fix
 
-Run `/angora-design-system-audit` on the new component. The audit skips contrast and ARIA labeling (already covered by the a11y test) and focuses on design rules, token compliance, and responsive behavior. Fix any issues it finds — no confirmation needed for audit-driven fixes.
+Run `/angora-design-system-audit` on the new component. The audit skips contrast and ARIA labeling (already covered by the a11y test) and focuses on design rules, token compliance (including semantic token enforcement — no raw palette classes), and responsive behavior. Fix any issues it finds — no confirmation needed for audit-driven fixes.
 
 ### 7. Present for review
 
@@ -194,8 +193,8 @@ All components use semantic HTML elements styled with Tailwind utility classes. 
 import Section from '../Section.astro';
 ---
 <Section seamless>
-  <h1 class="text-5xl font-bold leading-tight text-gray-900 tracking-tight">Build faster websites</h1>
-  <p class="text-xl text-gray-600 mt-4 max-w-[65ch] mx-auto">The modern way to ship marketing sites at scale.</p>
+  <h1 class="text-5xl font-bold leading-tight text-foreground tracking-tight">Build faster websites</h1>
+  <p class="text-xl text-muted-foreground mt-4 max-w-[65ch] mx-auto">The modern way to ship marketing sites at scale.</p>
   <div class="flex gap-4 justify-center mt-8">
     <a href="/start" class="...button classes...">Get Started</a>
     <a href="/learn" class="...button classes...">Learn More</a>
@@ -279,7 +278,7 @@ Components are interactive by default — they include pseudo-class variants (`h
 <TextInput state="error" label="Username" value="ab" hint="Must be at least 3 characters" />
 
 <!-- Renders to: -->
-<input class="... border-red-500" data-state="error" />
+<input class="... border-destructive" data-state="error" />
 ```
 
 Valid `state` values: `error`, `success`, `disabled`, `dragover` (file upload), `has-value` (search).

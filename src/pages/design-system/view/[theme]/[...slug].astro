@@ -1,0 +1,39 @@
+---
+import { config } from '../../../../config';
+import FullScreen from '../../_layout/FullScreen.astro';
+import ButtonsContent from '../_content/buttons.astro';
+import CardsContent from '../_content/cards.astro';
+import FormsContent from '../_content/forms.astro';
+import GridContent from '../_content/grid.astro';
+
+const views: Record<string, { title: string; component: any }> = {
+  buttons: { title: 'Buttons', component: ButtonsContent },
+  cards: { title: 'Cards', component: CardsContent },
+  forms: { title: 'Forms', component: FormsContent },
+  grid: { title: 'Grid', component: GridContent },
+};
+
+export function getStaticPaths() {
+  const themes = config.darkMode ? ['light', 'dark'] : ['light'];
+  const slugs = ['buttons', 'cards', 'forms', 'grid'];
+
+  return themes.flatMap((theme) =>
+    slugs.map((slug) => ({
+      params: { theme, slug },
+    }))
+  );
+}
+
+const { theme, slug } = Astro.params;
+const view = views[slug!];
+
+if (!view) {
+  return Astro.redirect('/design-system');
+}
+
+const Content = view.component;
+---
+
+<FullScreen title={view.title} theme={theme as 'light' | 'dark'}>
+  <Content />
+</FullScreen>

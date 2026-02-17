@@ -24,26 +24,26 @@ function resolveClasses(): string {
 
   if (variant === 'primary') {
     parts.push(
-      'bg-primary-500 text-white',
-      'hover:bg-primary-600',
-      'active:bg-primary-700 active:translate-y-px',
-      'focus-visible:outline-2 focus-visible:outline-primary-300 focus-visible:outline-offset-2',
+      'bg-primary text-primary-foreground',
+      'hover:bg-primary-hover',
+      'active:bg-primary-active active:translate-y-px',
+      'focus-visible:outline-2 focus-visible:outline-ring focus-visible:outline-offset-2',
       'transition-colors duration-fast ease-default',
     );
   } else if (variant === 'secondary') {
     parts.push(
-      'bg-transparent text-gray-900 shadow-[inset_0_0_0_1px_var(--color-gray-200)]',
-      'hover:bg-gray-50',
-      'active:bg-gray-100 active:translate-y-px',
-      'focus-visible:outline-2 focus-visible:outline-primary-300 focus-visible:outline-offset-2',
+      'bg-transparent text-foreground shadow-[inset_0_0_0_1px_var(--color-border)]',
+      'hover:bg-accent',
+      'active:bg-accent active:translate-y-px',
+      'focus-visible:outline-2 focus-visible:outline-ring focus-visible:outline-offset-2',
       'transition-colors duration-fast ease-default',
     );
   } else if (variant === 'ghost') {
     parts.push(
-      'bg-transparent text-gray-600',
-      'hover:bg-gray-50 hover:text-gray-900',
-      'active:bg-gray-100 active:translate-y-px',
-      'focus-visible:outline-2 focus-visible:outline-primary-300 focus-visible:outline-offset-2',
+      'bg-transparent text-muted-foreground',
+      'hover:bg-accent hover:text-accent-foreground',
+      'active:bg-accent active:translate-y-px',
+      'focus-visible:outline-2 focus-visible:outline-ring focus-visible:outline-offset-2',
       'transition-colors duration-fast ease-default',
     );
   }
