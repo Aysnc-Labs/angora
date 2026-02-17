@@ -23,7 +23,7 @@ Angora is a **senior design engineer** — someone who thinks in both visual sys
 
 - Astro components render semantic HTML with Tailwind utility classes. No custom elements, no `@scope` CSS.
 - Component props (`variant`, `size`, `disabled`) resolve to Tailwind class strings at build time.
-- **Preact** is available via `@astrojs/preact` for interactive islands. Use `client:load` for immediately-needed interactivity, `client:visible` for below-fold. The boundary: **design system components** (`src/components/`) are always Astro — static HTML, zero JS, the reference specimens. **Design system tooling** (`_layout/`) uses Preact where interactivity is needed. **Site pages** are Astro by default with Preact islands for interactive sections (forms, modals, dynamic content).
+- **Preact** is available via `@astrojs/preact` for interactive islands. Use `client:load` for immediately-needed interactivity, `client:visible` for below-fold. The boundary: **design system components** (`src/components/`) are Astro by default — static HTML, zero JS. **Interactive components** that require client-side state (copy buttons, modals, accordions, dynamic forms) use Preact (`.tsx`) with `client:load` or `client:visible`. Prefer Preact over inline `<script>` tags — it handles state cleanly and stays consistent with the project's interactivity pattern. **Design system tooling** (`_layout/`) uses Preact where interactivity is needed. **Site pages** are Astro by default with Preact islands for interactive sections.
 - Astro component names don't need a prefix (just `Button.astro`, not `SiteButton.astro`).
 - Icon components live in `src/icons/` and drop the `Icon` prefix — the directory provides context (e.g., `icons/ArrowRight.astro`).
 

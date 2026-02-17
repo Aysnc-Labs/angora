@@ -106,18 +106,16 @@ The sidebar auto-discovers design system pages via `import.meta.glob` — no man
 
 ## Steps
 
-### 1. Research (plan mode)
-
-**Call `EnterPlanMode` immediately.** All research and spec work happens in plan mode — nothing gets built until the user approves the spec.
+### 1. Research
 
 - Read `system.md`, `global.css`, `design-principles.md`
 - Read 2–3 existing components to learn project patterns
 - If the component already exists, read it first
 - If this is a section-level component, read `Section.astro` to understand the Section pattern
 
-### 2. Spec (plan mode — write to plan file)
+### 2. Spec
 
-Write a spec covering:
+Present a spec to the user covering:
 
 - **Purpose & hierarchy** — what is this component, who sees it, where on the page
 - **Classification** — primitive (single element), composite (layout shell + sub-components), or section-level (composes Section internally)
@@ -128,9 +126,9 @@ Write a spec covering:
 - **Responsive behavior** — how it adapts at narrow/medium/wide container widths
 - **Prop API** — list props with types and defaults
 
-**Call `ExitPlanMode`** — user reviews and approves the spec before any building happens.
+Wait for the user to approve before building.
 
-### 3. Build (after approval)
+### 3. Build
 
 - Build component files per the approved spec
 - Semantic HTML + Tailwind utility classes. Always interactive (pseudo-class variants). Use `state` prop only for form states that can't be triggered by interaction (error, success, disabled). All color values from **semantic token utilities only** (`bg-card`, `text-foreground`, `border-border`, etc.) — never raw palette classes
@@ -144,15 +142,15 @@ Verify the component works at narrow (~320px), medium (~768px), and wide (~1280p
 
 ### 5. Accessibility test
 
-Run `pnpm test:a11y` (dev server must be running). Read the output and interpret every finding for the user:
+Tell the user: "Running a11y tests next." Then run `pnpm test:a11y` immediately — this is verification, not a project change. Don't ask permission to run it (dev server must be running). Read the output and interpret every finding for the user:
 - **Real issue** — explain what's wrong in plain language, propose a specific fix, explain why it matters.
 - **False positive** — explain why it's safe to ignore (e.g., disabled states are intentionally dimmed, specimen context lacks form wrapping). Don't fix these.
 
-Present findings and proposed fixes to the user. Wait for approval before changing anything.
+Present findings and proposed fixes. Wait for approval before applying fixes only.
 
 ### 6. Audit + fix
 
-Run `/angora-design-system-audit` on the new component. The audit skips contrast and ARIA labeling (already covered by the a11y test) and focuses on design rules, token compliance (including semantic token enforcement — no raw palette classes), and responsive behavior. Fix any issues it finds — no confirmation needed for audit-driven fixes.
+Tell the user: "Running design system audit next." Then run `/angora-design-system-audit` immediately on the new component — same as above, verification not a change. The audit skips contrast and ARIA labeling (already covered by the a11y test) and focuses on design rules, token compliance (including semantic token enforcement — no raw palette classes), and responsive behavior. Fix any issues it finds — no confirmation needed for audit-driven fixes.
 
 ### 7. Present for review
 
@@ -209,6 +207,8 @@ import Section from '../Section.astro';
 - No arbitrary values outside Tailwind's theme — all styling references theme tokens via utility classes
 - Pixel translation: when a user specifies a value in pixels, map it to the nearest theme token first (e.g., "32px padding" → `p-8`). If no token fits, use `rem` for sizing and `em` for prose-relative spacing. Never hard-code arbitrary pixel values in components
 - Section-level components compose `Section` — don't render raw `<section>` with manual padding
+
+**Change the component, don't override from outside.** When a component's default appearance needs to change, update the component file itself. Never override baked-in Tailwind classes from the consumer side via the `class` prop — Tailwind resolves same-specificity utilities by CSS source order, not HTML class attribute order, so `bg-highlight` passed via `class` won't reliably beat a component's built-in `bg-muted`. The `class` prop is for **additive** styling (positioning, extra margin, layout context) — not for overriding the component's own visual treatment. If you find yourself reaching for `!important` (`!bg-*`), that's a signal you're fighting the component instead of updating it.
 
 **Images: always use `<img>`, never CSS background images.** Use `<img>` with `object-fit: cover` (`object-cover` in Tailwind) for all imagery including hero backgrounds, card covers, and full-bleed sections. Position with Tailwind classes (`absolute inset-0`) inside a relatively-positioned container when used as a backdrop.
 

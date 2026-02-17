@@ -238,6 +238,15 @@
   font-family: monospace;
 }
 
+/*
+ * Non-seamless sections inside specimen holders have no page-flow parent
+ * to provide vertical spacing. This rule gives them breathing room.
+ * Seamless sections already have internal padding via Section.
+ */
+.specimen-section section:not([data-seamless]) > div {
+  padding-block: var(--spacing-12);
+}
+
 .demo-area {
   padding: var(--spacing-8);
   background: var(--color-muted);
