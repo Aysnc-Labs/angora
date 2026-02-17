@@ -11,7 +11,7 @@ Build or update a full site page from approved components. Pages are living docu
 ## Before you start
 
 1. **Read `src/system.md`** — intent, accessibility standard, anti-patterns.
-2. **Read `src/styles/global.css`** — available tokens for page-level spacing and backgrounds. All color references must use **semantic token utilities** (`bg-background`, `bg-card`, `text-foreground`, `border-border`, etc.) — raw palette classes don't exist.
+2. **Read `src/styles/global.css`** — available tokens for page-level spacing and backgrounds. All color references must use **semantic token utilities** — raw palette classes don't exist.
 3. **Read [design-principles.md](../docs/design-principles.md)** — especially Spacing & Layout, Dark Mode, and Finishing Touches sections.
 4. **Inventory components** — list `src/components/*.astro` to know what's available. Only use approved, built components.
 5. **Read `src/components/Section.astro`** — understand the Section pattern before composing pages. All page sections use this component.
@@ -125,7 +125,7 @@ Every field inside a FieldGroup should be wrapped in a FormRow. Don't use raw `<
 - **Section-level components compose Section internally** — if using Hero, Features, or other section-level components, they already render Section under the hood. Don't double-wrap with `<Section><Hero>`.
 - **Backgrounded sections use `seamless`** — `<Section seamless>` for sections with background colors/images. Adjacent seamless sections get 0 gap so backgrounds butt up.
 - **Prose utility for content sections** — sections with flowing editorial content (articles, about copy, rich text from CMS) should wrap content in the `prose` utility class from `global.css`. It handles heading sizes, vertical rhythm, list styling, blockquotes, links, `text-wrap`, and inline treatments (`mark`, `code`, `kbd`). Don't use `prose` on structured component sections (hero, pricing, features) — those own their spacing explicitly.
-- Background alternation for visual rhythm — use semantic surface tokens (`bg-background`, `bg-muted`, `bg-card`) for section variety. These automatically adapt in dark mode
+- Background alternation for visual rhythm — use semantic surface tokens for section variety. These automatically adapt in dark mode
 - Visual flow — the eye moves naturally through the page
 - Responsive behavior via container queries
 - SEO: `<title>`, `<meta name="description">`, OG tags

@@ -9,29 +9,9 @@ argument-hint: <name>
 ## Before you start
 
 1. **Read `src/system.md`** — check anti-patterns and decisions log. Stay consistent.
-2. **Read `src/styles/global.css`** — know the available tokens. All color values must come from the **semantic tokens inside `@theme`** (`--color-background`, `--color-foreground`, `--color-card`, `--color-primary`, `--color-muted-foreground`, `--color-border`, etc.). The primitive palette (gray-50 through gray-950, primary-50 through primary-950) is defined outside `@theme` and generates **no Tailwind utility classes** — you cannot use `bg-gray-50`, `text-gray-900`, or `bg-white`. This is structural enforcement for dark mode compatibility.
+2. **Read `src/styles/global.css`** — know the available tokens. All color values must come from the **semantic tokens inside `@theme`**. The primitive palette (defined outside `@theme`) generates **no Tailwind utility classes** — only semantic tokens produce usable classes. This is structural enforcement for dark mode compatibility.
 3. **Read [design-principles.md](../docs/design-principles.md)** — hierarchy, spacing, typography, color, depth, dark mode, and finishing touches guidance.
 4. **Check existing components** — look in `src/components/`. If the component already exists, read it first. Understand what's there before making changes. If building a new component, read 2–3 existing project components to learn the established patterns (styling conventions, prop style, layout approach).
-
-### Semantic token quick reference
-
-Use these Tailwind utilities for color. Nothing else exists.
-
-| Role | Background | Text | Border |
-|------|-----------|------|--------|
-| Page surface | `bg-background` | `text-foreground` | — |
-| Card/elevated surface | `bg-card` | `text-card-foreground` | — |
-| De-emphasized | `bg-muted` | `text-muted-foreground` | — |
-| Primary action | `bg-primary` | `text-primary-foreground` | — |
-| Secondary action | `bg-secondary` | `text-secondary-foreground` | — |
-| Hover/active surface | `bg-accent` | `text-accent-foreground` | — |
-| Error/delete | `bg-destructive` | `text-destructive-foreground` | — |
-| Default border | — | — | `border-border` |
-| Input border | — | — | `border-input` |
-| Focus ring | — | — | `ring-ring` |
-| Hover states | `bg-primary-hover` | — | — |
-| Active states | `bg-primary-active` | — | — |
-
 ## Composition
 
 **Three tiers: primitives, composites, and section-level components.**

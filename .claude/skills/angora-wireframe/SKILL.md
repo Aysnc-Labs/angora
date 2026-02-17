@@ -41,7 +41,7 @@ No full-screen view needed — wireframes are working docs, not deliverables.
 Use a `<pre>` block with monospace box-drawing to show page structure:
 
 ```html
-<pre class="font-mono text-sm leading-relaxed text-gray-700">
+<pre class="font-mono text-sm leading-relaxed text-muted-foreground">
 ┌─────────────────────────────────────┐
 │  Logo          Nav    Nav    [CTA]  │
 ├─────────────────────────────────────┤
@@ -114,12 +114,12 @@ Use gray Tailwind boxes with placeholder text:
 
 ```html
 <div class="space-y-4">
-  <div class="bg-gray-100 border border-gray-300 rounded p-4 flex justify-between items-center">
-    <span class="text-sm text-gray-500">Logo</span>
-    <div class="flex gap-4 text-sm text-gray-500">Nav · Nav · Nav</div>
+  <div class="bg-muted border border-border rounded p-4 flex justify-between items-center">
+    <span class="text-sm text-muted-foreground">Logo</span>
+    <div class="flex gap-4 text-sm text-muted-foreground">Nav · Nav · Nav</div>
   </div>
-  <div class="bg-gray-100 border border-gray-300 rounded p-12 text-center">
-    <p class="text-lg text-gray-500">Hero Section</p>
+  <div class="bg-muted border border-border rounded p-12 text-center">
+    <p class="text-lg text-muted-foreground">Hero Section</p>
   </div>
 </div>
 ```
