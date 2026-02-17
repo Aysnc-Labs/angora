@@ -13,29 +13,51 @@ TARBALL="${REPO}/archive/refs/heads/main.tar.gz"
 
 BOLD='\033[1m'
 DIM='\033[2m'
-GREEN='\033[32m'
+BLUE='\033[38;2;43;116;173m'
+GOLD='\033[38;2;210;150;60m'
 YELLOW='\033[33m'
 RED='\033[31m'
+WHITE='\033[97m'
 RESET='\033[0m'
 
-G1='\033[38;5;183m'
-G2='\033[38;5;147m'
-G3='\033[38;5;111m'
-G4='\033[38;5;75m'
+G1='\033[38;2;43;116;173m'
+G2='\033[38;2;78;140;190m'
+G3='\033[38;2;140;170;200m'
+G4='\033[38;2;210;150;60m'
 
 # ─── Helpers ─────────────────────────────────
 
-ok()   { printf "  ${GREEN}✓${RESET} %s\n" "$1"; }
-warn() { printf "  ${YELLOW}!${RESET} %s\n" "$1"; }
+ok()   { printf "  ${BLUE}✓${RESET} %s\n" "$1"; }
+warn() { printf "  ${GOLD}!${RESET} %s\n" "$1"; }
 fail() { printf "  ${RED}✗${RESET} %s\n" "$1"; }
 
 link() { printf "\033]8;;%s\a%s\033]8;;\a" "$1" "${2:-$1}"; }
+
+rule() { printf "  ${DIM}─────────────────────────────────────${RESET}\n"; }
 
 open_url() {
   local url=$1
   if command -v open &>/dev/null; then open "$url"
   elif command -v xdg-open &>/dev/null; then xdg-open "$url"
   elif command -v wslview &>/dev/null; then wslview "$url"
+  fi
+}
+
+launch_terminal() {
+  local dir=$1 cmd=$2
+  if [[ "$OSTYPE" == darwin* ]]; then
+    osascript -e "
+      tell application \"Terminal\"
+        activate
+        do script \"cd '$dir' && $cmd\"
+      end tell
+    " &>/dev/null
+  elif command -v gnome-terminal &>/dev/null; then
+    gnome-terminal -- bash -c "cd '$dir' && $cmd; exec bash" &>/dev/null &
+  elif command -v xterm &>/dev/null; then
+    xterm -e "cd '$dir' && $cmd; exec bash" &>/dev/null &
+  else
+    return 1
   fi
 }
 
@@ -58,38 +80,79 @@ trap 'tput cnorm 2>/dev/null; [ -n "$DEV_PID" ] && kill "$DEV_PID" 2>/dev/null' 
 
 # ─── Header ──────────────────────────────────
 
+printf "\n\n"
+sleep 0.12
+printf "  ${G1}${BOLD}A ${G2}N ${G3}G O ${G4}R A${RESET}\n"
+sleep 0.08
 printf "\n"
-sleep 0.04
-printf "${G1}${BOLD}     ▄▀█ ${G2}█▄░█ ${G3}█▀▀ █▀█ ${G4}█▀█ ▄▀█${RESET}\n"
-sleep 0.04
-printf "${G1}${BOLD}     █▀█ ${G2}█░▀█ ${G3}█▄█ █▄█ ${G4}█▀▄ █▀█${RESET}\n"
-sleep 0.06
-printf "\n"
-printf "     ${DIM}design system builder${RESET}\n"
-sleep 0.04
-printf "     ${DIM}https://getangora.org${RESET}\n"
+printf "  ${DIM}design systems that ship${RESET}\n"
+printf "  ${DIM}$(link "https://getangora.org" "getangora.org")${RESET}\n"
 printf "\n"
 
-# ─── Confirm ─────────────────────────────────
+# ─── Project directory ──────────────────────
 
-printf "  Install in ${BOLD}%s${RESET} ?\n\n" "$(pwd)"
-read -r -p "  [Y/n] " response < /dev/tty
-response=${response:-Y}
-if [[ ! "$response" =~ ^[Yy]$ ]]; then
-  printf "\n  Cancelled.\n\n"
-  exit 0
-fi
+rule
+printf "\n"
 
-file_count=$(ls -A 2>/dev/null | wc -l | tr -d ' ')
-if [ "$file_count" -gt 0 ]; then
-  printf "\n"
-  warn "Directory has ${file_count} existing items."
-  read -r -p "  Continue? [y/N] " response < /dev/tty
-  if [[ ! "$response" =~ ^[Yy]$ ]]; then
-    printf "\n  Cancelled.\n\n"
-    exit 0
+TARGET_DIR="${1:-}"
+
+if [ -n "$TARGET_DIR" ]; then
+  # Argument provided — resolve to absolute path
+  TARGET_DIR="$(cd "$(dirname "$TARGET_DIR")" 2>/dev/null && pwd)/$(basename "$TARGET_DIR")" || TARGET_DIR="$(pwd)/$1"
+
+  if [ -d "$TARGET_DIR" ]; then
+    printf "  Directory ${BOLD}%s${RESET} already exists.\n\n" "$TARGET_DIR"
+    read -r -p "  Use it anyway? [y/N] " response < /dev/tty
+    if [[ ! "$response" =~ ^[Yy]$ ]]; then
+      printf "\n  Cancelled.\n\n"
+      exit 0
+    fi
+  else
+    mkdir -p "$TARGET_DIR"
+    ok "Created ${TARGET_DIR}"
+    printf "\n"
+  fi
+  cd "$TARGET_DIR"
+else
+  # No argument — ask where to install
+  printf "  ${BOLD}Where should we create your project?${RESET}\n\n"
+  printf "  ${DIM}Enter a directory name, or press enter for current directory.${RESET}\n\n"
+  read -r -p "  → " dir_input < /dev/tty
+  dir_input="${dir_input:-}"
+
+  if [ -n "$dir_input" ]; then
+    TARGET_DIR="$(pwd)/$dir_input"
+    if [ -d "$TARGET_DIR" ]; then
+      printf "\n"
+      printf "  Directory ${BOLD}%s${RESET} already exists.\n\n" "$dir_input"
+      read -r -p "  Use it anyway? [y/N] " response < /dev/tty
+      if [[ ! "$response" =~ ^[Yy]$ ]]; then
+        printf "\n  Cancelled.\n\n"
+        exit 0
+      fi
+    else
+      mkdir -p "$TARGET_DIR"
+      printf "\n"
+      ok "Created ${dir_input}"
+    fi
+    cd "$TARGET_DIR"
+  else
+    TARGET_DIR="$(pwd)"
+    file_count=$(ls -A 2>/dev/null | wc -l | tr -d ' ')
+    if [ "$file_count" -gt 0 ]; then
+      printf "\n"
+      warn "Current directory has ${file_count} existing items."
+      read -r -p "  Continue? [y/N] " response < /dev/tty
+      if [[ ! "$response" =~ ^[Yy]$ ]]; then
+        printf "\n  Cancelled.\n\n"
+        exit 0
+      fi
+    fi
   fi
 fi
+
+printf "\n"
+printf "  ${DIM}Installing in${RESET} ${BOLD}%s${RESET}\n" "$TARGET_DIR"
 
 # ─── Dependencies ────────────────────────────
 
@@ -128,6 +191,8 @@ fi
 # ─── Install ─────────────────────────────────
 
 printf "\n"
+rule
+printf "\n"
 
 (curl -sfL "$TARBALL" | tar xz --strip-components=1) 2>/dev/null &
 DL_PID=$!
@@ -156,65 +221,45 @@ ok "Git initialized"
 
 # ─── Done ────────────────────────────────────
 
-S="  "
-B="${GREEN}│${RESET}"
-
 printf "\n"
+rule
+sleep 0.2
 
 if [ "$HAS_CLAUDE" = true ]; then
 
-  # ─── Ask to launch ───────────────────────
-
-  sleep 0.03
-  printf "${S}${GREEN}╭──────────────────────────────────────────╮${RESET}\n"
-  sleep 0.03
-  printf "${S}${B}                                          ${B}\n"
-  sleep 0.03
-  printf "${S}${B}   ${GREEN}${BOLD}✓${RESET}  You're all set.                     ${B}\n"
-  sleep 0.03
-  printf "${S}${B}                                          ${B}\n"
-  sleep 0.03
-  printf "${S}${B}   ${BOLD}Start building?${RESET}                        ${B}\n"
-  sleep 0.03
-  printf "${S}${B}   ${DIM}Launches dev server + Claude.${RESET}           ${B}\n"
-  sleep 0.03
-  printf "${S}${B}                                          ${B}\n"
-  sleep 0.03
-  printf "${S}${GREEN}╰──────────────────────────────────────────╯${RESET}\n"
+  printf "\n"
+  printf "  ${WHITE}${BOLD}Ready.${RESET}\n"
+  printf "\n"
+  printf "  ${DIM}Starts the dev server here, opens Claude in a new tab.${RESET}\n"
   printf "\n"
 
-  read -r -p "  [Y/n] " response < /dev/tty
+  read -r -p "  Start building? [Y/n] " response < /dev/tty
   response=${response:-Y}
 
   if [[ "$response" =~ ^[Yy]$ ]]; then
     printf "\n"
 
-    # Start dev server in background
-    pnpm run dev > /dev/null 2>&1 &
-    DEV_PID=$!
-    frames=('⠋' '⠙' '⠹' '⠸' '⠼' '⠴' '⠦' '⠧' '⠇' '⠏')
-    tput civis 2>/dev/null
-    for ((j=0; j<20; j++)); do
-      printf "\r  ${DIM}%s${RESET} Starting dev server..." "${frames[$((j % 10))]}"
-      sleep 0.08
-    done
-    tput cnorm 2>/dev/null
-    printf "\r\033[2K"
-
-    if kill -0 "$DEV_PID" 2>/dev/null; then
-      ok "Dev server → $(link "http://localhost:4321" "localhost:4321")"
-      open_url "http://localhost:4321"
+    # Launch Claude in a new terminal tab
+    if launch_terminal "$TARGET_DIR" "claude /angora-design-system-init"; then
+      ok "Claude opened in new tab"
     else
-      warn "Dev server failed — run ${BOLD}pnpm run dev${RESET} manually"
+      warn "Couldn't open a new tab — run ${BOLD}claude${RESET} manually"
     fi
 
-    printf "\n  ${DIM}Launching Claude...${RESET}\n\n"
-    claude "/angora-design-system-init" || true
-    exit 0
+    # Start dev server in this terminal
+    printf "\n"
+    ok "Dev server → $(link "http://localhost:4321" "localhost:4321")"
+    open_url "http://localhost:4321"
+    printf "\n"
+
+    # Hand over to dev server (replaces this process)
+    exec pnpm run dev
   fi
 
   # User declined
-  printf "\n  ${DIM}Whenever you're ready:${RESET}\n\n"
+  printf "\n"
+  printf "  ${DIM}Whenever you're ready:${RESET}\n"
+  printf "\n"
   printf "  ${BOLD}pnpm run dev${RESET}\n"
   printf "  ${BOLD}claude${RESET} → ${BOLD}/angora-design-system-init${RESET}\n"
   printf "\n"
@@ -223,28 +268,14 @@ else
 
   # ─── Manual steps (no Claude) ────────────
 
-  sleep 0.03
-  printf "${S}${GREEN}╭──────────────────────────────────────────╮${RESET}\n"
-  sleep 0.03
-  printf "${S}${B}                                          ${B}\n"
-  sleep 0.03
-  printf "${S}${B}   ${GREEN}${BOLD}✓${RESET}  You're all set.                     ${B}\n"
-  sleep 0.03
-  printf "${S}${B}                                          ${B}\n"
-  sleep 0.03
-  printf "${S}${B}   ${DIM}To get started:${RESET}                        ${B}\n"
-  sleep 0.03
-  printf "${S}${B}                                          ${B}\n"
-  sleep 0.03
-  printf "${S}${B}   ${BOLD}npm i -g @anthropic-ai/claude-code${RESET}     ${B}\n"
-  sleep 0.03
-  printf "${S}${B}   ${BOLD}pnpm run dev${RESET}                           ${B}\n"
-  sleep 0.03
-  printf "${S}${B}   ${BOLD}claude${RESET} → ${BOLD}/angora-design-system-init${RESET}     ${B}\n"
-  sleep 0.03
-  printf "${S}${B}                                          ${B}\n"
-  sleep 0.03
-  printf "${S}${GREEN}╰──────────────────────────────────────────╯${RESET}\n"
+  printf "\n"
+  printf "  ${WHITE}${BOLD}Ready.${RESET}\n"
+  printf "\n"
+  printf "  ${DIM}Next steps:${RESET}\n"
+  printf "\n"
+  printf "  ${BOLD}npm i -g @anthropic-ai/claude-code${RESET}\n"
+  printf "  ${BOLD}pnpm run dev${RESET}\n"
+  printf "  ${BOLD}claude${RESET} → ${BOLD}/angora-design-system-init${RESET}\n"
   printf "\n"
 
 fi
