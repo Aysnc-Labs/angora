@@ -247,6 +247,11 @@
   padding-block: var(--spacing-12);
 }
 
+/* Inside page-flow, margins handle section spacing — no extra padding needed */
+.specimen-section .page-flow section:not([data-seamless]) > div {
+  padding-block: 0;
+}
+
 .demo-area {
   padding: var(--spacing-8);
   background: var(--color-muted);
