@@ -93,7 +93,7 @@ Once approved, let the user know: *"Creative direction is saved to `system.md`. 
 
 ## 2a. Structural tokens (personality-agnostic)
 
-- Spacing scale (base 8px, ~25% jumps: 4, 8, 12, 16, 24, 32, 48, 64, 80, 96, 128, 192, 256)
+- Spacing scale (base 8px, ~25% jumps — no linear scales, no arbitrary values)
 - Type scale (hand-crafted, not modular ratio). Body text as fixed px: 12, 14, 16, 18, 20. Heading/display sizes use `clamp()` with `cqi` so they scale fluidly with container width: `clamp(floor, Xcqi, max)` where X = max ÷ 12 (hits max at the 1200px container). Requires a `@container` ancestor.
 - Line height rules, max content widths, breakpoints
 
