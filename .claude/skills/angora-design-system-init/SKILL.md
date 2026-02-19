@@ -89,11 +89,11 @@ Once approved, let the user know: *"Creative direction is saved to `system.md`. 
 
 # Phase 2: Design System Setup
 
-**Now read files.** Start with [design-principles.md](../docs/design-principles.md) for detailed guidance on color (hue rotation, shade generation, grey temperature), typography (font discovery, line-height rules), and depth (two-part shadows, five-level scale). Then read `src/system.md` and `src/styles/global.css` for the template structure to fill in.
+**Now read files.** Start with [design-principles.md](../docs/design-principles.md) for detailed guidance on color (hue rotation, shade generation, grey temperature), typography (line-height rules, type scale), and depth (two-part shadows, five-level scale). Then read `src/system.md` and `src/styles/global.css` for the template structure to fill in.
 
 ## 2a. Structural tokens (personality-agnostic)
 
-- Spacing scale (base 8px, ~25% jumps: 4, 8, 12, 16, 24, 32, 48, 64, 80, 96, 128)
+- Spacing scale (base 8px, ~25% jumps: 4, 8, 12, 16, 24, 32, 48, 64, 80, 96, 128, 192, 256)
 - Type scale (hand-crafted, not modular ratio). Body text as fixed px: 12, 14, 16, 18, 20. Heading/display sizes use `clamp()` with `cqi` so they scale fluidly with container width: `clamp(floor, Xcqi, max)` where X = max ÷ 12 (hits max at the 1200px container). Requires a `@container` ancestor.
 - Line height rules, max content widths, breakpoints
 
@@ -101,7 +101,7 @@ Once approved, let the user know: *"Creative direction is saved to `system.md`. 
 
 Translate Phase 1 outputs into concrete token decisions:
 
-- **Color world → OKLCH palette.** Pick the strongest 1–2 domain colors as primary/accent hue(s). Generate full 50–950 shade ranges in **OKLCH color space** (perceptually uniform lightness — L=0.7 looks equally bright regardless of hue, making palette generation reliable). Choose grey temperature (warm/cool) based on the feel — "bank vault" is cool grey (blue hue ~264°), "launchpad" is warm grey (yellow/orange hue ~60°). Greys get a subtle chroma (0.005–0.018) for temperature.
+- **Color world → OKLCH palette.** Pick the strongest 1–2 domain colors as primary/accent hue(s). Generate full 50–950 shade ranges in OKLCH. Choose grey temperature (warm/cool) based on the feel — "bank vault" is cool grey (blue hue ~264°), "launchpad" is warm grey (yellow/orange hue ~60°). Greys get a subtle chroma (0.005–0.018) for temperature.
 - **Feel → shape and depth.** "Confident" = smaller radii, firm shadows. "Playful" = larger radii, softer shadows. Match border radius scale and shadow strategy to the feel words.
 - **Domain vocabulary → signature element.** The signature element from Phase 1 becomes a concrete CSS/markup choice — a specific color accent, radius treatment, animation, or layout pattern.
 - Font family, full color palette (50–950 shade ranges for primary + grey at minimum)

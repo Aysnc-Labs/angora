@@ -96,6 +96,8 @@
   --spacing-20: 80px;
   --spacing-24: 96px;
   --spacing-32: 128px;
+  --spacing-48: 192px;
+  --spacing-64: 256px;
 
   /* Typography */
   --font-sans: system-ui, -apple-system, 'Segoe UI', Roboto, 'Noto Sans', Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;

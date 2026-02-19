@@ -111,5 +111,5 @@ After applying, mention: "You can browse the data with `pnpm db:studio` whenever
 - Use `integer()` for booleans (0/1).
 - Media paths are relative to `public/media/`.
 - The `media` table is the base — other tables reference it via `media_id`.
-- **Never modify data** — that's the import specialist's job.
+- **Never modify data** — use `/angora-data` for seeding or `/angora-import` for bulk inserts.
 - **Never delete tables or columns without explicit permission.**

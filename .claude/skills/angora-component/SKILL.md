@@ -12,6 +12,8 @@ argument-hint: <name>
 2. **Read `src/styles/global.css`** — know the available tokens. All color values must come from the **semantic tokens inside `@theme`**. The primitive palette (defined outside `@theme`) generates **no Tailwind utility classes** — only semantic tokens produce usable classes. This is structural enforcement for dark mode compatibility.
 3. **Read [design-principles.md](../docs/design-principles.md)** — hierarchy, spacing, typography, color, depth, dark mode, and finishing touches guidance.
 4. **Check existing components** — look in `src/components/`. If the component already exists, read it first. Understand what's there before making changes. If building a new component, read 2–3 existing project components to learn the established patterns (styling conventions, prop style, layout approach).
+5. **If section-level** — read `src/components/Section.astro` to understand the Section pattern.
+
 ## Composition
 
 **Three tiers: primitives, composites, and section-level components.**
@@ -106,14 +108,7 @@ The sidebar auto-discovers design system pages via `import.meta.glob` — no man
 
 ## Steps
 
-### 1. Research
-
-- Read `system.md`, `global.css`, `design-principles.md`
-- Read 2–3 existing components to learn project patterns
-- If the component already exists, read it first
-- If this is a section-level component, read `Section.astro` to understand the Section pattern
-
-### 2. Spec
+### 1. Spec
 
 Present a spec to the user covering:
 
@@ -128,7 +123,7 @@ Present a spec to the user covering:
 
 Wait for the user to approve before building.
 
-### 3. Build
+### 2. Build
 
 - Build component files per the approved spec
 - Semantic HTML + Tailwind utility classes. Always interactive (pseudo-class variants). Use `state` prop only for form states that can't be triggered by interaction (error, success, disabled). All color values from **semantic token utilities only** (`bg-card`, `text-foreground`, `border-border`, etc.) — never raw palette classes
@@ -136,11 +131,11 @@ Wait for the user to approve before building.
 - Create design system page + full-screen view
 - Wire into sidebar nav
 
-### 4. Responsive check
+### 3. Responsive check
 
 Verify the component works at narrow (~320px), medium (~768px), and wide (~1280px) container widths. Typography scales automatically via `clamp()` tokens (requires a `@container` ancestor). Check: layout collapses/stacks logically, text doesn't overflow, interactive targets stay tappable (≥44px), images/media scale without breaking, spacing tightens proportionally. If layout doesn't adapt, add the missing `@sm:`/`@md:`/`@lg:` container query variants.
 
-### 5. Accessibility test
+### 4. Accessibility test
 
 Tell the user: "Running a11y tests next." Then run `pnpm test:a11y` immediately — this is verification, not a project change. Don't ask permission to run it (dev server must be running). Read the output and interpret every finding for the user:
 - **Real issue** — explain what's wrong in plain language, propose a specific fix, explain why it matters.
@@ -148,19 +143,19 @@ Tell the user: "Running a11y tests next." Then run `pnpm test:a11y` immediately 
 
 Present findings and proposed fixes. Wait for approval before applying fixes only.
 
-### 6. Audit + fix
+### 5. Audit + fix
 
-Tell the user: "Running design system audit next." Then run `/angora-design-system-audit` immediately on the new component — same as above, verification not a change. The audit skips contrast and ARIA labeling (already covered by the a11y test) and focuses on design rules, token compliance (including semantic token enforcement — no raw palette classes), and responsive behavior. Fix any issues it finds — no confirmation needed for audit-driven fixes.
+Tell the user: "Running design system audit next." Then run `/angora-design-system-audit` immediately on the new component — same as above, verification not a change. The audit skips contrast and ARIA labeling (already covered by the a11y test) and focuses on design rules, token compliance (including semantic token enforcement — no raw palette classes), and responsive behavior. Present findings and proposed fixes. Wait for approval before applying fixes.
 
-### 7. Present for review
+### 6. Present for review
 
 Show the user what you've built. Reference the design system page URL (e.g., `/design-system/buttons`) so they can check it — don't tell them to start the dev server.
 
-### 8. Visual review
+### 7. Visual review
 
 User reviews in browser. Approves or iterates.
 
-### 9. Update system.md
+### 8. Update system.md
 
 Only if you made a new decision worth recording (added to anti-patterns or decisions log). Most components won't need an update.
 

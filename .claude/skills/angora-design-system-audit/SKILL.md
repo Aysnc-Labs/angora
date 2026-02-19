@@ -81,7 +81,7 @@ Contrast ratios and ARIA labeling are covered by the automated a11y test suite (
 | Rule | Check |
 |------|-------|
 | Proximity grouping | Related elements closer together, groups further apart. No ambiguous spacing where the relationship between elements is unclear |
-| Generous whitespace | Start with too much, not too little. Flag areas that feel cramped — especially padding inside cards, space between section heading and content |
+| Generous whitespace | Err on the side of generous whitespace. Flag areas that feel cramped — especially padding inside cards, space between section heading and content |
 
 ### Typography
 

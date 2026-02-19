@@ -134,4 +134,4 @@ Every field inside a FieldGroup should be wrapped in a FormRow. Don't use raw `<
 
 ## Review
 
-Present the completed page to the user and suggest they review in browser (`pnpm dev`). Offer to run `/angora-design-system-audit` for a design system check — don't run it automatically. (Accessibility is covered at the component and layout level by `pnpm test:a11y` — no need to re-test assembled pages.)
+Present the completed page to the user and suggest they review in browser (`pnpm dev`). Then run `/angora-design-system-audit` automatically — this is verification, not a change. Present findings and proposed fixes. Wait for approval before applying fixes. (Accessibility is covered at the component and layout level by `pnpm test:a11y` — no need to re-test assembled pages.)

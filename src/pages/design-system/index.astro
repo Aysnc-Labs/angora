@@ -230,7 +230,7 @@ import Layout from './_layout/Layout.astro';
   <section class="specimen-section">
     <h2>Spacing Scale</h2>
     <p class="text-sm text-muted-foreground mb-6 max-w-[65ch]">
-      Base 8px with ~25% jumps. Use for padding, margins, and gaps. Smaller values (4–16px) for tight grouping, medium (24–48px) for component spacing, large (64–128px) for section rhythm.
+      Base 8px with ~25% jumps. Use for padding, margins, and gaps. Smaller values (4–16px) for tight grouping, medium (24–48px) for component spacing, large (64–256px) for section rhythm.
     </p>
     <div class="border border-border rounded-lg p-6">
       <div class="flex flex-col gap-3">
@@ -246,6 +246,8 @@ import Layout from './_layout/Layout.astro';
           { name: '20', value: '80px',  w: 'w-20' },
           { name: '24', value: '96px',  w: 'w-24' },
           { name: '32', value: '128px', w: 'w-32' },
+          { name: '48', value: '192px', w: 'w-48' },
+          { name: '64', value: '256px', w: 'w-64' },
         ].map(({ name, value, w }) => (
           <div class="flex items-center gap-4">
             <span class="text-xs font-mono text-muted-foreground w-8 shrink-0 text-right">{name}</span>

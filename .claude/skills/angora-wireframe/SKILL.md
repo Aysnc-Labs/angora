@@ -19,7 +19,7 @@ Sketch page structure (hierarchy, layout, flow) before committing to visual desi
 Use `AskUserQuestion` to ask the user which wireframe format they prefer:
 
 - **ASCII** — wireframe stored as ASCII art in a `<pre>` block. ~100-200 tokens per page. Best for fast iteration.
-- **Visual** — wireframe rendered as gray Tailwind boxes (`bg-gray-100 border border-gray-300`, placeholder text). More visual but more tokens.
+- **Visual** — wireframe rendered as gray Tailwind boxes (`bg-muted border border-border`, placeholder text). More visual but more tokens.
 
 ## Output files
 
