@@ -102,14 +102,30 @@ export const STYLES = /* css */ `
     white-space: nowrap;
   }
 
-  /* ── Chat input (shell) ── */
+  /* ── Field groups ── */
+
+  .angora-field {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .angora-label {
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #6c7086;
+  }
+
+  /* ── Chat textarea ── */
 
   .angora-chat {
     display: flex;
     gap: 8px;
   }
 
-  .angora-chat input {
+  .angora-chat textarea {
     all: unset;
     flex: 1;
     padding: 6px 10px;
@@ -117,8 +133,20 @@ export const STYLES = /* css */ `
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 6px;
     font-size: 12px;
+    font-family: inherit;
+    color: #cdd6f4;
+    resize: none;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+  }
+
+  .angora-chat textarea::placeholder {
     color: #6c7086;
-    cursor: not-allowed;
+  }
+
+  .angora-chat textarea:focus {
+    border-color: rgba(137, 180, 250, 0.4);
+    outline: none;
   }
 
   /* ── Done button ── */

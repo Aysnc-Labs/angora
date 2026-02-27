@@ -4,6 +4,7 @@ export interface BubbleAPI {
   reposition: () => void;
   onDone: (cb: () => void) => void;
   updatePreview: () => void;
+  getMessage: () => string;
 }
 
 /** Build breadcrumb segments from element up to body. */
@@ -53,18 +54,31 @@ export function createBubble(canvas: ShadowRoot): BubbleAPI {
   const breadcrumb = document.createElement("nav");
   breadcrumb.className = "angora-breadcrumb";
 
-  // Text preview
+  // Text preview with label
+  const previewGroup = document.createElement("div");
+  previewGroup.className = "angora-field";
+  const previewLabel = document.createElement("label");
+  previewLabel.className = "angora-label";
+  previewLabel.textContent = "Text";
   const preview = document.createElement("div");
   preview.className = "angora-preview";
+  previewGroup.appendChild(previewLabel);
+  previewGroup.appendChild(preview);
 
-  // Chat input (disabled shell)
+  // Chat textarea with label
+  const chatGroup = document.createElement("div");
+  chatGroup.className = "angora-field";
+  const chatLabel = document.createElement("label");
+  chatLabel.className = "angora-label";
+  chatLabel.textContent = "Message";
   const chatWrap = document.createElement("div");
   chatWrap.className = "angora-chat";
-  const chatInput = document.createElement("input");
-  chatInput.type = "text";
-  chatInput.placeholder = "Type a command...";
-  chatInput.disabled = true;
+  const chatInput = document.createElement("textarea");
+  chatInput.rows = 2;
+  chatInput.placeholder = "Describe what you want to change...";
   chatWrap.appendChild(chatInput);
+  chatGroup.appendChild(chatLabel);
+  chatGroup.appendChild(chatWrap);
 
   // Done button
   const doneBtn = document.createElement("button");
@@ -72,8 +86,8 @@ export function createBubble(canvas: ShadowRoot): BubbleAPI {
   doneBtn.textContent = "Done";
 
   container.appendChild(breadcrumb);
-  container.appendChild(preview);
-  container.appendChild(chatWrap);
+  container.appendChild(previewGroup);
+  container.appendChild(chatGroup);
   container.appendChild(doneBtn);
   canvas.appendChild(container);
 
@@ -126,9 +140,17 @@ export function createBubble(canvas: ShadowRoot): BubbleAPI {
     breadcrumb.innerHTML = "";
     breadcrumb.appendChild(buildBreadcrumb(el, onSelect));
 
-    // Update preview
+    // Update preview — hide when element has no text
     const text = el.textContent?.trim() ?? "";
-    preview.textContent = text.length > 120 ? text.slice(0, 120) + "..." : text;
+    if (text) {
+      preview.textContent = text.length > 120 ? text.slice(0, 120) + "..." : text;
+      previewGroup.style.display = "";
+    } else {
+      previewGroup.style.display = "none";
+    }
+
+    // Reset chat
+    chatInput.value = "";
 
     container.classList.add("angora-bubble--visible");
 
@@ -152,8 +174,17 @@ export function createBubble(canvas: ShadowRoot): BubbleAPI {
   function updatePreview() {
     if (!selectedEl) return;
     const text = selectedEl.textContent?.trim() ?? "";
-    preview.textContent = text.length > 120 ? text.slice(0, 120) + "..." : text;
+    if (text) {
+      preview.textContent = text.length > 120 ? text.slice(0, 120) + "..." : text;
+      previewGroup.style.display = "";
+    } else {
+      previewGroup.style.display = "none";
+    }
   }
 
-  return { show, hide, reposition, onDone, updatePreview };
+  function getMessage(): string {
+    return chatInput.value.trim();
+  }
+
+  return { show, hide, reposition, onDone, updatePreview, getMessage };
 }

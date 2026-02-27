@@ -4,10 +4,10 @@ import { createSelectMode, type SelectAPI } from "./select";
 
 export default {
   id: "angora-edit",
-  name: "Angora Edit",
-  icon: `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="22" y1="2" x2="11" y2="13"/><line x1="8" y1="12" x2="12" y2="16"/></svg>`,
+  name: "Inspect with Angora",
+  icon: `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="22" y1="12" x2="18" y2="12"/><line x1="6" y1="12" x2="2" y2="12"/><line x1="12" y1="6" x2="12" y2="2"/><line x1="12" y1="22" x2="12" y2="18"/></svg>`,
 
-  init(canvas, app) {
+  init(canvas, app, server) {
     // Inject styles into the shadow DOM
     const style = document.createElement("style");
     style.textContent = STYLES;
@@ -24,7 +24,9 @@ export default {
       const active = (e as CustomEvent<{ state: boolean }>).detail.state;
 
       if (active) {
-        selectMode = createSelectMode(canvas);
+        selectMode = createSelectMode(canvas, {
+          onDiff: (diff) => server.send("angora:edit-diff", diff),
+        });
         selectMode.activate();
       } else {
         if (selectMode) {

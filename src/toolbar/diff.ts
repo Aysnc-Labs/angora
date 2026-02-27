@@ -1,15 +1,33 @@
+export interface Rect {
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+}
+
 export interface Change {
   type: "text";
   selector: string;
-  xpath: string;
   tagName: string;
   before: string;
   after: string;
+  rect: Rect;
+}
+
+export interface SelectedElement {
+  selector: string;
+  tagName: string;
+  attributes: Record<string, string>;
+  rect: Rect;
 }
 
 export interface Diff {
-  timestamp: string;
   url: string;
+  userAgent: string;
+  viewport: { width: number; height: number };
+  screen: { width: number; height: number };
+  message: string;
+  element: SelectedElement | null;
   changes: Change[];
 }
 
@@ -93,26 +111,56 @@ export function buildXPath(el: Element): string {
 /** Serialize all tracked changes into a structured diff. */
 export function serializeDiff(
   originalContent: Map<Element, string>,
+  message = "",
+  selectedEl: Element | null = null,
 ): Diff {
   const changes: Change[] = [];
 
   for (const [el, before] of originalContent) {
     const after = el.textContent ?? "";
     if (before !== after) {
+      const domRect = el.getBoundingClientRect();
       changes.push({
         type: "text",
         selector: buildCssSelector(el),
-        xpath: buildXPath(el),
         tagName: el.tagName.toLowerCase(),
         before,
         after,
+        rect: {
+          x: Math.round(domRect.x),
+          y: Math.round(domRect.y),
+          width: Math.round(domRect.width),
+          height: Math.round(domRect.height),
+        },
       });
     }
   }
 
+  let element: SelectedElement | null = null;
+  if (selectedEl) {
+    const domRect = selectedEl.getBoundingClientRect();
+    element = {
+      selector: buildCssSelector(selectedEl),
+      tagName: selectedEl.tagName.toLowerCase(),
+      attributes: Object.fromEntries(
+        Array.from(selectedEl.attributes).map((a) => [a.name, a.value]),
+      ),
+      rect: {
+        x: Math.round(domRect.x),
+        y: Math.round(domRect.y),
+        width: Math.round(domRect.width),
+        height: Math.round(domRect.height),
+      },
+    };
+  }
+
   return {
-    timestamp: new Date().toISOString(),
     url: window.location.pathname,
+    userAgent: navigator.userAgent,
+    viewport: { width: window.innerWidth, height: window.innerHeight },
+    screen: { width: window.screen.width, height: window.screen.height },
+    message,
+    element,
     changes,
   };
 }

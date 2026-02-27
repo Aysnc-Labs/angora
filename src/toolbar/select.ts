@@ -22,12 +22,16 @@ const EDITABLE_TAGS = new Set([
   "SUMMARY", "LEGEND",
 ]);
 
+export interface SelectOptions {
+  onDiff?: (diff: Diff) => void;
+}
+
 export interface SelectAPI {
   activate: () => void;
   deactivate: () => void;
 }
 
-export function createSelectMode(canvas: ShadowRoot): SelectAPI {
+export function createSelectMode(canvas: ShadowRoot, options?: SelectOptions): SelectAPI {
   // ── State ──
   let active = false;
   let selectedEl: Element | null = null;
@@ -130,15 +134,17 @@ export function createSelectMode(canvas: ShadowRoot): SelectAPI {
   function finalize() {
     observer.stop();
 
-    const diff: Diff = serializeDiff(originalContent);
+    const message = bubble.getMessage();
+    const diff: Diff = serializeDiff(originalContent, message, selectedEl);
 
-    if (diff.changes.length > 0) {
+    if (diff.changes.length > 0 || diff.message) {
       console.log(
         "%c[Angora Edit] Diff captured",
         "color: #89b4fa; font-weight: bold",
         diff,
       );
       (window as any).__angoraEditDiff__ = diff;
+      options?.onDiff?.(diff);
     } else {
       console.log(
         "%c[Angora Edit] No changes detected",
@@ -179,6 +185,9 @@ export function createSelectMode(canvas: ShadowRoot): SelectAPI {
 
     // If clicking outside the selected element, deselect
     if (selectedEl) {
+      // Don't deselect when clicking the toolbar (bubble, breadcrumb, etc.)
+      if (isToolbarElement(target)) return;
+
       if (!selectedEl.contains(target)) {
         deselectElement();
         hideOverlay();
