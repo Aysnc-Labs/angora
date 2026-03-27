@@ -1,0 +1,18 @@
+---
+interface Props {
+  columns?: 2 | 3;
+  class?: string;
+}
+
+const { columns = 3, class: className, ...props } = Astro.props;
+
+const gridCols = columns === 2
+  ? 'grid-cols-1 @sm:grid-cols-2'
+  : 'grid-cols-1 @sm:grid-cols-2 @lg:grid-cols-3';
+---
+
+<div data-component="CardGrid" class:list={["@container", className]} {...props}>
+  <div class:list={["grid grid-gap", gridCols]}>
+    <slot />
+  </div>
+</div>

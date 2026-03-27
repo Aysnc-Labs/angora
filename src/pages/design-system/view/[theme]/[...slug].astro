@@ -5,17 +5,19 @@ import ButtonsContent from '../_content/buttons.astro';
 import CardsContent from '../_content/cards.astro';
 import FormsContent from '../_content/forms.astro';
 import GridContent from '../_content/grid.astro';
+import CardGridContent from '../_content/card-grid.astro';
 
 const views: Record<string, { title: string; component: any }> = {
   buttons: { title: 'Buttons', component: ButtonsContent },
   cards: { title: 'Cards', component: CardsContent },
   forms: { title: 'Forms', component: FormsContent },
   grid: { title: 'Grid', component: GridContent },
+  'card-grid': { title: 'Card Grid', component: CardGridContent },
 };
 
 export function getStaticPaths() {
   const themes = config.darkMode ? ['light', 'dark'] : ['light'];
-  const slugs = ['buttons', 'cards', 'forms', 'grid'];
+  const slugs = ['buttons', 'cards', 'forms', 'grid', 'card-grid'];
 
   return themes.flatMap((theme) =>
     slugs.map((slug) => ({

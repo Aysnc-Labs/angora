@@ -1,0 +1,54 @@
+---
+import Section from '@/components/Section.astro';
+import CardGrid from '@/components/CardGrid.astro';
+import Card from '@/components/Card/Card.astro';
+import CardBody from '@/components/Card/CardBody.astro';
+import CardEyebrow from '@/components/Card/CardEyebrow.astro';
+import CardTitle from '@/components/Card/CardTitle.astro';
+import CardDescription from '@/components/Card/CardDescription.astro';
+---
+
+<div class="section-flow">
+  <Section title="Built for modern teams">
+    <CardGrid>
+      <Card variant="flat">
+        <CardBody>
+          <CardEyebrow>Feature</CardEyebrow>
+          <CardTitle>Lightning fast</CardTitle>
+          <CardDescription>Sub-100ms response times with edge computing.</CardDescription>
+        </CardBody>
+      </Card>
+      <Card variant="flat">
+        <CardBody>
+          <CardEyebrow>Feature</CardEyebrow>
+          <CardTitle>Secure by default</CardTitle>
+          <CardDescription>End-to-end encryption and automatic key rotation.</CardDescription>
+        </CardBody>
+      </Card>
+      <Card variant="flat">
+        <CardBody>
+          <CardEyebrow>Feature</CardEyebrow>
+          <CardTitle>Global scale</CardTitle>
+          <CardDescription>Deploy to 30+ regions with one click.</CardDescription>
+        </CardBody>
+      </Card>
+    </CardGrid>
+  </Section>
+
+  <Section title="What people are saying" seamless class="bg-muted">
+    <CardGrid columns={2}>
+      <Card>
+        <CardBody>
+          <CardTitle as="p">"Completely changed how we think about our pipeline."</CardTitle>
+          <CardDescription>Sarah Chen, VP Marketing</CardDescription>
+        </CardBody>
+      </Card>
+      <Card>
+        <CardBody>
+          <CardTitle as="p">"Cut deploy time from 45 minutes to under 3."</CardTitle>
+          <CardDescription>Marcus Rivera, CTO</CardDescription>
+        </CardBody>
+      </Card>
+    </CardGrid>
+  </Section>
+</div>

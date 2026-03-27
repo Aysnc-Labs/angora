@@ -1,0 +1,136 @@
+---
+import Layout from './_layout/Layout.astro';
+import Section from '@/components/Section.astro';
+import CardGrid from '@/components/CardGrid.astro';
+import Card from '@/components/Card/Card.astro';
+import CardBody from '@/components/Card/CardBody.astro';
+import CardEyebrow from '@/components/Card/CardEyebrow.astro';
+import CardTitle from '@/components/Card/CardTitle.astro';
+import CardDescription from '@/components/Card/CardDescription.astro';
+---
+
+<Layout title="Card Grid" description="Responsive grid layout for card collections. Handles column count and breakpoint stacking." fullscreenHref="/design-system/view/light/card-grid">
+
+  <!-- 3-column (default) -->
+  <section class="specimen-section">
+    <h2>3-Column Grid (default)</h2>
+    <p class="text-sm text-muted-foreground mb-6 max-w-[65ch]">
+      Default <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm font-mono">CardGrid</code> arranges children in a responsive 1 → 2 → 3 column layout. Sits inside a <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm font-mono">Section</code> — the grid provides its own <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm font-mono">@container</code>.
+    </p>
+    <div class="border border-border rounded-lg overflow-hidden">
+      <Section withPadding aria-label="3-column demo">
+        <CardGrid>
+          <Card variant="flat">
+            <CardBody>
+              <CardEyebrow>Feature</CardEyebrow>
+              <CardTitle>Lightning fast</CardTitle>
+              <CardDescription>Sub-100ms response times with edge computing.</CardDescription>
+            </CardBody>
+          </Card>
+          <Card variant="flat">
+            <CardBody>
+              <CardEyebrow>Feature</CardEyebrow>
+              <CardTitle>Secure by default</CardTitle>
+              <CardDescription>End-to-end encryption and automatic key rotation.</CardDescription>
+            </CardBody>
+          </Card>
+          <Card variant="flat">
+            <CardBody>
+              <CardEyebrow>Feature</CardEyebrow>
+              <CardTitle>Global scale</CardTitle>
+              <CardDescription>Deploy to 30+ regions with one click.</CardDescription>
+            </CardBody>
+          </Card>
+        </CardGrid>
+      </Section>
+    </div>
+  </section>
+
+  <!-- 2-column -->
+  <section class="specimen-section">
+    <h2>2-Column Grid</h2>
+    <p class="text-sm text-muted-foreground mb-6 max-w-[65ch]">
+      <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm font-mono">columns={2}</code> caps at 2 columns from <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm font-mono">@sm:</code> up. Good for testimonials, comparisons, or any paired content.
+    </p>
+    <div class="border border-border rounded-lg overflow-hidden">
+      <Section withPadding aria-label="2-column demo">
+        <CardGrid columns={2}>
+          <Card>
+            <CardBody>
+              <CardTitle>Starter</CardTitle>
+              <CardDescription>Everything you need to get started. Free forever.</CardDescription>
+            </CardBody>
+          </Card>
+          <Card>
+            <CardBody>
+              <CardTitle>Pro</CardTitle>
+              <CardDescription>Advanced features for growing teams.</CardDescription>
+            </CardBody>
+          </Card>
+        </CardGrid>
+      </Section>
+    </div>
+  </section>
+
+  <!-- With Section title -->
+  <section class="specimen-section">
+    <h2>Inside Section with title</h2>
+    <p class="text-sm text-muted-foreground mb-6 max-w-[65ch]">
+      CardGrid inside a <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm font-mono">&lt;Section title="..."&gt;</code> — the Section handles the heading, CardGrid handles the layout.
+    </p>
+    <div class="border border-border rounded-lg overflow-hidden">
+      <Section title="From the blog" withPadding>
+        <CardGrid>
+          <Card>
+            <CardBody>
+              <CardEyebrow>Engineering</CardEyebrow>
+              <CardTitle>Building reliable systems</CardTitle>
+              <CardDescription>How we scaled our infrastructure to handle 10x growth.</CardDescription>
+            </CardBody>
+          </Card>
+          <Card>
+            <CardBody>
+              <CardEyebrow>Product</CardEyebrow>
+              <CardTitle>New dashboard</CardTitle>
+              <CardDescription>A redesigned analytics experience with real-time insights.</CardDescription>
+            </CardBody>
+          </Card>
+          <Card>
+            <CardBody>
+              <CardEyebrow>Design</CardEyebrow>
+              <CardTitle>Accessible color</CardTitle>
+              <CardDescription>Why we rebuilt our palette around WCAG AA from day one.</CardDescription>
+            </CardBody>
+          </Card>
+        </CardGrid>
+      </Section>
+    </div>
+  </section>
+
+  <!-- Seamless background -->
+  <section class="specimen-section">
+    <h2>On seamless background</h2>
+    <p class="text-sm text-muted-foreground mb-6 max-w-[65ch]">
+      CardGrid inside a seamless Section with a background color. Cards with <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm font-mono">default</code> variant stand out against the surface.
+    </p>
+    <div class="border border-border rounded-lg overflow-hidden">
+      <Section title="What people are saying" seamless class="bg-muted">
+        <CardGrid columns={2}>
+          <Card>
+            <CardBody>
+              <CardTitle as="p">"Completely changed how we think about our pipeline."</CardTitle>
+              <CardDescription>Sarah Chen, VP Marketing</CardDescription>
+            </CardBody>
+          </Card>
+          <Card>
+            <CardBody>
+              <CardTitle as="p">"Cut deploy time from 45 minutes to under 3."</CardTitle>
+              <CardDescription>Marcus Rivera, CTO</CardDescription>
+            </CardBody>
+          </Card>
+        </CardGrid>
+      </Section>
+    </div>
+  </section>
+
+</Layout>

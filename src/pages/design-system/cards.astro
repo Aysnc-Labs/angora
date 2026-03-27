@@ -7,6 +7,7 @@ import CardEyebrow from '@/components/Card/CardEyebrow.astro';
 import CardTitle from '@/components/Card/CardTitle.astro';
 import CardDescription from '@/components/Card/CardDescription.astro';
 import ArrowRight from '@/icons/ArrowRight.astro';
+import CardGrid from '@/components/CardGrid.astro';
 ---
 
 <Layout title="Cards" description="Three visual treatments for containing content. Default for most uses, elevated for interactive or featured items, flat for grouped or recessed content." fullscreenHref="/design-system/view/light/cards">
@@ -52,8 +53,8 @@ import ArrowRight from '@/icons/ArrowRight.astro';
     <p class="text-sm text-muted-foreground mb-6 max-w-[65ch]">
       Image top with <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm font-mono">padding=false</code> on the card, then a padded body below. The image uses <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm font-mono">object-fit: cover</code> in a fixed-height container. Good for blog posts, case studies, portfolios.
     </p>
-    <div class="@container border border-border rounded-lg p-8">
-      <div class="grid grid-cols-1 @sm:grid-cols-2 @lg:grid-cols-3 grid-gap">
+    <div class="border border-border rounded-lg p-8">
+      <CardGrid>
         <Card padding={false}>
           <CardImage />
           <CardBody>
@@ -81,7 +82,7 @@ import ArrowRight from '@/icons/ArrowRight.astro';
             <a class="text-sm font-semibold text-primary inline-flex items-center gap-1 hover:text-primary-hover transition-colors duration-fast ease-default mt-4" href="#">Read more <ArrowRight size={14} /></a>
           </CardBody>
         </Card>
-      </div>
+      </CardGrid>
     </div>
   </section>
 
@@ -91,8 +92,8 @@ import ArrowRight from '@/icons/ArrowRight.astro';
     <p class="text-sm text-muted-foreground mb-6 max-w-[65ch]">
       Icon or illustration at top, then title and description. No image, no CTA link — the card itself is the content. Works well in 3- or 4-column grids for feature and benefit sections.
     </p>
-    <div class="@container border border-border rounded-lg p-8">
-      <div class="grid grid-cols-1 @sm:grid-cols-2 @lg:grid-cols-3 grid-gap">
+    <div class="border border-border rounded-lg p-8">
+      <CardGrid>
         <Card variant="flat">
           <div class="w-10 h-10 rounded-lg bg-primary/10 text-primary flex items-center justify-center mb-4">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
@@ -114,7 +115,7 @@ import ArrowRight from '@/icons/ArrowRight.astro';
           <CardTitle>Global scale</CardTitle>
           <CardDescription>Deploy to 30+ regions with one click. Automatic failover and load balancing.</CardDescription>
         </Card>
-      </div>
+      </CardGrid>
     </div>
   </section>
 
