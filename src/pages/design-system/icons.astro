@@ -1,7 +1,10 @@
 ---
 import Layout from './_layout/Layout.astro';
 import ArrowRight from '@/icons/ArrowRight.astro';
+import Check from '@/icons/Check.astro';
+import ChevronDown from '@/icons/ChevronDown.astro';
 import Close from '@/icons/Close.astro';
+import Search from '@/icons/Search.astro';
 ---
 
 <Layout title="Icons" description="Inline SVG icons using currentColor. Each icon is an Astro component with a size prop. Copy the raw SVG from the gallery.">
@@ -25,10 +28,37 @@ import Close from '@/icons/Close.astro';
         </div>
         <div class="flex items-center gap-4" data-icon-entry>
           <div class="w-12 h-12 flex items-center justify-center bg-muted rounded-lg">
+            <Check />
+          </div>
+          <div>
+            <p class="text-sm font-medium text-foreground">Check</p>
+            <button data-copy-svg class="text-xs text-primary hover:text-primary-hover cursor-pointer">Copy SVG</button>
+          </div>
+        </div>
+        <div class="flex items-center gap-4" data-icon-entry>
+          <div class="w-12 h-12 flex items-center justify-center bg-muted rounded-lg">
+            <ChevronDown />
+          </div>
+          <div>
+            <p class="text-sm font-medium text-foreground">ChevronDown</p>
+            <button data-copy-svg class="text-xs text-primary hover:text-primary-hover cursor-pointer">Copy SVG</button>
+          </div>
+        </div>
+        <div class="flex items-center gap-4" data-icon-entry>
+          <div class="w-12 h-12 flex items-center justify-center bg-muted rounded-lg">
             <Close />
           </div>
           <div>
             <p class="text-sm font-medium text-foreground">Close</p>
+            <button data-copy-svg class="text-xs text-primary hover:text-primary-hover cursor-pointer">Copy SVG</button>
+          </div>
+        </div>
+        <div class="flex items-center gap-4" data-icon-entry>
+          <div class="w-12 h-12 flex items-center justify-center bg-muted rounded-lg">
+            <Search />
+          </div>
+          <div>
+            <p class="text-sm font-medium text-foreground">Search</p>
             <button data-copy-svg class="text-xs text-primary hover:text-primary-hover cursor-pointer">Copy SVG</button>
           </div>
         </div>

@@ -8,6 +8,8 @@ interface Props {
   placeholder?: string;
 }
 
+import ChevronDown from '@/icons/ChevronDown.astro';
+
 const {
   state,
   size = 'md',
@@ -80,9 +82,7 @@ const inputId = `select-${crypto.randomUUID().slice(0, 8)}`;
       ))}
     </select>
     <div class="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground pointer-events-none">
-      <svg width={chevronSize} height={chevronSize} viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <polyline points="6 9 12 15 18 9" />
-      </svg>
+      <ChevronDown size={chevronSize} />
     </div>
   </div>
   {hint && (

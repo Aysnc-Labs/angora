@@ -8,6 +8,8 @@ interface Props {
   disabled?: boolean;
 }
 
+import Check from '@/icons/Check.astro';
+
 const { size = 'md', checked, label, name, value, disabled } = Astro.props;
 
 const sizeMap: Record<string, { box: string; icon: number; text: string }> = {
@@ -30,9 +32,7 @@ const s = sizeMap[size];
       value={value}
     />
     <span class={`absolute inset-0 rounded-sm border-2 border-input bg-card group-hover:border-muted-foreground peer-checked:bg-primary peer-checked:border-primary group-hover:peer-checked:bg-primary-hover group-hover:peer-checked:border-primary-hover peer-focus-visible:outline-2 peer-focus-visible:outline-ring peer-focus-visible:outline-offset-2 transition-colors duration-fast ease-default`}></span>
-    <svg class="relative opacity-0 peer-checked:opacity-100 text-primary-foreground pointer-events-none" width={s.icon} height={s.icon} viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-      <polyline points="20 6 9 17 4 12" />
-    </svg>
+    <Check class="relative opacity-0 peer-checked:opacity-100 text-primary-foreground pointer-events-none" size={s.icon} stroke-width={3} />
   </span>
   {label && <span class={`${s.text} text-foreground`}>{label}</span>}
 </label>

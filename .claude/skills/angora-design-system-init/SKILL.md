@@ -226,7 +226,7 @@ Before building each page, ask the user any decisions noted below. Build one pag
    - Column patterns using the `grid-gap` utility (`--grid-gap` token)
    - Show the default spacing values in context and ask if the rhythm feels right before building variants.
 4. `cards.astro` — Basic card patterns (content card, feature card, pricing card shell). Show the 3 variants and ask: are these the right types for your pages? Missing any?
-5. `forms.astro` — Form elements: text input, textarea, select, checkbox, radio, toggle/switch, file upload, search input. All states, sizes, and variants.
+5. `forms.astro` — Form elements: text input, textarea, select, checkbox, radio, toggle/switch, file upload, search input. All states, sizes, and variants. Form components that need icons (checkbox checkmark, select chevron, search icon) must import from `src/icons/` — never inline SVGs.
 
 **Checkpoint.** Ask the user to open all design system pages in browser (`pnpm dev`). Ask explicitly: *"How do the components look? Anything to adjust before we move on to building pages?"*
 
