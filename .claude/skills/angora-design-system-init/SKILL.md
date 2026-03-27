@@ -205,7 +205,7 @@ Before building pages, ask the user to start the dev server in a separate termin
 Before building each page, ask the user any decisions noted below. Build one page at a time, or batch pages that don't need user input.
 
 1. `buttons.astro` — Sizes (sm, md, lg), variants (primary, secondary, ghost), icon buttons. Present 2–3 specific options for icon button layout (icon-left, icon-only, icon-right) and ask the user to pick.
-2. `icons.astro` — Icon gallery at sm (16px), md (20px), lg (24px), xl (32px) sizes, plus color variants, with copy-to-clipboard buttons for raw SVG. Each icon is an Astro component (`src/icons/*.astro`). Ask the user to name a starter set of 8–12 icons before building.
+2. `icons.astro` — Icon gallery at sm (16px), md (20px), lg (24px), xl (32px) sizes, plus color variants, with copy-to-clipboard buttons for raw SVG. The default icon library is **Lucide** (`@lucide/astro` package) — but ask the user if they'd prefer a different set (Heroicons, Phosphor, Tabler, etc.). Each icon in `src/icons/` is a thin Astro wrapper that re-exports from the chosen library. Components always import from `@/icons/`, never from the library directly — this keeps the library swappable. Ask the user to name a starter set of 8–12 icons, then create a wrapper in `src/icons/` for each one.
 3. `grid.astro` — Section component + section spacing rhythm + `grid-gap` utility + column patterns.
 
    **Build the Section component first** (`src/components/Section.astro`):

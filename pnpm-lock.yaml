@@ -11,6 +11,9 @@ importers:
       '@astrojs/preact':
         specifier: ^5.1.0
         version: 5.1.0(@babel/core@7.29.0)(@types/node@25.5.0)(jiti@2.6.1)(lightningcss@1.32.0)(preact@10.29.0)(rollup@4.60.0)(tsx@4.21.0)
+      '@lucide/astro':
+        specifier: ^1.7.0
+        version: 1.7.0(astro@6.1.1(@types/node@25.5.0)(jiti@2.6.1)(lightningcss@1.32.0)(rollup@4.60.0)(tsx@4.21.0)(typescript@5.9.3))
       '@tailwindcss/vite':
         specifier: ^4.2.2
         version: 4.2.2(vite@7.3.1(@types/node@25.5.0)(jiti@2.6.1)(lightningcss@1.32.0)(tsx@4.21.0))
@@ -808,6 +811,11 @@ packages:
 
   '@jridgewell/trace-mapping@0.3.31':
     resolution: {integrity: sha512-zzNR+SdQSDJzc8joaeP8QQoCQr8NuYx2dIIytl1QeBEZHJ9uW6hebsrYgbz8hJwUQao3TWCMtmfV8Nu1twOLAw==}
+
+  '@lucide/astro@1.7.0':
+    resolution: {integrity: sha512-57+iM12BllbSrt2o5bW34pHyt+nnnSMTucS6HzzQls+0g3lGMyRwKjrbSo0IjCzLWhZaLQLYa05n3E0jNpPdNA==}
+    peerDependencies:
+      astro: ^4 || ^5 || ^6
 
   '@oslojs/encoding@1.1.0':
     resolution: {integrity: sha512-70wQhgYmndg4GCPxPPxPGevRKqTIJ2Nh4OkiMWmDAVYsTQ+Ta7Sq+rPevXyXGdzr30/qZBnyOalCszoMxlyldQ==}
@@ -3038,6 +3046,10 @@ snapshots:
     dependencies:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.5
+
+  '@lucide/astro@1.7.0(astro@6.1.1(@types/node@25.5.0)(jiti@2.6.1)(lightningcss@1.32.0)(rollup@4.60.0)(tsx@4.21.0)(typescript@5.9.3))':
+    dependencies:
+      astro: 6.1.1(@types/node@25.5.0)(jiti@2.6.1)(lightningcss@1.32.0)(rollup@4.60.0)(tsx@4.21.0)(typescript@5.9.3)
 
   '@oslojs/encoding@1.1.0': {}
 
