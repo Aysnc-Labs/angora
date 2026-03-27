@@ -33,6 +33,10 @@ A request like "add testimonials" could mean:
 
 Clarify with the user if ambiguous. Don't assume.
 
+**Watch for the "section" word.** Designers often say "build me an FAQ section" or "add a testimonial section." The word "section" doesn't mean the component should be a landmark that renders its own `<section>` element. Most of the time, the designer means "a section on the page that contains [pattern]" — which is a **content component** (`.astro`) wrapped in `<Section>`. Separate the pattern name from the page context before routing to `/angora-component`. True landmarks (Header, Footer, Hero) are rare.
+
+**Watch for use-case names.** Designers name things by what they're for, not what they are: "FAQ" (→ Accordion), "testimonials section" (→ carousel or card grid inside a Section), "pricing section" (→ pricing table inside a Section). Translate to the generic UI pattern name before routing. The `/angora-component` skill will enforce this too, but catching it early avoids wasted work.
+
 ### 3. Plan the steps
 
 Based on what the user wants and what exists, figure out which skills need to run and in what order.
@@ -42,7 +46,7 @@ Based on what the user wants and what exists, figure out which skills need to ru
 | `/angora-schema` | Relational modeling, table design, schema evolution. The database architect. |
 | `/angora-media` | Process inbox images — vision alt text, dimensions, unique filenames, media table registration. |
 | `/angora-import` | Structured data ingestion from inbox (CSV, JSON). Validates against schema. |
-| `/angora-compose-page` | Build or evolve Astro pages — static, template, list/detail patterns. |
+| `/angora-compose-page` | Build or evolve Astro pages — static, template, list/detail patterns. For design system layouts, builds full-page compositions using real components with placeholder content. |
 | `/angora-component` | Build or update design system components. |
 | `/angora-wireframe` | Sketch page structure with data source annotations. |
 | `/angora-design-system-audit` | Review components or pages against the design system. |

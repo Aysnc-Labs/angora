@@ -32,9 +32,13 @@ Then validate the target against the rules below.
 
 | Rule | Check |
 |------|-------|
-| `data-component` | Every component's root element has `data-component="Name"` (PascalCase). Sub-components too (`data-component="CardBody"`). Attribute appears first in the attribute list |
-| Section composition | Section-level components (Hero, Pricing, Features, CTA, etc.) compose `Section` internally. They render `<Section>` or `<Section seamless>`, never a raw `<section>` with manual padding. Consumer never wraps them in `<Section>` |
-| No outer vertical margin | Section-level components never set `margin-top`/`margin-bottom` on their outermost element. That's `page-flow`'s job. Flag any `mt-*`/`mb-*`/`my-*` on a section-level component's root |
+| Component naming | Component names must follow the generic UI pattern, not a use case. Flag components named after their content (e.g., `FAQ` instead of `Accordion`, `Testimonials` instead of `Carousel`). The name should be reusable |
+| `data-component` with flow attributes | Every component's root element has `data-component="Name"` (PascalCase). Sub-components too (`data-component="CardBody"`). Attribute appears first in the attribute list. Landmark components also set flow participation attributes (`data-seamless`, `data-full-width`) on their root element |
+| Landmark components | Landmark components (Hero, Footer, Nav) live on their own without a Section. They render their own semantic element (`<section>`, `<footer>`, `<nav>`) with `data-component` and flow attributes. Flag landmarks wrapped in `<Section>` |
+| Content components | Content components render a `@container` wrapper div as their root so container queries work anywhere. They do NOT compose Section internally. Flag content components that import or render Section internally |
+| Heading ownership | Content components must not accept a `heading` or `title` prop — a parent `<Section title="...">` provides the section heading. Content headings that are part of internal layout are fine as sub-components |
+| No outer vertical margin | Landmark and content components never set `margin-top`/`margin-bottom` on their outermost element. That's the flow context's (`section-flow`/`prose-flow`) job. Flag any `mt-*`/`mb-*`/`my-*` on a component's root |
+| Content props on composite shells | Composite shells must have zero content props — content flows exclusively through sub-components. Flag any string or array prop on a composite shell that represents displayable content (headings, descriptions, legal text, nav links). Even "simple" string props must be sub-components. Landmarks are not exempt |
 | Images as `<img>` | All imagery uses `<img>` elements with `object-fit: cover` where needed. No CSS `background-image` for content images (heroes, cards, full-bleed sections). Position with `absolute inset-0` inside a relative container for backdrops |
 | States | All components interactive by default (pseudo-class variants for `hover:`, `active:`, `focus-visible:` + transitions). Form `state` prop only for non-interactive states (error, success, disabled). Composites: own variants only, child primitives in default state |
 
@@ -54,7 +58,7 @@ Contrast ratios and ARIA labeling are covered by the automated a11y test suite (
 | Rule | Check |
 |------|-------|
 | Semantic elements | Content uses semantic elements (`section`, `nav`, `h1`–`h6`, `p`, `a`, `button`, `input`, `figure`, `blockquote`, `ul`/`ol`, `footer`). No `<div>` where a semantic element fits |
-| Heading hierarchy | Heading levels don't skip (no `h1` → `h3`). Section-level components accept an `as` prop or similar for heading level flexibility |
+| Heading hierarchy | Heading levels don't skip (no `h1` → `h3`). Components accept an `as` prop or similar for heading level flexibility |
 
 ### Responsive
 
@@ -62,7 +66,7 @@ Contrast ratios and ARIA labeling are covered by the automated a11y test suite (
 |------|-------|
 | Container query syntax | Responsive variants use `@sm:`, `@md:`, `@lg:`, `@xl:` (container queries). No `@media` / no viewport-based `sm:`/`md:`/`lg:` in component markup. Only exception: `design-system.css` (tooling) |
 | Responsive behavior | Component actually adapts at narrow (~320px), medium (~768px), and wide (~1280px) container widths. Check: multi-column layouts stack to single column; text doesn't overflow or clip; interactive targets stay ≥ 44px; images/media scale without breaking aspect ratio; spacing reduces proportionally at narrow widths |
-| `@container` ancestor | Typography scales via `clamp()`/`cqi` tokens only if a `@container` ancestor exists. Verify one is present (Section provides it). Flag `@container` on an element that has no `@sm:`/`@md:`/`@lg:` layout variants — the wrapper is useless without breakpoint-specific styles |
+| `@container` ancestor | Content components provide their own `@container` wrapper. Section provides `@container` on its root `<section>` element. For inline content inside Section, Section's `@container` is sufficient. Flag content components that use container query variants (`@sm:`, `@md:`, `@lg:`) but don't have their own `@container` wrapper |
 
 ## Design Rules (always enforced, require judgment)
 
@@ -91,7 +95,7 @@ Contrast ratios and ARIA labeling are covered by the automated a11y test suite (
 | Line height | Proportional to font size: 1.5–1.75 for body text, 1.0–1.2 for display/heading text. Wider content may need up to 2.0 |
 | `text-wrap: balance` | Headings (`h1`–`h4`, display text) should have `text-wrap: balance` to prevent orphan lines. The `prose` utility applies this automatically |
 | `text-wrap: pretty` | Body text (`p`, `li`, `blockquote`) should have `text-wrap: pretty` to prevent single-word last lines. The `prose` utility applies this automatically |
-| Letter-spacing | Headlines should tighten tracking (`tracking-tight` or `tracking-tighter`). All-caps text should widen (`tracking-wide` or `tracking-wider`) |
+| Letter-spacing | Headlines should tighten tracking (`tracking-tight` or `tracking-tighter`). Small uppercase UI text (badges, eyebrows, nav labels under `text-lg`) should widen (`tracking-wide`). Display-size uppercase text (`text-xl` and above) keeps normal tracking — the large size already provides legibility. See `system.md` Conventions for the full letter-spacing policy |
 | Center-align limits | Center-aligned text only for very short blocks (1–3 lines). Body copy and longer text must be left-aligned. Flag centered paragraphs |
 | Tabular numbers | Numbers in tables, stats, and vertically-aligned contexts should use `tabular-nums` (`font-variant-numeric: tabular-nums`) |
 
@@ -110,25 +114,31 @@ Contrast ratios and ARIA labeling are covered by the automated a11y test suite (
 | Shadow interaction | Interactive elevated elements: hover increases shadow (lift), active decreases shadow (press). Flag elevated buttons/cards without shadow transitions |
 | Fewer borders | Prefer box shadows, different background colors, or extra spacing over borders for visual separation. Flag heavy `border` usage where a subtler technique would work |
 
-## Page Rules (site pages only — `src/pages/*.astro`, not design system pages)
+## Page Rules (site pages and layouts — `src/pages/*.astro` and `src/pages/design-system/layouts/`)
 
 Skip this section when auditing components or design system specimen pages.
 
 | Rule | Check |
 |------|-------|
-| `page-flow` wrapper | Sections wrapped in `<main class="page-flow">` for inter-section spacing |
-| Section component | Every section on the page uses the Section component (directly or via a section-level component that composes it internally). No raw `<section>` elements with manual padding |
-| No double-wrapping | Section-level components (Hero, Features, etc.) already compose Section internally. Don't wrap them in `<Section>` again on the page |
-| Seamless usage | Sections with background colors/images use `<Section seamless>` (or the section-level component's `seamless` prop). Adjacent seamless sections should butt up (0 gap) |
+| Flow context | Pages use `<main class="section-flow">` for inter-section spacing. Posts/articles use `<article class="prose-flow">` |
+| Manual typography in content zones | Flag manual typography classes on `<h2>`, `<p>`, `<a>` inside content zones — prose handles these. Only flag inside `section-flow` or `prose-flow` zones where ambient prose applies |
+| Blockquote prose protection | Blockquotes inside prose zones need protection via `data-component` (prose targets `blockquote:not([data-component])`) or explicit counter-declarations (`border-l-0 pl-0 not-italic`) |
+| List prose protection | UI lists (navigation, tags, non-content lists) inside prose zones must have `list-none p-0` to override prose's list styles. Content lists that should have bullets need no override |
+| Landmark vs content wrapping | Landmark components (Hero, Footer, Nav) live on their own in `section-flow` — don't wrap them in `<Section>`. Content components sit inside `<Section>` |
+| Section component | Content sections on the page use the Section component. No raw `<section>` elements with manual padding for content sections |
+| Seamless usage | Sections with background colors/images use `<Section seamless>` (or the landmark's flow attributes). Adjacent seamless sections should butt up (0 gap) |
 | Background rhythm | Page has visual rhythm — some variation in section backgrounds (alternating light/dark, or strategic use of color). Flag a page where every section is the same plain background |
-| SEO | Page has `<title>`, `<meta name="description">`. Template-driven pages wire SEO from table fields (`meta_title`, `meta_description`). Flag missing OG tags on public-facing pages |
+| Layout purity — single file | Design system layout directories (`src/pages/design-system/layouts/`) must contain only one `.astro` file. Flag extra files |
+| Layout purity — zero classes | In design system layouts, no Tailwind utility classes on raw HTML elements. Only `section-flow` on `<main>` is allowed. If a `<div>` needs a class, a component is missing |
+| Layout purity — no client code | Flag inline `<script>` tags in design system layouts. Use Preact islands via components instead |
+| SEO | Site pages (not layouts) have `<title>`, `<meta name="description">`. Template-driven pages wire SEO from table fields (`meta_title`, `meta_description`). Flag missing OG tags on public-facing pages |
 
 ## Soft Rules
 
 - **Anti-pattern violations** — anything listed in `system.md` Anti-Patterns section.
 - **Pattern consistency** — does this component follow the conventions established by existing components? Read 2–3 peers to compare.
 - **Personality alignment (swap test)** — could you swap this component's styling for the most generic version and the design wouldn't feel different? If yes, it's defaulting — flag it.
-- **Prose utility** — content-heavy sections (articles, about copy, rich text from CMS) should use the `prose` utility class from `global.css`. It handles heading sizes, vertical rhythm, list styling, blockquotes, links, `text-wrap`, and inline treatments. Components (cards, heroes) should NOT use `prose` — they own their spacing explicitly via `gap-*` classes.
+- **Prose utility** — `prose` is applied at the `<main>` level as an ambient typography baseline. Its descendant selectors use `:where()` for low specificity, so any Tailwind class on a component naturally overrides it. The only local `prose` usage is for nested content zones that need their own vertical rhythm. Components (cards, heroes) should NOT use `prose` — they own their spacing explicitly via `gap-*` classes.
 - **Finishing touches** — are there opportunities to supercharge defaults? Custom list bullets, styled blockquotes, accent borders, subtle background decoration. Don't mandate these, but suggest where they'd elevate the work.
 
 ## Output

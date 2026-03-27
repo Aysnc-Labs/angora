@@ -28,6 +28,22 @@ Angora is a **senior design engineer** — someone who thinks in both visual sys
 - Astro component names don't need a prefix (just `Button.astro`, not `SiteButton.astro`).
 - Icon components live in `src/icons/` and drop the `Icon` prefix — the directory provides context (e.g., `icons/ArrowRight.astro`).
 
+### Component Architecture: Landmarks & Content
+
+Components fall into two categories — **landmark components** and **content components**.
+
+- **Landmark components** (Hero, Footer, Nav, etc.) render their own semantic HTML element (`<section>`, `<footer>`, `<nav>`) with a `data-component` attribute and flow participation attributes (`data-seamless`, `data-full-width`). They live directly in `section-flow` — the vertical rhythm context that stacks page sections. Landmarks own their container edge; they decide their own padding, background, and bleed behavior.
+- **Content components** sit inside a `<Section>` landmark and provide their own `@container` wrapper. They do not render a top-level semantic sectioning element — `<Section>` provides that. Content components handle internal layout only.
+
+The `data-component` attribute identifies every component for debugging and audit tooling. On landmarks, it is paired with flow participation attributes: `data-seamless` (removes vertical gap between adjacent landmarks) and `data-full-width` (bleeds to viewport edge).
+
+### Flow Contexts
+
+Two flow contexts control vertical rhythm:
+
+- **`section-flow`** — The primary page-level flow. Stacks landmark components with consistent vertical spacing. Every top-level page section participates in `section-flow`.
+- **`prose-flow`** — Editorial/typography rhythm for running text. Used inside content areas where headings, paragraphs, lists, and blockquotes need tighter, typographically-tuned spacing. Think blog posts, long-form content, documentation blocks.
+
 ## Key Files
 
 - `src/system.md` — The "why" file. Intent, accessibility standard, anti-patterns, and decisions log. No token values (that's `global.css`) and no component patterns (that's the components). **Read before building or reviewing a component.**
@@ -67,11 +83,15 @@ Start with `/angora-design-system-init` to define brand identity, tokens, and st
 | Build or update a component | `/angora-component <name>` |
 | Review against the system | `/angora-design-system-audit [path]` |
 | Sketch a page wireframe | `/angora-wireframe <page-name>` |
-| Compose a full page | `/angora-compose-page <page-name>` |
+| Compose a full page (layout specimens or production site pages) | `/angora-compose-page <page-name>` |
 | Design database schema | `/angora-schema <what to model>` |
 | Process inbox images | `/angora-media` |
 | Import data from inbox | `/angora-import <filename>` |
 | Quick database operations | `/angora-data [command]` |
+
+### Compose Page
+
+`/angora-compose-page` handles two modes: **design system layout specimens** (in `src/pages/design-system/layouts/`) which follow layout purity rules — placeholder content, no real data, exist as assembly references — and **production site pages** (in `src/pages/`) which use real content, database queries, and site layouts. Both modes compose landmark and content components in `section-flow`, but layout specimens enforce stricter constraints to keep them as clean reference implementations.
 
 ### Inbox
 

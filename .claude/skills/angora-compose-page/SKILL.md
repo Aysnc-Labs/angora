@@ -8,13 +8,21 @@ argument-hint: <page-name>
 
 Build or update a full site page from approved components. Pages are living documents — this skill handles both creation and evolution.
 
+## Scope
+
+This skill does two things:
+- **Design system layouts** — full-page compositions in `src/pages/design-system/layouts/` using real components with placeholder content. These are specimens, not production pages.
+- **Site pages** — real routes in `src/pages/` with production content, database queries, SEO, and site layout wrappers.
+
+**Intent check:** When the user says "update the home page" or similar, clarify before proceeding: "Do you mean the **home layout** in the design system (`/design-system/layouts/home`), or the **actual website home page** at `src/pages/index.astro`?"
+
 ## Before you start
 
 1. **Read `src/system.md`** — intent, accessibility standard, anti-patterns.
 2. **Read `src/styles/global.css`** — available tokens for page-level spacing and backgrounds. All color references must use **semantic token utilities** — raw palette classes don't exist.
 3. **Read [design-principles.md](../docs/design-principles.md)** — especially Spacing & Layout, Dark Mode, and Finishing Touches sections.
 4. **Inventory components** — list `src/components/*.astro` to know what's available. Only use approved, built components.
-5. **Read `src/components/Section.astro`** — understand the Section pattern before composing pages. All page sections use this component.
+5. **Read `src/components/Section.astro`** — understand the Section pattern before composing pages. Section accepts: `seamless`, `fullWidth` (drops flow width constraint), `narrow` (constrains to `--container-narrow`), `withWrap` (re-constrains children of full-width sections), `withPadding` (adds vertical padding without seamless), `title` (renders `<h2>` with automatic `aria-labelledby`).
 6. **Check for wireframe** — look for `src/pages/design-system/wireframes/<page-name>.astro`. If it exists, read it — especially the data source annotations in frontmatter.
 7. **Check for layout** — look for `src/pages/design-system/layouts/<page-name>.astro`. If a layout exists, it's an approved composition showing how components assemble for this page. Use it as the reference — match its section order, component choices, and visual rhythm. The real page replaces placeholder content with real data but follows the same structure.
 8. **Check for existing page** — look for `src/pages/<page-name>.astro`. If it exists, read it first. This is an evolution, not a rewrite.
@@ -120,17 +128,30 @@ Every field inside a FieldGroup should be wrapped in a FormRow. Don't use raw `<
 
 ## Page-level concerns
 
-- **Page wrapper uses `page-flow`** — `<main class="page-flow">` wraps all sections. The `page-flow` utility lives in `global.css` and controls inter-section margin (gap controlled by `--section-gap`).
-- **Every section uses the Section component** — don't render raw `<section>` elements on pages. Section provides `@container`, container max-width, horizontal padding, and accessible labeling. Non-seamless sections have no vertical padding (`page-flow` handles spacing). Seamless sections get standardized vertical padding tied to `--section-gap`.
-- **Section-level components compose Section internally** — if using Hero, Features, or other section-level components, they already render Section under the hood. Don't double-wrap with `<Section><Hero>`.
+- **Page wrapper uses `section-flow`** — `<main class="section-flow">` wraps all sections. The `section-flow` utility lives in `global.css` and controls inter-section spacing (gap controlled by `--section-gap`). For editorial content (blog posts, articles), use `<article class="prose-flow">` instead.
+- **Ambient prose** — `section-flow` and `prose-flow` include prose automatically via `@apply prose`. Raw HTML elements get typographic styling from prose at low specificity (`:where()`) — component classes always win. Don't add `prose` separately. The only local `prose` usage is for nested content zones that need their own vertical rhythm.
+- **Landmark components live on their own** — Hero, Footer, Nav go directly inside `section-flow`. They render their own semantic element with `data-component` and flow attributes (`data-seamless`, `data-full-width`). Don't wrap landmarks in `<Section>`.
+- **Content components go inside `<Section>`** — the consumer controls `title`, `seamless`, `narrow`, `fullWidth`, `withWrap`. Use `<Section fullWidth withWrap>` when a section needs edge-to-edge background but children should stay constrained to container width.
 - **Backgrounded sections use `seamless`** — `<Section seamless>` for sections with background colors/images. Adjacent seamless sections get 0 gap so backgrounds butt up.
-- **Prose utility for content sections** — sections with flowing editorial content (articles, about copy, rich text from CMS) should wrap content in the `prose` utility class from `global.css`. It handles heading sizes, vertical rhythm, list styling, blockquotes, links, `text-wrap`, and inline treatments (`mark`, `code`, `kbd`). Don't use `prose` on structured component sections (hero, pricing, features) — those own their spacing explicitly.
 - Background alternation for visual rhythm — use semantic surface tokens for section variety. These automatically adapt in dark mode
 - Visual flow — the eye moves naturally through the page
 - Responsive behavior via container queries
 - SEO: `<title>`, `<meta name="description">`, OG tags
 - **`color-scheme` meta tag** — already handled by `Layout.astro` for design system pages. For site pages, include `<meta name="color-scheme" content="light dark">` if the site supports dark mode, or `<meta name="color-scheme" content="light">` if light-only
 - **Images in dark mode** — photographs on dark backgrounds can feel jarring. Use `dark:brightness-80 dark:contrast-125` on `<img>` elements to dim slightly. Avoid images with baked-in white backgrounds — they become glowing rectangles in dark mode. Prefer transparent or neutral backgrounds for logos and illustrations
+
+## Layout purity rules (design system layouts only)
+
+When building a layout in `src/pages/design-system/layouts/`, enforce these additional rules:
+
+- **Single-file rule** — a layout page is one `.astro` file. No extracted sub-components, no helper modules. If the layout feels too complex for one file, the components are too coarse — refine them in `/angora-component`.
+- **Zero-class layout rule** — layouts are pure component composition. No Tailwind utility classes on raw HTML elements. If you need to add a class to a `<div>`, a component is missing. **Allowed:** just `section-flow` on `<main>`. **Not allowed:** spacing wrappers (`<div class="mt-8">`), grid layouts (`<div class="grid grid-cols-2">`), visual treatments (`<div class="bg-card rounded-lg">`), styled headings, width constraints, Button wrapper divs, `class` overrides on components, raw markup.
+- **No client-side code** — design system layouts are static. No inline `<script>` tags for interactivity. If a section needs interactivity, it should use a Preact island via the component itself.
+- **Layout purity check** — after building, verify: single file? No client code? Zero-class compliance? Landmark components outside `<Section>`? Content components inside `<Section>`? No arbitrary values? No double-wrapping? Background rhythm makes sense?
+
+## Lint & format
+
+Run `pnpm lint:format` if available — this is verification, not a project change.
 
 ## Review
 

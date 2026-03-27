@@ -93,7 +93,7 @@ Once approved, let the user know: *"Creative direction is saved to `system.md`. 
 
 ## 2a. Structural tokens (personality-agnostic)
 
-- Spacing scale (base 8px, ~25% jumps — no linear scales, no arbitrary values)
+- Spacing scale (base 8px, ~25% jumps: 4, 8, 12, 16, 24, 32, 48, 64, 80, 96, 128, 192, 256 — no linear scales, no arbitrary values)
 - Type scale (hand-crafted, not modular ratio). Body text as fixed px: 12, 14, 16, 18, 20. Heading/display sizes use `clamp()` with `cqi` so they scale fluidly with container width: `clamp(floor, Xcqi, max)` where X = max ÷ 12 (hits max at the 1200px container). Requires a `@container` ancestor.
 - Line height rules, max content widths, breakpoints
 
@@ -192,11 +192,15 @@ Skip this step if the user opted out of dark mode in Phase 1.
 
 All sections must have a `@container` ancestor (required for responsive type tokens to work).
 
-**Dev tools convention:** every component's root element gets `data-component="ComponentName"` (PascalCase). Sub-components too (`data-component="CardBody"`). This makes components identifiable in browser dev tools. Always first attribute in the list.
+Before building pages, ask the user to start the dev server in a separate terminal: *"Make sure `pnpm dev` is running — you'll want it to review each page in the browser, and I'll need it for a11y testing."*
+
+**Dev tools convention:** every component's root element gets `data-component="ComponentName"` (PascalCase). Sub-components too (`data-component="CardBody"`). This makes components identifiable in browser dev tools. Always first attribute in the list. Landmark components also set flow participation attributes: `data-component="Hero" data-seamless data-full-width`.
 
 **Token usage:** All components use semantic token utility classes only (`bg-card`, `text-foreground`, `border-border`, etc.). Never use raw palette classes — they don't exist. Read `global.css` to see available semantic tokens in the `@theme` block.
 
 **Full-screen views:** Each design system page that has a full-screen view creates a content file at `src/pages/design-system/view/_content/<name>.astro` (pure markup, no FullScreen wrapper). The dynamic route at `view/[theme]/[...slug].astro` handles wrapping with FullScreen and applying the theme. If dark mode is enabled, both `/view/light/<name>` and `/view/dark/<name>` are generated automatically.
+
+**Lint & a11y:** Run `pnpm lint:format` after writing or modifying files if available. Run `pnpm test:a11y` after building each design system page (dev server must be running). Read the output and fix any failures before proceeding. Both are mechanical work — no user confirmation needed.
 
 Before building each page, ask the user any decisions noted below. Build one page at a time, or batch pages that don't need user input.
 
@@ -205,16 +209,19 @@ Before building each page, ask the user any decisions noted below. Build one pag
 3. `grid.astro` — Section component + section spacing rhythm + `grid-gap` utility + column patterns.
 
    **Build the Section component first** (`src/components/Section.astro`):
-   - Renders `<section>` with `@container`, container max-width, standard vertical padding
-   - Props: `seamless` (boolean → adds `data-seamless`, adds standardized vertical padding tied to `--section-gap`), `aria-label` (for untitled sections), `aria-labelledby` (for titled sections), `class` (pass-through)
-   - Non-seamless sections get no vertical padding — `page-flow` margin handles spacing. Seamless sections get vertical padding matching `--section-gap` for consistent rhythm
-   - Headings are composed as children — Section doesn't own title markup. Section-level components wire `aria-labelledby` internally since they know their own heading
-   - When `seamless`: adds `data-seamless` attribute so `page-flow` collapses gap between adjacent seamless sections
+   - Renders `<section>` with `@container` and `data-component="Section"`
+   - Section does NOT own width or horizontal padding — the flow utility (`section-flow`/`prose-flow`) handles all width constraints on direct children
+   - Props: `seamless` (boolean → adds `data-seamless`, adds standardized vertical padding tied to `--section-gap`), `fullWidth` (boolean → adds `data-full-width`, drops flow width constraint), `narrow` (constrains to `--container-narrow`), `withWrap` (re-constrains children of full-width sections to container width), `withPadding` (adds vertical padding without seamless behavior), `title` (renders `<h2>` with automatic `aria-labelledby`), `aria-label` (for untitled sections), `class` (pass-through)
+   - Non-seamless sections get no vertical padding — `section-flow` margin handles spacing. Seamless sections get vertical padding matching `--section-gap` for consistent rhythm
+   - `title` prop renders a `<h2>` and automatically wires `aria-labelledby`. Pass `aria-label` for sections without a visible heading
+   - When `seamless`: adds `data-seamless` attribute so `section-flow` collapses gap between adjacent seamless sections
    - Section is a primitive (single file, not a directory) since it has no sub-components — content goes in the default slot
 
+   **Flow contexts:** `section-flow` for page-level rhythm, `prose-flow` for editorial content. Both include ambient `prose` via `@apply prose` — typography for raw HTML elements is automatic at low specificity (`:where()`). Component classes naturally override.
+
    **Then build the grid design system page** showing:
-   - Section specimens: section with composed heading, untitled section (`aria-label`), seamless section (backgrounded, `data-seamless`)
-   - Two sections stacked in `page-flow` showing correct inter-section rhythm (`--section-gap`)
+   - Section specimens: section with `title` prop, untitled section (`aria-label`), seamless section (backgrounded, `data-seamless`), full-width section (`fullWidth`), full-width with wrap (`fullWidth withWrap`)
+   - Two sections stacked in `section-flow` showing correct inter-section rhythm (`--section-gap`)
    - Two seamless sections stacked showing zero gap (backgrounds butt up)
    - Column patterns using the `grid-gap` utility (`--grid-gap` token)
    - Show the default spacing values in context and ask if the rhythm feels right before building variants.
