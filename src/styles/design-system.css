@@ -239,7 +239,7 @@
 }
 
 /*
- * Non-seamless sections inside specimen holders have no page-flow parent
+ * Non-seamless sections inside specimen holders have no section-flow parent
  * to provide vertical spacing. This rule gives them breathing room.
  * Seamless sections already have internal padding via Section.
  */
@@ -247,8 +247,8 @@
   padding-block: var(--spacing-12);
 }
 
-/* Inside page-flow, margins handle section spacing — no extra padding needed */
-.specimen-section .page-flow section:not([data-seamless]) > div {
+/* Inside section-flow, margins handle section spacing — no extra padding needed */
+.specimen-section .section-flow section:not([data-seamless]) > div {
   padding-block: 0;
 }
 

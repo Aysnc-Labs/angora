@@ -1,7 +1,11 @@
 ---
 interface Props {
   seamless?: boolean;
+  fullWidth?: boolean;
+  narrow?: boolean;
+  withWrap?: boolean;
   withPadding?: boolean;
+  title?: string;
   'aria-label'?: string;
   'aria-labelledby'?: string;
   class?: string;
@@ -9,21 +13,42 @@ interface Props {
 
 const {
   seamless,
+  fullWidth,
+  narrow,
+  withWrap,
   withPadding,
+  title,
   class: className,
   'aria-label': ariaLabel,
   'aria-labelledby': ariaLabelledBy,
 } = Astro.props;
+
+const headingId = title ? `section-${title.toLowerCase().replace(/\s+/g, '-')}` : undefined;
 ---
 
 <section
   data-component="Section"
   data-seamless={seamless || undefined}
+  data-full-width={fullWidth || undefined}
+  data-narrow={narrow || undefined}
+  data-wrap={withWrap || undefined}
   class={className}
   aria-label={ariaLabel}
-  aria-labelledby={ariaLabelledBy}
+  aria-labelledby={ariaLabelledBy || headingId}
 >
-  <div class:list={['@container max-w-[var(--container-max)] mx-auto px-6', (seamless || withPadding) && 'py-[var(--section-gap,64px)]']}>
-    <slot />
+  <div class:list={[
+    '@container',
+    !fullWidth && 'max-w-[var(--container-max)] mx-auto px-6',
+    narrow && 'max-w-[var(--container-narrow,768px)] mx-auto px-6',
+    (seamless || withPadding) && 'py-[var(--section-gap,64px)]',
+  ]}>
+    {title && <h2 id={headingId} class="text-3xl font-bold tracking-tight text-foreground mb-8">{title}</h2>}
+    {withWrap ? (
+      <div class="max-w-[var(--container-max)] mx-auto">
+        <slot />
+      </div>
+    ) : (
+      <slot />
+    )}
   </div>
 </section>

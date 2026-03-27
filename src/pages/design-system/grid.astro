@@ -126,7 +126,7 @@ import Section from '../../components/Section.astro';
   <section class="specimen-section">
     <h2>Section Component</h2>
     <p class="text-sm text-muted-foreground mb-6 max-w-[65ch]">
-      The <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm font-mono">Section</code> primitive wraps page sections with a <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm font-mono">&lt;section&gt;</code> element, <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm font-mono">@container</code>, constrained content width, and horizontal padding. Non-seamless sections have no vertical padding (<code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm font-mono">page-flow</code> handles spacing). Seamless and <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm font-mono">withPadding</code> sections get standardized vertical padding tied to <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm font-mono">--section-gap</code>. Headings are composed as children.
+      The <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm font-mono">Section</code> primitive wraps page sections with a <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm font-mono">&lt;section&gt;</code> element, <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm font-mono">@container</code>, constrained content width, and horizontal padding. Non-seamless sections have no vertical padding (<code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm font-mono">section-flow</code> handles spacing). Seamless and <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm font-mono">withPadding</code> sections get standardized vertical padding tied to <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm font-mono">--section-gap</code>. Headings are composed as children.
     </p>
 
     <h3 class="text-sm font-semibold text-muted-foreground uppercase tracking-wide mb-4">Seamless (background, standardized vertical padding)</h3>
@@ -139,8 +139,8 @@ import Section from '../../components/Section.astro';
       </Section>
     </div>
 
-    <h3 class="text-sm font-semibold text-muted-foreground uppercase tracking-wide mb-4">Seamless + Seamless in page-flow (zero gap)</h3>
-    <div class="page-flow border border-border rounded-lg overflow-hidden mb-8">
+    <h3 class="text-sm font-semibold text-muted-foreground uppercase tracking-wide mb-4">Seamless + Seamless in section-flow (zero gap)</h3>
+    <div class="section-flow border border-border rounded-lg overflow-hidden mb-8">
       <Section seamless class="bg-foreground">
         <div class="text-center">
           <div class="h-6 w-48 bg-muted-foreground rounded-sm mx-auto mb-3"></div>
@@ -156,11 +156,11 @@ import Section from '../../components/Section.astro';
       </Section>
     </div>
 
-    <h3 class="text-sm font-semibold text-muted-foreground uppercase tracking-wide mb-4">Default + Seamless + Default in page-flow</h3>
+    <h3 class="text-sm font-semibold text-muted-foreground uppercase tracking-wide mb-4">Default + Seamless + Default in section-flow</h3>
     <p class="text-sm text-muted-foreground mb-4 max-w-[65ch]">
-      Non-seamless sections get <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm font-mono">--section-gap</code> margin from <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm font-mono">page-flow</code>. Seamless sections get the same gap relative to non-seamless neighbors, but 0 gap between adjacent seamless sections.
+      Non-seamless sections get <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm font-mono">--section-gap</code> margin from <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm font-mono">section-flow</code>. Seamless sections get the same gap relative to non-seamless neighbors, but 0 gap between adjacent seamless sections.
     </p>
-    <div class="page-flow border border-border rounded-lg overflow-hidden py-12 mb-8">
+    <div class="section-flow border border-border rounded-lg overflow-hidden py-12 mb-8">
       <Section aria-label="First section">
         <div class="h-6 w-48 bg-input rounded-sm mb-3"></div>
         <div class="h-4 w-80 bg-border rounded-sm"></div>
@@ -217,9 +217,9 @@ import Section from '../../components/Section.astro';
   <section class="specimen-section">
     <h2>Composition Example</h2>
     <p class="text-sm text-muted-foreground mb-6 max-w-[65ch]">
-      A typical marketing page using <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm font-mono">Section</code> inside a <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm font-mono">page-flow</code> wrapper. Adjacent seamless sections butt up (0 gap). Non-seamless sections get <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm font-mono">--section-gap</code> margin. All spacing comes from one variable.
+      A typical marketing page using <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm font-mono">Section</code> inside a <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm font-mono">section-flow</code> wrapper. Adjacent seamless sections butt up (0 gap). Non-seamless sections get <code class="text-xs bg-muted px-1.5 py-0.5 rounded-sm font-mono">--section-gap</code> margin. All spacing comes from one variable.
     </p>
-    <div class="page-flow border border-border rounded-lg overflow-hidden">
+    <div class="section-flow border border-border rounded-lg overflow-hidden">
       <!-- Hero (seamless, dark) -->
       <Section seamless class="bg-foreground">
         <div class="text-center">

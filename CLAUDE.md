@@ -1,3 +1,7 @@
+## Startup
+
+**On every new conversation, run `/angora` before doing anything else.** This is mandatory — no exceptions, no skipping, even if the user's request seems clear. The assessment gives you situational awareness of what exists, what's missing, and what the right next step is. Do not respond to the user's request until `/angora` has run and assessed project state.
+
 # Angora
 
 A design system and site builder. The design system — tokens, components, and rendered specimens — is the source of truth for the visual language. Engineers consume it like a Figma file and translate to their framework. Add the SQLite content layer to turn the same components into a working prototype or a full static site.
