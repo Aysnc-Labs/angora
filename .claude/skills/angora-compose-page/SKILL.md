@@ -149,10 +149,6 @@ When building a layout in `src/pages/design-system/layouts/`, enforce these addi
 - **No client-side code** — design system layouts are static. No inline `<script>` tags for interactivity. If a section needs interactivity, it should use a Preact island via the component itself.
 - **Layout purity check** — after building, verify: single file? No client code? Zero-class compliance? Landmark components outside `<Section>`? Content components inside `<Section>`? No arbitrary values? No double-wrapping? Background rhythm makes sense?
 
-## Lint & format
-
-Run `pnpm lint:format` if available — this is verification, not a project change.
-
 ## Review
 
 Present the completed page to the user and suggest they review in browser (`pnpm dev`). Then run `/angora-design-system-audit` automatically — this is verification, not a change. Present findings and proposed fixes. Wait for approval before applying fixes. (Accessibility is covered at the component and layout level by `pnpm test:a11y` — no need to re-test assembled pages.)

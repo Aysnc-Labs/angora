@@ -200,7 +200,7 @@ Before building pages, ask the user to start the dev server in a separate termin
 
 **Full-screen views:** Each design system page that has a full-screen view creates a content file at `src/pages/design-system/view/_content/<name>.astro` (pure markup, no FullScreen wrapper). The dynamic route at `view/[theme]/[...slug].astro` handles wrapping with FullScreen and applying the theme. If dark mode is enabled, both `/view/light/<name>` and `/view/dark/<name>` are generated automatically.
 
-**Lint & a11y:** Run `pnpm lint:format` after writing or modifying files if available. Run `pnpm test:a11y` after building each design system page (dev server must be running). Read the output and fix any failures before proceeding. Both are mechanical work — no user confirmation needed.
+**A11y:** Run `pnpm test:a11y` after building each design system page (dev server must be running). Read the output and fix any failures before proceeding. This is mechanical work — no user confirmation needed.
 
 Before building each page, ask the user any decisions noted below. Build one page at a time, or batch pages that don't need user input.
 

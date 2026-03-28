@@ -236,11 +236,7 @@ Wait for the user to approve before building.
 
 Verify the component works at narrow (~320px), medium (~768px), and wide (~1280px) container widths. Typography scales automatically via `clamp()` tokens (requires a `@container` ancestor). Check: layout collapses/stacks logically, text doesn't overflow, interactive targets stay tappable (≥44px), images/media scale without breaking, spacing tightens proportionally. If layout doesn't adapt, add the missing `@sm:`/`@md:`/`@lg:` container query variants.
 
-### 4. Lint & format
-
-Run `pnpm lint:format` if available — this is verification, not a project change. Fix any errors before proceeding. Don't ask permission — just fix and re-run until clean.
-
-### 5. Accessibility test
+### 4. Accessibility test
 
 Tell the user: "Running a11y tests next." Then run `pnpm test:a11y` immediately — this is verification, not a project change. Don't ask permission to run it (dev server must be running). Read the output and interpret every finding for the user:
 - **Real issue** — explain what's wrong in plain language, propose a specific fix, explain why it matters.
@@ -248,19 +244,19 @@ Tell the user: "Running a11y tests next." Then run `pnpm test:a11y` immediately 
 
 Present findings and proposed fixes. Wait for approval before applying fixes only.
 
-### 6. Audit + fix
+### 5. Audit + fix
 
 Tell the user: "Running design system audit next." Then run `/angora-design-system-audit` immediately on the new component — same as above, verification not a change. The audit skips contrast and ARIA labeling (already covered by the a11y test) and focuses on design rules, token compliance (including semantic token enforcement — no raw palette classes), and responsive behavior. Fix any issues it finds — no confirmation needed for audit-driven fixes.
 
-### 7. Present for review
+### 6. Present for review
 
 Show the user what you've built. Reference the design system page URL (e.g., `/design-system/buttons`) so they can check it — don't tell them to start the dev server.
 
-### 8. Visual review
+### 7. Visual review
 
 User reviews in browser. Approves or iterates.
 
-### 9. Update system.md
+### 8. Update system.md
 
 Only if you made a new decision worth recording (added to anti-patterns or decisions log). Most components won't need an update.
 
