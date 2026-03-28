@@ -95,7 +95,9 @@ Start with `/angora-design-system-init` to define brand identity, tokens, and st
 
 ### Compose Page
 
-`/angora-compose-page` handles two modes: **design system layout specimens** (in `src/pages/design-system/layouts/`) which follow layout purity rules — placeholder content, no real data, exist as assembly references — and **production site pages** (in `src/pages/`) which use real content, database queries, and site layouts. Both modes compose landmark and content components in `section-flow`, but layout specimens enforce stricter constraints to keep them as clean reference implementations.
+`/angora-compose-page` handles two modes: **design system layout specimens** (in `src/pages/design-system/layouts/`) which use placeholder content and exist as assembly references, and **production site pages** (in `src/pages/`) which use real content, database queries, and site layouts. Both modes follow the same composition rules — pages are pure assemblies of components with no raw HTML carrying Tailwind classes. If a `<div>` needs a class, a component is missing.
+
+**Layout → site page synchronization.** The design system layout is the structural source of truth for a page. When a layout changes — new sections, reordered components, different composition — the corresponding site page must be updated to match. When a site page's copy is refined, the layout doesn't need to track word-for-word changes (it uses placeholder content), but structural drift between a layout and its site page is a bug.
 
 ### Inbox
 

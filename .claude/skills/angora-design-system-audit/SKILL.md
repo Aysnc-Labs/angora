@@ -128,9 +128,10 @@ Skip this section when auditing components or design system specimen pages.
 | Section component | Content sections on the page use the Section component. No raw `<section>` elements with manual padding for content sections |
 | Seamless usage | Sections with background colors/images use `<Section seamless>` (or the landmark's flow attributes). Adjacent seamless sections should butt up (0 gap) |
 | Background rhythm | Page has visual rhythm — some variation in section backgrounds (alternating light/dark, or strategic use of color). Flag a page where every section is the same plain background |
-| Layout purity — single file | Design system layout directories (`src/pages/design-system/layouts/`) must contain only one `.astro` file. Flag extra files |
-| Layout purity — zero classes | In design system layouts, no Tailwind utility classes on raw HTML elements. Only `section-flow` on `<main>` is allowed. If a `<div>` needs a class, a component is missing |
-| Layout purity — no client code | Flag inline `<script>` tags in design system layouts. Use Preact islands via components instead |
+| Composition purity — single file | Design system layout directories (`src/pages/design-system/layouts/`) must contain only one `.astro` file. Flag extra files |
+| Composition purity — zero classes | In layouts and site pages, no Tailwind utility classes on raw HTML elements. Only `section-flow` on `<main>` is allowed. If a `<div>` needs a class, a component is missing |
+| Composition purity — no client code | Flag inline `<script>` tags in layouts and site pages. Use Preact islands via components instead |
+| Composition drift | When auditing a layout that has a corresponding site page (or vice versa), check for structural divergence — different section order, missing/extra sections, different component usage. Copy differences are expected (placeholder vs real content). Structural differences are a bug |
 | SEO | Site pages (not layouts) have `<title>`, `<meta name="description">`. Template-driven pages wire SEO from table fields (`meta_title`, `meta_description`). Flag missing OG tags on public-facing pages |
 
 ## Soft Rules
