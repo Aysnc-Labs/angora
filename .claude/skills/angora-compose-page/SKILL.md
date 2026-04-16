@@ -21,12 +21,13 @@ This skill does two things:
 1. **Read `src/system.md`** — intent, accessibility standard, anti-patterns.
 2. **Read `src/styles/global.css`** — available tokens for page-level spacing and backgrounds. All color references must use **semantic token utilities** — raw palette classes don't exist.
 3. **Read [design-principles.md](../docs/design-principles.md)** — especially Spacing & Layout, Dark Mode, and Finishing Touches sections.
-4. **Inventory components** — list `src/components/*.astro` to know what's available. Only use approved, built components.
-5. **Read `src/components/Section.astro`** — understand the Section pattern before composing pages. Section accepts: `seamless`, `fullWidth` (drops flow width constraint), `narrow` (constrains to `--container-narrow`), `withWrap` (re-constrains children of full-width sections), `withPadding` (adds vertical padding without seamless), `title` (renders `<h2>` with automatic `aria-labelledby`).
-6. **Check for wireframe** — look for `src/pages/design-system/wireframes/<page-name>.astro`. If it exists, read it — especially the data source annotations in frontmatter.
-7. **Check for layout** — look for `src/pages/design-system/layouts/<page-name>.astro`. If a layout exists, it's an approved composition showing how components assemble for this page. Use it as the reference — match its section order, component choices, and visual rhythm. The real page replaces placeholder content with real data but follows the same structure.
-8. **Check for existing page** — look for `src/pages/<page-name>.astro`. If it exists, read it first. This is an evolution, not a rewrite.
-9. **Check for site layout** — look in `src/layouts/` for existing site layouts (header/footer wrappers).
+4. **Read [tailwind-conventions.md](../docs/tailwind-conventions.md)** — Tailwind v4 syntax rules.
+5. **Inventory components** — list `src/components/*.astro` to know what's available. Only use approved, built components.
+6. **Read `src/components/Section.astro`** — understand the Section pattern before composing pages. Section accepts: `seamless`, `fullWidth` (drops flow width constraint), `narrow` (constrains to `--container-narrow`), `withWrap` (re-constrains children of full-width sections), `withPadding` (adds vertical padding without seamless), `title` (renders `<h2>` with automatic `aria-labelledby`).
+7. **Check for wireframe** — look for `src/pages/design-system/wireframes/<page-name>.astro`. If it exists, read it — especially the data source annotations in frontmatter.
+8. **Check for layout** — look for `src/pages/design-system/layouts/<page-name>.astro`. If a layout exists, it's an approved composition showing how components assemble for this page. Use it as the reference — match its section order, component choices, and visual rhythm. The real page replaces placeholder content with real data but follows the same structure.
+9. **Check for existing page** — look for `src/pages/<page-name>.astro`. If it exists, read it first. This is an evolution, not a rewrite.
+10. **Check for site layout** — look in `src/layouts/` for existing site layouts (header/footer wrappers).
 
 ## Entry points
 

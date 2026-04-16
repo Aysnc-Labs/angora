@@ -1,118 +1,63 @@
-## Startup
-
-**On every new conversation, run `/angora` before doing anything else.** This is mandatory — no exceptions, no skipping, even if the user's request seems clear. The assessment gives you situational awareness of what exists, what's missing, and what the right next step is. Do not respond to the user's request until `/angora` has run and assessed project state.
-
 # Angora
 
-A design system and site builder. The design system — tokens, components, and rendered specimens — is the source of truth for the visual language. Engineers consume it like a Figma file and translate to their framework. Add the SQLite content layer to turn the same components into a working prototype or a full static site.
+A design system and site builder. Tokens, components, and rendered specimens — the visual language as code. Add the SQLite content layer to turn the same components into a working prototype or a full static site.
 
 **Scope:** Marketing sites — heroes, pricing, features, testimonials, CTAs, navigation, footers. Not app UI, not dashboards.
 
-## Persona & Interaction Model
-
-Angora is a **senior design engineer** — someone who thinks in both visual systems and code architecture. She has opinions grounded in experience, speaks the language of design (hierarchy, rhythm, negative space, visual weight) as fluently as the language of engineering (semantics, tokens, component APIs, accessibility contracts). She's a collaborator, not an assistant.
-
-**The cardinal rule: never act without confirmation.** Angora proposes, explains her reasoning, and waits for the user to say "go." This applies to everything — writing files, running commands, modifying tokens, creating components, evolving schema. No exceptions. Even when a skill's steps describe a sequence of actions, each action that changes the project requires explicit user approval before executing.
-
-- **Propose, don't execute.** "Here's what I'd do and why — want me to go ahead?" not "Done, here's what I changed."
-- **Explain the reasoning.** Share the design thinking or engineering rationale behind a recommendation. The user should understand *why*, not just *what*.
-- **Present options when there's a real choice.** Don't silently pick one approach — surface the tradeoff and let the user decide.
-- **One step at a time.** After each action, summarize what happened and propose the next step. The user stays in control of the pace.
-- **One decision at a time.** Never stack multiple decisions in a single message. Present the most important one, resolve it, then move to the next. This applies to spec choices, audit findings, design options — everything that needs user input.
-- **Push back when it matters.** A good senior partner says "I'd reconsider that because…" — not just "sure, whatever you want."
-- **Never auto-fix.** If an audit or review finds issues, present the findings and proposed fixes. Don't silently correct things.
-
 ## Build Layer
 
-**Astro** is the build tool. **Tailwind CSS v4** is the styling layer, integrated via `@tailwindcss/vite`. Design tokens are defined in `src/styles/global.css` using Tailwind's `@theme` directive — this is the single source of truth for all design values.
-
-- Astro components render semantic HTML with Tailwind utility classes. No custom elements, no `@scope` CSS.
-- Component props (`variant`, `size`, `disabled`) resolve to Tailwind class strings at build time.
-- **Preact** is available via `@astrojs/preact` for interactive islands. Use `client:load` for immediately-needed interactivity, `client:visible` for below-fold. The boundary: **design system components** (`src/components/`) are Astro by default — static HTML, zero JS. **Interactive components** that require client-side state (copy buttons, modals, accordions, dynamic forms) use Preact (`.tsx`) with `client:load` or `client:visible`. Prefer Preact over inline `<script>` tags — it handles state cleanly and stays consistent with the project's interactivity pattern. **Design system tooling** (`_layout/`) uses Preact where interactivity is needed. **Site pages** are Astro by default with Preact islands for interactive sections.
-- Astro component names don't need a prefix (just `Button.astro`, not `SiteButton.astro`).
-- Icon components live in `src/icons/` and drop the `Icon` prefix — the directory provides context (e.g., `icons/ArrowRight.astro`).
-
-### Component Architecture: Landmarks & Content
-
-Components fall into two categories — **landmark components** and **content components**.
-
-- **Landmark components** (Hero, Footer, Nav, etc.) render their own semantic HTML element (`<section>`, `<footer>`, `<nav>`) with a `data-component` attribute and flow participation attributes (`data-seamless`, `data-full-width`). They live directly in `section-flow` — the vertical rhythm context that stacks page sections. Landmarks own their container edge; they decide their own padding, background, and bleed behavior.
-- **Content components** sit inside a `<Section>` landmark and provide their own `@container` wrapper. They do not render a top-level semantic sectioning element — `<Section>` provides that. Content components handle internal layout only.
-
-The `data-component` attribute identifies every component for debugging and audit tooling. On landmarks, it is paired with flow participation attributes: `data-seamless` (removes vertical gap between adjacent landmarks) and `data-full-width` (bleeds to viewport edge).
-
-### Flow Contexts
-
-Two flow contexts control vertical rhythm:
-
-- **`section-flow`** — The primary page-level flow. Stacks landmark components with consistent vertical spacing. Every top-level page section participates in `section-flow`.
-- **`prose-flow`** — Editorial/typography rhythm for running text. Used inside content areas where headings, paragraphs, lists, and blockquotes need tighter, typographically-tuned spacing. Think blog posts, long-form content, documentation blocks.
+- **Astro** — build tool. Semantic HTML + Tailwind utility classes. No custom elements, no `@scope` CSS.
+- **Tailwind CSS v4** — styling layer via `@tailwindcss/vite`. Tokens in `src/styles/global.css` using `@theme`.
+- **Preact** — interactive islands via `@astrojs/preact`. Design system components are Astro (static HTML, zero JS) by default. Preact for client-side state (modals, accordions, dynamic forms) with `client:load` or `client:visible`.
+- **Drizzle ORM** — database layer wrapping `better-sqlite3`. Tables in `src/data/schema/tables/`.
+- **SQLite** — content store at `src/data/data.sqlite`, committed to git.
 
 ## Key Files
 
-- `src/system.md` — The "why" file. Intent, accessibility standard, anti-patterns, and decisions log. No token values (that's `global.css`) and no component patterns (that's the components). **Read before building or reviewing a component.**
-- `src/styles/global.css` — `@import "tailwindcss"` + `@theme` block with all design tokens. Single source of truth. **Read before building a component to know available tokens.**
-- `src/styles/design-system.css` — Design system chrome: sidebar nav, specimen rows, labels, demo areas. Tooling only — doesn't ship.
-- `src/pages/design-system/_layout/Layout.astro` — Page shell for design system pages. Accepts `fullscreenHref` prop. Auto-discovers pages via `import.meta.glob` — no manual nav registration needed.
-- `src/pages/design-system/_layout/Sidebar.tsx` — Preact sidebar component. Search, collapsible nav groups, active page highlighting. Receives auto-discovered nav structure as props from Layout.astro.
-- `src/pages/design-system/_layout/FullScreen.astro` — Minimal layout for full-screen views (no design system chrome).
-- `src/components/*.astro` — Each component renders semantic HTML with Tailwind utility classes.
-- `src/pages/design-system/*.astro` — Design system pages. One per component type.
-- `src/pages/design-system/view/*.astro` — Full-screen views without design system chrome.
-- `src/pages/design-system/wireframes/*.astro` — Wireframe pages. Working docs for sketching page structure before building.
-- `src/pages/design-system/layouts/*.astro` — Layout pages. Full-page compositions built from real components — the assembled version of a wireframe. Uses `FullScreen.astro`. Auto-discovered in the sidebar nav. These are design system specimens, not site pages — they use placeholder content and exist as reference for how to assemble components into a page.
-- `src/pages/*.astro` — Site pages. Real routes like `/about-us`, `/pricing`, etc.
-- `src/data/schema/tables/` — Drizzle table definitions. One file per table (e.g., `tables/media.ts`). Single source of truth for database structure. **Glob `schema/tables/*.ts` to discover tables; read individual files for column details.**
-- `src/data/schema/index.ts` — Barrel file. Re-exports all tables for the Drizzle client. Updated by `angora-schema` when adding tables.
-- `src/data/db.ts` — Drizzle client. Wraps `better-sqlite3` with the schema for typed queries. Exports `db` (Drizzle instance) and `sqlite` (raw driver, rarely needed).
-- `src/data/data.sqlite` — SQLite database. Content store, committed to git.
-- `src/data/migrations/` — SQL migration files generated by `drizzle-kit`. Committed to git. Never hand-edit.
-- `drizzle.config.ts` — Drizzle Kit configuration. Points at the schema and SQLite file.
-- `public/media/` — Static media assets. Referenced by `path` in the `media` table.
-- `inbox/` — Passive file queue. Drop images, CSVs, JSON here for processing. Contents gitignored.
-- `src/layouts/*.astro` — Site layouts (header/footer wrappers for real pages).
+| File | Purpose |
+|------|---------|
+| `src/system.md` | Intent, accessibility standard, anti-patterns, decisions log |
+| `src/styles/global.css` | `@theme` block with all design tokens — single source of truth |
+| `src/styles/design-system.css` | Design system chrome (tooling, doesn't ship) |
+| `src/components/*.astro` | Components — semantic HTML + Tailwind |
+| `src/icons/` | Icon components (no `Icon` prefix — directory provides context) |
+| `src/pages/design-system/` | Specimen pages, wireframes, layouts, full-screen views |
+| `src/pages/*.astro` | Production site pages |
+| `src/layouts/*.astro` | Site layouts (header/footer wrappers) |
+| `src/data/schema/tables/` | Drizzle table definitions (one file per table) |
+| `src/data/schema/index.ts` | Barrel re-export of all tables |
+| `src/data/db.ts` | Drizzle client (`db`) and raw driver (`sqlite`) |
+| `src/data/migrations/` | SQL migrations (generated, committed, never hand-edit) |
+| `inbox/` | Passive file queue for images, CSVs, JSON (gitignored) |
 
-## Routing
+## Commands
 
-**Every change to the design system goes through a skill.** When the user requests any modification to a component, token, or page — whether building something new or updating something existing — invoke `/angora` to assess and route to the right skill. Never edit components, tokens, or pages directly. Even a one-line color change needs to go through the skill workflow so it gets the a11y test and audit steps.
+| Command | What it does |
+|---------|-------------|
+| `pnpm dev` | Start Astro dev server |
+| `pnpm build` | Production build |
+| `pnpm test:a11y` | Playwright + Axe accessibility tests |
+| `pnpm db:generate` | Generate Drizzle migration from schema changes |
+| `pnpm db:migrate` | Apply pending migrations |
+| `pnpm db:studio` | Browser UI for database |
 
-## Workflow
+## Skills
 
-Start with `/angora-design-system-init` to define brand identity, tokens, and style guide. This is always the first step on a new project. After init is complete, use `/angora` to drive everything else — it assesses project state and recommends the right skill to run. Or invoke a skill directly:
+| Skill | What it does |
+|-------|-------------|
+| `/angora` | Assess project state, route to the right skill |
+| `/angora-design-system-init` | Define brand identity, tokens, style guide |
+| `/angora-component <name>` | Build or update a component |
+| `/angora-compose-page <page-name>` | Build pages or layout specimens |
+| `/angora-wireframe <page-name>` | Sketch page structure |
+| `/angora-design-system-audit [path]` | Review against the design system |
+| `/angora-schema <what to model>` | Design database schema |
+| `/angora-media` | Process inbox images |
+| `/angora-import <filename>` | Import data from inbox |
+| `/angora-data [command]` | Quick database operations |
 
-| Goal | Skill |
-|------|-------|
-| **Assess & recommend** | `/angora <what you want>` |
-| Start a new design system | `/angora-design-system-init` |
-| Build or update a component | `/angora-component <name>` |
-| Review against the system | `/angora-design-system-audit [path]` |
-| Sketch a page wireframe | `/angora-wireframe <page-name>` |
-| Compose a full page (layout specimens or production site pages) | `/angora-compose-page <page-name>` |
-| Design database schema | `/angora-schema <what to model>` |
-| Process inbox images | `/angora-media` |
-| Import data from inbox | `/angora-import <filename>` |
-| Quick database operations | `/angora-data [command]` |
+## Data Layer
 
-### Compose Page
-
-`/angora-compose-page` handles two modes: **design system layout specimens** (in `src/pages/design-system/layouts/`) which use placeholder content and exist as assembly references, and **production site pages** (in `src/pages/`) which use real content, database queries, and site layouts. Both modes follow the same composition rules — pages are pure assemblies of components with no raw HTML carrying Tailwind classes. If a `<div>` needs a class, a component is missing.
-
-**Layout → site page synchronization.** The design system layout is the structural source of truth for a page. When a layout changes — new sections, reordered components, different composition — the corresponding site page must be updated to match. When a site page's copy is refined, the layout doesn't need to track word-for-word changes (it uses placeholder content), but structural drift between a layout and its site page is a bug.
-
-### Inbox
-
-The `inbox/` directory is a passive queue. Drop images, CSVs, JSON files here and tell `/angora` about them. Files are never deleted without explicit permission.
-
-### Data Layer
-
-**Drizzle ORM** is the database layer, wrapping `better-sqlite3`. Tables are defined as TypeScript in `src/data/schema/` — this is the single source of truth for database structure.
-
-- **Schema changes:** Add/edit a file in `schema/tables/` → add re-export to `schema/index.ts` → run `pnpm db:generate` (creates `.sql` migration) → run `pnpm db:migrate` (applies it). All steps require user approval.
-- **Queries:** Use Drizzle's typed API (`db.select().from(table)`, `db.insert(table).values(...)`) — never raw SQL in components or pages.
-- **Schema inspection:** Read `src/data/schema/` to understand table structure — it's TypeScript, not a database dump.
-- **Browse data:** `pnpm db:studio` opens a browser UI.
-
-### System Evolution
-
-- `system.md` only grows when you discover a new anti-pattern or make a system-wide decision. Token values live in `global.css`; component patterns live in the components.
-- Update `global.css` tokens only when truly necessary — resist adding values.
+- **Schema changes:** edit table file → re-export in `index.ts` → `pnpm db:generate` → `pnpm db:migrate`
+- **Queries:** Drizzle typed API only — never raw SQL in components or pages
+- **Browse:** `pnpm db:studio`

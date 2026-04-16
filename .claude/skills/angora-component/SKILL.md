@@ -11,8 +11,9 @@ argument-hint: <name>
 1. **Read `src/system.md`** — check anti-patterns and decisions log. Stay consistent.
 2. **Read `src/styles/global.css`** — know the available tokens. All color values must come from the **semantic tokens inside `@theme`**. The primitive palette (defined outside `@theme`) generates **no Tailwind utility classes** — only semantic tokens produce usable classes. This is structural enforcement for dark mode compatibility.
 3. **Read [design-principles.md](../docs/design-principles.md)** — hierarchy, spacing, typography, color, depth, dark mode, and finishing touches guidance.
-4. **Check existing components** — look in `src/components/`. If the component already exists, read it first. Understand what's there before making changes. If building a new component, read 2–3 existing project components to learn the established patterns (styling conventions, prop style, layout approach).
-5. **If landmark or content** — read `src/components/Section.astro` to understand the Section pattern.
+4. **Read [tailwind-conventions.md](../docs/tailwind-conventions.md)** — Tailwind v4 syntax rules for consistent class authoring.
+5. **Check existing components** — look in `src/components/`. If the component already exists, read it first. Understand what's there before making changes. If building a new component, read 2–3 existing project components to learn the established patterns (styling conventions, prop style, layout approach).
+6. **If landmark or content** — read `src/components/Section.astro` to understand the Section pattern.
 
 ## Composition
 
@@ -21,6 +22,18 @@ argument-hint: <name>
 ### Primitives
 
 Atomic, single-purpose elements. Single file. Take props directly.
+
+**Children-first composition.** Even for primitives, visual content (icons, badges, decorative elements) composes through `<slot />` — not through dedicated props. The consumer controls order by placement. This keeps the API surface minimal and the component maximally flexible.
+
+```astro
+<!-- Bad — prop for visual content -->
+<Button icon={ArrowRight} label="Continue" />
+
+<!-- Good — children control content and order -->
+<Button>Continue <ArrowRight /></Button>
+```
+
+Only accept behavior/layout props (`variant`, `size`, `disabled`) and a default `<slot />`.
 
 Examples: Button, TextInput, Toggle, Badge, Section, FormRow, FieldGroup.
 
@@ -82,7 +95,7 @@ A landmark component lives on its own without a Section — it participates dire
 2. If yes: *"Does it have multiple distinct content sections? If so, it should be a composite with sub-components."*
 3. **Reusability test:** *"Could this pattern appear inside a card, a sidebar, a settings page — or does it only ever exist as a standalone page section?"* If reusable → it's a **content component**, not a landmark. The page context (heading, section wrapper) is separate — the consumer provides it via `<Section>`.
 
-**The "section" word trap.** Designers often say "build me an X section" (FAQ section, testimonial section, pricing section). When you hear "section" in a request, automatically separate the **pattern** from the **page context**: *"I'm hearing two things — the pattern (accordion/carousel/grid) and the page context (a section with a heading). I'll build the pattern as a reusable component. When you use it on a page, you wrap it in `<Section>` to give it a heading. That way the component works anywhere, not just as a standalone page section."* True landmarks (Header, Footer, Hero) are rare — most "sections" are content components inside a `<Section>`.
+**The "section" word trap.** When you hear "section" in a request, separate the pattern from the page context. Use this phrasing: *"I'm hearing two things — the pattern (accordion/carousel/grid) and the page context (a section with a heading). I'll build the pattern as a reusable component. When you use it on a page, you wrap it in `<Section>` to give it a heading. That way the component works anywhere, not just as a standalone page section."*
 
 **Landmark structure:**
 
@@ -199,6 +212,27 @@ If the user says "I want to use X for Y" and the semantic purpose doesn't match,
 If the user asks for a component by a use-case name (e.g., "FAQ"), redirect to the generic pattern name (e.g., "Accordion") — see naming rule below.
 
 This isn't gatekeeping — it's mentorship. Explain *why* the distinction matters (accessibility, reusability, semantic HTML) so the designer builds the right mental model.
+
+### 0b. Exploration mode (when the user wants to compare directions)
+
+Activate when the user asks to see multiple options, compare approaches, or explore directions — "show me a few takes on this hero," "I want to see some options," "what are some ways to do this."
+
+**Write style definitions before building anything.** Each direction gets a written description that's specific enough to build from. Cover how it arranges content, how it uses type (scale contrast, weight, font character), what the color temperature and palette emphasis are, how dense or spacious it feels, whether it uses containers/cards or open space, and what the overall mood is.
+
+Each definition must be a genuinely different design philosophy — not three variations of the same idea with tweaked spacing.
+
+**Bad:** "Option A: Simple and clean with lots of space"
+
+**Good:** "Option A: High-contrast typographic — large serif display heading against tight body text, deep vertical rhythm between sections, muted earth tones with one bold accent reserved for the primary action. No cards or containers — hierarchy carried entirely by scale and weight."
+
+**The flow:**
+
+1. Present style definitions (default 3 unless the user asks for a specific count)
+2. Designer picks one — or says "build two so I can compare in the browser"
+3. If comparing in browser: build each as a separate component with its own specimen page. Name them descriptively (`HeroEditorial.astro`, `HeroBold.astro`)
+4. Designer reviews both specimen pages, picks one
+5. Keep the chosen component, rename if needed, delete the other
+6. Continue to the normal spec → build → audit flow with the chosen direction
 
 ### 1. Spec
 

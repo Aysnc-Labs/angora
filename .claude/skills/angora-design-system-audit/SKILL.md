@@ -11,7 +11,8 @@ argument-hint: [path]
 1. **Read `src/system.md`** — intent, accessibility standard, anti-patterns, decisions log.
 2. **Read `src/styles/global.css`** — the token definitions you're validating against.
 3. **Read [design-principles.md](../docs/design-principles.md)** — the full set of design principles informing this review.
-4. **Determine the audit scope** — is the target a component (`src/components/`), a design system page (`src/pages/design-system/`), a layout (`src/pages/design-system/layouts/`), or a site page (`src/pages/*.astro`)? Some rules only apply to specific scopes (marked below). Layouts are full-page compositions — audit them like site pages (Page Rules apply) but note they use placeholder content, so skip SEO checks.
+4. **Read [tailwind-conventions.md](../docs/tailwind-conventions.md)** — Tailwind v4 syntax rules to validate against.
+5. **Determine the audit scope** — is the target a component (`src/components/`), a design system page (`src/pages/design-system/`), a layout (`src/pages/design-system/layouts/`), or a site page (`src/pages/*.astro`)? Some rules only apply to specific scopes (marked below). Layouts are full-page compositions — audit them like site pages (Page Rules apply) but note they use placeholder content, so skip SEO checks.
 
 Then validate the target against the rules below.
 
@@ -39,6 +40,7 @@ Then validate the target against the rules below.
 | Heading ownership | Content components must not accept a `heading` or `title` prop — a parent `<Section title="...">` provides the section heading. Content headings that are part of internal layout are fine as sub-components |
 | No outer vertical margin | Landmark and content components never set `margin-top`/`margin-bottom` on their outermost element. That's the flow context's (`section-flow`/`prose-flow`) job. Flag any `mt-*`/`mb-*`/`my-*` on a component's root |
 | Content props on composite shells | Composite shells must have zero content props — content flows exclusively through sub-components. Flag any string or array prop on a composite shell that represents displayable content (headings, descriptions, legal text, nav links). Even "simple" string props must be sub-components. Landmarks are not exempt |
+| No visual content via props | Visual content flows via children and sub-components, never as props. Flag any prop that passes markup or rendered content (named slots used to pass styled markup into the shell where a sub-component should be used instead). The shell's only job is layout and behavior — content ownership belongs to sub-components |
 | Images as `<img>` | All imagery uses `<img>` elements with `object-fit: cover` where needed. No CSS `background-image` for content images (heroes, cards, full-bleed sections). Position with `absolute inset-0` inside a relative container for backdrops |
 | States | All components interactive by default (pseudo-class variants for `hover:`, `active:`, `focus-visible:` + transitions). Form `state` prop only for non-interactive states (error, success, disabled). Composites: own variants only, child primitives in default state |
 

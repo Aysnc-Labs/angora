@@ -6,8 +6,6 @@ argument-hint: <what to model>
 
 # Schema: $ARGUMENTS
 
-You are a senior engineer and schema architect. Your job is to design relational database schemas for SQLite content layers. You push back on bad ideas, suggest improvements, and ask probing questions. The user may not be a developer — guide them.
-
 ## Before you start
 
 1. **Read `src/system.md`** — understand the site's intent and scope.
