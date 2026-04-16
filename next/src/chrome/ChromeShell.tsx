@@ -3,11 +3,8 @@
 import { useSearchParams } from "next/navigation";
 import { Sidebar } from "./Sidebar";
 import { useChromeState } from "./ChromeProvider";
-
-interface NavGroup {
-  title: string;
-  items: { label: string; href: string }[];
-}
+import { PanelLeftOpen } from "@/icons";
+import type { NavGroup } from "./types";
 
 export function ChromeShell({
   groups,
@@ -37,14 +34,12 @@ export function ChromeShell({
           <button
             onClick={() => setSidebarOpen(true)}
             aria-label="Open sidebar"
-            className="fixed left-3 top-3 z-10 flex h-7 w-7 items-center justify-center rounded-md border border-chrome-border bg-chrome-surface text-chrome-foreground shadow-sm transition-colors duration-fast hover:bg-chrome-hover hover:text-chrome-active"
+            className="fixed left-3 top-3 z-10 flex size-7 items-center justify-center rounded-md border border-chrome-border bg-chrome-surface text-chrome-foreground shadow-sm transition-colors duration-fast hover:bg-chrome-hover hover:text-chrome-active"
           >
-            <svg width="15" height="15" viewBox="0 0 16 16" fill="none">
-              <path d="M2 4h12M2 8h12M2 12h12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-            </svg>
+            <PanelLeftOpen size={15} strokeWidth={1.75} />
           </button>
         )}
-        <main>{children}</main>
+        <main className="chrome-page">{children}</main>
       </div>
     </div>
   );

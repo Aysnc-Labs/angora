@@ -1,4 +1,4 @@
-import { TextInput } from "./TextInput"
+import { TextInput } from "."
 import { Specimen, Stack } from "@/chrome/Specimen"
 
 # Text Input
@@ -13,7 +13,10 @@ Standard form input with label, hint, and validation states.
   </Stack>
 </Specimen>
 
-<Specimen title="States">
+<Specimen
+  title="States"
+  description="Error, success, and disabled are set via the state prop. Hover and focus come free from the native input — no state prop needed."
+>
   <Stack>
     <TextInput label="Default" placeholder="Type something..." />
     <TextInput label="Error" state="error" hint="This field is required" value="Invalid input" />
@@ -22,7 +25,10 @@ Standard form input with label, hint, and validation states.
   </Stack>
 </Specimen>
 
-<Specimen title="With hints">
+<Specimen
+  title="With hints"
+  description="Hint text explains format requirements or provides context. Always prefer hint text over placeholder — placeholders disappear as soon as the user types."
+>
   <Stack>
     <TextInput label="Email" placeholder="you@example.com" hint="We'll never share your email." />
     <TextInput label="Password" placeholder="Enter password" hint="Must be at least 8 characters." />

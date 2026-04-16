@@ -1,11 +1,14 @@
-import { Button } from "./Button"
+import { Button } from "."
 import { Specimen, Row, Stack, Label, Note, DoDont } from "@/chrome/Specimen"
 
 # Button
 
 The primary interactive element. Three variants, three sizes, built for clarity.
 
-<Specimen title="Variants">
+<Specimen
+  title="Variants"
+  description="Three visual treatments for different levels of emphasis — primary for the main action, secondary for supporting actions, ghost for tertiary and inline use."
+>
   <Row>
     <Button variant="primary">Primary</Button>
     <Button variant="secondary">Secondary</Button>
@@ -13,7 +16,10 @@ The primary interactive element. Three variants, three sizes, built for clarity.
   </Row>
 </Specimen>
 
-<Specimen title="Sizes">
+<Specimen
+  title="Sizes"
+  description="Three heights with proportional padding. Match the size to the surrounding context, not the importance of the action."
+>
   <Row align="end">
     <Button size="sm">Small</Button>
     <Button size="md">Medium</Button>

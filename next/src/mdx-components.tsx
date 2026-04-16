@@ -1,11 +1,12 @@
 import type { MDXComponents } from "mdx/types";
 import {
-  MdxH1, MdxH2, MdxH3, MdxP, MdxUl, MdxOl,
-  MdxStrong, MdxCode, MdxPre, MdxLi, MdxBlockquote, MdxHr,
+  MdxA, MdxBlockquote, MdxCode, MdxH1, MdxH2, MdxH3, MdxHr, MdxLi,
+  MdxOl, MdxP, MdxPre, MdxStrong, MdxUl,
 } from "@/chrome/MdxElements";
 
 export function useMDXComponents(components: MDXComponents): MDXComponents {
   return {
+    a: MdxA,
     h1: MdxH1,
     h2: MdxH2,
     h3: MdxH3,

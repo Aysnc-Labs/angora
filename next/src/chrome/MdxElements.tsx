@@ -7,26 +7,111 @@ function withSpecimenGuard(
   className: string
 ) {
   return function ProseElement({ children }: { children?: React.ReactNode }) {
-    const { activeSpecimen } = useSpecimenContext();
-    if (activeSpecimen) return null;
+    const { activeSpecimen, previewMode } = useSpecimenContext();
+    if (activeSpecimen || previewMode) return null;
     return <Tag className={className}>{children}</Tag>;
   };
 }
 
-export const MdxH1 = withSpecimenGuard("h1", "text-2xl font-semibold tracking-tight text-foreground");
-export const MdxH2 = withSpecimenGuard("h2", "mt-10 mb-4 text-xs font-semibold uppercase tracking-widest text-chrome-foreground/60");
-export const MdxH3 = withSpecimenGuard("h3", "text-sm font-semibold text-foreground");
-export const MdxP = withSpecimenGuard("div", "text-sm leading-relaxed text-muted-foreground");
-export const MdxUl = withSpecimenGuard("ul", "list-disc space-y-1 pl-5 text-sm text-muted-foreground");
-export const MdxOl = withSpecimenGuard("ol", "list-decimal space-y-1 pl-5 text-sm text-muted-foreground");
-export const MdxStrong = withSpecimenGuard("strong", "font-semibold text-foreground");
-export const MdxCode = withSpecimenGuard("code", "rounded bg-chrome px-1.5 py-0.5 font-mono text-[12px] text-primary");
-export const MdxPre = withSpecimenGuard("pre", "overflow-x-auto rounded-lg border border-chrome-border bg-chrome p-4 font-mono text-xs leading-relaxed");
+/** H1 — big, tight, balanced. The page's name. */
+export const MdxH1 = withSpecimenGuard(
+  "h1",
+  "mb-4 text-4xl font-bold tracking-tighter text-balance text-foreground"
+);
+
+/** H2 — section heading with a primary accent bar. */
+export function MdxH2({ children }: { children?: React.ReactNode }) {
+  const { activeSpecimen, previewMode } = useSpecimenContext();
+  if (activeSpecimen || previewMode) return null;
+  return (
+    <h2 className="relative mt-14 mb-4 flex items-center gap-3 text-xl font-semibold tracking-tight text-balance text-foreground">
+      <span
+        aria-hidden="true"
+        className="inline-block h-5 w-[3px] rounded-full bg-primary"
+      />
+      {children}
+    </h2>
+  );
+}
+
+/** H3 — small eyebrow for sub-sections. */
+export const MdxH3 = withSpecimenGuard(
+  "h3",
+  "mt-8 mb-2 text-[11px] font-semibold uppercase tracking-widest text-chrome-muted"
+);
+
+/** Body paragraph — constrained line length, readable size. */
+export const MdxP = withSpecimenGuard(
+  "div",
+  "max-w-[68ch] text-[15px] leading-relaxed text-pretty text-muted-foreground [&:not(:first-child)]:mt-3"
+);
+
+export function MdxUl({ children }: { children?: React.ReactNode }) {
+  const { activeSpecimen, previewMode } = useSpecimenContext();
+  if (activeSpecimen || previewMode) return null;
+  return (
+    <ul role="list" className="mdx-ul my-4 max-w-[68ch] text-[15px]">
+      {children}
+    </ul>
+  );
+}
+
+export function MdxOl({ children }: { children?: React.ReactNode }) {
+  const { activeSpecimen, previewMode } = useSpecimenContext();
+  if (activeSpecimen || previewMode) return null;
+  return (
+    <ol role="list" className="mdx-ol my-4 max-w-[68ch] text-[15px]">
+      {children}
+    </ol>
+  );
+}
+
 export const MdxLi = withSpecimenGuard("li", "");
-export const MdxBlockquote = withSpecimenGuard("blockquote", "border-l-2 border-primary/30 pl-4 text-sm italic text-muted-foreground");
+
+export const MdxStrong = withSpecimenGuard(
+  "strong",
+  "font-semibold text-foreground"
+);
+
+export const MdxCode = withSpecimenGuard("code", "mdx-code");
+
+export const MdxPre = withSpecimenGuard("pre", "mdx-pre");
+
+export function MdxBlockquote({ children }: { children?: React.ReactNode }) {
+  const { activeSpecimen, previewMode } = useSpecimenContext();
+  if (activeSpecimen || previewMode) return null;
+  return <blockquote className="mdx-blockquote">{children}</blockquote>;
+}
 
 export function MdxHr() {
-  const { activeSpecimen } = useSpecimenContext();
-  if (activeSpecimen) return null;
-  return <hr className="my-8 border-chrome-border" />;
+  const { activeSpecimen, previewMode } = useSpecimenContext();
+  if (activeSpecimen || previewMode) return null;
+  return (
+    <hr
+      aria-hidden="true"
+      className="my-10 h-px border-0 bg-gradient-to-r from-chrome-border via-chrome-border to-transparent"
+    />
+  );
+}
+
+export function MdxA({
+  href,
+  children,
+}: {
+  href?: string;
+  children?: React.ReactNode;
+}) {
+  const { activeSpecimen, previewMode } = useSpecimenContext();
+  if (activeSpecimen || previewMode) return null;
+  return (
+    <a
+      href={href}
+      className="mdx-link"
+      {...(href?.startsWith("http")
+        ? { target: "_blank", rel: "noopener noreferrer" }
+        : {})}
+    >
+      {children}
+    </a>
+  );
 }

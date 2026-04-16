@@ -1,12 +1,16 @@
-import { Card, CardBody, CardImage, CardTitle, CardEyebrow, CardDescription } from "./Card"
-import { Button } from "./Button"
+import { Card, CardBody, CardImage, CardTitle, CardEyebrow, CardDescription } from "."
+import { Button } from "@/components/Button"
 import { Specimen, Grid } from "@/chrome/Specimen"
 
 # Card
 
 Content container with three surface treatments. Composable sub-components for flexible layouts.
 
-<Specimen title="Variants" width="100%">
+<Specimen
+  title="Variants"
+  description="Three surface treatments. Reach for the quietest one that still separates the content from its surroundings — don't default to elevated."
+  width="100%"
+>
   <Grid cols={3}>
     <Card variant="default">
       <CardTitle>Default</CardTitle>
@@ -23,7 +27,11 @@ Content container with three surface treatments. Composable sub-components for f
   </Grid>
 </Specimen>
 
-<Specimen title="With image" width="100%">
+<Specimen
+  title="With image"
+  description="Full composition — image, eyebrow, title, and body. Use when the card leads with a visual."
+  width="100%"
+>
   <div className="max-w-xs">
     <Card padding={false}>
       <CardImage />
@@ -57,7 +65,11 @@ Content container with three surface treatments. Composable sub-components for f
   </Grid>
 </Specimen>
 
-<Specimen title="Card with action" width="100%">
+<Specimen
+  title="Card with action"
+  description="Adds an inline CTA. Keep the button secondary or ghost so the title stays the focal point — a primary button would compete with the headline."
+  width="100%"
+>
   <div className="max-w-sm">
     <Card>
       <CardEyebrow>Pro plan</CardEyebrow>

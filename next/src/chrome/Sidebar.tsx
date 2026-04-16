@@ -3,18 +3,10 @@
 import { useState, useMemo } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { ChevronRight, PanelLeftClose, Search } from "@/icons";
 import { ThemeToggle } from "./ThemeToggle";
 import { useChromeState } from "./ChromeProvider";
-
-interface NavItem {
-  label: string;
-  href: string;
-}
-
-interface NavGroup {
-  title: string;
-  items: NavItem[];
-}
+import type { NavGroup } from "./types";
 
 interface SidebarProps {
   groups: NavGroup[];
@@ -28,7 +20,7 @@ export function Sidebar({ groups }: SidebarProps) {
     const active = groups.find((g) =>
       g.items.some((item) => pathname === item.href)
     );
-    return new Set(active ? [active.title] : [groups[0]?.title]);
+    return new Set(active ? [active.title] : groups.map((g) => g.title));
   });
 
   const filtered = useMemo(() => {
@@ -56,40 +48,36 @@ export function Sidebar({ groups }: SidebarProps) {
   if (!sidebarOpen) return null;
 
   return (
-    <aside className="flex w-[248px] shrink-0 flex-col border-r border-chrome-border bg-chrome">
+    <aside className="flex w-sidebar shrink-0 flex-col border-r border-chrome-border bg-chrome">
       {/* Header */}
-      <div className="flex h-12 items-center justify-between border-b border-chrome-border px-4">
+      <div className="flex h-chrome-header items-center justify-between border-b border-chrome-border px-4">
         <Link
           href="/design-system"
-          className="flex items-center gap-2 text-[13px] font-semibold tracking-tight text-chrome-active no-underline transition-opacity duration-fast hover:opacity-80"
+          className="flex items-center gap-2 text-chrome-sm font-semibold tracking-tight text-chrome-active no-underline transition-opacity duration-fast hover:opacity-80"
         >
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" className="text-primary">
-            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-          </svg>
+          <BrandMark />
           Angora
         </Link>
         <button
           onClick={() => setSidebarOpen(false)}
           aria-label="Collapse sidebar"
-          className="flex h-6 w-6 items-center justify-center rounded text-chrome-foreground/50 transition-colors duration-fast hover:text-chrome-active"
+          className="flex size-6 items-center justify-center rounded text-chrome-muted transition-colors duration-fast hover:text-chrome-active"
         >
-          <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
-            <path d="M10 3L5 8l5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-          </svg>
+          <PanelLeftClose size={14} strokeWidth={1.75} />
         </button>
       </div>
 
       {/* Search */}
-      <div className="px-3 py-2.5">
+      <div className="p-3">
         <button
           onClick={() => setCommandPaletteOpen(true)}
-          className="flex h-8 w-full items-center gap-2 rounded-md border border-chrome-border bg-chrome-surface px-2.5 text-xs text-chrome-foreground/50 transition-colors duration-fast hover:border-chrome-foreground/20 hover:text-chrome-foreground"
+          className="group/search flex h-chrome-input w-full items-center gap-2 rounded-md border border-chrome-border bg-chrome-surface px-2.5 text-chrome-sm text-chrome-muted transition-colors duration-fast hover:border-chrome-ring hover:text-chrome-foreground"
         >
-          <svg width="12" height="12" viewBox="0 0 16 16" fill="none" className="shrink-0">
-            <path d="M11.5 11.5L14.5 14.5M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-          </svg>
+          <Search size={13} strokeWidth={1.75} className="shrink-0" />
           <span className="flex-1 text-left">Search...</span>
-          <kbd className="rounded border border-chrome-border px-1 font-mono text-[10px]">/</kbd>
+          <kbd className="flex h-4 min-w-4 items-center justify-center rounded border border-chrome-border bg-chrome px-1 font-mono text-chrome-xs text-chrome-muted transition-colors duration-fast group-hover/search:border-chrome-ring">
+            /
+          </kbd>
         </button>
       </div>
 
@@ -98,28 +86,24 @@ export function Sidebar({ groups }: SidebarProps) {
         {filtered.map((group) => {
           const isOpen = query.trim() || openGroups.has(group.title);
           return (
-            <div key={group.title} className="mb-0.5">
+            <div key={group.title} className="mb-1">
               <button
                 onClick={() => toggleGroup(group.title)}
                 aria-expanded={!!isOpen}
-                className="flex h-7 w-full items-center gap-1.5 rounded-md px-2 text-[10px] font-semibold uppercase tracking-widest text-chrome-foreground/60 transition-colors duration-fast hover:text-chrome-foreground"
+                className="flex h-chrome-row w-full items-center gap-1.5 rounded-md px-2 text-chrome-xs font-semibold uppercase text-chrome-muted transition-colors duration-fast hover:text-chrome-foreground"
               >
-                <svg
-                  width="8"
-                  height="8"
-                  viewBox="0 0 16 16"
-                  fill="none"
+                <ChevronRight
+                  size={10}
+                  strokeWidth={2.25}
                   className={`shrink-0 transition-transform duration-fast ${isOpen ? "rotate-90" : ""}`}
-                >
-                  <path d="M6 3l5 5-5 5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
+                />
                 {group.title}
-                <span className="ml-auto font-mono text-[9px] font-normal text-chrome-foreground/40">
+                <span className="ml-auto font-mono text-chrome-xs font-normal tabular-nums text-chrome-muted">
                   {group.items.length}
                 </span>
               </button>
               {isOpen && (
-                <ul className="mt-0.5 space-y-px pl-1">
+                <ul role="list" className="mt-0.5 space-y-px pl-1">
                   {group.items.map((item) => {
                     const active = pathname === item.href;
                     return (
@@ -127,15 +111,18 @@ export function Sidebar({ groups }: SidebarProps) {
                         <Link
                           href={item.href}
                           aria-current={active ? "page" : undefined}
-                          className={`group flex h-7 items-center rounded-md pl-5 pr-2 text-[13px] no-underline transition-all duration-fast ${
+                          className={`group relative flex h-chrome-row items-center rounded-md pl-4 pr-2 text-chrome-sm no-underline transition-colors duration-fast ${
                             active
-                              ? "bg-primary/8 font-medium text-primary"
+                              ? "bg-chrome-accent text-primary"
                               : "text-chrome-foreground hover:bg-chrome-hover hover:text-chrome-active"
                           }`}
                         >
-                          <span className={`mr-2 h-1 w-1 rounded-full transition-colors duration-fast ${
-                            active ? "bg-primary" : "bg-chrome-foreground/20 group-hover:bg-chrome-foreground/40"
-                          }`} />
+                          {active && (
+                            <span
+                              aria-hidden="true"
+                              className="absolute inset-y-1.5 left-1 w-[2px] rounded-full bg-primary"
+                            />
+                          )}
                           {item.label}
                         </Link>
                       </li>
@@ -149,14 +136,34 @@ export function Sidebar({ groups }: SidebarProps) {
       </nav>
 
       {/* Footer */}
-      <div className="border-t border-chrome-border px-4 py-3">
-        <div className="flex items-center justify-between">
-          <span className="font-mono text-[10px] text-chrome-foreground/30">
-            angora dev
-          </span>
-          <ThemeToggle />
-        </div>
+      <div className="flex h-chrome-header items-center justify-between border-t border-chrome-border px-4">
+        <span className="font-mono text-chrome-xs text-chrome-muted">angora dev</span>
+        <ThemeToggle />
       </div>
     </aside>
+  );
+}
+
+function BrandMark() {
+  return (
+    <span className="flex size-5 items-center justify-center rounded-md bg-primary text-primary-foreground">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
+        <path
+          d="M12 3L3 8l9 5 9-5-9-5z"
+          fill="currentColor"
+          stroke="currentColor"
+          strokeWidth="1.5"
+          strokeLinejoin="round"
+        />
+        <path
+          d="M3 13l9 5 9-5"
+          stroke="currentColor"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          opacity="0.5"
+        />
+      </svg>
+    </span>
   );
 }

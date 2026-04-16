@@ -1,11 +1,14 @@
-import { Badge } from "./Badge"
+import { Badge } from "."
 import { Specimen, Row, Stack } from "@/chrome/Specimen"
 
 # Badge
 
 Inline status indicators and labels. Small, non-interactive.
 
-<Specimen title="Variants">
+<Specimen
+  title="Variants"
+  description="Five tones. Neutral for labels, primary for emphasis, and semantic colors reserved for actual state — don't use them decoratively."
+>
   <Row>
     <Badge variant="default">Default</Badge>
     <Badge variant="primary">Primary</Badge>
@@ -22,7 +25,10 @@ Inline status indicators and labels. Small, non-interactive.
   </Row>
 </Specimen>
 
-<Specimen title="Status indicators">
+<Specimen
+  title="Status indicators"
+  description="In context — pair a badge with short text to communicate state at a glance. The color alone isn't enough; the word does the lifting."
+>
   <Stack gap="sm">
     <Row>
       <span className="text-sm text-foreground">Production deploy</span>

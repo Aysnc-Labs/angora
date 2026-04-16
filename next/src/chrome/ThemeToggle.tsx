@@ -1,5 +1,6 @@
 "use client";
 
+import { Moon, Sun } from "@/icons";
 import { useChromeState } from "./ChromeProvider";
 
 export function ThemeToggle({ compact = false }: { compact?: boolean }) {
@@ -10,9 +11,9 @@ export function ThemeToggle({ compact = false }: { compact?: boolean }) {
       <button
         onClick={toggleTheme}
         aria-label={dark ? "Switch to light mode" : "Switch to dark mode"}
-        className="flex h-7 w-7 items-center justify-center rounded-md text-chrome-foreground transition-colors duration-fast hover:bg-chrome-hover hover:text-chrome-active"
+        className="flex size-7 items-center justify-center rounded-md text-chrome-foreground transition-colors duration-fast hover:bg-chrome-hover hover:text-chrome-active"
       >
-        {dark ? <SunIcon /> : <MoonIcon />}
+        {dark ? <Sun size={14} strokeWidth={1.75} /> : <Moon size={14} strokeWidth={1.75} />}
       </button>
     );
   }
@@ -23,44 +24,15 @@ export function ThemeToggle({ compact = false }: { compact?: boolean }) {
       role="switch"
       aria-checked={dark}
       aria-label="Toggle dark mode"
-      className="relative flex h-[22px] w-10 shrink-0 cursor-pointer items-center rounded-full border border-chrome-border bg-chrome-hover transition-colors duration-normal ease-default hover:border-chrome-foreground/30"
+      className="relative flex h-5 w-9 shrink-0 cursor-pointer items-center rounded-full border border-chrome-border bg-chrome-hover transition-colors duration-normal ease-default hover:border-chrome-ring"
     >
       <span
-        className={`pointer-events-none flex h-4 w-4 items-center justify-center rounded-full bg-chrome-surface shadow-sm transition-transform duration-normal ease-default ${
-          dark ? "translate-x-[20px]" : "translate-x-[2px]"
+        className={`pointer-events-none flex size-3.5 items-center justify-center rounded-full bg-chrome-surface shadow-sm transition-transform duration-normal ease-default ${
+          dark ? "translate-x-[18px]" : "translate-x-0.5"
         }`}
       >
-        {dark ? (
-          <SunIcon size={8} />
-        ) : (
-          <MoonIcon size={8} />
-        )}
+        {dark ? <Sun size={8} strokeWidth={2} className="text-chrome-active" /> : <Moon size={8} strokeWidth={2} className="text-chrome-active" />}
       </span>
     </button>
-  );
-}
-
-function SunIcon({ size = 10 }: { size?: number }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 16 16" fill="none" className="text-chrome-active">
-      <circle cx="8" cy="8" r="3" fill="currentColor" />
-      <path
-        d="M8 1v2M8 13v2M1 8h2M13 8h2M3.5 3.5l1.4 1.4M11.1 11.1l1.4 1.4M3.5 12.5l1.4-1.4M11.1 4.9l1.4-1.4"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-      />
-    </svg>
-  );
-}
-
-function MoonIcon({ size = 10 }: { size?: number }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 16 16" fill="none" className="text-chrome-active">
-      <path
-        d="M6.5.5a.5.5 0 0 0-.598.577A6 6 0 1 0 14.923 9.1a.5.5 0 0 0-.577-.598A5 5 0 0 1 6.5.5Z"
-        fill="currentColor"
-      />
-    </svg>
   );
 }
