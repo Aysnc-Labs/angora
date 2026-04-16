@@ -1,0 +1,34 @@
+import { TextInput } from "./TextInput"
+import { Specimen, Stack } from "@/chrome/Specimen"
+
+# Text Input
+
+Standard form input with label, hint, and validation states.
+
+<Specimen title="Sizes">
+  <Stack>
+    <TextInput label="Small" size="sm" placeholder="Small input" />
+    <TextInput label="Medium" size="md" placeholder="Medium input" />
+    <TextInput label="Large" size="lg" placeholder="Large input" />
+  </Stack>
+</Specimen>
+
+<Specimen title="States">
+  <Stack>
+    <TextInput label="Default" placeholder="Type something..." />
+    <TextInput label="Error" state="error" hint="This field is required" value="Invalid input" />
+    <TextInput label="Success" state="success" hint="Looks good!" value="Valid input" />
+    <TextInput label="Disabled" state="disabled" value="Can't touch this" />
+  </Stack>
+</Specimen>
+
+<Specimen title="With hints">
+  <Stack>
+    <TextInput label="Email" placeholder="you@example.com" hint="We'll never share your email." />
+    <TextInput label="Password" placeholder="Enter password" hint="Must be at least 8 characters." />
+  </Stack>
+</Specimen>
+
+- Always include a label. Placeholder text is not a substitute.
+- Use hint text for format requirements or context. Use error hint for validation messages.
+- `md` is the default size. Use `lg` for hero forms or landing pages. Use `sm` in dense UI.

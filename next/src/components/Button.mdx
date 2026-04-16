@@ -1,0 +1,73 @@
+import { Button } from "./Button"
+import { Specimen, Row, Stack, Label, Note, DoDont } from "@/chrome/Specimen"
+
+# Button
+
+The primary interactive element. Three variants, three sizes, built for clarity.
+
+<Specimen title="Variants">
+  <Row>
+    <Button variant="primary">Primary</Button>
+    <Button variant="secondary">Secondary</Button>
+    <Button variant="ghost">Ghost</Button>
+  </Row>
+</Specimen>
+
+<Specimen title="Sizes">
+  <Row align="end">
+    <Button size="sm">Small</Button>
+    <Button size="md">Medium</Button>
+    <Button size="lg">Large</Button>
+  </Row>
+</Specimen>
+
+<Specimen title="All combinations">
+  <Stack>
+    <Row>
+      <Label>primary</Label>
+      <Button variant="primary" size="sm">Small</Button>
+      <Button variant="primary" size="md">Medium</Button>
+      <Button variant="primary" size="lg">Large</Button>
+      <Button variant="primary" disabled>Disabled</Button>
+    </Row>
+    <Row>
+      <Label>secondary</Label>
+      <Button variant="secondary" size="sm">Small</Button>
+      <Button variant="secondary" size="md">Medium</Button>
+      <Button variant="secondary" size="lg">Large</Button>
+      <Button variant="secondary" disabled>Disabled</Button>
+    </Row>
+    <Row>
+      <Label>ghost</Label>
+      <Button variant="ghost" size="sm">Small</Button>
+      <Button variant="ghost" size="md">Medium</Button>
+      <Button variant="ghost" size="lg">Large</Button>
+      <Button variant="ghost" disabled>Disabled</Button>
+    </Row>
+  </Stack>
+</Specimen>
+
+<Note>
+  Keep button labels short — two to three words. Use verbs: "Get started", "Learn more", "Sign up".
+</Note>
+
+- **Primary** for the main call-to-action on a page. One per section maximum.
+- **Secondary** for supporting actions that complement the primary.
+- **Ghost** for tertiary actions, navigation, or when the button should blend with surrounding content.
+
+<DoDont
+  doExample={
+    <Stack gap="sm">
+      <Button variant="primary">Submit</Button>
+      <Button variant="ghost">Cancel</Button>
+    </Stack>
+  }
+  dontExample={
+    <Stack gap="sm">
+      <Button variant="primary">Submit</Button>
+      <Button variant="primary">Cancel</Button>
+    </Stack>
+  }
+/>
+
+Two primary buttons compete for attention. Pair primary with ghost or secondary for clear hierarchy.

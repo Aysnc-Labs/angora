@@ -1,0 +1,76 @@
+import { Card, CardBody, CardImage, CardTitle, CardEyebrow, CardDescription } from "./Card"
+import { Button } from "./Button"
+import { Specimen, Grid } from "@/chrome/Specimen"
+
+# Card
+
+Content container with three surface treatments. Composable sub-components for flexible layouts.
+
+<Specimen title="Variants" width="100%">
+  <Grid cols={3}>
+    <Card variant="default">
+      <CardTitle>Default</CardTitle>
+      <CardDescription>Border and subtle shadow</CardDescription>
+    </Card>
+    <Card variant="elevated">
+      <CardTitle>Elevated</CardTitle>
+      <CardDescription>Hover for deeper shadow</CardDescription>
+    </Card>
+    <Card variant="flat">
+      <CardTitle>Flat</CardTitle>
+      <CardDescription>Muted background, no border</CardDescription>
+    </Card>
+  </Grid>
+</Specimen>
+
+<Specimen title="With image" width="100%">
+  <div className="max-w-xs">
+    <Card padding={false}>
+      <CardImage />
+      <CardBody>
+        <CardEyebrow>Category</CardEyebrow>
+        <CardTitle>Card with image</CardTitle>
+        <CardDescription>
+          Full composition with eyebrow, title, and description.
+        </CardDescription>
+      </CardBody>
+    </Card>
+  </div>
+</Specimen>
+
+<Specimen title="Content cards" width="100%">
+  <Grid cols={2}>
+    <Card>
+      <CardEyebrow>Guide</CardEyebrow>
+      <CardTitle>Getting started</CardTitle>
+      <CardDescription>
+        Everything you need to know to set up and start building.
+      </CardDescription>
+    </Card>
+    <Card>
+      <CardEyebrow>Reference</CardEyebrow>
+      <CardTitle>API documentation</CardTitle>
+      <CardDescription>
+        Complete reference for all available endpoints and methods.
+      </CardDescription>
+    </Card>
+  </Grid>
+</Specimen>
+
+<Specimen title="Card with action" width="100%">
+  <div className="max-w-sm">
+    <Card>
+      <CardEyebrow>Pro plan</CardEyebrow>
+      <CardTitle>Upgrade your workspace</CardTitle>
+      <CardDescription>
+        Get unlimited projects, priority support, and advanced analytics.
+      </CardDescription>
+      <div className="mt-4">
+        <Button size="sm">Upgrade</Button>
+      </div>
+    </Card>
+  </div>
+</Specimen>
+
+- Use `default` for most content. `elevated` for interactive cards that benefit from hover feedback. `flat` for grouped items on a colored background.
+- The `padding={false}` prop is for cards with full-bleed images at the top — wrap text content in `CardBody` to restore internal padding.

@@ -1,0 +1,44 @@
+import { Badge } from "./Badge"
+import { Specimen, Row, Stack } from "@/chrome/Specimen"
+
+# Badge
+
+Inline status indicators and labels. Small, non-interactive.
+
+<Specimen title="Variants">
+  <Row>
+    <Badge variant="default">Default</Badge>
+    <Badge variant="primary">Primary</Badge>
+    <Badge variant="success">Success</Badge>
+    <Badge variant="warning">Warning</Badge>
+    <Badge variant="destructive">Destructive</Badge>
+  </Row>
+</Specimen>
+
+<Specimen title="Sizes">
+  <Row>
+    <Badge size="sm">Small</Badge>
+    <Badge size="md">Medium</Badge>
+  </Row>
+</Specimen>
+
+<Specimen title="Status indicators">
+  <Stack gap="sm">
+    <Row>
+      <span className="text-sm text-foreground">Production deploy</span>
+      <Badge variant="success">Live</Badge>
+    </Row>
+    <Row>
+      <span className="text-sm text-foreground">Staging deploy</span>
+      <Badge variant="warning">Building</Badge>
+    </Row>
+    <Row>
+      <span className="text-sm text-foreground">Preview deploy</span>
+      <Badge variant="destructive">Failed</Badge>
+    </Row>
+  </Stack>
+</Specimen>
+
+- Badges communicate status, not actions. Never make a badge clickable.
+- Use `default` for neutral labels, semantic variants for meaningful state.
+- Prefer `sm` size inside dense UI like tables or lists.
