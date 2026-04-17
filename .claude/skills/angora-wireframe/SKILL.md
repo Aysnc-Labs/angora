@@ -1,6 +1,6 @@
 ---
 name: angora-wireframe
-description: Create or update a wireframe for a page layout. Use when sketching page structure before building components.
+description: Sketch or update a rough page wireframe in `src/pages/design-system/wireframes/` — ASCII art or gray placeholder boxes — showing structure and flow before real components or visual design exists. Trigger whenever the user wants to sketch, rough out, outline, or draft the structure of a page before building anything, or iterate on an existing wireframe's section order, proportions, or hierarchy. Phrases like 'sketch the careers page', 'rough out the pricing layout before we build', 'wireframe the blog detail', 'just boxes for now', 'draft the structure for /about', 'I need to see how the signup flow goes before committing' all trigger this.
 argument-hint: <page-name>
 ---
 

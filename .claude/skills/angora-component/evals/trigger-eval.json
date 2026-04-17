@@ -1,0 +1,22 @@
+[
+  {"query": "i need a tooltip component. hover to show, supports top/bottom/left/right placement, similar to what radix does", "should_trigger": true},
+  {"query": "build a 'how it works' section for the landing — 3 numbered steps, each with an icon and a short description underneath", "should_trigger": true},
+  {"query": "update src/components/Button.astro to add a destructive variant — same sizing as primary, uses the destructive tokens for bg and hover", "should_trigger": true},
+  {"query": "our TextInput doesn't have a visible disabled state right now, it looks identical to default. fix that across all sizes", "should_trigger": true},
+  {"query": "the cards feel flat. add a subtle hover lift — shadow bumps up one level on hover, tiny translate-y. all three variants", "should_trigger": true},
+  {"query": "need a navigation bar: logo on the left, main nav in the center, theme toggle + CTA on the right. should collapse on narrow", "should_trigger": true},
+  {"query": "build a breadcrumb. home > section > current page. needs to wrap gracefully if the path is long", "should_trigger": true},
+  {"query": "the testimonial grid feels cramped — can you give it more breathing room between cards and tighten the type a notch", "should_trigger": true},
+  {"query": "we don't have anything for the trust logos strip — you know, 'trusted by' with Stripe, Linear, Notion type thing", "should_trigger": true},
+  {"query": "add a ToggleButton primitive with a boolean pressed state, aria-pressed, outline variant. drop it in src/components/ with a specimen page", "should_trigger": true},
+  {"query": "assemble the pricing page from components we've already built — hero, pricing grid, FAQ, CTA at the bottom", "should_trigger": false},
+  {"query": "before we touch any code, I want to sketch out how the careers index should flow. rough boxes only, no real components yet", "should_trigger": false},
+  {"query": "go through the pricing page I just built and tell me what's off — contrast, spacing, anything violating the design rules", "should_trigger": false},
+  {"query": "design a schema for a job board. postings need title, location (city/country), remote_ok boolean, salary range, and SEO fields", "should_trigger": false},
+  {"query": "pull team.csv from inbox into the team_members table. about 40 rows", "should_trigger": false},
+  {"query": "process the 12 product photos in inbox/ — get them into the media table with alt text and nanoid filenames", "should_trigger": false},
+  {"query": "give me a count of draft vs published posts grouped by author", "should_trigger": false},
+  {"query": "what components do we have in the design system currently? just a list, I want to see what exists", "should_trigger": false},
+  {"query": "the FAQ on the pricing page needs new wording — we changed the refund policy from 30 days to 14", "should_trigger": false},
+  {"query": "our design system still uses placeholder tokens — colors, type, none of it is branded yet. where do we start?", "should_trigger": false}
+]

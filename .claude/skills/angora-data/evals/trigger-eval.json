@@ -1,0 +1,22 @@
+[
+  {"query": "add a 'company' column to the testimonials table — nullable text", "should_trigger": true},
+  {"query": "seed 5 rows into the pricing_tiers table for testing", "should_trigger": true},
+  {"query": "show me the current schema — what tables do we have", "should_trigger": true},
+  {"query": "query: all published posts ordered by created_at desc", "should_trigger": true},
+  {"query": "add a 'featured' boolean column to case_studies, default false", "should_trigger": true},
+  {"query": "give me a count of draft vs published testimonials", "should_trigger": true},
+  {"query": "seed the speakers table with 3 realistic entries", "should_trigger": true},
+  {"query": "show me the first 10 rows of the media table", "should_trigger": true},
+  {"query": "add a phone column to team_members, nullable text", "should_trigger": true},
+  {"query": "what columns does the pricing_tiers table have", "should_trigger": true},
+  {"query": "design a new table for events with SEO fields, draft/published, and a media reference", "should_trigger": false},
+  {"query": "import 50 rows of testimonials from inbox into the testimonials table", "should_trigger": false},
+  {"query": "process the 12 images sitting in inbox/", "should_trigger": false},
+  {"query": "build a stats component — four numbers in a row", "should_trigger": false},
+  {"query": "compose the pricing page from our existing components", "should_trigger": false},
+  {"query": "sketch the about page structure", "should_trigger": false},
+  {"query": "audit the Card component", "should_trigger": false},
+  {"query": "rethink the whole schema for blog posts — we need author relations and tags", "should_trigger": false},
+  {"query": "our tokens are still placeholder, where do we begin", "should_trigger": false},
+  {"query": "explain how Drizzle migrations work conceptually", "should_trigger": false}
+]

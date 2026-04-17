@@ -1,0 +1,22 @@
+[
+  {"query": "before we build anything, sketch out the pricing page layout — rough boxes, no real components", "should_trigger": true},
+  {"query": "wireframe the careers index. I need to see the structure before committing", "should_trigger": true},
+  {"query": "update the home wireframe — the CTA should move above the fold", "should_trigger": true},
+  {"query": "rough out how the blog post detail page should flow", "should_trigger": true},
+  {"query": "quick wireframe of the contact page — hero, form, map, footer", "should_trigger": true},
+  {"query": "sketch the about page structure. hero, team grid, values, CTA — just the skeleton", "should_trigger": true},
+  {"query": "can you draft a wireframe for the case studies index showing filter + grid", "should_trigger": true},
+  {"query": "wireframe the pricing comparison table — we need to see rows + columns before we build it", "should_trigger": true},
+  {"query": "rough layout for the signup flow — step 1, step 2, step 3", "should_trigger": true},
+  {"query": "I'm not sure how the features page should flow. start with boxes, we'll iterate", "should_trigger": true},
+  {"query": "build the pricing page for real from the components we have", "should_trigger": false},
+  {"query": "update Hero.astro to split the headline", "should_trigger": false},
+  {"query": "audit the about page", "should_trigger": false},
+  {"query": "design a schema for case studies with SEO fields", "should_trigger": false},
+  {"query": "what's the layout purity rule — explain the zero-class thing", "should_trigger": false},
+  {"query": "import team.csv into team_members", "should_trigger": false},
+  {"query": "process the images in inbox/", "should_trigger": false},
+  {"query": "query for all published posts", "should_trigger": false},
+  {"query": "tokens are still placeholder — where do we begin", "should_trigger": false},
+  {"query": "show me the wireframes we currently have", "should_trigger": false}
+]

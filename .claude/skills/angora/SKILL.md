@@ -1,6 +1,6 @@
 ---
 name: angora
-description: Primary entry point for Angora. Assesses project state, understands intent, and recommends the right skill to run.
+description: Primary entry point for Angora — assesses project state (components, pages, wireframes, schema, inbox, site layouts, dark-mode config), interprets the user's intent, and routes to the right specialist skill with the right arguments. Trigger when the request spans multiple skills, is ambiguous, or asks for coordination. Phrases like 'build testimonials end to end (schema + component + page)', 'what should I work on next', 'plan out the blog system', 'walk me through adding case studies', 'where are we in the process', 'assess the project and suggest next steps' all trigger this. Do NOT trigger for concrete single-skill requests like 'update Button.astro' or 'compose the pricing page' — those bypass the router.
 argument-hint: <what you want>
 ---
 

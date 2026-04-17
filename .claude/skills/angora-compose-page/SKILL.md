@@ -1,6 +1,6 @@
 ---
 name: angora-compose-page
-description: Build or evolve Astro pages — static content, database-driven templates, list/detail patterns, site layout integration.
+description: Assemble or evolve Astro pages in `src/pages/*.astro` and layout specimens in `src/pages/design-system/layouts/` from already-built components — including list/detail patterns like `/collection` + `[slug].astro`, SEO wiring from table fields, and site layout (header/footer) integration. Trigger whenever the user wants to compose, assemble, build, or evolve a full page from existing components. Phrases like 'compose the pricing page', 'build the about page', 'wire up the blog index and [slug]', 'assemble the home from hero + pricing + CTA', 'put together the careers page', 'evolve the contact page to add a form section' all trigger this.
 argument-hint: <page-name>
 ---
 

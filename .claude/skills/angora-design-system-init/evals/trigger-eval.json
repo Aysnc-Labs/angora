@@ -1,0 +1,22 @@
+[
+  {"query": "we're starting fresh — the tokens in global.css are all placeholders. where do we begin", "should_trigger": true},
+  {"query": "walk me through setting up the design system from scratch", "should_trigger": true},
+  {"query": "I want to initialize the design system. I have some reference sites to share", "should_trigger": true},
+  {"query": "system.md still says [TBD] everywhere. let's properly kick this off", "should_trigger": true},
+  {"query": "start a new design system for my client's SaaS site", "should_trigger": true},
+  {"query": "initialize Angora — audience is developers, feel is confident and technical", "should_trigger": true},
+  {"query": "set up the tokens, type scale, palette — the whole foundation", "should_trigger": true},
+  {"query": "none of the tokens are branded yet. take it from the top", "should_trigger": true},
+  {"query": "new project — let's do the domain exploration and token setup", "should_trigger": true},
+  {"query": "I want to establish creative direction before any components get built", "should_trigger": true},
+  {"query": "update Button.astro with a destructive variant", "should_trigger": false},
+  {"query": "compose the home page from our existing components", "should_trigger": false},
+  {"query": "audit the pricing page for violations", "should_trigger": false},
+  {"query": "new table for case studies with SEO fields", "should_trigger": false},
+  {"query": "import cases.json from inbox into case_studies", "should_trigger": false},
+  {"query": "process the 10 photos in inbox/", "should_trigger": false},
+  {"query": "query for all published posts ordered by date", "should_trigger": false},
+  {"query": "sketch the careers page layout, rough boxes", "should_trigger": false},
+  {"query": "build a testimonials carousel component", "should_trigger": false},
+  {"query": "what skills does Angora have, just list them", "should_trigger": false}
+]

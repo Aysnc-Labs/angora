@@ -1,0 +1,22 @@
+[
+  {"query": "I want to build a testimonials section end to end — schema, component, page. where do we start", "should_trigger": true},
+  {"query": "assess what we have so far and suggest what to work on next", "should_trigger": true},
+  {"query": "help me plan out the blog system — schema, pages, components, the works", "should_trigger": true},
+  {"query": "what's the next thing I should tackle", "should_trigger": true},
+  {"query": "we want to add case studies. walk me through the full sequence", "should_trigger": true},
+  {"query": "I have a spec for the marketing site — help me break it into skill-sized tasks", "should_trigger": true},
+  {"query": "where are we in the Angora process right now", "should_trigger": true},
+  {"query": "I'm not sure what to do next — we have some components, no pages. suggest a plan", "should_trigger": true},
+  {"query": "I want to go end-to-end on a content type — coordinate everything", "should_trigger": true},
+  {"query": "show me the current state of the project and what's missing", "should_trigger": true},
+  {"query": "update Button.astro to add a destructive variant", "should_trigger": false},
+  {"query": "compose the pricing page from our existing components", "should_trigger": false},
+  {"query": "audit the home page I just composed", "should_trigger": false},
+  {"query": "import speakers.json from inbox into speakers", "should_trigger": false},
+  {"query": "process 10 photos from inbox/", "should_trigger": false},
+  {"query": "new table for events with SEO fields and draft/published", "should_trigger": false},
+  {"query": "sketch the blog index layout, rough boxes", "should_trigger": false},
+  {"query": "add a column to testimonials for company name", "should_trigger": false},
+  {"query": "our tokens are placeholder, where do we start", "should_trigger": false},
+  {"query": "query for all published case studies by created_at desc", "should_trigger": false}
+]

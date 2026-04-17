@@ -1,6 +1,6 @@
 ---
 name: angora-schema
-description: Design and evolve database schema — relational modeling, table design, SEO fields, status columns. The schema architect.
+description: Design or evolve SQLite schema (`src/data/schema/tables/*.ts`) using Drizzle ORM — new tables, relational modeling, junction tables for many-to-many, foreign keys, CHECK constraints, SEO fields (slug, meta_title, meta_description), draft/published status columns, and media references. Trigger whenever the user wants to model a new content type (events, team members, case studies, pricing tiers, blog posts with tags), rethink an existing table's structure, or design relationships between tables. Phrases like 'new table for events', 'model a pricing_tiers table', 'schema for a job board', 'junction table for posts and tags', 'how should I model FAQs by category' all trigger this. For single-column additions or quick queries use angora-data.
 argument-hint: <what to model>
 ---
 

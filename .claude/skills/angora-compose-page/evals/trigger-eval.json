@@ -1,0 +1,22 @@
+[
+  {"query": "compose the pricing page — use the Pricing component we just built, plus a FAQ at the bottom and the CTA", "should_trigger": true},
+  {"query": "build the about page. hero, team grid, mission statement, CTA to contact", "should_trigger": true},
+  {"query": "our home page needs an update — add a testimonials section between features and pricing", "should_trigger": true},
+  {"query": "wire up the blog index and blog/[slug] detail pages from the posts table, with SEO meta from meta_title/meta_description", "should_trigger": true},
+  {"query": "add a case studies list at /case-studies and a [slug] detail template, backed by the case_studies table", "should_trigger": true},
+  {"query": "the careers page is just a placeholder right now — compose it with the real components and content", "should_trigger": true},
+  {"query": "build out /privacy and /terms — plain prose pages using the site layout wrapper", "should_trigger": true},
+  {"query": "assemble a layout specimen for the marketing home in design-system/layouts/", "should_trigger": true},
+  {"query": "put the hero and pricing grid together into src/pages/index.astro", "should_trigger": true},
+  {"query": "evolve the contact page — add a form section between the hero and the FAQ", "should_trigger": true},
+  {"query": "build a pricing card component with three tiers and a featured middle", "should_trigger": false},
+  {"query": "sketch the careers page layout — rough boxes, no real components yet", "should_trigger": false},
+  {"query": "audit the about page I just finished", "should_trigger": false},
+  {"query": "new table for case_studies with SEO fields", "should_trigger": false},
+  {"query": "import cases.json from inbox into the case_studies table", "should_trigger": false},
+  {"query": "process the hero photos in inbox/", "should_trigger": false},
+  {"query": "list published posts ordered by view count", "should_trigger": false},
+  {"query": "update Button.astro to add a large size variant", "should_trigger": false},
+  {"query": "our tokens are still placeholder — where do we start", "should_trigger": false},
+  {"query": "what pages do we currently have, just a list", "should_trigger": false}
+]

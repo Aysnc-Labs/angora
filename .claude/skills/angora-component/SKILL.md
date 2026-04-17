@@ -1,6 +1,6 @@
 ---
 name: angora-component
-description: Build or update a component in the design system. Use when creating a new component type (hero, nav, pricing, testimonials, etc.) or modifying an existing one.
+description: Build or update a reusable UI component in `src/components/` — primitives, composites, landmarks, content components. Trigger whenever the user wants to create or modify any `.astro` file under `src/components/`, add a variant or state to an existing component, do a visual refactor (spacing, hover lift, type), or build a pattern named by use-case ('FAQ' → Accordion, 'testimonials section' → Carousel, 'trust logos' → Logo cloud). Phrases like 'build a pricing card', 'update Button.astro', 'the cards feel cramped', 'add a destructive variant', 'we need a breadcrumb', 'make an accordion', 'tooltip with placements' all trigger this, even without the word 'component'.
 argument-hint: <name>
 ---
 

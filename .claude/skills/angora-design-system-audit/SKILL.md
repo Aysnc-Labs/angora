@@ -1,6 +1,6 @@
 ---
 name: angora-design-system-audit
-description: Review components or pages against the design system. Use after building a component or page, or when checking existing work for violations.
+description: Review any component (`src/components/`), design-system page, layout specimen, or site page (`src/pages/*.astro`) against Angora's design rules — semantic token usage (no raw palette classes), `data-component` attributes, landmark vs content classification, heading ownership, flow spacing, container queries, accessibility extras not caught by `pnpm test:a11y`, and anti-patterns from `src/system.md`. Trigger whenever the user wants to audit, review, check, verify, or 'go through' existing work for violations, typically after building. Phrases like 'audit the pricing page', 'go through Button.astro', 'check the new Footer', 'run the audit', 'look over src/components/ and report violations' all trigger this.
 argument-hint: [path]
 ---
 

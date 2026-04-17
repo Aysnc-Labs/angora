@@ -1,6 +1,6 @@
 ---
 name: angora-data
-description: Quick database operations — schema inspection, column additions, seeding, and read-only queries.
+description: Quick operations on `src/data/data.sqlite` — inspect the current schema, add a single column to an existing table via Drizzle migration, seed 2-5 test rows, or run a read-only SELECT/COUNT query. Trigger whenever the user wants a small, single-step database operation. Phrases like 'add a company column to testimonials', 'seed 5 rows into pricing_tiers', 'show me the schema', 'count draft vs published posts grouped by author', 'what's in the media table', 'add a phone column to team_members' all trigger this. For designing new tables or rethinking relationships use angora-schema; for bulk imports from inbox files use angora-import.
 argument-hint: [command]
 ---
 

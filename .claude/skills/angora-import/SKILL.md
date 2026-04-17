@@ -1,6 +1,6 @@
 ---
 name: angora-import
-description: Import structured data from inbox files (CSV, JSON) into the database. Validates against schema, maps fields, imports with transactions.
+description: Bulk-import structured data (CSV or JSON) from `inbox/` into existing database tables — maps fields to columns, validates against the Drizzle schema, inserts within a transaction. Trigger whenever the user wants to load, import, pull, or ingest a data file from inbox into an existing table. Phrases like 'import speakers.json from inbox', 'pull team.csv into team_members', 'load testimonials.csv', 'ingest the events in inbox', 'bulk load faqs.csv' all trigger this. Do NOT use for seeding a handful of test rows (→ angora-data), designing new tables (→ angora-schema), or processing images (→ angora-media).
 argument-hint: <filename>
 ---
 

@@ -1,0 +1,22 @@
+[
+  {"query": "process the 6 photos I dropped in inbox — need alt text and they should go into media", "should_trigger": true},
+  {"query": "inbox has 12 product images. run them through the media pipeline", "should_trigger": true},
+  {"query": "there's a hero photo in inbox/, get it into the media table with a nanoid filename", "should_trigger": true},
+  {"query": "process all jpgs in inbox/", "should_trigger": true},
+  {"query": "I added some svg icons to inbox/ — load them into media", "should_trigger": true},
+  {"query": "bring the team headshots from inbox/ into the media system", "should_trigger": true},
+  {"query": "generate alt text for the images in inbox/ and register them", "should_trigger": true},
+  {"query": "pipeline the case study images from inbox — unique filenames, move to public/media", "should_trigger": true},
+  {"query": "all the avatars in inbox need to be processed", "should_trigger": true},
+  {"query": "handle the screenshots in inbox/ — media table, alt text, the whole thing", "should_trigger": true},
+  {"query": "import speakers.json from inbox into the speakers table", "should_trigger": false},
+  {"query": "design a media table with width, height, alt text", "should_trigger": false},
+  {"query": "seed the media table with 3 test rows", "should_trigger": false},
+  {"query": "add a 'credit' column to the media table", "should_trigger": false},
+  {"query": "build an image gallery component", "should_trigger": false},
+  {"query": "compose the gallery page", "should_trigger": false},
+  {"query": "audit the Hero component — check image handling", "should_trigger": false},
+  {"query": "sketch the photo grid layout, rough boxes", "should_trigger": false},
+  {"query": "show me everything in the media table", "should_trigger": false},
+  {"query": "our tokens are still placeholder, where do we begin", "should_trigger": false}
+]

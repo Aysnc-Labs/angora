@@ -1,0 +1,22 @@
+[
+  {"query": "new table for events — title, date, location, slug, meta_title, meta_description, draft/published status", "should_trigger": true},
+  {"query": "we need to store team members: name, role, bio, headshot (media ref), LinkedIn URL, display order", "should_trigger": true},
+  {"query": "model a pricing_tiers table — name, monthly price, annual price, popular boolean, feature list", "should_trigger": true},
+  {"query": "add a case_studies table that'll have its own pages at /case-studies/[slug], needs the full SEO kit", "should_trigger": true},
+  {"query": "design the schema for a blog — posts with author relation, tags (many-to-many), featured image", "should_trigger": true},
+  {"query": "rework testimonials to support multiple quotes per author and link to a company logo", "should_trigger": true},
+  {"query": "need a junction table between posts and tags so posts can have multiple tags", "should_trigger": true},
+  {"query": "what's the right way to model FAQs by category? each category has multiple questions", "should_trigger": true},
+  {"query": "add a newsletter_subscribers table — email, created_at, confirmed status", "should_trigger": true},
+  {"query": "rethink the media table — add width, height, alt, source filename", "should_trigger": true},
+  {"query": "add a 'company' column to the existing testimonials table", "should_trigger": false},
+  {"query": "import team.csv from inbox into team_members", "should_trigger": false},
+  {"query": "process the product images in inbox/", "should_trigger": false},
+  {"query": "build a pricing section component with three tiers", "should_trigger": false},
+  {"query": "compose the blog index page from existing components", "should_trigger": false},
+  {"query": "show me all tables currently in the database, just a list", "should_trigger": false},
+  {"query": "sketch the case studies index layout, rough boxes", "should_trigger": false},
+  {"query": "audit the testimonials page against the design rules", "should_trigger": false},
+  {"query": "what's the difference between slug and meta_title? conceptually", "should_trigger": false},
+  {"query": "our global.css tokens are all placeholder — where do we start", "should_trigger": false}
+]

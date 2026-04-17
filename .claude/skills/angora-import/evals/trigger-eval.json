@@ -1,0 +1,22 @@
+[
+  {"query": "import speakers.json from inbox into the speakers table", "should_trigger": true},
+  {"query": "there's team.csv in inbox — load it into team_members, about 40 rows", "should_trigger": true},
+  {"query": "pull case_studies.json into the database, it should map to the case_studies table", "should_trigger": true},
+  {"query": "inbox has a testimonials.csv with 80 rows — import it", "should_trigger": true},
+  {"query": "import the pricing.json file into pricing_tiers", "should_trigger": true},
+  {"query": "there's a products.csv in inbox/ — once the schema is ready, import it into products", "should_trigger": true},
+  {"query": "I dropped a blog-posts.json in inbox. import into posts", "should_trigger": true},
+  {"query": "bulk load faqs.csv from inbox into the faqs table", "should_trigger": true},
+  {"query": "ingest all the events in events.json from inbox", "should_trigger": true},
+  {"query": "pull team-members.csv from inbox, validate against the schema and load", "should_trigger": true},
+  {"query": "seed 3 test rows into testimonials", "should_trigger": false},
+  {"query": "process the 6 images I just dropped in inbox/", "should_trigger": false},
+  {"query": "design a new table for events with SEO fields", "should_trigger": false},
+  {"query": "add a 'company' column to team_members", "should_trigger": false},
+  {"query": "build a pricing card component", "should_trigger": false},
+  {"query": "compose the about page from our components", "should_trigger": false},
+  {"query": "audit the home page I just built", "should_trigger": false},
+  {"query": "show me the current schema, what tables exist", "should_trigger": false},
+  {"query": "sketch the events page layout", "should_trigger": false},
+  {"query": "our tokens are all placeholder, where do we begin", "should_trigger": false}
+]

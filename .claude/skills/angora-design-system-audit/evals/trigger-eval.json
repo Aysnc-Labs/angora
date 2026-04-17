@@ -1,0 +1,22 @@
+[
+  {"query": "audit the pricing page I just composed. contrast, spacing, anything violating the design rules", "should_trigger": true},
+  {"query": "go through Button.astro and tell me if it follows all the conventions", "should_trigger": true},
+  {"query": "I finished the testimonial carousel — can you check it against the system", "should_trigger": true},
+  {"query": "review the home page. specifically worried about the hero and testimonials sections", "should_trigger": true},
+  {"query": "run the audit on src/pages/index.astro", "should_trigger": true},
+  {"query": "check the new Footer — make sure it uses semantic tokens and has data-component attrs", "should_trigger": true},
+  {"query": "I want a full audit of design-system/layouts/home.astro", "should_trigger": true},
+  {"query": "look over the whole src/components/ directory and report violations", "should_trigger": true},
+  {"query": "does the Card component follow the composite pattern correctly", "should_trigger": true},
+  {"query": "verify the pricing grid doesn't have any raw palette classes", "should_trigger": true},
+  {"query": "build a pricing card component with three tiers", "should_trigger": false},
+  {"query": "compose the about page from existing components", "should_trigger": false},
+  {"query": "sketch the careers page layout, rough boxes", "should_trigger": false},
+  {"query": "new table for case studies with SEO fields", "should_trigger": false},
+  {"query": "import cases.json from inbox", "should_trigger": false},
+  {"query": "process the photos in inbox/", "should_trigger": false},
+  {"query": "count published vs draft posts by author", "should_trigger": false},
+  {"query": "our tokens are still placeholder — where do we start", "should_trigger": false},
+  {"query": "help me debug a hydration error in a Preact island", "should_trigger": false},
+  {"query": "what skills does Angora have — just list them", "should_trigger": false}
+]

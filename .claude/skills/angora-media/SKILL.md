@@ -1,6 +1,6 @@
 ---
 name: angora-media
-description: Process inbox images — visual analysis for alt text, dimensions, unique filenames, and media table registration.
+description: Process images from `inbox/` into the media system — read each image visually to generate alt text under 125 characters, extract dimensions, assign a nanoid filename, move the file to `public/media/`, and insert a row into the `media` table. Trigger whenever the user wants to process, pipeline, ingest, or register images from inbox (jpg, png, webp, avif, gif, svg). Phrases like 'process the photos in inbox', 'pipeline the hero images', 'generate alt text for the screenshots in inbox', 'get the product photos into the media table', 'handle the avatars in inbox' all trigger this. Do NOT use for importing CSV/JSON data (→ angora-import).
 ---
 
 # Media

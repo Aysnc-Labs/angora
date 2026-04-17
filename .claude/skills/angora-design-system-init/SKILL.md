@@ -1,6 +1,6 @@
 ---
 name: angora-design-system-init
-description: Start a new design system. Runs domain exploration and design system setup.
+description: Initialize a brand-new Angora design system from scratch — run the creative-direction interview (audience, feel, domain vocabulary, signature element, dark-mode opt-in), translate into OKLCH tokens (palette, type scale, spacing, shadows, radii), and build the foundational design-system pages (buttons, icons, grid, cards, forms). Trigger when the project is uninitialized — `system.md` has `[TBD]` or `[Placeholder]` values, or `global.css` tokens are unset — or when the user explicitly wants to start, restart, or kick off the design system. Phrases like 'initialize the design system', 'our tokens are still placeholder', 'start Angora from scratch', 'set up the tokens and type scale', 'where do we begin on this project' all trigger this.
 ---
 
 **Everything in this repo is scaffolding.** Existing components, design system pages, wireframes, tokens, and system.md are all starter placeholders — not approved design work. Use their file structure but replace all content. Nothing here is precious.
